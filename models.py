@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import managers
 from pygments import highlight, lexers, formatters
+from markdown import markdown
 
 
 RATING_CHOICES = (
@@ -24,6 +25,8 @@ class Language(models.Model):
     name = models.CharField(maxlength=50)
     slug = models.SlugField(editable=False)
     language_code = models.CharField(maxlength=50)
+    file_extension = models.CharField(maxlength=10)
+    mime_type = models.CharFIeld(maxlength=100)
     
     class Meta:
         ordering = ('name',)
@@ -81,10 +84,16 @@ class Snippet(models.Model):
     """
     A snippet of code in some language.
     
-    This is slightly denormalized: because it's wasteful to run
-    Pygments over the code each time the Snippet is viewed, it is
-    instead run on save, and two copies of the code -- one the
-    original input, the other highlighted by Pygments -- are stored.
+    This is slightly denormalized in two ways:
+    
+      1. Because it's wasteful to run Pygments over the code each
+         time the Snippet is viewed, it is instead run on save, and
+         two copies of the code -- one the original input, the other
+         highlighted by Pygments -- are stored.
+
+      2. For much the same reason, Markdown is run over the Snippet's
+         description on save, instead of on each view, and the result
+         is stored in a separate column.
     
     Also, Tags are added through the ``tag_list`` field which, after
     the Snippet has been saved, will be iterated over to set up the
@@ -95,6 +104,7 @@ class Snippet(models.Model):
     title = models.CharField(maxlength=250)
     language = models.ForeignKey(Language)
     description = models.TextField()
+    description_html = models.TextField(editable=False)
     code = models.TextField()
     highlighted_code = models.TextField(editable=False)
     
@@ -118,6 +128,7 @@ class Snippet(models.Model):
         if not self.id:
             self.pub_date = datetime.datetime.now()
         self.updated_date = datetime.datetime.now()
+        self.description_html = markdown(self.description)
         self.highlighted_code = self.highlight()
         self.tag_list = self.tag_list.lower() # Normalize to lower-case
         super(Snippet, self).save()
