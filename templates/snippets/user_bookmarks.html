@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Your bookmarks{% endblock %}
+
+{% block content %}
+<h2>Your bookmarks</h2>
+{% if object_list %}
+<p>You've bookmarked {{ hits }} snippet{{ hits|pluralize }}:</p>
+
+<ul>
+{% for bookmark in object_list %}
+<li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="/users/{{ bookmark.snippet.author.username }}/">{{ snippet.author.username }}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="/bookmarks/delete/{{ bookmark.id }}/">Delete this bookmark</a></li>
+{% endfor %}
+</ul>
+
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+{% else %}
+<p>You haven't bookmarked any snippets yet.</p>
+{% endif %}
+
+{% endblock %}

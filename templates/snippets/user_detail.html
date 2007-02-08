@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Snippets by {{ object.username }}{% endblock %}
+
+{% block content %}
+<h2>Snippets by {{ object.username }}</h2>
+{% if object_list %}
+<p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippets:</p>
+<ul>
+{% for snippet in object_list %}
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) {{ snippet.pub_date|timesince }} ago</li>
+{% endfor %}
+</ul>
+
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+{% else %}
+<p>{% ifequal user.username object.username %}You haven't{% else %}{{ object.username }} hasn't{% endifequal %} posted any snippets yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+{% load snippets %}
+<h2>{{ object.title }}</h2>
+<p class="snippet-meta">Posted by <a href="/users/{{ object.author.username }}/">{% ifequal object.author.username user.username %}you{% else %}{{ object.author.username }}{% endifequal %}</a> on {{ object.pub_date|date:"F j, Y" }}</a>{% ifequal object.author.username user.username %} (would you like to <a href="/snippets/edit/{{ object.id }}/">edit this snippet</a>?){% endifequal %}</p>
+{% if user.is_authenticated %}
+{% if_bookmarked user.id object.id %}
+<p>This snippet is in <a href="/bookmarks/">your bookmarks</a>.</p>
+{% else %}
+<p><a href="/bookmarks/add/{{ object.id }}/">Would you like to bookmark this snippet?</a></p>
+{% endif_bookmarked %}
+{% if_rated user.id object.id %}
+{% get_rating_by_user user.id object.id as rating %}
+<p>You rated this snippet <strong>{{ rating.get_score_display|lower }}</strong>.</p>
+{% else %}
+<p>Rate this snippet: <a href="/snippets/rate/{{ object.id }}/?score=up">useful</a> or <a href="/snippets/rate/{{ object.id }}/?score=down">not useful</a>.</p>
+{% endif_rated %}
+{% endif %}
+{% get_rating_for_snippet object.id as score %}
+<p>This snippet has a score of {{ score.score }} after {{ score.num_ratings }} rating{{ score.num_ratings|pluralize }}.</p>
+<p class="snippet-language">Language: <a href="{{ object.language.get_absolute_url }}">{{ object.language.name }}</a></p>
+<p class="snippet-tags">Tags: {% for tag in object.tags.all %}<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a> {% endfor %}</p>
+{{ object.highlighted_code }}
+{% if object.description %}
+<p>{{ object.description }}</p>
+{% endif %}
+{% endblock %}

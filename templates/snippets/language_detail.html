@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}All snippets written in {{ object.name }}{% endblock %}
+
+{% block content %}
+<h2>All snippets written in {{ object.name }}</h2>
+
+{% if object_list %}
+<p>{{ hits }} snippet{{ hits|pluralize }} {% ifequal hits 1 %}is{% else %}are{% endifequal %} written in {{ object.name }}:</p>
+
+<ul>
+{% for snippet in object_list %}
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
+{% endfor %}
+</ul>
+
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+{% else %}
+
+<p>No snippets written in {{ object.name }} yet.</p>
+{% endif %}
+{% endblock %}

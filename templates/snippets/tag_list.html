@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}All tags{% endblock %}
+
+{% block content %}
+<h2>All tags</h2>
+{% if object_list %}
+<p>There are currently {{ hits }} tag{{ hits|pluralize }} in use:</p>
+<ul>
+{% for tag in object_list %}
+<li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+{% endfor %}
+</ul>
+
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+{% else %}
+<p>No tags have been used yet.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}All languages{% endblock %}
+
+{% block content %}
+<h2>All languages</h2>
+<p>Snippets can be submitted in {{ hits }} language{{ hits|pluralize }}:</p>
+<ul>
+{% for language in object_list %}
+<li><a href="{{ language.get_absolute_url }}">{{ language.name }}</a></li>
+{% endfor %}
+</ul>
+
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+
+{% endblock %}

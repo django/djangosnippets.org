@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Editing "{{ original.title }}"{% endblock %}
+
+{% block content %}
+<h2>Editing "{{ original.title }}"</h2>
+<form method="post" action="">
+<dl>
+<dt><label for="id_title">Title: {% if form.title.errors %}{{ form.title.errors|join:", " }}{% endif %}</label></dt>
+<dd>{{ form.title }}</dd>
+<dd>{{ form.code }}</dd>
+<dt><label for="id_tag_list">Tags: {% if form.tag_list.errors %}{{ form.tag_list.errors|join:", " }}{% endif %} </label></dt>
+<dd>{{ form.tag_list }}</dd>
+<dt><label for="id_description">Description: {% if form.description.errors %}{{ form.description.errors|join:", " }}{% endif %}</label></dt>
+<dd>{{ form.description }}</dd>
+<dt><input type="submit" value="Save" /></dt>
+</dl>
+</form>
+{% endblock %}

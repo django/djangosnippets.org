@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<h2>Log in</h2>
+<form method="post" action="">
+<dl>
+<dt><label for="id_username">Username:</label></dt>
+<dd>{{ form.username }}</dd>
+<dt><label for="id_password">Password:</label></dt>
+<dd>{{ form.password }}</dd>
+<dt><input type="submit" value="Log in" /></dt>
+</dl>
+</form>
+{% endblock %}
