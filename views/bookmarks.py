@@ -35,12 +35,12 @@ def bookmarks(request):
     Same as the generic ``list_detail.object_list`` view.
     
     Template::
-        snippets/user_bookmarks.html
+        cab/user_bookmarks.html
     
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.get_for_user(request.user.username),
-                                   template_name='snippets/user_bookmarks.html',
+                                   template_name='cab/user_bookmarks.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmarks = login_required(bookmarks)
@@ -53,13 +53,13 @@ def bookmark_author_list(request):
     Same as the ``list_detail.object_list`` generic view.
     
     Template::
-        snippets/bookmark_author_list.html
+        cab/bookmark_author_list.html
     
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('author',
                                                                            request.user.uername),
-                                   template_name='snippets/bookmarks_author_list.html',
+                                   template_name='cab/bookmarks_author_list.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmark_author_list = login_required(bookmark_author_list)
@@ -75,7 +75,7 @@ def bookmarks_by_author(request, author_username):
             The author
     
     Template::
-        snippets/bookmarks_by_author.html
+        cab/bookmarks_by_author.html
     
     """
     author = get_object_or_404(User, username__exact=author_username)
@@ -83,7 +83,7 @@ def bookmarks_by_author(request, author_username):
                                    queryset=Bookmark.objects.get_by_author(request.user.username,
                                                                            author_slug),
                                    extra_context={ 'object': author },
-                                   template_name='snippets/bookmarks_by_author.html',
+                                   template_name='cab/bookmarks_by_author.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmarks_by_author = login_required(bookmarks_by_author)
@@ -100,7 +100,7 @@ def bookmarks_by_language(request, language_slug):
             The Language
     
     Template::
-        snippets/bookmarks_by_language.html
+        cab/bookmarks_by_language.html
     
     """
     language = get_object_or_404(Language, slug__exact=language_slug)
@@ -108,7 +108,7 @@ def bookmarks_by_language(request, language_slug):
                                    queryset=Bookmark.objects.get_by_language(request.user.username,
                                                                              language_slug),
                                    extra_context={ 'object': language},
-                                   template_name='snippets/bookmarks_by_language.html',
+                                   template_name='cab/bookmarks_by_language.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmarks_by_language = login_required(bookmarks_by_language)
@@ -132,7 +132,7 @@ def bookmarks_by_tag(request, tag_slug):
                                    queryset=Bookmark.objects.get_by_tag(request.user.username,
                                                                    tag_slug),
                                    extra_context={ 'object': tag },
-                                   template_name='snippets/bookmarks_by_tag.html',
+                                   template_name='cab/bookmarks_by_tag.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmarks_by_tag = login_required(bookmarks_by_tag)
@@ -145,13 +145,13 @@ def bookmark_language_list(request):
     Same as the ``list_detail.object_list`` generic view.
     
     Template::
-        snippets/bookmark_language_list.html
+        cab/bookmark_language_list.html
     
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('language',
                                                                            request.user.username),
-                                   template_name='snippets/bookmarks_language_list.html',
+                                   template_name='cab/bookmarks_language_list.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmark_language_list = login_required(bookmark_language_list)
@@ -164,13 +164,13 @@ def bookmark_tag_list(request):
     Same as the ``list_detail.object_list`` generic view.
     
     Template::
-        snippets/bookmark_tag_list.html
+        cab/bookmark_tag_list.html
     
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('tag',
                                                                            request.user.username),
-                                   template_name='snippets/bookmarks_tag_list.html',
+                                   template_name='cab/bookmarks_tag_list.html',
                                    allow_empty=True,
                                    paginate_by=20)
 bookmark_tag_list = login_required(bookmark_tag_list)    
