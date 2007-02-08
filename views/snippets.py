@@ -12,7 +12,7 @@ def add_snippet(request):
             The form to add the Snippet.
     
     Template::
-        snippets/add_snippet_form.html
+        cab/add_snippet_form.html
     
     """
     original_id = request.GET.get('oid', None)
@@ -32,7 +32,7 @@ def add_snippet(request):
             return HttpResponseRedirect(new_snippet.get_absolute_url())
     else:
         form = forms.AddSnippetForm()
-    return render_to_response('snippets/add_snippet_form.html',
+    return render_to_response('cab/add_snippet_form.html',
                               { 'form': form },
                               context_instance=RequestContext(request))
 add_snippet = login_required(add_snippet)
@@ -65,7 +65,7 @@ def edit_snippet(request, snippet_id):
             The Snippet being edited.
     
     Template::
-        snippets/edit_snippet_form.html
+        cab/edit_snippet_form.html
     
     """
     snippet = get_object_or_404(Snippet,
@@ -80,7 +80,7 @@ def edit_snippet(request, snippet_id):
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
         form = forms.EditSnippetForm(snippet.__dict__)
-    return render_to_response('snippets/edit_snippet_form.html',
+    return render_to_response('cab/edit_snippet_form.html',
                               { 'form': form,
                                 'original': snippet },
                               context_instance=RequestContext(request))
@@ -121,14 +121,14 @@ def snippets_by_author(request, username):
             The User
     
     Template::
-        snippets/user_detail.html
+        cab/user_detail.html
     
     """
     user = get_object_or_404(User, username__exact=username)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_author(user.username),
                                    extra_context={ 'object': user },
-                                   template_name='snippets/user_detail.html',
+                                   template_name='cab/user_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -144,14 +144,14 @@ def snippets_by_language(request, slug):
             The Language
     
     Template::
-        snippets/language_detail.html
+        cab/language_detail.html
     
     """
     language = get_object_or_404(Language, slug__exact=slug)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_language(slug),
                                    extra_context={ 'object': language },
-                                   template_name='snippets/language_detail.html',
+                                   template_name='cab/language_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -167,14 +167,14 @@ def snippets_by_tag(request, slug):
             The Tag
     
     Template::
-        snippets/tag_detail.html
+        cab/tag_detail.html
     
     """
     tag = get_object_or_404(Tag, slug__exact=slug)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_tag(slug),
                                    extra_context={ 'object': tag },
-                                   template_name='snippets/tag_detail.html',
+                                   template_name='cab/tag_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -193,11 +193,11 @@ def snippet_detail(request, snippet_id):
             The sum of this Snippet's received ratings.
     
     Template::
-        snippets/snippet_detail.html
+        cab/snippet_detail.html
     
     """
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    return render_to_response('snippets/snippet_detail.html',
+    return render_to_response('cab/snippet_detail.html',
                               { 'object': snippet,
                                 'num_ratings': snippet.rating_set.count(),
                                 'rating_score': Rating.objects.score_for_snippet(snippet.id) },
