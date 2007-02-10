@@ -20,19 +20,31 @@ class Language(models.Model):
     The ``language_code`` field should be set to an alias of
     a Pygments lexer which is capable of processing this
     language.
+
+    The ``file_extension`` and ``mime_type`` fields will be used
+    when users download Snippets, to set the filename and HTTP
+    Content-Type of the download appropriately.
     
     """
     name = models.CharField(maxlength=50)
     slug = models.SlugField(editable=False)
-    language_code = models.CharField(maxlength=50)
-    file_extension = models.CharField(maxlength=10)
-    mime_type = models.CharField(maxlength=100)
+    language_code = models.CharField(maxlength=50,
+                                     help_text="This should be an alias of a Pygments lexer which can handle this language.")
+    file_extension = models.CharField(maxlength=10,
+                                      help_text="The file extension to use when downloading Snippets in this Language; leave out the dot.")
+    mime_type = models.CharField(maxlength=100,
+                                 help_text="The HTTP Content-Type to use when downloading Snippets in this Language.")
     
     class Meta:
         ordering = ('name',)
     
     class Admin:
-        pass
+        fields = (
+            ('Language information', {
+            'fields': ('name', 'language_code')}),
+            ('File type information', {
+            'fields': ('file_extension', 'mime_type')}),
+            )
     
     def save(self):
         if not self.id:
@@ -103,7 +115,7 @@ class Snippet(models.Model):
     
     title = models.CharField(maxlength=250)
     language = models.ForeignKey(Language)
-    description = models.TextField()
+    description = models.TextField(help_text="Accepts Markdown syntax.")
     description_html = models.TextField(editable=False)
     code = models.TextField()
     highlighted_code = models.TextField(editable=False)
@@ -112,9 +124,11 @@ class Snippet(models.Model):
     updated_date = models.DateTimeField(editable=False)
     
     author = models.ForeignKey(User)
-    tag_list = models.CharField(maxlength=250)
+    tag_list = models.CharField(maxlength=250,
+                                help_text="Separate tags with spaces. Maximum 250 characters.")
     tags = models.ManyToManyField(Tag, editable=False)
-    original = models.ForeignKey('self', null=True, blank=True)
+    original = models.ForeignKey('self', null=True, blank=True,
+                                 help_text="Optional. Fill this in if this Snippet is based on another.")
     
     objects = managers.SnippetsManager()
     
@@ -122,7 +136,12 @@ class Snippet(models.Model):
         ordering = ('-pub_date',)
     
     class Admin:
-        pass
+        fields = (
+            ('Metadata', {
+            'fields': ('title', 'language', 'author', 'tag_list', 'original')}),
+            ('None', {
+             'fields': ('description', 'code')}),
+            )
     
     def save(self):
         if not self.id:
