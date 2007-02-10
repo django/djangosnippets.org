@@ -1,3 +1,10 @@
+"""
+Recommended usage is to use a call to ``include()`` in your
+project's root URLConf to include this URLConf for any URL
+beginning with '/snippets/'.
+
+"""
+
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.models import User
@@ -27,10 +34,10 @@ snippet_info_dict = {
 
 urlpatterns = patterns('',
                        (r'^languages/(?P<slug>[\w-]+)', snippets.snippets_by_language),
-                       (r'^snippets/add/$', snippets.add_snippet),
-                       (r'^snippets/edit/(?P<snippet_id>\d+)/$', snippets.edit_snippet),
-                       (r'^snippets/(?P<snippet_id>\d+)/$', snippets.snippet_detail),
-                       (r'^snippets/rate/(?P<snippet_id>\d+)/$', snippets.rate_snippet),
+                       (r'^add/$', snippets.add_snippet),
+                       (r'^edit/(?P<snippet_id>\d+)/$', snippets.edit_snippet),
+                       (r'^(?P<snippet_id>\d+)/$', snippets.snippet_detail),
+                       (r'^rate/(?P<snippet_id>\d+)/$', snippets.rate_snippet),
                        (r'^tags/(?P<slug>[\w-]+)/$', snippets.snippets_by_tag),
                        (r'^users/(?P<username>\w+)/$', snippets.snippets_by_author),
                        )
@@ -46,7 +53,7 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
                         (r'^languages/$', object_list, language_info_dict),
-                        (r'^snippets/$', object_list, snippet_info_dict),
+                        (r'^$', object_list, snippet_info_dict),
                         (r'^tags/$', object_list, tag_info_dict),
                         (r'^users/$', object_list, user_info_dict),
                         )
