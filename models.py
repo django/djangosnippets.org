@@ -26,7 +26,7 @@ class Language(models.Model):
     slug = models.SlugField(editable=False)
     language_code = models.CharField(maxlength=50)
     file_extension = models.CharField(maxlength=10)
-    mime_type = models.CharFIeld(maxlength=100)
+    mime_type = models.CharField(maxlength=100)
     
     class Meta:
         ordering = ('name',)
