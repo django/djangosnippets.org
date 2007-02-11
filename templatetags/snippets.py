@@ -1,7 +1,6 @@
 """
-General-purpose tags for working with various aspects of
-Snippets -- whether a user has bookmarked/rated a given
-Snippet, etc.
+General-purpose tags for working with various aspects of Snippets --
+whether a user has bookmarked/rated a given Snippet, etc.
 
 """
 
@@ -129,9 +128,9 @@ def do_if_rated(parser, token):
 
 def do_rating_for_snippet(parser, token):
     """
-    Retrieves a list containing the total score for a Snippet and
-    the number of Ratings it's received, and stores them in a
-    specified context variable.
+    Retrieves a list containing the total score for a Snippet and the
+    number of Ratings it's received, and stores them in a specified
+    context variable.
     
     Example usage::
         {% get_rating_for_snippet object.id as score %}

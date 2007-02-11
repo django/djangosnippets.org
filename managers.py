@@ -1,6 +1,6 @@
 """
-Custom managers for most of the models; these add useful
-logic for various custom filters and queries.
+Custom managers for most of the models; these add useful logic for
+various custom filters and queries.
 
 """
 
@@ -10,10 +10,10 @@ from django.db import models
 class BookmarksManager(models.Manager):
     """
     Custom manager for the Bookmark model.
-
-    Add useful shortcuts for some common related-object filters, and
-    the ability to quickly determine whether someone's bookmarked a
-    particular Snippet.
+    
+    Adds shortcuts for some common related-object filters, retrieving
+    the most-bookmarked Snippets, and the ability to quickly determine
+    whether someone's bookmarked a particular Snippet.
     
     """
     def already_bookmarked(self, user_id, snippet_id):
@@ -36,12 +36,12 @@ class BookmarksManager(models.Manager):
         
         Acceptable values for ``object_type`` are:
         
-         * 'author' -- returns a list of all the authors of the
-           User's Bookmarks.
-         * 'language' -- returns a list of all Languages in the
-           User's Bookmarks.
-         * 'tag' -- returns a list of all Tags attached to the
-           User's Bookmarks.
+         * 'author' -- returns a list of all the authors of the User's
+           Bookmarks.
+         * 'language' -- returns a list of all Languages in the User's
+           Bookmarks.
+         * 'tag' -- returns a list of all Tags attached to the User's
+           Bookmarks.
         
         """
         # We need all of these up-front so we can get the right DB
@@ -50,8 +50,8 @@ class BookmarksManager(models.Manager):
         from models import Language, Tag, Snippet
         
         # Looking up table names in ``_meta`` is slightly hackish and
-        # completely undocumented, but also extremely handy and completely
-        # foolproof.
+        # completely undocumented, but also extremely handy and
+        # completely foolproof.
         object_mapping = {
             'author': { 'model': User,
                         'related_table': Snippet._meta.db_table,
@@ -205,8 +205,8 @@ class SnippetsManager(models.Manager):
     """
     Custom manager for the Snippet model.
     
-    Adds shortcuts for common filtering operations, and for
-    retrieving popular related objects.
+    Adds shortcuts for common filtering operations, and for retrieving
+    popular related objects.
     
     """
     def get_by_author(self, username):
@@ -233,15 +233,15 @@ class SnippetsManager(models.Manager):
     
     def top_items(self, item_type, num=5):
         """
-        Returns a list of the top ``num`` objects of a particular type,
-        based on the number of Snippets associated with them; for example,
-        with ``item_type=tag``, returns a list of Tags based on how many
-        Snippets they've been used for.
+        Returns a list of the top ``num`` objects of a particular
+        type, based on the number of Snippets associated with them;
+        for example, with ``item_type=tag``, returns a list of Tags
+        based on how many Snippets they've been used for.
         
         Acceptable values for ``item_type`` are:
         
-         * 'author' -- will return the users who have submitted the most
-           Snippets.
+         * 'author' -- will return the users who have submitted the
+           most Snippets.
          * 'language' -- will return the most-used languages.
          * 'tag' -- will return the most-used tags.
         

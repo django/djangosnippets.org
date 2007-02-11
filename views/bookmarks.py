@@ -1,6 +1,6 @@
 """
-Views which deal with Bookmarks, allowing them to be added,
-removed, and viewed according to various criteria.
+Views which deal with Bookmarks, allowing them to be added, removed,
+and viewed according to various criteria.
 
 """
 
@@ -11,6 +11,11 @@ from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from cab.models import Bookmark, Language, Snippet, Tag
+
+base_generic_dict = {
+    'allow_empty': True,
+    'paginate_by': 20,
+    }
 
 def add_bookmark(request, snippet_id):
     """
@@ -47,8 +52,7 @@ def bookmarks(request):
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.get_for_user(request.user.username),
                                    template_name='snippets/user_bookmarks.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmarks = login_required(bookmarks)
 
 def bookmark_author_list(request):
@@ -66,8 +70,7 @@ def bookmark_author_list(request):
                                    queryset=Bookmark.objects.distinct_list('author',
                                                                            request.user.uername),
                                    template_name='snippets/bookmarks_author_list.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmark_author_list = login_required(bookmark_author_list)
 
 def bookmarks_by_author(request, author_username):
@@ -77,6 +80,7 @@ def bookmarks_by_author(request, author_username):
     Context::
     Same as the generic ``list_detail.object_list`` view, with one
     extra variable:
+    
         object
             The author
     
@@ -90,8 +94,7 @@ def bookmarks_by_author(request, author_username):
                                                                            author_slug),
                                    extra_context={ 'object': author },
                                    template_name='snippets/bookmarks_by_author.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmarks_by_author = login_required(bookmarks_by_author)
 
 def bookmarks_by_language(request, language_slug):
@@ -102,6 +105,7 @@ def bookmarks_by_language(request, language_slug):
     Context::
     Same as the generic ``list_detail.object_list`` view, with
     one extra variable:
+    
         object
             The Language
     
@@ -115,8 +119,7 @@ def bookmarks_by_language(request, language_slug):
                                                                              language_slug),
                                    extra_context={ 'object': language},
                                    template_name='snippets/bookmarks_by_language.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmarks_by_language = login_required(bookmarks_by_language)
 
 def bookmarks_by_tag(request, tag_slug):
@@ -126,6 +129,7 @@ def bookmarks_by_tag(request, tag_slug):
     Context::
     Same as the generic ``list_detail.object_list`` view, with
     one extra variable:
+    
         object
             The Tag
     
@@ -139,8 +143,7 @@ def bookmarks_by_tag(request, tag_slug):
                                                                    tag_slug),
                                    extra_context={ 'object': tag },
                                    template_name='snippets/bookmarks_by_tag.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmarks_by_tag = login_required(bookmarks_by_tag)
 
 def bookmark_language_list(request):
@@ -158,8 +161,7 @@ def bookmark_language_list(request):
                                    queryset=Bookmark.objects.distinct_list('language',
                                                                            request.user.username),
                                    template_name='snippets/bookmarks_language_list.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmark_language_list = login_required(bookmark_language_list)
 
 def bookmark_tag_list(request):
@@ -177,8 +179,7 @@ def bookmark_tag_list(request):
                                    queryset=Bookmark.objects.distinct_list('tag',
                                                                            request.user.username),
                                    template_name='snippets/bookmarks_tag_list.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 bookmark_tag_list = login_required(bookmark_tag_list)    
 
 def delete_bookmark(request, bookmark_id):

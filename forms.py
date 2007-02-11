@@ -31,8 +31,8 @@ class EditSnippetForm(forms.Form):
     """
     Form used for editing Snippets.
     
-    This is a separate Form because on edit the language
-    shouldn't be changing.
+    This is a separate Form because on edit the language shouldn't be
+    changing.
     
     """
     title = forms.CharField(max_length=250, widget=forms.TextInput(attrs=attrs_dict))

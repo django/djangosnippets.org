@@ -1,6 +1,6 @@
 """
-Views which work with Snippets, allowing them to be added,
-modified, rated and viewed according to various criteria.
+Views which work with Snippets, allowing them to be added, modified,
+rated and viewed according to various criteria.
 
 """
 
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from cab import forms
 from cab.models import Language, Rating, Snippet, Tag
+from bookmarks import base_generic_dict
 
 def add_snippet(request):
     """
@@ -141,8 +142,7 @@ def snippets_by_author(request, username):
                                    queryset=Snippet.objects.get_by_author(user.username),
                                    extra_context={ 'object': user },
                                    template_name='snippets/user_detail.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 
 def snippets_by_language(request, slug):
     """
@@ -164,8 +164,7 @@ def snippets_by_language(request, slug):
                                    queryset=Snippet.objects.get_by_language(slug),
                                    extra_context={ 'object': language },
                                    template_name='snippets/language_detail.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict)
 
 def snippets_by_tag(request, slug):
     """
@@ -187,8 +186,7 @@ def snippets_by_tag(request, slug):
                                    queryset=Snippet.objects.get_by_tag(slug),
                                    extra_context={ 'object': tag },
                                    template_name='snippets/tag_detail.html',
-                                   allow_empty=True,
-                                   paginate_by=20)
+                                   **base_generic_dict
 
 def snippet_detail(request, snippet_id):
     """

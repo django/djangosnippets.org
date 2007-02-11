@@ -1,9 +1,9 @@
 """
 Models for code snippets and related data.
 
-Most of these models also have custom managers defined which
-add convenient shortcuts for repetitive or common bits of
-logic; see ``managers.py`` in this directory.
+Most of these models also have custom managers defined which add
+convenient shortcuts for repetitive or common bits of logic; see
+``managers.py`` in this directory.
 
 """
 
@@ -26,13 +26,12 @@ class Language(models.Model):
     """
     A language in which a Snippet can be written.
     
-    The ``language_code`` field should be set to an alias of
-    a Pygments lexer which is capable of processing this
-    language.
+    The ``language_code`` field should be set to an alias of a
+    Pygments lexer which is capable of processing this language.
     
-    The ``file_extension`` and ``mime_type`` fields will be used
-    when users download Snippets, to set the filename and HTTP
-    Content-Type of the download appropriately.
+    The ``file_extension`` and ``mime_type`` fields will be used when
+    users download Snippets, to set the filename and HTTP Content-Type
+    of the download appropriately.
     
     """
     name = models.CharField(maxlength=50)
@@ -68,8 +67,7 @@ class Language(models.Model):
     
     def get_lexer(self):
         """
-        Returns an instance of the Pygments lexer for
-        this language.
+        Returns an instance of the Pygments lexer for this language.
         
         """
         return lexers.get_lexer_by_name(self.language_code)
@@ -107,9 +105,9 @@ class Snippet(models.Model):
     
     This is slightly denormalized in two ways:
     
-      1. Because it's wasteful to run Pygments over the code each
-         time the Snippet is viewed, it is instead run on save, and
-         two copies of the code -- one the original input, the other
+      1. Because it's wasteful to run Pygments over the code each time
+         the Snippet is viewed, it is instead run on save, and two
+         copies of the code -- one the original input, the other
          highlighted by Pygments -- are stored.
       
       2. For much the same reason, Markdown is run over the Snippet's
@@ -184,8 +182,8 @@ class Snippet(models.Model):
     
     def highlight(self):
         """
-        Returns this Snippet's originally-input code,
-        highlighted via Pygments.
+        Returns this Snippet's originally-input code, highlighted via
+        Pygments.
         
         """
         return highlight(self.code,
