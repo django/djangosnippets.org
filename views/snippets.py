@@ -1,7 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from cab.models import Bookmark, Rating, Snippet
+from django.views.generic import list_detail
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from cab.models import Bookmark, Language, Rating, Snippet
 
 def add_snippet(request):
     """
@@ -12,7 +15,7 @@ def add_snippet(request):
             The form to add the Snippet.
     
     Template::
-        cab/add_snippet_form.html
+        snippets/add_snippet_form.html
     
     """
     original_id = request.GET.get('oid', None)
@@ -32,7 +35,7 @@ def add_snippet(request):
             return HttpResponseRedirect(new_snippet.get_absolute_url())
     else:
         form = forms.AddSnippetForm()
-    return render_to_response('cab/add_snippet_form.html',
+    return render_to_response('snippets/add_snippet_form.html',
                               { 'form': form },
                               context_instance=RequestContext(request))
 add_snippet = login_required(add_snippet)
@@ -65,7 +68,7 @@ def edit_snippet(request, snippet_id):
             The Snippet being edited.
     
     Template::
-        cab/edit_snippet_form.html
+        snippets/edit_snippet_form.html
     
     """
     snippet = get_object_or_404(Snippet,
@@ -80,7 +83,7 @@ def edit_snippet(request, snippet_id):
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
         form = forms.EditSnippetForm(snippet.__dict__)
-    return render_to_response('cab/edit_snippet_form.html',
+    return render_to_response('snippets/edit_snippet_form.html',
                               { 'form': form,
                                 'original': snippet },
                               context_instance=RequestContext(request))
@@ -121,14 +124,14 @@ def snippets_by_author(request, username):
             The User
     
     Template::
-        cab/user_detail.html
+        snippets/user_detail.html
     
     """
     user = get_object_or_404(User, username__exact=username)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_author(user.username),
                                    extra_context={ 'object': user },
-                                   template_name='cab/user_detail.html',
+                                   template_name='snippets/user_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -144,14 +147,14 @@ def snippets_by_language(request, slug):
             The Language
     
     Template::
-        cab/language_detail.html
+        snippets/language_detail.html
     
     """
     language = get_object_or_404(Language, slug__exact=slug)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_language(slug),
                                    extra_context={ 'object': language },
-                                   template_name='cab/language_detail.html',
+                                   template_name='snippets/language_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -167,14 +170,14 @@ def snippets_by_tag(request, slug):
             The Tag
     
     Template::
-        cab/tag_detail.html
+        snippets/tag_detail.html
     
     """
     tag = get_object_or_404(Tag, slug__exact=slug)
     return list_detail.object_list(request,
                                    queryset=Snippet.objects.get_by_tag(slug),
                                    extra_context={ 'object': tag },
-                                   template_name='cab/tag_detail.html',
+                                   template_name='snippets/tag_detail.html',
                                    allow_empty=True,
                                    paginate_by=20)
 
@@ -193,11 +196,11 @@ def snippet_detail(request, snippet_id):
             The sum of this Snippet's received ratings.
     
     Template::
-        cab/snippet_detail.html
+        snippets/snippet_detail.html
     
     """
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    return render_to_response('cab/snippet_detail.html',
+    return render_to_response('snippets/snippet_detail.html',
                               { 'object': snippet,
                                 'num_ratings': snippet.rating_set.count(),
                                 'rating_score': Rating.objects.score_for_snippet(snippet.id) },

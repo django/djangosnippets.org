@@ -9,7 +9,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.models import User
 from models import Language, Snippet, Tag
-from views import snippets, bookmarks
+from views import bookmarks, snippets
 
 tag_info_dict = {
     'queryset': Tag.objects.all(),

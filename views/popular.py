@@ -15,10 +15,10 @@ def most_bookmarked(request):
             The list of Snippets
     
     Template::
-        cab/most_bookmarked.html
+        snippets/most_bookmarked.html
     
     """
-    return render_to_response('cab/most_bookmarked.html',
+    return render_to_response('snippets/most_bookmarked.html',
                               { 'object_list': Bookmark.objects.most_bookmarked(10) },
                               context_instance=RequestContext(request))
 
@@ -32,10 +32,10 @@ def top_authors(request):
             The list of authors
     
     Template::
-        cab/top_authors.html
+        snippets/top_authors.html
     
     """
-    return render_to_response('cab/top_authors.html',
+    return render_to_response('snippets/top_authors.html',
                               { 'object_list': Snippet.objects.top_items('author', 10) },
                               context_instance=RequestContext(request))
 
@@ -48,10 +48,10 @@ def top_languages(request):
             The list of Languages
     
     Template::
-        cab/top_languages.html
+        snippets/top_languages.html
     
     """
-    return render_to_response('cab/top_languages.html',
+    return render_to_response('snippets/top_languages.html',
                               { 'object_list': Snippet.objects.top_items('language', 10) },
                               context_instance=RequestContext(request))
 
@@ -64,10 +64,10 @@ def top_rated(request):
             The list of Snippets
     
     Template::
-        cab/top_rated.html
+        snippets/top_rated.html
     
     """
-    return render_to_response('cab/top_rated.html',
+    return render_to_response('snippets/top_rated.html',
                               { 'object_list': Rating.objects.top_rated(10) },
                               context_instance=RequestContext(instance))
 
@@ -80,9 +80,9 @@ def top_tags(request):
             The list of Tags
     
     Template::
-        cab/top_tags.html
+        snippets/top_tags.html
     
     """
-    return render_to_response('cab/top_tags.html',
+    return render_to_response('snippets/top_tags.html',
                               { 'object_list': Snippet.objects.top_items('tag', 10) },
                               context_instance=RequestContext(request))
