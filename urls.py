@@ -14,26 +14,22 @@ from models import Language, Snippet, Tag
 from views import bookmarks, snippets
 
 # Info for generic views.
-tag_info_dict = {
-    'queryset': Tag.objects.all(),
+base_generic_dict = {
     'paginate_by': 20,
     }
 
-language_info_dict = {
-    'queryset': Language.objects.all(),
-    'paginate_by': 20,
-    }
+language_info_dict = dict(base_generic_dict,
+                          queryset=Language.objects.all())
 
-user_info_dict = {
-    'queryset': User.objects.all(),
-    'paginate_by': 20,
-    'template_name': 'snippets/user_list.html',
-    }
+snippet_info_dict = dict(base_generic_dict,
+                         queryset=Snippet.objects.all())
 
-snippet_info_dict = {
-    'queryset': Snippet.objects.all(),
-    'paginate_by': 20,
-    }
+tag_info_dict = dict(base_generic_dict,
+                     queryset=Tag.objects.all())
+
+user_info_dict = dict(base_generic_dict,
+                      queryset=User.objects.all(),
+                      template_name='snippets/user_list.html')
 
 # General snippets views.
 urlpatterns = patterns('',
