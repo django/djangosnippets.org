@@ -1,3 +1,10 @@
+"""
+General-purpose tags for working with various aspects of
+Snippets -- whether a user has bookmarked/rated a given
+Snippet, etc.
+
+"""
+
 from django import template
 from cab.models import Bookmark, Rating
 
@@ -9,7 +16,7 @@ class IfBookmarkedNode(template.Node):
         self.user_id = user_id
         self.snippet_id = snippet_id
         self.nodelist_true, self.nodelist_false = nodelist_true, nodelist_false
-
+    
     def render(self, context):
         try:
             self.user_id = template.resolve_variable(self.user_id, context)
@@ -26,7 +33,7 @@ class IfRatedNode(template.Node):
         self.user_id = user_id
         self.snippet_id = snippet_id
         self.nodelist_true, self.nodelist_false = nodelist_true, nodelist_false
-
+    
     def render(self, context):
         try:
             self.user_id = template.resolve_variable(self.user_id, context)
@@ -42,7 +49,7 @@ class RatingForSnippetNode(template.Node):
     def __init__(self, snippet_id, context_var):
         self.snippet_id = snippet_id
         self.context_var = context_var
-
+    
     def render(self, context):
         try:
             self.snippet_id = template.resolve_variable(self.snippet_id, context)
@@ -56,7 +63,7 @@ class RatingByUserNode(template.Node):
     def __init__(self, user_id, snippet_id, context_var):
         self.user_id, self.snippet_id = user_id, snippet_id
         self.context_var = context_var
-
+    
     def render(self, context):
         try:
             self.user_id = template.resolve_variable(self.user_id, context)

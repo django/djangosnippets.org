@@ -1,3 +1,8 @@
+"""
+Tags for retrieving most popular/top-rated items.
+
+"""
+
 from django import template
 from cab.models import Bookmark, Rating, Snippet
 

@@ -110,7 +110,7 @@ def rate_snippet(request, snippet_id):
     
     """
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-
+    
     if not Rating.objects.already_rated(request.user.id, snippet.id):
         score = request.GET.get('score')
         if score:

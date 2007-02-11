@@ -1,10 +1,19 @@
+"""
+Models for code snippets and related data.
+
+Most of these models also have custom managers defined which
+add convenient shortcuts for repetitive or common bits of
+logic; see ``managers.py`` in this directory.
+
+"""
+
 import datetime
 from django.db import connection, models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import managers
-from pygments import highlight, lexers, formatters
 from markdown import markdown
+from pygments import highlight, lexers, formatters
 
 
 RATING_CHOICES = (
@@ -20,7 +29,7 @@ class Language(models.Model):
     The ``language_code`` field should be set to an alias of
     a Pygments lexer which is capable of processing this
     language.
-
+    
     The ``file_extension`` and ``mime_type`` fields will be used
     when users download Snippets, to set the filename and HTTP
     Content-Type of the download appropriately.
@@ -94,7 +103,7 @@ class Tag(models.Model):
 
 class Snippet(models.Model):
     """
-    A snippet of code in some language.
+    A snippet of code in some Language.
     
     This is slightly denormalized in two ways:
     
@@ -102,7 +111,7 @@ class Snippet(models.Model):
          time the Snippet is viewed, it is instead run on save, and
          two copies of the code -- one the original input, the other
          highlighted by Pygments -- are stored.
-
+      
       2. For much the same reason, Markdown is run over the Snippet's
          description on save, instead of on each view, and the result
          is stored in a separate column.
@@ -155,7 +164,7 @@ class Snippet(models.Model):
         # Now that the Snippet is saved, deal with the tags.
         current_tags = list(self.tags.all()) # We only want to query this once.
         new_tag_list = self.tag_list.split()
-
+        
         # First, clear out tags that aren't on the Snippet anymore.
         for tag in current_tags:
             if tag.name not in new_tag_list:
@@ -186,7 +195,7 @@ class Snippet(models.Model):
 
 class Rating(models.Model):
     """
-    A particular user's rating of a particular snippet.
+    A particular User's rating of a particular Snippet.
     
     """
     snippet = models.ForeignKey(Snippet)
@@ -203,7 +212,7 @@ class Rating(models.Model):
         if not self.id:
             self.date = datetime.datetime.now()
         super(Rating, self).save()
-
+    
     def __str__(self):
         return "%s rating '%s'" % (self.user.username, self.snippet.title)
 

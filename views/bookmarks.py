@@ -15,10 +15,10 @@ from cab.models import Bookmark, Language, Snippet, Tag
 def add_bookmark(request, snippet_id):
     """
     Bookmarks a Snippet for a User.
-
+    
     Context::
     None, returns a redirect to the Snippet.
-
+    
     Template::
     None, returns a redirect to the Snippet.
     
@@ -184,13 +184,13 @@ bookmark_tag_list = login_required(bookmark_tag_list)
 def delete_bookmark(request, bookmark_id):
     """
     Removes a User's bookmarked Snippet.
-
+    
     Context::
     None, returns a redirect to the HTTP referer.
-
+    
     Template::
     None, returns a redirect to the HTTP referer.
-
+    
     """
     bookmark = get_object_or_404(Bookmark, user__pk=request.user.id,
                                  pk=bookmark_id)

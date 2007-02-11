@@ -1,3 +1,8 @@
+"""
+Forms for adding and editing Snippets.
+
+"""
+
 from django import newforms as forms
 from models import Language
 
@@ -25,7 +30,7 @@ class AddSnippetForm(forms.Form):
 class EditSnippetForm(forms.Form):
     """
     Form used for editing Snippets.
-
+    
     This is a separate Form because on edit the language
     shouldn't be changing.
     

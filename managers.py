@@ -1,11 +1,19 @@
+"""
+Custom managers for most of the models; these add useful
+logic for various custom filters and queries.
+
+"""
+
 from django.db import models
 
 
 class BookmarksManager(models.Manager):
     """
-    Custom manager for the Bookmark model, implementing a few
-    convenience methods which make it easier to work with
-    Bookmarks.
+    Custom manager for the Bookmark model.
+
+    Add useful shortcuts for some common related-object filters, and
+    the ability to quickly determine whether someone's bookmarked a
+    particular Snippet.
     
     """
     def already_bookmarked(self, user_id, snippet_id):
@@ -40,7 +48,7 @@ class BookmarksManager(models.Manager):
         # tables into the mapping dictionary.
         from django.contrib.auth.models import User
         from models import Language, Tag, Snippet
-
+        
         # Looking up table names in ``_meta`` is slightly hackish and
         # completely undocumented, but also extremely handy and completely
         # foolproof.
@@ -117,7 +125,7 @@ class BookmarksManager(models.Manager):
         FROM %s
         GROUP BY snippet_id
         ORDER BY score DESC""" % self.model._meta.db_table
-
+        
         from django.db import connection
         cursor = connection.cursor()
         cursor.execute(query, [])
@@ -128,9 +136,11 @@ class BookmarksManager(models.Manager):
 
 class RatingsManager(models.Manager):
     """
-    Custom manager for the Rating model, implementing a few
-    convenience methods which make it easier to work with
-    Ratings.
+    Custom manager for the Rating model.
+
+    Adds shortcuts for fetching aggregate data on a given Snippet,
+    lists of top-rated Snippets, and for quickly determining whether
+    someone's already rated a given Snippet.
     
     """
     def already_rated(self, user_id, snippet_id):
@@ -153,8 +163,8 @@ class RatingsManager(models.Manager):
     
     def score_for_snippet(self, snippet_id):
         """
-        Returns the current rating score for a Snippet as a two-element
-        dictionary with the following keys:
+        Returns the current rating score for a Snippet as a dictionary
+        with the following keys:
         
             score
                 The total score.
@@ -193,10 +203,10 @@ class RatingsManager(models.Manager):
 
 class SnippetsManager(models.Manager):
     """
-    Custom manager for the Snippet model, implementing a few
-    convenience methods to make it easier to filter Snippets
-    according to common criteria, and to filter related models
-    based on attributes of Snippets.
+    Custom manager for the Snippet model.
+    
+    Adds shortcuts for common filtering operations, and for
+    retrieving popular related objects.
     
     """
     def get_by_author(self, username):
@@ -265,7 +275,7 @@ class SnippetsManager(models.Manager):
         cursor = connection.cursor()
         cursor.execute(query, [])
         object_ids = [row[0] for row in cursor.fetchall()[:num]]
-
+        
         # Use ``in_bulk`` here instead of an ``id__in`` lookup, because ``id__in``
         # would clobber the ordering.
         object_dict = params['model']._default_manager.in_bulk(object_ids)
