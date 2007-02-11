@@ -8,8 +8,8 @@ beginning with '/snippets/'.
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.models import User
-from snippets.models import Language, Snippet, Tag
-from snippets.views import snippets, bookmarks
+from models import Language, Snippet, Tag
+from views import snippets, bookmarks
 
 tag_info_dict = {
     'queryset': Tag.objects.all(),
