@@ -11,7 +11,7 @@ from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from cab import forms
-from cab.models import Language, Rating, Snippet
+from cab.models import Language, Rating, Snippet, Tag
 
 def add_snippet(request):
     """
