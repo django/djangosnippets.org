@@ -34,6 +34,7 @@ user_info_dict = dict(base_generic_dict,
 # General snippets views.
 urlpatterns = patterns('',
                        (r'^(?P<snippet_id>\d+)/$', snippets.snippet_detail),
+                       (r'^(?P<snippet_id>\d+)/download/$', snippets.download),
                        (r'^add/$', snippets.add_snippet),
                        (r'^edit/(?P<snippet_id>\d+)/$', snippets.edit_snippet),
                        (r'^languages/(?P<slug>[\w-]+)', snippets.snippets_by_language),
