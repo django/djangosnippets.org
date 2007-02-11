@@ -11,7 +11,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.models import User
 from models import Language, Snippet, Tag
-from views import bookmarks, snippets
+from views import bookmarks, popular, snippets
 
 # Info for generic views.
 base_generic_dict = {
@@ -50,6 +50,15 @@ urlpatterns += patterns('',
                         (r'^bookmarks/delete/(?P<bookmark_id>\d+)/$', bookmarks.delete_bookmark),
                         (r'^bookmarks/language/(?P<language_slug>[\w-]+)/$', bookmarks.bookmarks_by_language),
                         (r'^bookmarks/tag/(?P<tag_slug>[\w-]+)/$', bookmarks.bookmarks_by_tag),
+                        )
+
+# Views for popular items.
+urlpatterns += patterns('',
+                        # Need a better URL for this one. (r'^popular/authors/$', popular.top_authors),
+                        (r'^popular/bookmarks/$', popular.most_bookmarked),
+                        (r'^popular/languages/$', popular.top_languages),
+                        (r'^popular/top-rated/$', popular.top_rated),
+                        (r'^popular/tags/$', popular.top_tags),
                         )
 
 # Generic views.

@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from cab.models import Bookmark, Snippet
+from cab.models import Bookmark, Rating, Snippet
 
 def most_bookmarked(request):
     """

@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Snippets by {{ object.username }}</h2>
 {% if object_list %}
-<p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippets:</p>
+<p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippet{{ object_list.count|pluralize }}:</p>
 <ul>
 {% for snippet in object_list %}
 <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) {{ snippet.pub_date|timesince }} ago</li>

@@ -24,6 +24,6 @@
 <p class="snippet-tags">Tags: {% for tag in object.tags.all %}<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a> {% endfor %}</p>
 {{ object.highlighted_code }}
 {% if object.description %}
-<p>{{ object.description }}</p>
+<p>{{ object.description_html }}</p>
 {% endif %}
 {% endblock %}
