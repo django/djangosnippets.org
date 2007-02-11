@@ -60,7 +60,9 @@ def download(request, snippet_id):
     """
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(snippet.code, mimetype='text/plain')
-    response['Content-Disposition'] = 'attachment; filename=%s.txt' % snippet.id
+    response['Content-Disposition'] = 'attachment; filename=%s.%s' % (snippet.id,
+                                                                      snippet.language.file_extension)
+    response['Content-Type'] = snippet.language.mime_type
     return response
 
 def edit_snippet(request, snippet_id):
