@@ -1,4 +1,6 @@
 """
+URLConf for Cab.
+
 Recommended usage is to use a call to ``include()`` in your
 project's root URLConf to include this URLConf for any URL
 beginning with '/snippets/'.
@@ -11,6 +13,7 @@ from django.contrib.auth.models import User
 from models import Language, Snippet, Tag
 from views import bookmarks, snippets
 
+# Info for generic views.
 tag_info_dict = {
     'queryset': Tag.objects.all(),
     'paginate_by': 20,
@@ -32,16 +35,18 @@ snippet_info_dict = {
     'paginate_by': 20,
     }
 
+# General snippets views.
 urlpatterns = patterns('',
-                       (r'^languages/(?P<slug>[\w-]+)', snippets.snippets_by_language),
+                       (r'^(?P<snippet_id>\d+)/$', snippets.snippet_detail),
                        (r'^add/$', snippets.add_snippet),
                        (r'^edit/(?P<snippet_id>\d+)/$', snippets.edit_snippet),
-                       (r'^(?P<snippet_id>\d+)/$', snippets.snippet_detail),
+                       (r'^languages/(?P<slug>[\w-]+)', snippets.snippets_by_language),
                        (r'^rate/(?P<snippet_id>\d+)/$', snippets.rate_snippet),
                        (r'^tags/(?P<slug>[\w-]+)/$', snippets.snippets_by_tag),
                        (r'^users/(?P<username>\w+)/$', snippets.snippets_by_author),
                        )
 
+# Views that work with bookmarks.
 urlpatterns += patterns('',
                         (r'^bookmarks/$', bookmarks.bookmarks),
                         (r'^bookmarks/add/(?P<snippet_id>\d+)/$', bookmarks.add_bookmark),
@@ -51,9 +56,10 @@ urlpatterns += patterns('',
                         (r'^bookmarks/tag/(?P<tag_slug>[\w-]+)/$', bookmarks_by_tag),
                         )
 
+# Generic views.
 urlpatterns += patterns('',
-                        (r'^languages/$', object_list, language_info_dict),
                         (r'^$', object_list, snippet_info_dict),
+                        (r'^languages/$', object_list, language_info_dict),
                         (r'^tags/$', object_list, tag_info_dict),
                         (r'^users/$', object_list, user_info_dict),
                         )
