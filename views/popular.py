@@ -1,10 +1,16 @@
+"""
+Views which deal with popular items -- most-bookmarked, highest-rated
+and most-used.
+
+"""
+
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from cab.models import Bookmark, Language, Snippet, Tag
+from cab.models import Bookmark, Snippet
 
 def most_bookmarked(request):
     """

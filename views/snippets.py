@@ -1,10 +1,16 @@
+"""
+Views which work with Snippets, allowing them to be added,
+modified, rated and viewed according to various criteria.
+
+"""
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from cab.models import Bookmark, Language, Rating, Snippet
+from cab.models import Language, Rating, Snippet
 
 def add_snippet(request):
     """
