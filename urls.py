@@ -49,7 +49,7 @@ urlpatterns += patterns('',
                         (r'^bookmarks/author/(?P<author_username>[\w-]+)/$', bookmarks.bookmarks_by_author),
                         (r'^bookmarks/delete/(?P<bookmark_id>\d+)/$', bookmarks.delete_bookmark),
                         (r'^bookmarks/language/(?P<language_slug>[\w-]+)/$', bookmarks.bookmarks_by_language),
-                        (r'^bookmarks/tag/(?P<tag_slug>[\w-]+)/$', bookmarks_by_tag),
+                        (r'^bookmarks/tag/(?P<tag_slug>[\w-]+)/$', bookmarks.bookmarks_by_tag),
                         )
 
 # Generic views.
