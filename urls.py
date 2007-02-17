@@ -29,7 +29,7 @@ tag_info_dict = dict(base_generic_dict,
 
 user_info_dict = dict(base_generic_dict,
                       queryset=User.objects.all(),
-                      template_name='snippets/user_list.html')
+                      template_name='cab/user_list.html')
 
 # General snippets views.
 urlpatterns = patterns('',
