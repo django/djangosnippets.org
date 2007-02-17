@@ -186,7 +186,7 @@ def snippets_by_tag(request, slug):
                                    queryset=Snippet.objects.get_by_tag(slug),
                                    extra_context={ 'object': tag },
                                    template_name='cab/tag_detail.html',
-                                   **base_generic_dict
+                                   **base_generic_dict)
 
 def snippet_detail(request, snippet_id):
     """
