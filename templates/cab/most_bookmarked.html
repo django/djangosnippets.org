@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Most-bookmarked snippets{% endblock %}
+
+{% block content %}
+<h2>Most-bookmarked snippets</h2>
+<ul>
+{% for snippet in object_list %}
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

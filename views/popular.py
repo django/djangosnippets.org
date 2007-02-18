@@ -70,7 +70,7 @@ def top_rated(request):
     """
     return render_to_response('cab/top_rated.html',
                               { 'object_list': Rating.objects.top_rated(10) },
-                              context_instance=RequestContext(instance))
+                              context_instance=RequestContext(request))
 
 def top_tags(request):
     """
