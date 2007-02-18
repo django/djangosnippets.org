@@ -86,12 +86,12 @@ class BookmarksManager(models.Manager):
         # a QuerySet we can pass to generic views.
         return params['model']._default_manager.filter(id__in=[row[0] for row in cursor.fetchall()])
     
-    def get_for_user(self, username):
+    def get_by_author(self, username, author_username):
         """
-        Returns a particular User's Bookmarks.
+        Returns all of a User's Bookmarks written by a particular author.
         
         """
-        return self.filter(user__username__exact=username)
+        return self.get_for_user(username).filter(snippet__author__username__exact=author_username)
     
     def get_by_language(self, username, language_slug):
         """
@@ -100,13 +100,6 @@ class BookmarksManager(models.Manager):
         """
         return self.get_for_user(username).filter(snippet__language__slug__exact=language_slug)
     
-    def get_by_author(self, username, author_username):
-        """
-        Returns all of a User's Bookmarks written by a particular author.
-        
-        """
-        return self.get_for_user(username).filter(snippet__author__username__exact=author_username)
-    
     def get_by_tag(self, username, tag_slug):
         """
         Returns all of a User's Bookmarks which have a particular
@@ -114,6 +107,13 @@ class BookmarksManager(models.Manager):
         
         """
         return self.get_for_user(username).filter(snippet__tags__slug__exact=tag_slug)
+    
+    def get_for_user(self, username):
+        """
+        Returns a particular User's Bookmarks.
+        
+        """
+        return self.filter(user__username__exact=username)
     
     def most_bookmarked(self, num=5):
         """
