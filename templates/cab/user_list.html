@@ -2,12 +2,25 @@
 
 {% block title %}All users{% endblock %}
 
-{% block content %}
-<h2>All users</h2>
+{% block content_header %}All users{% endblock %}
 
+{% block main_content %}
 <ul>
 {% for user in object_list %}
 <li><a href="/users/{{ user.username }}/">{{ user.username }}<a></li>
 {% endfor %}
 </ul>
+{% endblock %}
+
+{% block sidebar %}
+<p>There are currently {{ hits }} users posting snippets.</p>
+
+<p>The users who've submitted the most snippets are:</p>
+{% load popular %}
+{% get_top_authors 5 as top_authors %}
+<ol>
+{% for author in top_authors %}
+<li><a href="/users/{{ author.username }}/">{{ author.username }}</a></li>
+{% endfor %}
+</ol>
 {% endblock %}

@@ -2,10 +2,11 @@
 
 {% block title %}All tags{% endblock %}
 
-{% block content %}
-<h2>All tags</h2>
+{% block content_header %}All tags{% endblock %}
+
+{% block main_content %}
 {% if object_list %}
-<p>There are currently {{ hits }} tag{{ hits|pluralize }} in use:</p>
+
 <ul>
 {% for tag in object_list %}
 <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
@@ -17,4 +18,16 @@
 <p>No tags have been used yet.</p>
 {% endif %}
 
+{% endblock %}
+
+{% block sidebar %}
+<p>There are currently {{ hits }} tag{{ hits|pluralize }} in use.</p>
+<p>Currently, the most-used tags are:</p>
+{% load popular %}
+{% get_top_tags 5 as top_tags %}
+<ol>
+{% for tag in top_tags %}
+<li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+{% endfor %}
+</ol>
 {% endblock %}

@@ -21,7 +21,7 @@ class MostBookmarkedNode(template.Node):
 
 class TopItemsNode(template.Node):
     def __init__(self, item_type, num, context_var):
-        self.item_type, self.num = item_type, num
+        self.item_type, self.num = item_type, int(num)
         self.context_var = context_var
     
     def render(self, context):
@@ -69,7 +69,7 @@ def do_top_items(parser, token):
         raise template.TemplateSyntaxError("'%s' tag takes exactly three arguments" % bits[0])
     if bits[2] != 'as':
         raise template.TemplateSyntaxError("second argument to '%s' tag must be 'as'" % bits[0])
-    item_type = bits[1].split('_')[1][:-1]
+    item_type = bits[0].split('_')[-1][:-1]
     return TopItemsNode(item_type, bits[1], bits[3])
 
 def do_top_rated(parser, token):

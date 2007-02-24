@@ -2,9 +2,9 @@
 
 {% block title %}All snippets{% endblock %}
 
-{% block content %}
-<h2>All snippets</h2>
+{% block content_header %}All snippets{% endblock %}
 
+{% block main_content %}
 {% if object_list %}
 <ul>
 {% for snippet in object_list %}
@@ -14,4 +14,8 @@
 {% else %}
 <p>No snippets posted yet.</p>
 {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<p>{{ object_list.count }} snippet{{object_list.count|pluralize }} posted so far.</p>
 {% endblock %}

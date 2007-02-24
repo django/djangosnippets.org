@@ -1,29 +1,66 @@
 {% extends "base.html" %}
 {% block title %}{{ object.title }}{% endblock %}
 
-{% block content %}
+{% block content_header %}{{ object.title }}{% endblock %}
+
+{% block main_content %}
 {% load snippets %}
-<h2>{{ object.title }}</h2>
-<p class="snippet-meta">Posted by <a href="/users/{{ object.author.username }}/">{% ifequal object.author.username user.username %}you{% else %}{{ object.author.username }}{% endifequal %}</a> on {{ object.pub_date|date:"F j, Y" }}</a>{% ifequal object.author.username user.username %} (would you like to <a href="/snippets/edit/{{ object.id }}/">edit this snippet</a>?){% endifequal %}</p>
+{{ object.highlighted_code }}
+{% endblock %}
+
+{% block sidebar %}
+{% load snippets %}
+{{ object.description_html }}
+
+<dl>
+<dt>Author:</dt>
+<dd><a href="/users/{{ object.author.username }}/">{{ object.author.username }}</a></dd>
+<dt>Posted:</dt>
+<dd>{{ object.pub_date|date:"F j, Y" }}</dd>
+<dt>Language:</dt>
+<dd><a href="{{ object.language.get_absolute_url }}">{{ object.language.name }}</a></dd>
+<dt>Tags:</dt>
+<dd>{% for tag in object.tags.all %}<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a> {% endfor %}</dd>
+{% get_rating_for_snippet object.id as score %}
+<dt>Score:</dt>
+<dd>{{ score.score }} (after {{ score.num_ratings }} rating{{ score.num_ratings|pluralize }})</dd>
+</dl>
+
+<h3>Tools</h3>
+<ul>
 {% if user.is_authenticated %}
+{% ifequal user.id object.author.id %}
+<li><a href="/snippets/edit/{{ object.id }}/">Edit this snippet</a></li>
+{% endifequal %}
 {% if_bookmarked user.id object.id %}
-<p>This snippet is in <a href="/bookmarks/">your bookmarks</a>.</p>
+<li>This snippet is in <a href="/bookmarks/">your bookmarks</a></li>
 {% else %}
-<p><a href="/bookmarks/add/{{ object.id }}/">Would you like to bookmark this snippet?</a></p>
+<li><a href="/bookmarks/add/{{ object.id }}/">Bookmark this snippet</a></li>
 {% endif_bookmarked %}
 {% if_rated user.id object.id %}
 {% get_rating_by_user user.id object.id as rating %}
-<p>You rated this snippet <strong>{{ rating.get_score_display|lower }}</strong>.</p>
+<li>You rated this snippet <strong>{{ rating.get_score_display|lower }}</strong>.</li>
 {% else %}
-<p>Rate this snippet: <a href="/snippets/rate/{{ object.id }}/?score=up">useful</a> or <a href="/snippets/rate/{{ object.id }}/?score=down">not useful</a>.</p>
+<li>Rate this snippet: <a href="/snippets/rate/{{ object.id }}/?score=up">useful</a> or <a href="/snippets/rate/{{ object.id }}/?score=down">not useful</a></li>
 {% endif_rated %}
 {% endif %}
-{% get_rating_for_snippet object.id as score %}
-<p>This snippet has a score of {{ score.score }} after {{ score.num_ratings }} rating{{ score.num_ratings|pluralize }}.</p>
-<p class="snippet-language">Language: <a href="{{ object.language.get_absolute_url }}">{{ object.language.name }}</a></p>
-<p class="snippet-tags">Tags: {% for tag in object.tags.all %}<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a> {% endfor %}</p>
-{{ object.highlighted_code }}
-{% if object.description %}
-<p>{{ object.description_html }}</p>
-{% endif %}
+<li><a href="/snippets/{{ object.id }}/download/" type="{{ object.language.mime_type }}">Download this snippet</a></li>
+<li><a href="#comments">Comment on this snippet</a></li>
+</ul>
+{% endblock %}
+
+{% block extra_content %}
+<div id="comments">
+<h2>Comments</h2>
+{% load comments %}
+{% load markup %}
+{% get_comment_list for cab.snippet object.id as comment_list %}
+<dl>
+{% for comment in comment_list %}
+<dt><a href="/users/{{ comment.user.username }}">{{ comment.user.username }}</a> (on {{ comment.submit_date|date:"F j, Y" }})</dt>
+<dd>{{ comment.comment|markdown }}</dd>
+{% endfor %}
+</dl>
+{% comment_form for cab.snippet object.id %}
+</div>
 {% endblock %}

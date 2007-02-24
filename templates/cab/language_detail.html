@@ -2,12 +2,10 @@
 
 {% block title %}All snippets written in {{ object.name }}{% endblock %}
 
-{% block content %}
-<h2>All snippets written in {{ object.name }}</h2>
+{% block content_header %}All snippets written in {{ object.name }}{% endblock %}
 
+{% block main_content %}
 {% if object_list %}
-<p>{{ hits }} snippet{{ hits|pluralize }} {% ifequal hits 1 %}is{% else %}are{% endifequal %} written in {{ object.name }}:</p>
-
 <ul>
 {% for snippet in object_list %}
 <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
@@ -19,4 +17,8 @@
 
 <p>No snippets written in {{ object.name }} yet.</p>
 {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<p>{{ hits }} snippet{{ hits|pluralize }} {% ifequal hits 1 %}is{% else %}are{% endifequal %} written in {{ object.name }} so far.</p>
 {% endblock %}

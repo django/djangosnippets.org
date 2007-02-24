@@ -2,11 +2,10 @@
 
 {% block title %}Your bookmarks{% endblock %}
 
-{% block content %}
-<h2>Your bookmarks</h2>
-{% if object_list %}
-<p>You've bookmarked {{ hits }} snippet{{ hits|pluralize }}:</p>
+{% block content_header %}Your bookmarks{% endblock %}
 
+{% block main_content %}
+{% if object_list %}
 <ul>
 {% for bookmark in object_list %}
 <li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="/users/{{ bookmark.snippet.author.username }}/">{{ snippet.author.username }}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="/bookmarks/delete/{{ bookmark.id }}/">Delete this bookmark</a></li>
@@ -18,4 +17,16 @@
 <p>You haven't bookmarked any snippets yet.</p>
 {% endif %}
 
+{% endblock %}
+
+{% block sidebar %}
+<p>To bookmark a snippet, just click the "add this snippet to your bookmarks" link on its page.</p>
+<p>The snippets other users have bookmarked most often are:</p>
+{% load popular %}
+{% get_most_bookmarked 5 as most_bookmarked %}
+<ol>
+{% for snippet in most_bookmarked %}
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a></li>
+{% endfor %}
+</ol>
 {% endblock %}

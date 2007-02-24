@@ -2,10 +2,10 @@
 
 {% block title %}Snippets by {{ object.username }}{% endblock %}
 
-{% block content %}
-<h2>Snippets by {{ object.username }}</h2>
+{% block content_header %}Snippets by {{ object.username }}{% endblock %}
+
+{% block main_content %}
 {% if object_list %}
-<p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippet{{ object_list.count|pluralize }}:</p>
 <ul>
 {% for snippet in object_list %}
 <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) {{ snippet.pub_date|timesince }} ago</li>
@@ -16,4 +16,18 @@
 {% else %}
 <p>{% ifequal user.username object.username %}You haven't{% else %}{{ object.username }} hasn't{% endifequal %} posted any snippets yet.</p>
 {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippet{{ object_list.count|pluralize }}.</p>
+
+<p>The users who've submitted the most snippets are:</p>
+{% load popular %}
+{% get_top_authors 5 as top_authors %}
+<ol>
+{% for author in top_authors %}
+<li><a href="/users/{{ author.username }}/">{{ author.username }}</a></li>
+{% endfor %}
+</ol>
+
 {% endblock %}
