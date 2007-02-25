@@ -35,7 +35,7 @@ class TopRatedNode(template.Node):
         self.context_var = context_var
     
     def render(self, context):
-        context[self.context_var] = Rating.objects.top_rated(num)
+        context[self.context_var] = Rating.objects.top_rated(self.num)
         return ''
 
 
