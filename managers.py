@@ -196,7 +196,7 @@ class RatingsManager(models.Manager):
         cursor = connection.cursor()
         cursor.execute(query, [])
         # We only want Snippets with positive scores!
-        snippet_ids = [row[0] for row in cursor.fetchall() if row[1] > 0][:num]
+        snippet_ids = [row[0] for row in cursor.fetchall() if row[1] > 0][:int(num)]
         snippet_dict = Snippet.objects.in_bulk(snippet_ids)
         return [snippet_dict[snippet_id] for snippet_id in snippet_ids]
 
