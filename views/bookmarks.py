@@ -50,7 +50,7 @@ def bookmarks(request):
     
     """
     return list_detail.object_list(request,
-                                   queryset=Bookmark.objects.get_for_user(request.user.username),
+                                   queryset=Bookmark.objects.get_for_user(request.user.username).select_related(),
                                    template_name='cab/user_bookmarks.html',
                                    **base_generic_dict)
 bookmarks = login_required(bookmarks)
@@ -68,7 +68,7 @@ def bookmark_author_list(request):
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('author',
-                                                                           request.user.uername),
+                                                                           request.user.username).select_related(),
                                    template_name='cab/bookmarks_author_list.html',
                                    **base_generic_dict)
 bookmark_author_list = login_required(bookmark_author_list)
@@ -91,7 +91,7 @@ def bookmarks_by_author(request, author_username):
     author = get_object_or_404(User, username__exact=author_username)
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.get_by_author(request.user.username,
-                                                                           author_slug),
+                                                                           author_slug).select_related(),
                                    extra_context={ 'object': author },
                                    template_name='cab/bookmarks_by_author.html',
                                    **base_generic_dict)
@@ -116,7 +116,7 @@ def bookmarks_by_language(request, language_slug):
     language = get_object_or_404(Language, slug__exact=language_slug)
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.get_by_language(request.user.username,
-                                                                             language_slug),
+                                                                             language_slug).select_related(),
                                    extra_context={ 'object': language},
                                    template_name='cab/bookmarks_by_language.html',
                                    **base_generic_dict)
@@ -140,7 +140,7 @@ def bookmarks_by_tag(request, tag_slug):
     tag = get_object_or_404(Tag, slug__exact=tag_slug)
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.get_by_tag(request.user.username,
-                                                                   tag_slug),
+                                                                   tag_slug).select_related(),
                                    extra_context={ 'object': tag },
                                    template_name='cab/bookmarks_by_tag.html',
                                    **base_generic_dict)
@@ -159,7 +159,7 @@ def bookmark_language_list(request):
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('language',
-                                                                           request.user.username),
+                                                                           request.user.username).select_related(),
                                    template_name='cab/bookmarks_language_list.html',
                                    **base_generic_dict)
 bookmark_language_list = login_required(bookmark_language_list)
@@ -177,7 +177,7 @@ def bookmark_tag_list(request):
     """
     return list_detail.object_list(request,
                                    queryset=Bookmark.objects.distinct_list('tag',
-                                                                           request.user.username),
+                                                                           request.user.username).select_related(),
                                    template_name='cab/bookmarks_tag_list.html',
                                    **base_generic_dict)
 bookmark_tag_list = login_required(bookmark_tag_list)    

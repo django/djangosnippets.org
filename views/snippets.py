@@ -139,7 +139,7 @@ def snippets_by_author(request, username):
     """
     user = get_object_or_404(User, username__exact=username)
     return list_detail.object_list(request,
-                                   queryset=Snippet.objects.get_by_author(user.username),
+                                   queryset=Snippet.objects.get_by_author(user.username).select_related(),
                                    extra_context={ 'object': user },
                                    template_name='cab/user_detail.html',
                                    **base_generic_dict)
@@ -161,7 +161,7 @@ def snippets_by_language(request, slug):
     """
     language = get_object_or_404(Language, slug__exact=slug)
     return list_detail.object_list(request,
-                                   queryset=Snippet.objects.get_by_language(slug),
+                                   queryset=Snippet.objects.get_by_language(slug).select_related(),
                                    extra_context={ 'object': language },
                                    template_name='cab/language_detail.html',
                                    **base_generic_dict)
@@ -183,7 +183,7 @@ def snippets_by_tag(request, slug):
     """
     tag = get_object_or_404(Tag, slug__exact=slug)
     return list_detail.object_list(request,
-                                   queryset=Snippet.objects.get_by_tag(slug),
+                                   queryset=Snippet.objects.get_by_tag(slug).select_related(),
                                    extra_context={ 'object': tag },
                                    template_name='cab/tag_detail.html',
                                    **base_generic_dict)
