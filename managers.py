@@ -267,7 +267,7 @@ class SnippetsManager(models.Manager):
         params = object_mapping[item_type]
         query = """SELECT p.id AS object_id, COUNT(*) AS score
         FROM %s p INNER JOIN %s s
-        WHERE p.id = s.%s
+        ON p.id = s.%s
         GROUP BY object_id
         ORDER BY score DESC""" % (params['primary_table'], params['secondary_table'], item_type + '_id')
         
