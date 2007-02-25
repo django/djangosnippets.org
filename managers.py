@@ -179,8 +179,6 @@ class RatingsManager(models.Manager):
         cursor = connection.cursor()
         cursor.execute(query, [snippet_id])
         result = cursor.fetchall()[0]
-        if result[0] is None:
-            result[0] = 0
         return { 'score': result[0], 'num_ratings': result[1] }
     
     def top_rated(self, num=5):
