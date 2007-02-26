@@ -93,7 +93,8 @@ def edit_snippet(request, snippet_id):
             snippet.save()
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
-        form = SnippetForm(initial=snippet.__dict__)
+        form = SnippetForm(initial=dict(snippet.__dict__,
+                                        language=snippet.language))
     return render_to_response('cab/edit_snippet_form.html',
                               { 'form': form,
                                 'original': snippet },
