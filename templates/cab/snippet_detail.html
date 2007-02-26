@@ -58,7 +58,7 @@
 <dl>
 {% for comment in comment_list %}
 <dt><a href="/users/{{ comment.user.username }}">{{ comment.user.username }}</a> (on {{ comment.submit_date|date:"F j, Y" }}):</dt>
-<dd>{{ comment.comment|markdown }}</dd>
+<dd>{{ comment.comment|escape|markdown }}</dd>
 {% endfor %}
 </dl>
 {% comment_form for cab.snippet object.id %}
