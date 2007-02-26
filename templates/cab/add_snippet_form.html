@@ -18,7 +18,8 @@
 <dt><label for="id_tag_list">Tags: {% if form.tag_list.errors %}<span class="error">{{ form.tag_list.errors|join:", " }}</span>{% endif %} </label></dt>
 <dd>{{ form.tag_list }} Use spaces between tag names, and hyphens for multiple words, like "tag1 tag2 tag3-with-long-name"</dd>
 <dt><label for="id_code">Code: {% if form.code.errors %}<span class="error">{{ form.code.errors|join:", " }}</span>{% endif %}</label></dt>
-<dd>{{ form.code }}</dd>
+<dd>{{ form.code }}<br />
+You can use Markdown syntax here (see the sidebar), but raw HTML will be removed.</dd>
 <dt><label for="id_description">Description: {% if form.description.errors %}<span class="error">{{ form.description.errors|join:", " }}</span>{% endif %}</label></dt>
 <dd>{{ form.description }}</dd>
 <dt><input type="submit" value="Save" /></dt>
