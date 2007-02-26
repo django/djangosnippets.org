@@ -89,7 +89,6 @@ def edit_snippet(request, snippet_id):
         if form.is_valid():
             for field in ['title', 'description', 'code', 'tag_list']:
                 setattr(snippet, field, form.clean_data[field])
-            snippet.language_id = form.clean_data['language_id']
             snippet.save()
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
