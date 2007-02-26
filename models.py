@@ -161,7 +161,7 @@ class Snippet(models.Model):
         
         # Now that the Snippet is saved, deal with the tags.
         current_tags = list(self.tags.all()) # We only want to query this once.
-        new_tag_list = re.split('[\s,]+' self.tag_list) # Because people will stick commas in there.
+        new_tag_list = re.split('[\s,]+', self.tag_list) # Because people will stick commas in there.
         
         # First, clear out tags that aren't on the Snippet anymore.
         for tag in current_tags:
