@@ -18,7 +18,7 @@ class AddSnippetForm(forms.Form):
     """
     def __init__(self, *args, **kwargs):
         super(AddSnippetForm, self).__init__(*args, **kwargs)
-        self.fields['language'].choices = [(lang.id, lang.name) for lang in Language.objects.all()]
+        self.fields['language'].choices = [(None, '----------')] + [(lang.id, lang.name) for lang in Language.objects.all()]
     
     title = forms.CharField(max_length=250, widget=forms.TextInput(attrs=attrs_dict))
     description = forms.CharField(widget=forms.Textarea(attrs=attrs_dict))
