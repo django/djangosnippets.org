@@ -7,7 +7,7 @@ convenient shortcuts for repetitive or common bits of logic; see
 
 """
 
-import datetime
+import datetime, re
 from django.db import connection, models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -161,7 +161,7 @@ class Snippet(models.Model):
         
         # Now that the Snippet is saved, deal with the tags.
         current_tags = list(self.tags.all()) # We only want to query this once.
-        new_tag_list = self.tag_list.split()
+        new_tag_list = re.split('[\s,]+' self.tag_list) # Because people will stick commas in there.
         
         # First, clear out tags that aren't on the Snippet anymore.
         for tag in current_tags:
