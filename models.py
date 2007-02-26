@@ -134,7 +134,7 @@ class Snippet(models.Model):
     tag_list = models.CharField(maxlength=250,
                                 help_text="Separate tags with spaces. Maximum 250 characters.")
     tags = models.ManyToManyField(Tag, editable=False)
-    original = models.ForeignKey('self', null=True, blank=True, editable=False,
+    original = models.ForeignKey('self', null=True, blank=True,
                                  help_text="Optional. Fill this in if this Snippet is based on another.")
     
     objects = managers.SnippetsManager()
