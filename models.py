@@ -130,7 +130,7 @@ class Snippet(models.Model):
     pub_date = models.DateTimeField(editable=False)
     updated_date = models.DateTimeField(editable=False)
     
-    author = models.ForeignKey(User, editable=False)
+    author = models.ForeignKey(User)
     tag_list = models.CharField(maxlength=250,
                                 help_text="Separate tags with spaces. Maximum 250 characters.")
     tags = models.ManyToManyField(Tag, editable=False)
