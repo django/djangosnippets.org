@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.views.generic import list_detail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from cab.forms import SnippetForm
+from cab import forms
 from cab.models import Language, Rating, Snippet, Tag
 from bookmarks import base_generic_dict
 
@@ -29,7 +29,7 @@ def add_snippet(request):
     original_id = request.GET.get('oid', None)
     
     if request.method == 'POST':
-        form = SnippetForm(request.POST)
+        form = forms.AddSnippetForm(request.POST)
         if form.is_valid():
             new_snippet = Snippet(title=form.clean_data['title'],
                                   description=form.clean_data['description'],
@@ -42,7 +42,7 @@ def add_snippet(request):
             new_snippet.save()
             return HttpResponseRedirect(new_snippet.get_absolute_url())
     else:
-        form = SnippetForm()
+        form = forms.AddSnippetForm()
     return render_to_response('cab/add_snippet_form.html',
                               { 'form': form },
                               context_instance=RequestContext(request))
@@ -85,7 +85,7 @@ def edit_snippet(request, snippet_id):
                                 pk=snippet_id,
                                 author__pk=request.user.id)
     if request.method == 'POST':
-        form = SnippetForm(request.POST)
+        form = forms.EditSnippetForm(request.POST)
         if form.is_valid():
             for field in ['title', 'description', 'code', 'tag_list']:
                 setattr(snippet, field, form.clean_data[field])
@@ -93,7 +93,7 @@ def edit_snippet(request, snippet_id):
             snippet.save()
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
-        form = SnippetForm(initial=snippet.__dict__)
+        form = forms.EditSnippetForm(initial=snippet.__dict__)
     return render_to_response('cab/edit_snippet_form.html',
                               { 'form': form,
                                 'original': snippet },
