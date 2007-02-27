@@ -10,8 +10,18 @@ root URLConf to include this URLConf for any URL beginning with
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.models import User
+from django.contrib.syndication.views import feed
+import feeds
 from models import Language, Snippet, Tag
 from views import bookmarks, popular, snippets
+
+# Info for feeds.
+feed_dict = {
+    'author': feeds.SnippetsByAuthorFeed,
+    'language': feeds.SnippetsByLanguageFeed,
+    'latest': feeds.LatestSnippetsFeed,
+    'tag': feeds.SnippetsByTagFeed,
+    }
 
 # Info for generic views.
 base_generic_dict = {
@@ -65,6 +75,7 @@ urlpatterns += patterns('',
 # Generic views.
 urlpatterns += patterns('',
                         (r'^$', object_list, snippet_info_dict),
+                        (r'^feeds/(?P<url>.*)/$', feed, feed_dict),
                         (r'^languages/$', object_list, language_info_dict),
                         (r'^tags/$', object_list, tag_info_dict),
                         (r'^users/$', object_list, user_info_dict),

@@ -4,12 +4,22 @@ from django.contrib.auth.models import User
 from django.contrib.syndication.feeds import Feed
 from models import Language, Snippet, Tag
 
-class LatestSnippetsFeed(Feed):
+class BaseSnippetsFeed(Feed):
+    """
+    Base feed class setting some common things which all the snippets
+    feeds will want to inherit.
+    
+    """
+    feed_type = Atom1Feed
+    title_template = 'cab/feeds/title.html'
+    description_template = 'cab/feeds/description.html'
+
+    
+class LatestSnippetsFeed(BaseSnippetsFeed):
     """
     Feed of the most recently published Snippets.
     
     """
-    feed_type = Atom1Feed
     title = "Django snippets: All snippets"
     link = "/snippets/"
     description = "Latest snippets"
@@ -22,13 +32,11 @@ class LatestSnippetsFeed(Feed):
         return Snippet.objects.all()[:15]
 
 
-class SnippetsByAuthorFeed(Feed):
+class SnippetsByAuthorFeed(BaseSnippetsFeed):
     """
     Feed of the most recent Snippets by a given author.
     
     """
-    feed_type = Atom1Feed
-    
     def author_name(self, obj):
         return obj.username
     
@@ -50,13 +58,11 @@ class SnippetsByAuthorFeed(Feed):
         return "Latest snippets posted by %s" % obj.username
 
 
-class SnippetsByLanguageFeed(Feed):
+class SnippetsByLanguageFeed(BaseSnippetsFeed):
     """
     Feed of the most recent Snippets in a given language.
     
     """
-    feed_type = Atom1Feed
-    
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
@@ -75,13 +81,11 @@ class SnippetsByLanguageFeed(Feed):
         return "Latest snippets written in %s" % obj.name
 
 
-class SnippetsByTagFeed(Feed):
+class SnippetsByTagFeed(BaseSnippetsFeed):
     """
     Feed of the most recent Snippets with a given tag.
     
     """
-    feed_type = Atom1Feed
-    
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
