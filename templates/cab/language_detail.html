@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block feeds %}<link rel="alternate" href="/feeds/language/{{ object.slug }}/" type="application/atom+xml" title="Feed of snippets written in {{ object.name }}" />{% endblock %}
 {% block title %}All snippets written in {{ object.name }}{% endblock %}
 
 {% block content_header %}All snippets written in {{ object.name }}{% endblock %}
