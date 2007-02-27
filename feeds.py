@@ -49,7 +49,7 @@ class SnippetsByAuthorFeed(BaseSnippetsFeed):
         return item.author.username
     
     def items(self, obj):
-        return Snippet.objects.by_author(obj.username)[:15]
+        return Snippet.objects.get_by_author(obj.username)[:15]
     
     def link(self, obj):
         return "/users/%s/" % obj.username
@@ -72,7 +72,7 @@ class SnippetsByLanguageFeed(BaseSnippetsFeed):
         return item.author.username
     
     def items(self, obj):
-        return Snippet.objects.by_language(obj.slug)[:15]
+        return Snippet.objects.get_by_language(obj.slug)[:15]
     
     def link(self, obj):
         return obj.get_absolute_url()
@@ -95,7 +95,7 @@ class SnippetsByTagFeed(BaseSnippetsFeed):
         return item.author.username
     
     def items(self, obj):
-        return Snippet.objects.by_tag(obj.slug)[:15]
+        return Snippet.objects.get_by_tag(obj.slug)[:15]
     
     def link(self, obj):
         return obj.get_absolute_url()
