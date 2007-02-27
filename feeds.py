@@ -19,7 +19,7 @@ class BaseSnippetsFeed(Feed):
     item_copyright = 'Freely redistributable'
 
 
-class ByRelatedItemFeed(BaseFeed):
+class ByRelatedItemFeed(BaseSnippetsFeed):
     """
     Base class for feeds which filter by related items.
     
