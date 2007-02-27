@@ -7,38 +7,15 @@ from models import Language, Snippet, Tag
 
 current_site = Site.objects.get_current().name
 
-class BaseSnippetsFeed(Feed):
+class LatestSnippetsFeed(Feed):
     """
-    Base feed class setting some common things which all the snippets
-    feeds will want to inherit.
+    Feed of the most recently published Snippets.
     
     """
     feed_type = Atom1Feed
     title_template = 'cab/feeds/title.html'
     description_template = 'cab/feeds/description.html'
     item_copyright = 'Freely redistributable'
-
-
-class ByRelatedItemFeed(BaseSnippetsFeed):
-    """
-    Base class for feeds which filter by related items.
-    
-    """
-    def item_author_name(self, item):
-        return item.author.username
-    
-    def item_link(self, item):
-        return item.get_absolute_url()
-    
-    def item_pubdate(self, item):
-        return item.pub_date
-
-    
-class LatestSnippetsFeed(BaseSnippetsFeed):
-    """
-    Feed of the most recently published Snippets.
-    
-    """
     title = "%s: Latest snippets" % current_site
     link = "/snippets/"
     description = "Latest snippets"
@@ -49,13 +26,27 @@ class LatestSnippetsFeed(BaseSnippetsFeed):
     
     def items(self):
         return Snippet.objects.all()[:15]
+    
+    def item_author_name(self, item):
+        return item.author.username
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+    def item_pubdate(self, item):
+        return item.pub_date
 
 
-class SnippetsByAuthorFeed(ByRelatedItemFeed):
+class SnippetsByAuthorFeed(Feed):
     """
     Feed of the most recent Snippets by a given author.
     
     """
+    feed_type = Atom1Feed
+    title_template = 'cab/feeds/title.html'
+    description_template = 'cab/feeds/description.html'
+    item_copyright = 'Freely redistributable'
+
     def author_name(self, obj):
         return obj.username
     
@@ -72,13 +63,27 @@ class SnippetsByAuthorFeed(ByRelatedItemFeed):
 
     def title(self, obj):
         return "%s: Latest snippets posted by %s" % (current_site, obj.username)
+    
+    def item_author_name(self, item):
+        return item.author.username
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+    def item_pubdate(self, item):
+        return item.pub_date
 
 
-class SnippetsByLanguageFeed(ByRelatedItemFeed):
+class SnippetsByLanguageFeed(Feed):
     """
     Feed of the most recent Snippets in a given language.
     
     """
+    feed_type = Atom1Feed
+    title_template = 'cab/feeds/title.html'
+    description_template = 'cab/feeds/description.html'
+    item_copyright = 'Freely redistributable'
+
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
@@ -92,13 +97,27 @@ class SnippetsByLanguageFeed(ByRelatedItemFeed):
     
     def title(self, obj):
         return "%s: Latest snippets written in %s" % (current_site, obj.name)
+    
+    def item_author_name(self, item):
+        return item.author.username
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+    def item_pubdate(self, item):
+        return item.pub_date
 
 
-class SnippetsByTagFeed(ByRelatedItemFeed):
+class SnippetsByTagFeed(Feed):
     """
     Feed of the most recent Snippets with a given tag.
     
     """
+    feed_type = Atom1Feed
+    title_template = 'cab/feeds/title.html'
+    description_template = 'cab/feeds/description.html'
+    item_copyright = 'Freely redistributable'
+
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
@@ -112,3 +131,12 @@ class SnippetsByTagFeed(ByRelatedItemFeed):
     
     def title(self, obj):
         return "%s: Latest snippets tagged with '%s'" % (current_site, obj.name)
+    
+    def item_author_name(self, item):
+        return item.author.username
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+    def item_pubdate(self, item):
+        return item.pub_date
