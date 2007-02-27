@@ -1,8 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.feedgenerator import Atom1Feed
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.contrib.syndication.feeds import Feed
 from models import Language, Snippet, Tag
+
+current_site = Site.objects.get_current().name
 
 class BaseSnippetsFeed(Feed):
     """
@@ -20,7 +23,7 @@ class LatestSnippetsFeed(BaseSnippetsFeed):
     Feed of the most recently published Snippets.
     
     """
-    title = "Django snippets: All snippets"
+    title = "%s: Latest snippets" % current_site
     link = "/snippets/"
     description = "Latest snippets"
     author = "Snippets submitters"
@@ -55,7 +58,7 @@ class SnippetsByAuthorFeed(BaseSnippetsFeed):
         return "/users/%s/" % obj.username
     
     def title(self, obj):
-        return "Latest snippets posted by %s" % obj.username
+        return "%s: Latest snippets posted by %s" % (current_site, obj.username)
 
 
 class SnippetsByLanguageFeed(BaseSnippetsFeed):
@@ -78,7 +81,7 @@ class SnippetsByLanguageFeed(BaseSnippetsFeed):
         return obj.get_absolute_url()
     
     def title(self, obj):
-        return "Latest snippets written in %s" % obj.name
+        return "%s: Latest snippets written in %s" % (current_site, obj.name)
 
 
 class SnippetsByTagFeed(BaseSnippetsFeed):
@@ -101,4 +104,4 @@ class SnippetsByTagFeed(BaseSnippetsFeed):
         return obj.get_absolute_url()
     
     def title(self, obj):
-        return "Latest snippets tagged with '%s'" % obj.name
+        return "%s: Latest snippets tagged with '%s'" % (current_site, obj.name)
