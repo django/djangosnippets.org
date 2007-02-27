@@ -16,6 +16,22 @@ class BaseSnippetsFeed(Feed):
     feed_type = Atom1Feed
     title_template = 'cab/feeds/title.html'
     description_template = 'cab/feeds/description.html'
+    item_copyright = 'Freely redistributable'
+
+
+class ByRelatedItemFeed(BaseFeed):
+    """
+    Base class for feeds which filter by related items.
+    
+    """
+    def item_author_name(self, item):
+        return item.author.username
+    
+    def item_link(self, item):
+        return item.get_absolute_url()
+    
+    def item_pubdate(self, item):
+        return item.pub_date
 
     
 class LatestSnippetsFeed(BaseSnippetsFeed):
@@ -35,7 +51,7 @@ class LatestSnippetsFeed(BaseSnippetsFeed):
         return Snippet.objects.all()[:15]
 
 
-class SnippetsByAuthorFeed(BaseSnippetsFeed):
+class SnippetsByAuthorFeed(ByRelatedItemFeed):
     """
     Feed of the most recent Snippets by a given author.
     
@@ -48,20 +64,17 @@ class SnippetsByAuthorFeed(BaseSnippetsFeed):
             raise ObjectDoesNotExist
         return User.objects.get(username__exact=bits[0])
     
-    def item_author(self, item):
-        return item.author.username
-    
     def items(self, obj):
         return Snippet.objects.get_by_author(obj.username)[:15]
     
     def link(self, obj):
         return "/users/%s/" % obj.username
-    
+
     def title(self, obj):
         return "%s: Latest snippets posted by %s" % (current_site, obj.username)
 
 
-class SnippetsByLanguageFeed(BaseSnippetsFeed):
+class SnippetsByLanguageFeed(ByRelatedItemFeed):
     """
     Feed of the most recent Snippets in a given language.
     
@@ -70,9 +83,6 @@ class SnippetsByLanguageFeed(BaseSnippetsFeed):
         if len(bits) != 1:
             raise ObjectDoesNotExist
         return Language.objects.get(slug__exact=bits[0])
-    
-    def item_author(self, item):
-        return item.author.username
     
     def items(self, obj):
         return Snippet.objects.get_by_language(obj.slug)[:15]
@@ -84,7 +94,7 @@ class SnippetsByLanguageFeed(BaseSnippetsFeed):
         return "%s: Latest snippets written in %s" % (current_site, obj.name)
 
 
-class SnippetsByTagFeed(BaseSnippetsFeed):
+class SnippetsByTagFeed(ByRelatedItemFeed):
     """
     Feed of the most recent Snippets with a given tag.
     
@@ -93,9 +103,6 @@ class SnippetsByTagFeed(BaseSnippetsFeed):
         if len(bits) != 1:
             raise ObjectDoesNotExist
         return Tag.objects.get(slug__exact=bits[0])
-    
-    def item_author(self, item):
-        return item.author.username
     
     def items(self, obj):
         return Snippet.objects.get_by_tag(obj.slug)[:15]
