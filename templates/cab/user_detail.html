@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% block feeds %}<link rel="alternate" href="/feeds/author/{{ object.slug }}/" type="application/atom+xml" title="Feed of snippets by {{ object.username }}" />{% endblock %}
+{% block feeds %}<link rel="alternate" href="/feeds/author/{{ object.username }}/" type="application/atom+xml" title="Feed of snippets by {{ object.username }}" />{% endblock %}
 {% block title %}Snippets by {{ object.username }}{% endblock %}
 
 {% block content_header %}Snippets by {{ object.username }}{% endblock %}
