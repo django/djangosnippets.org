@@ -155,7 +155,7 @@ class Snippet(models.Model):
             self.pub_date = datetime.datetime.now()
         self.updated_date = datetime.datetime.now()
         # Use safe_mode in Markdown to prevent arbitrary tags.
-        self.description_html = markdown(self.description, safe_mode=True).replace('[HTML_REMOVED]', '')
+        self.description_html = markdown(self.description, safe_mode=True)
         self.highlighted_code = self.highlight()
         self.tag_list = self.tag_list.lower() # Normalize to lower-case
         super(Snippet, self).save()
