@@ -14,7 +14,10 @@ Cab has a couple of external dependencies:
 
     * `Pygments`_ for code highlighting.
 
-    * `python-markdown`_ for processing snippet descriptions.
+    * `python-markdown`_ for processing snippet descriptions. Other
+      Python ports of Markdown will not work, since the code which
+      calls Markdown assumes the existence of python-markdown's "safe
+      mode".
 
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
