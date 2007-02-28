@@ -62,7 +62,8 @@ you'll need to either create templates with the same names to extend,
 or edit the included templates to suit your site's layout.
 
 If you choose to simply create the appropriate base templates, you
-shouldn't need to do anything special to pick them up; Django's "app
-directories" template loader should notice them and use them.
+shouldn't need to do anything special to have Django pick up Cab's
+built-in tmeplates; Django's "app directories" template loader should
+notice them and use them.
 
 .. _djangosnippets.org: http://www.djangosnippets.org/
