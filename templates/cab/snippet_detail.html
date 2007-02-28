@@ -53,12 +53,12 @@
 <div id="comments">
 <h2>Comments</h2>
 {% load comments %}
-{% load markup %}
+{% load safe_markup %}
 {% get_comment_list for cab.snippet object.id as comment_list %}
 <dl>
 {% for comment in comment_list %}
 <dt><a href="/users/{{ comment.user.username }}/">{{ comment.user.username }}</a> (on {{ comment.submit_date|date:"F j, Y" }}):</dt>
-<dd>{{ comment.comment|escape|markdown }}</dd>
+<dd>{{ comment.comment|safe_markdown:"safe" }}</dd>
 {% endfor %}
 </dl>
 {% comment_form for cab.snippet object.id %}
