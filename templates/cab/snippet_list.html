@@ -11,7 +11,7 @@
 <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
 {% endfor %}
 </ul>
-<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
 {% else %}
 <p>No snippets posted yet.</p>
 {% endif %}
