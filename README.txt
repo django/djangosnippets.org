@@ -39,8 +39,14 @@ from somewhere on your Python path::
 
 Then add ``cab`` to the ``INSTALLED_APPS`` setting of your Django
 project, run ``manage.py syncdb``, and either put a call to
-``include('cab.urls')`` somewhere in your root URLConf or copy over
+``include('cab.urls')`` somewhere inn your root URLConf or copy over
 the URL patterns from Cab that you want to use.
+
+Note that the ``get_absolute_url`` methods of the ``Language`` and
+``Tag`` models assume that they will live under the URLs
+``/languages/`` and ``/tags/``, so if you want them to go elsewhere
+you'll need to edit those methods or ovveride them with Django's
+``ABSOLUTE_URL_OVERRIDES`` setting.
 
 .. _Pygments: http://pygments.org/
 .. _python-markdown: http://www.freewisdom.org/projects/python-markdown/
