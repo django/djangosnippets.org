@@ -21,7 +21,7 @@
 {% block sidebar %}
 <p>{% ifequal user.username object.username %}You've{% else %}{{ object.username }} has{% endifequal %} posted {{ hits }} snippet{{ object_list.count|pluralize }}.</p>
 
-<p><a rel="alternate" href="/feeds/author/{{ object.username }}/" type="application/atom+xml"><img src="http://media.djangosnippets.org/img/feed-icon-10x10.gif" alt="" /> Feed of snippets by {{ object.username }}</a></p>
+<p><a rel="alternate" href="/feeds/author/{{ object.username }}/" type="application/atom+xml"><img src="http://media.djangosnippets.org/img/feed-icon-10x10.png" alt="" /> Feed of snippets by {{ object.username }}</a></p>
 
 <p>The users who've submitted the most snippets are:</p>
 {% load popular %}
