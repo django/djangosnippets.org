@@ -50,7 +50,7 @@ urlpatterns = patterns('',
                        (r'^languages/(?P<slug>[\w-]+)', snippets.snippets_by_language),
                        (r'^rate/(?P<snippet_id>\d+)/$', snippets.rate_snippet),
                        (r'^tags/(?P<slug>[\w-]+)/$', snippets.snippets_by_tag),
-                       (r'^users/(?P<username>[-\w\._]+)/$', snippets.snippets_by_author),
+                       (r'^users/(?P<username>[^/]+)/$', snippets.snippets_by_author),
                        )
 
 # Views that work with bookmarks.
