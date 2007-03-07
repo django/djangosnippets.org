@@ -21,7 +21,7 @@ def most_bookmarked(request):
     
     """
     return render_to_response('cab/most_bookmarked.html',
-                              { 'object_list': Bookmark.objects.most_bookmarked(10) },
+                              { 'object_list': Bookmark.objects.most_bookmarked(20) },
                               context_instance=RequestContext(request))
 
 def top_authors(request):
@@ -37,7 +37,7 @@ def top_authors(request):
     
     """
     return render_to_response('cab/top_authors.html',
-                              { 'object_list': Snippet.objects.top_items('author', 10) },
+                              { 'object_list': Snippet.objects.top_items('author', 20) },
                               context_instance=RequestContext(request))
 
 def top_languages(request):
@@ -53,7 +53,7 @@ def top_languages(request):
     
     """
     return render_to_response('cab/top_languages.html',
-                              { 'object_list': Snippet.objects.top_items('language', 10) },
+                              { 'object_list': Snippet.objects.top_items('language', 20) },
                               context_instance=RequestContext(request))
 
 def top_rated(request):
@@ -69,7 +69,7 @@ def top_rated(request):
     
     """
     return render_to_response('cab/top_rated.html',
-                              { 'object_list': Rating.objects.top_rated(10) },
+                              { 'object_list': Rating.objects.top_rated(20) },
                               context_instance=RequestContext(request))
 
 def top_tags(request):
@@ -85,5 +85,5 @@ def top_tags(request):
     
     """
     return render_to_response('cab/top_tags.html',
-                              { 'object_list': Snippet.objects.top_items('tag', 10) },
+                              { 'object_list': Snippet.objects.top_items('tag', 20) },
                               context_instance=RequestContext(request))

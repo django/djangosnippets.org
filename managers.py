@@ -129,7 +129,7 @@ class BookmarksManager(models.Manager):
         from django.db import connection
         cursor = connection.cursor()
         cursor.execute(query, [])
-        snippet_ids = [row[0] for row in cursor.fetchall()]
+        snippet_ids = [row[0] for row in cursor.fetchall()][:num]
         snippet_dict = Snippet.objects.in_bulk(snippet_ids)
         return [snippet_dict[snippet_id] for snippet_id in snippet_ids]
 
