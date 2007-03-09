@@ -44,6 +44,15 @@ class IfRatedNode(template.Node):
         return self.nodelist_false.render(context)
 
 
+class LatestSnippetsnode(template.Node):
+    def __init__(self, num, varname):
+        self.num, self.varname = num, varname
+    
+    def render(self, context):
+        context[self.varname] = Snippet.objects.all().select_related()[:self.num]
+        return ''
+
+
 class RatingForSnippetNode(template.Node):
     def __init__(self, snippet_id, context_var):
         self.snippet_id = snippet_id
@@ -126,6 +135,19 @@ def do_if_rated(parser, token):
         nodelist_false = template.NodeList()
     return IfRatedNode(bits[1], bits[2], nodelist_true, nodelist_false)
 
+def do_latest_snippets(parser, token):
+    """
+    Returns the latest ``num`` Snippets.
+    
+    Example::
+        {% get_latest_snippets 5 as latest_snippets %}
+    
+    """
+    bits = token.contents.split()
+    if len(bits) != 4:
+        raise template.TemplateSyntaxError("'%s' tag takes exactly three arguments" % bits[0])
+    return LatestSnippetsNode(bits[1], bits[3])
+    
 def do_rating_for_snippet(parser, token):
     """
     Retrieves a list containing the total score for a Snippet and the
@@ -158,7 +180,8 @@ def do_rating_by_user(parser, token):
         raise template.TemplateSyntaxError("third argument to '%s' tag must be 'as'" % bits[0])
     return RatingByUserNode(bits[1], bits[2], bits[4])
 
+register.tag('get_latest_snippets', do_latest_snippets)
 register.tag('get_rating_for_snippet', do_rating_for_snippet)
+register.tag('get_rating_by_user', do_rating_by_user)
 register.tag('if_bookmarked', do_if_bookmarked)
 register.tag('if_rated', do_if_rated)
-register.tag('get_rating_by_user', do_rating_by_user)
