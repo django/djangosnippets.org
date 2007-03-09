@@ -94,7 +94,7 @@ class Tag(models.Model):
         super(Tag, self).save()
     
     def get_absolute_url(self):
-        return ('cab.views.snippets.snippets_by_tag', () { 'slug': self.slug })
+        return ('cab.views.snippets.snippets_by_tag', (), { 'slug': self.slug })
     get_absolute_url = models.permalink(get_absolute_url)
     
     def __str__(self):
