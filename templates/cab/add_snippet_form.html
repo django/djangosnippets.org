@@ -21,7 +21,7 @@
 <dd>{{ form.code }}</dd>
 <dt><label for="id_description">Description: {% if form.description.errors %}<span class="error">{{ form.description.errors|join:", " }}</span>{% endif %}</label></dt>
 <dd>{{ form.description }}<br />
-You can use Markdown syntax here (see the sidebar), but raw HTML will be removed.</dd>
+You can use Markdown syntax here (see the sidebar), but <strong>raw HTML will be removed</strong>.</dd>
 <dt><input type="submit" value="Save" /></dt>
 </dl>
 </form>
@@ -59,4 +59,6 @@ You can use Markdown syntax here (see the sidebar), but raw HTML will be removed
 <dt></dt>
 <dd></dd>
 </dl>
+
+<p><strong>Raw HTML will be removed.</strong></p>
 {% endblock %}
