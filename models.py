@@ -60,7 +60,7 @@ class Language(models.Model):
         super(Language, self).save()
     
     def get_absolute_url(self):
-        return ('cab.views.snippets.snippets_by_language', (self.slug,))
+        return ('cab.views.snippets.snippets_by_language', (), { 'slug': self.slug })
     get_absolute_url = models.permalink(get_absolute_url)
     
     def __str__(self):
@@ -94,7 +94,7 @@ class Tag(models.Model):
         super(Tag, self).save()
     
     def get_absolute_url(self):
-        return ('cab.views.snippets.snippets_by_tag', (self.slug,))
+        return ('cab.views.snippets.snippets_by_tag', () { 'slug': self.slug })
     get_absolute_url = models.permalink(get_absolute_url)
     
     def __str__(self):
@@ -184,7 +184,7 @@ class Snippet(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return ('cab.views.snippets.snippet_detail', (self.id,))
+        return ('cab.views.snippets.snippet_detail', (), { 'snippet_id': str(self.id) })
     get_absolute_url = models.permalink(get_absolute_url)
     
     def highlight(self):
