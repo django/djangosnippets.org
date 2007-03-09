@@ -5,7 +5,7 @@ whether a user has bookmarked/rated a given Snippet, etc.
 """
 
 from django import template
-from cab.models import Bookmark, Rating
+from cab.models import Bookmark, Rating, Snippet
 
 register = template.Library()
 
