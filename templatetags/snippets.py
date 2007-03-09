@@ -44,7 +44,7 @@ class IfRatedNode(template.Node):
         return self.nodelist_false.render(context)
 
 
-class LatestSnippetsnode(template.Node):
+class LatestSnippetsNode(template.Node):
     def __init__(self, num, varname):
         self.num, self.varname = num, varname
     
