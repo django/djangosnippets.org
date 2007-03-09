@@ -8,7 +8,7 @@
 <h3>Latest snippets posted:</h3>
 <ul>
 {% for snippet in latest %}
-<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }} {{ snippet.pub_date|timesince }} ago<</a></li>
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago<</li>
 {% endfor %}
 </ul>
 
