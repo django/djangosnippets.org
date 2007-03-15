@@ -12,7 +12,7 @@ register = template.Library()
 class MostBookmarkedNode(template.Node):
     def __init__(self, num, context_var):
         self.context_var = context_var
-        self.num = num
+        self.num = int(num)
     
     def render(self, context):
         context[self.context_var] = Bookmark.objects.most_bookmarked(self.num)
@@ -31,7 +31,7 @@ class TopItemsNode(template.Node):
 
 class TopRatedNode(template.Node):
     def __init__(self, num, context_var):
-        self.num = num
+        self.num = int(num)
         self.context_var = context_var
     
     def render(self, context):
