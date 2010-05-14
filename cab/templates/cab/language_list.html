@@ -1,29 +1,17 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% block title %}All languages{% endblock %}
 
 {% block content_header %}All languages{% endblock %}
 
-{% block main_content %}
-<ul>
-{% for language in object_list %}
-<li><a href="{{ language.get_absolute_url }}">{{ language.name }}</a></li>
-{% endfor %}
-</ul>
+{% block content %}
+  <ul>
+  {% for language in object_list %}
+    <li><a href="{{ language.get_absolute_url }}">{{ language.name }}</a></li>
+  {% endfor %}
+  </ul>
 
-<p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
+  <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
 
-{% endblock %}
-
-{% block sidebar %}
-<p>This site is currently accepting snippets in {{ hits }} language{{ hits|pluralize }}. The most popular ones, in order, are:</p>
-
-{% load popular %}
-{% get_top_languages 5 as top_languages %}
-
-<ol>
-{% for language in top_languages %}
-<li><a href="{{ language.get_absolute_url }}">{{ language.name }}</a></li>
-{% endfor %}
-</ol>
 {% endblock %}

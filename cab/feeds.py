@@ -1,22 +1,22 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.utils.feedgenerator import Atom1Feed
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.syndication.feeds import Feed
-from models import Language, Snippet, Tag
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.utils.feedgenerator import Atom1Feed
 
-current_site = Site.objects.get_current().name
+from cab.models import Language, Snippet
+from taggit.models import Tag
 
 class LatestSnippetsFeed(Feed):
     """
     Feed of the most recently published Snippets.
-    
     """
     feed_type = Atom1Feed
     title_template = 'cab/feeds/title.html'
     description_template = 'cab/feeds/description.html'
     item_copyright = 'Freely redistributable'
-    title = "%s: Latest snippets" % current_site
+    title = "djangosnippets.org: Latest snippets"
     link = "/snippets/"
     description = "Latest snippets"
     author = "Snippets submitters"
@@ -40,7 +40,6 @@ class LatestSnippetsFeed(Feed):
 class SnippetsByAuthorFeed(Feed):
     """
     Feed of the most recent Snippets by a given author.
-    
     """
     feed_type = Atom1Feed
     title_template = 'cab/feeds/title.html'
@@ -56,13 +55,13 @@ class SnippetsByAuthorFeed(Feed):
         return User.objects.get(username__exact=bits[0])
     
     def items(self, obj):
-        return Snippet.objects.get_by_author(obj.username)[:15]
+        return Snippet.objects.filter(author=obj)[:15]
     
     def link(self, obj):
         return "/users/%s/" % obj.username
 
     def title(self, obj):
-        return "%s: Latest snippets posted by %s" % (current_site, obj.username)
+        return "djangosnippets.org: Latest snippets posted by %s" % (obj.username)
     
     def item_author_name(self, item):
         return item.author.username
@@ -77,7 +76,6 @@ class SnippetsByAuthorFeed(Feed):
 class SnippetsByLanguageFeed(Feed):
     """
     Feed of the most recent Snippets in a given language.
-    
     """
     feed_type = Atom1Feed
     title_template = 'cab/feeds/title.html'
@@ -90,13 +88,13 @@ class SnippetsByLanguageFeed(Feed):
         return Language.objects.get(slug__exact=bits[0])
     
     def items(self, obj):
-        return Snippet.objects.get_by_language(obj.slug)[:15]
+        return Snippet.objects.filter(language=obj)[:15]
     
     def link(self, obj):
         return obj.get_absolute_url()
     
     def title(self, obj):
-        return "%s: Latest snippets written in %s" % (current_site, obj.name)
+        return "djangosnippets.org: Latest snippets written in %s" % (obj.name)
     
     def item_author_name(self, item):
         return item.author.username
@@ -124,13 +122,13 @@ class SnippetsByTagFeed(Feed):
         return Tag.objects.get(slug__exact=bits[0])
     
     def items(self, obj):
-        return Snippet.objects.get_by_tag(obj.slug)[:15]
+        return Snippet.objects.matches_tag(obj.slug)[:15]
     
     def link(self, obj):
-        return obj.get_absolute_url()
+        return reverse('cab_snippet_matches_tag', args=[obj.slug])
     
     def title(self, obj):
-        return "%s: Latest snippets tagged with '%s'" % (current_site, obj.name)
+        return "djangosnippets.org: Latest snippets tagged with '%s'" % (obj.name)
     
     def item_author_name(self, item):
         return item.author.username

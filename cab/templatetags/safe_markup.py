@@ -1,14 +1,9 @@
-"""
-Implementation of a Markdown filter which supports safe mode and
-extensions.
-
-"""
-
 from django import template
 from django.conf import settings
 
 register = template.Library()
 
+@register.filter
 def safe_markdown(value, arg=''):
     """
     Runs Markdown over a given value, optionally using various
@@ -44,5 +39,3 @@ def safe_markdown(value, arg=''):
         else:
             safe_mode = False
         return markdown.markdown(value, extensions, safe_mode=safe_mode)
-
-register.filter('safe_markdown', safe_markdown)

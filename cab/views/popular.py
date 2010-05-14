@@ -1,89 +1,43 @@
-"""
-Views which deal with popular items -- most-bookmarked, highest-rated
-and most-used.
-
-"""
-
+from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
-from django.template import RequestContext
-from cab.models import Bookmark, Rating, Snippet
+from django.template.context import RequestContext
+from django.views.generic.list_detail import object_list
 
-def most_bookmarked(request):
-    """
-    Shows a list of the most-bookmarked Snippets.
-    
-    Context::
-        object_list
-            The list of Snippets
-    
-    Template::
-        cab/most_bookmarked.html
-    
-    """
-    return render_to_response('cab/most_bookmarked.html',
-                              { 'object_list': Bookmark.objects.most_bookmarked(20) },
-                              context_instance=RequestContext(request))
+from taggit.models import Tag
+
+from cab.models import Snippet, Language, Bookmark
 
 def top_authors(request):
-    """
-    Shows a list of the authors who have submitted the most Snippets.
-    
-    Context::
-        object_list
-            The list of authors
-    
-    Template::
-        cab/top_authors.html
-    
-    """
-    return render_to_response('cab/top_authors.html',
-                              { 'object_list': Snippet.objects.top_items('author', 20) },
-                              context_instance=RequestContext(request))
+    return object_list(
+        request,
+        queryset=Snippet.objects.top_authors(),
+        template_name='cab/top_authors.html',
+        paginate_by=20)
 
 def top_languages(request):
-    """
-    Shows a list of the most-used Languages.
-    
-    Context::
-        object_list
-            The list of Languages
-    
-    Template::
-        cab/top_languages.html
-    
-    """
-    return render_to_response('cab/top_languages.html',
-                              { 'object_list': Snippet.objects.top_items('language', 20) },
-                              context_instance=RequestContext(request))
-
-def top_rated(request):
-    """
-    Shows a list of the top-rated Snippets.
-    
-    Context::
-        object_list
-            The list of Snippets
-    
-    Template::
-        cab/top_rated.html
-    
-    """
-    return render_to_response('cab/top_rated.html',
-                              { 'object_list': Rating.objects.top_rated(20) },
-                              context_instance=RequestContext(request))
+    return object_list(
+        request,
+        queryset=Language.objects.top_languages(),
+        template_name='cab/language_list.html',
+        paginate_by=20)
 
 def top_tags(request):
-    """
-    Shows a list of the most-used Tags.
-    
-    Context::
-        object_list
-            The list of Tags
-    
-    Template::
-        cab/top_tags.html
-    
-    """
-    return render_to_response('cab/top_tags.html',
-                              { 'object_list': Snippet.objects.top_items('tag', 20) },
-                              context_instance=RequestContext(request))
+    return object_list(
+        request,
+        queryset=Snippet.tags.most_common(),
+        template_name='cab/tag_list.html',
+        paginate_by=20)
+
+def top_bookmarked(request):
+    return object_list(
+        request,
+        queryset=Snippet.objects.most_bookmarked(),
+        template_name='cab/snippet_list.html',
+        paginate_by=20)
+
+def top_rated(request):
+    return object_list(
+        request,
+        queryset=Snippet.objects.top_rated(),
+        template_name='cab/snippet_list.html',
+        paginate_by=20)

@@ -2,11 +2,12 @@
 
 {% block title %}Top authors{% endblock %}
 
+{% block content_header %}Top authors{% endblock %}
+
 {% block content %}
-<h2>Top authors</h2>
-<ul>
-{% for author in object_list %}
-<li><a href="/users/{{ author.username }}/">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
-{% endfor %}
-</ul>
+  <ul>
+  {% for author in object_list %}
+    <li><a href="/users/{{ author.username }}/">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
+  {% endfor %}
+  </ul>
 {% endblock %}
