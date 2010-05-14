@@ -32,10 +32,10 @@ bundled with Django itself:
 It's also recommended that you have ``django.contrib.admin`` installed
 for ease of site maintenance.
 
-Once you've got those taken care of, do a Subversion checkout of Cab
+Once you've got those taken care of, grab a git checkout of Cab
 from somewhere on your Python path::
 
-    svn checkout http://cab.googlecode.com/svn/trunk/ cab
+    git clone git://github.com/coleifer/cab.git 
 
 Then add ``cab`` to the ``INSTALLED_APPS`` setting of your Django
 project, run ``manage.py syncdb``, and either put a call to
