@@ -6,6 +6,8 @@ Cab (named for the jazz bandleader and scat singer Cab Calloway) is a
 Django application which allows users to post and share useful
 "snippets" of code.
 
+This code is used to power the snippet sharing site, djangosnippets.org
+
 
 Installation notes
 ==================
@@ -35,7 +37,7 @@ for ease of site maintenance.
 Once you've got those taken care of, grab a git checkout of Cab
 from somewhere on your Python path::
 
-    git clone git://github.com/coleifer/cab.git 
+    git clone git://github.com/coleifer/djangosnippets.org.git 
 
 Then add ``cab`` to the ``INSTALLED_APPS`` setting of your Django
 project, run ``manage.py syncdb``, and either put a call to
@@ -55,7 +57,7 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 Templates
 =========
 
-The Subversion checkout will get you a set of example templates
+The git repo will get you a set of example templates
 matching those currently in use on `djangosnippets.org`_, but they
 assume the existence of base project-wide templates used by that site;
 you'll need to either create templates with the same names to extend,
@@ -66,4 +68,4 @@ shouldn't need to do anything special to have Django pick up Cab's
 built-in tmeplates; Django's "app directories" template loader should
 notice them and use them.
 
-.. _djangosnippets.org: http://www.djangosnippets.org/
+.. _djangosnippets.org: http://djangosnippets.org/
