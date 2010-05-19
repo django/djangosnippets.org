@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
@@ -80,3 +81,18 @@ def matches_tag(request, slug):
         queryset=snippet_qs,
         template_name='cab/tag_detail.html',
         extra_context={'tag': tag})
+
+def search(request):
+    query = request.GET.get('q')
+    snippet_qs = Snippet.objects.none()
+    if query:
+        snippet_qs = Snippet.objects.filter(
+            Q(description__icontains=query) | 
+            Q(tags__in=[query]) | 
+            Q(author__username__iexact=query)
+        ).order_by('-rating_score', '-pub_date')
+    return snippet_list(
+        request,
+        queryset=snippet_qs,
+        template_name='search/search.html',
+        extra_context={'query':query})
