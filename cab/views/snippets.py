@@ -87,7 +87,7 @@ def search(request):
     snippet_qs = Snippet.objects.none()
     if query:
         snippet_qs = Snippet.objects.filter(
-            Q(description__icontains=query) | 
+            Q(title__icontains=query) | 
             Q(tags__in=[query]) | 
             Q(author__username__iexact=query)
         ).distinct().order_by('-rating_score', '-pub_date')
