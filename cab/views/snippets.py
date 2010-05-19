@@ -90,7 +90,7 @@ def search(request):
             Q(description__icontains=query) | 
             Q(tags__in=[query]) | 
             Q(author__username__iexact=query)
-        ).order_by('-rating_score', '-pub_date')
+        ).distinct().order_by('-rating_score', '-pub_date')
     return snippet_list(
         request,
         queryset=snippet_qs,
