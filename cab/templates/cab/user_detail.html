@@ -4,7 +4,7 @@
 {% block feeds %}<link rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml" title="Feed of snippets by {{ author.username }}" />{% endblock %}
 {% block title %}Snippets by {{ author.username }}{% endblock %}
 
-{% block content_header %}Snippets by {{ user.username }}{% endblock %}
+{% block content_header %}Snippets by {{ author.username }}{% endblock %}
 
 {% block content %}
   {% if object_list %}
