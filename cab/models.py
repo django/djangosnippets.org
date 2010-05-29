@@ -6,6 +6,7 @@ from django.db.models import Count, Sum, permalink
 from pygments import formatters, highlight, lexers
 from markdown import markdown
 
+from ratings.models import Ratings
 from taggit.managers import TaggableManager
 
 
@@ -69,6 +70,7 @@ class Snippet(models.Model):
     bookmark_count = models.IntegerField(default=0) # denormalized count
     rating_score = models.IntegerField(default=0) # denormaliazed score
     
+    ratings = Ratings()
     tags = TaggableManager()
     
     objects = SnippetManager()
@@ -97,7 +99,7 @@ class Snippet(models.Model):
         return ", ".join([t.name for t in self.tags.all()])
     
     def update_rating(self):
-        self.rating_score = self.ratings.aggregate(score=Sum('score'))['score'] or 0
+        self.rating_score = self.ratings.cumulative_score()
         self.save()
     
     def update_bookmark_count(self):
@@ -124,16 +126,5 @@ class Bookmark(models.Model):
         super(Bookmark, self).delete(*args, **kwargs)
         self.snippet.update_bookmark_count()
 
-class Rating(models.Model):
-    snippet = models.ForeignKey(Snippet, related_name='ratings')
-    user = models.ForeignKey(User, related_name='cab_ratings')
-    date = models.DateTimeField(auto_now_add=True)
-    score = models.SmallIntegerField(default=0)
-    
-    def save(self, *args, **kwargs):
-        super(Rating, self).save(*args, **kwargs)
-        self.snippet.update_rating()
-    
-    def delete(self, *args, **kwargs):
-        super(Rating, self).delete(*args, **kwargs)
-        self.snippet.update_rating()
+from cab.listeners import start_listening
+start_listening()

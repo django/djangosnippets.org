@@ -1,6 +1,8 @@
 from django import template
 
-from cab.models import Snippet, Bookmark, Rating
+from ratings.models import RatedItem
+
+from cab.models import Snippet, Bookmark
 
 
 def do_if_bookmarked(parser, token):
@@ -79,13 +81,13 @@ class IfRatedNode(template.Node):
     
     def render(self, context):
         try:
-            self.user_id = template.resolve_variable(self.user_id, context)
-            self.snippet_id = template.resolve_variable(self.snippet_id, context)
+            user_id = template.resolve_variable(self.user_id, context)
+            snippet_id = template.resolve_variable(self.snippet_id, context)
         except template.VariableDoesNotExist:
             return ''
         try:
-            rating = Rating.objects.get(user__pk=self.user_id, snippet__pk=self.snippet_id)
-        except Rating.DoesNotExist:
+            rating = Snippet.ratings.all().get(user__pk=user_id, object_id=snippet_id)
+        except RatedItem.DoesNotExist:
             return self.nodelist_false.render(context)
         else:
             context['rating'] = rating

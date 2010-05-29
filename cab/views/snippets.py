@@ -11,7 +11,7 @@ from django.views.generic.list_detail import object_list, object_detail
 from taggit.models import Tag
 
 from cab.forms import SnippetForm
-from cab.models import Snippet, Language, Rating
+from cab.models import Snippet, Language
 
 def snippet_list(request, queryset=None, **kwargs):
     if queryset is None:
@@ -39,10 +39,9 @@ def download_snippet(request, snippet_id):
 def rate_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     score = request.GET.get('score')
-    if score:
-        rating, created = Rating.objects.get_or_create(user=request.user, snippet=snippet)
-        rating.score = {'up': 1, 'down': -1}[score]
-        rating.save()
+    if score and score in ['up', 'down']:
+        score = {'up': 1, 'down': -1}[score]
+        snippet.ratings.rate(user=request.user, score=score)
     return HttpResponseRedirect(snippet.get_absolute_url())
 
 @login_required
