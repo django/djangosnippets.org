@@ -42,7 +42,7 @@ class SnippetManager(models.Manager):
         return User.objects.annotate(score=Count('snippet')).order_by('-score')
     
     def top_tags(self):
-        return self.model.tags.most_common()
+        return self.model.tags.most_common().order_by('-num_times', 'name')
     
     def top_rated(self):
         # this is slow
