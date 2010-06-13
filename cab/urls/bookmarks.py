@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^add/(?P<snippet_id>\d+)/$',
         bookmarks.add_bookmark,
         name='cab_bookmark_add'),
-    url(r'^delete/(?P<bookmark_id>\d+)/$',
+    url(r'^delete/(?P<snippet_id>\d+)/$',
         bookmarks.delete_bookmark,
         name='cab_bookmark_delete'),
 )

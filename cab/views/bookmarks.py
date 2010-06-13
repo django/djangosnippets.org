@@ -15,6 +15,7 @@ def user_bookmarks(request):
 
 @login_required
 def add_bookmark(request, snippet_id):
+    # TODO: this should probably be a POST action
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     try:
         Bookmark.objects.get(user=request.user,
@@ -25,12 +26,11 @@ def add_bookmark(request, snippet_id):
     return HttpResponseRedirect(snippet.get_absolute_url())
 
 @login_required
-def delete_bookmark(request, bookmark_id):
-    bookmark = get_object_or_404(Bookmark, pk=bookmark_id, user=request.user)
+def delete_bookmark(request, snippet_id):
+    bookmark = get_object_or_404(Bookmark, snippet__pk=snippet_id, user=request.user)
     if request.method == 'POST':
         bookmark.delete()
         return HttpResponseRedirect(bookmark.snippet.get_absolute_url())
     else:
         return render_to_response('cab/confirm_bookmark_delete.html',
-                                  {'snippet': bookmark.snippet},
-                                  context_instance=RequestContext(request))
+            {'snippet': bookmark.snippet}, context_instance=RequestContext(request))
