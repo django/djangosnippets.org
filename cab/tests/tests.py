@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.template import Template, Context
 from django.test import TestCase
 
 from cab.models import Snippet, Language, Bookmark
@@ -11,8 +13,8 @@ class BaseCabTestCase(TestCase):
                          sorted(list(b), key=lambda x: x.pk))
     
     def setUp(self):
-        self.user_a = User.objects.create(username='a')
-        self.user_b = User.objects.create(username='b')
+        self.user_a = User.objects.create_user('a', 'a', 'a')
+        self.user_b = User.objects.create_user('b', 'b', 'b')
         
         self.python = Language.objects.create(
             name='Python',
@@ -159,4 +161,74 @@ class ModelTestCase(BaseCabTestCase):
 
 
 class ViewTestCase(BaseCabTestCase):
-    pass
+    urls = 'cab.tests.urls'
+    
+    def ensure_login_required(self, url, username, password):
+        self.client.logout()
+        
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp['location'], 'http://testserver/accounts/login/?next=%s' % url)
+        
+        self.client.login(username=username, password=password)
+        
+        resp = self.client.get(url)
+        
+        self.client.logout()
+        return resp
+    
+    def test_bookmark_views(self):
+        user_bookmarks = reverse('cab_user_bookmarks')
+        self.assertEqual(user_bookmarks, '/bookmarks/')
+        
+        # test for the login-required bits
+        resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
+        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])
+        
+        resp = self.ensure_login_required(user_bookmarks, 'b', 'b')
+        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark2])
+        
+        add_bookmark = reverse('cab_bookmark_add', args=[self.snippet2.pk])
+        self.assertEqual(add_bookmark, '/bookmarks/add/%d/' % self.snippet2.pk)
+        
+        resp = self.ensure_login_required(add_bookmark, 'a', 'a')
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp['location'], 'http://testserver/snippets/%d/' % self.snippet2.pk)
+        
+        new_bookmark = Bookmark.objects.get(user=self.user_a, snippet=self.snippet2)
+        
+        resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
+        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3, new_bookmark])
+        
+        delete_bookmark = reverse('cab_bookmark_delete', args=[self.snippet2.pk])
+        self.assertEqual(delete_bookmark, '/bookmarks/delete/%d/' % self.snippet2.pk)
+        
+        resp = self.ensure_login_required(delete_bookmark, 'a', 'a')
+        
+        # login and post to delete the bookmark
+        self.client.login(username='a', password='a')
+        resp = self.client.post(delete_bookmark)
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp['location'], 'http://testserver/snippets/%d/' % self.snippet2.pk)
+        
+        self.assertRaises(Bookmark.DoesNotExist, Bookmark.objects.get, user=self.user_a, snippet=self.snippet2)
+        
+        resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
+        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])        
+    
+    def test_language_views(self):
+        language_url = reverse('cab_language_list')
+        self.assertEqual(language_url, '/languages/')
+        
+        resp = self.client.get(language_url)
+        self.assertQuerysetEqual(resp.context['object_list'], [self.python, self.sql])
+        
+        language_detail = reverse('cab_language_detail', args=['python'])
+        self.assertEqual(language_detail, '/languages/python/')
+        
+        resp = self.client.get(language_detail)
+        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
+        self.assertEqual(resp.context['language'], self.python)
+    
+    def test_popular_views(self):
+        pass
