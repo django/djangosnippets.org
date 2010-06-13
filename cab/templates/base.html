@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Django snippets: {% block title %}Home{% endblock %}</title>
+<link rel="stylesheet" href="/media/css/snippets.css" type="text/css" />
+<link rel="stylesheet" href="/media/css/pygments.css" type="text/css" />
+<link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
+{% block feeds %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}snippets{% endblock %}">
+<div id="header">
+<h1><a href="/">Django snippets</a></h1>
+
+<div id="nav-main">
+<span>
+{% if user.is_authenticated %}
+Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/snippets/add/">Add a snippet</a>) (<a href="/accounts/logout/">Log out</a>)
+{% else %}
+<a href="/accounts/login/?next=/">Log in</a> or <a href="/accounts/register/">register</a>
+{% endif %}
+</span>
+<ul>
+<li id="nav-snippets"><a href="/snippets/">Snippets</a></li>
+{% if user.is_authenticated %}
+<li id="nav-account"><a href="/users/{{ user.username }}/">You</a></li>
+{% endif %}
+<li id="nav-about"><a href="/about/">About</a></li>
+</ul>
+</div>
+
+</div>
+
+<ul id="nav-secondary">
+{% block secondary_nav %}
+<li><a href="/users/">By author</a></li>
+<li><a href="/languages/">By language</a></li>
+<li><a href="/tags/">By tag</a></li>
+<li><a href="/popular/rated/">Highest-rated</a></li>
+<li><a href="/popular/bookmarked/">Most bookmarked</a></li>
+{% endblock %}
+</ul>
+
+
+<h2>{% block content_header %}{% endblock %}</h2>
+<div id="content">
+<div id="main">
+{% block content %}
+{% endblock %}
+</div>
+<div id="sidebar">
+  <div style="padding: 15px;">
+  <form method="get" action="/search/">
+    <label for="id_q">Search:</label>
+    <input type="text" name="q" id="id_q" style="width: 110px;" value="{{ request.GET.q }}" />
+    <input type="submit" value="Go" />
+</form>
+</div>
+{% block sidebar %}
+{% load core_tags %}
+<p>Latest snippets:</p>
+<ul>
+{% for snippet in "cab.snippet"|latest:5 %}
+<li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+</div>
+</div>
+{% block extra_content %}
+{% endblock %}
+
+<div id="footer">
+<div class="chunk">
+<h3>Snippets</h3>
+<ul>
+<li><a href="/users/">By author</a></li>
+<li><a href="/languages/">By language</a></li>
+<li><a href="/tags/">By tag</a></li>
+<li><a href="/popular/rated/">Highest-rated</a></li>
+<li><a href="/popular/bookmarked/">Most bookmarked</a></li>
+<li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="http://djangosnippets.org/media/img/feed-icon-10x10.png" alt="" /> Feed of latest snippets</a></li>
+</ul>
+</div>
+{% if user.is_authenticated %}
+<div class="chunk">
+<h3>Your account</h3>
+<ul>
+<li><a href="/users/{{ user.username }}/">Your snippets</a></li>
+<li><a href="/snippets/add/">Add a snippet</a></li>
+<li><a href="/bookmarks/">Your bookmarks</a></li>
+<li><a href="/accounts/logout/">Log out</a></li>
+</ul>
+</div>
+{% endif %}
+<div class="chunk">
+<h3>About</h3>
+<p>Powered by <a href="http://www.djangoproject.com/">Django</a>.</p>
+<p>Learn more <a href="/about/">about this site</a>.</p>
+<p>Read the <a href="/about/faq/">FAQ</a>.</p>
+<p><a href="/about/tos/">Terms of service</a></p>
+</div>
+<p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a> and <a href="http://charlesleifer.com">Charles Leifer</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>.</p>
+</div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16402186-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>
