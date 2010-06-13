@@ -271,3 +271,17 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(s1, self.snippet1)
         self.assertEqual(s3, self.snippet3)
         self.assertEqual(s2, self.snippet2)
+    
+    def test_tag_detail(self):
+        tag_detail = reverse('cab_snippet_matches_tag', args=['world'])
+        self.assertEqual(tag_detail, '/tags/world/')
+        
+        resp = self.client.get(tag_detail)
+        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
+    
+    def test_author_detail(self):
+        author_detail = reverse('cab_author_snippets', args=['a'])
+        self.assertEqual(author_detail, '/users/a/')
+        
+        resp = self.client.get(author_detail)
+        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet3])
