@@ -24,7 +24,7 @@ def top_languages(request):
 def top_tags(request):
     return object_list(
         request,
-        queryset=Snippet.tags.most_common(),
+        queryset=Snippet.objects.top_tags(),
         template_name='cab/tag_list.html',
         paginate_by=20)
 

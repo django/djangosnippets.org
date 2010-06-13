@@ -231,4 +231,43 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(resp.context['language'], self.python)
     
     def test_popular_views(self):
-        pass
+        top_authors = reverse('cab_top_authors')
+        self.assertEqual(top_authors, '/users/')
+        
+        resp = self.client.get(top_authors)
+        user_a, user_b = resp.context['object_list']
+        self.assertEqual(user_a, self.user_a)
+        self.assertEqual(user_b, self.user_b)
+        
+        top_languages = reverse('cab_top_languages')
+        self.assertEqual(top_languages, '/popular/languages/')
+        
+        resp = self.client.get(top_languages)
+        python, sql = resp.context['object_list']
+        self.assertEqual(python, self.python)
+        self.assertEqual(sql, self.sql)
+        
+        top_tags = reverse('cab_top_tags')
+        self.assertEqual(top_tags, '/tags/')
+        
+        resp = self.client.get(top_tags)
+        tag_names = [tag.name for tag in resp.context['object_list']]
+        self.assertEqual(tag_names, ['world', 'goodbye', 'haxor', 'hello'])
+        
+        top_bookmarked = reverse('cab_top_bookmarked')
+        self.assertEqual(top_bookmarked, '/popular/bookmarked/')
+        
+        resp = self.client.get(top_bookmarked)
+        s1, s3, s2 = resp.context['object_list']
+        self.assertEqual(s1, self.snippet1)
+        self.assertEqual(s3, self.snippet3)
+        self.assertEqual(s2, self.snippet2)
+        
+        top_rated = reverse('cab_top_rated')
+        self.assertEqual(top_rated, '/popular/rated/')
+        
+        resp = self.client.get(top_bookmarked)
+        s1, s3, s2 = resp.context['object_list']
+        self.assertEqual(s1, self.snippet1)
+        self.assertEqual(s3, self.snippet3)
+        self.assertEqual(s2, self.snippet2)
