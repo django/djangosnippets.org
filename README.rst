@@ -21,6 +21,10 @@ Cab has a couple of external dependencies:
       calls Markdown assumes the existence of python-markdown's "safe
       mode".
 
+    * `django-simple-ratings`_ for item ranking
+
+    * `django-taggit`_ for tagging 
+
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
 
@@ -52,20 +56,21 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 
 .. _Pygments: http://pygments.org/
 .. _python-markdown: http://www.freewisdom.org/projects/python-markdown/
+.. _django-simple-ratings: http://github.com/coleifer/django-simple-ratings/
+.. _django-taggit: http://github.com/alex/django-taggit/
 
 
 Templates
 =========
 
 The git repo will get you a set of example templates
-matching those currently in use on `djangosnippets.org`_, but they
-assume the existence of base project-wide templates used by that site;
-you'll need to either create templates with the same names to extend,
-or edit the included templates to suit your site's layout.
+matching those currently in use on `djangosnippets.org`_
 
-If you choose to simply create the appropriate base templates, you
-shouldn't need to do anything special to have Django pick up Cab's
-built-in tmeplates; Django's "app directories" template loader should
-notice them and use them.
+
+OMGWTF Tests?
+=============
+
+Yeah, there are tests now.
+
 
 .. _djangosnippets.org: http://djangosnippets.org/
