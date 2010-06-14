@@ -99,11 +99,11 @@ class Snippet(models.Model):
         return ", ".join([t.name for t in self.tags.all()])
     
     def update_rating(self):
-        self.rating_score = self.ratings.cumulative_score()
+        self.rating_score = self.ratings.cumulative_score() or 0
         self.save()
     
     def update_bookmark_count(self):
-        self.bookmark_count = self.bookmarks.count()
+        self.bookmark_count = self.bookmarks.count() or 0
         self.save()
 
 
