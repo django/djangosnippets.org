@@ -36,6 +36,7 @@ def download_snippet(request, snippet_id):
     response['Content-Type'] = snippet.language.mime_type
     return response
 
+@login_required
 def rate_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     score = request.GET.get('score')

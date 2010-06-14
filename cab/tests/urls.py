@@ -13,6 +13,7 @@ feed_dict = {
 
 urlpatterns = patterns('',
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
+    url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': feed_dict}),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),
