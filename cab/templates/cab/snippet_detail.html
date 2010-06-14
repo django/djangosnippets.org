@@ -30,18 +30,18 @@
   <ul>
     {% if user.is_authenticated %}
       {% ifequal user.id object.author.id %}
-        <li><a href="/snippets/edit/{{ object.id }}/">Edit this snippet</a></li>
+        <li><a href="/snippets/{{ object.id }}/edit/">Edit this snippet</a></li>
       {% endifequal %}
-      {% if_bookmarked user.id object.id %}
+      {% if object|is_bookmarked:request.user %}
         <li>This snippet is in <a href="/bookmarks/">your bookmarks</a></li>
       {% else %}
         <li><a href="/bookmarks/add/{{ object.id }}/">Bookmark this snippet</a></li>
-      {% endif_bookmarked %}
-      {% if_rated user.id object.id %}
+      {% endif %}
+      {% if object|is_rated:request.user %}
         <li>You rated this snippet <strong>{% ifequal rating.score 1 %}useful{% else %}not useful{% endifequal %}</strong>.</li>
       {% else %}
         <li>Rate this snippet: <a href="/snippets/{{ object.id }}/rate/?score=up">useful</a> or <a href="/snippets/{{ object.id }}/rate/?score=down">not useful</a></li>
-      {% endif_rated %}
+      {% endif %}
     {% endif %}
     <li><a href="/snippets/{{ object.id }}/download/" type="{{ object.language.mime_type }}">Download this snippet</a></li>
     <li><a href="#comments">Comment on this snippet</a></li>
