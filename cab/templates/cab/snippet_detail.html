@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load cab_tags %}
+{% load ratings_tags %}
 {% load safe_markup %}
 
 {% block title %}{{ object.title }}{% endblock %}
@@ -37,11 +38,13 @@
       {% else %}
         <li><a href="/bookmarks/add/{{ object.id }}/">Bookmark this snippet</a></li>
       {% endif %}
-      {% if object|is_rated:request.user %}
-        <li>You rated this snippet <strong>{% ifequal rating.score 1 %}useful{% else %}not useful{% endifequal %}</strong>.</li>
-      {% else %}
-        <li>Rate this snippet: <a href="/snippets/{{ object.id }}/rate/?score=up">useful</a> or <a href="/snippets/{{ object.id }}/rate/?score=down">not useful</a></li>
-      {% endif %}
+      {% with object|rating_score:request.user as rating_score %}
+        {% if rating_score %}
+          <li>You rated this snippet <strong>{% ifequal rating_score 1 %}useful{% else %}not useful{% endifequal %}</strong>.</li>
+        {% else %}
+          <li>Rate this snippet: <a href="/snippets/{{ object.id }}/rate/?score=up">useful</a> or <a href="/snippets/{{ object.id }}/rate/?score=down">not useful</a></li>
+        {% endif %}
+      {% endwith %}
     {% endif %}
     <li><a href="/snippets/{{ object.id }}/download/" type="{{ object.language.mime_type }}">Download this snippet</a></li>
     <li><a href="#comments">Comment on this snippet</a></li>

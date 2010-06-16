@@ -460,21 +460,6 @@ class TemplatetagTestCase(BaseCabTestCase):
         c = Context({'snippet': self.snippet1, 'user': AnonymousUser()})
         rendered = t.render(c)
         self.assertEqual(rendered, 'N')
-        
-        t = Template("{% load cab_tags %}{% if snippet|is_rated:user %}Y{% else %}N{% endif %}")
-        c = Context({'snippet': self.snippet1, 'user': self.user_a})
-        rendered = t.render(c)
-        
-        self.assertEqual(rendered, 'Y')
-        
-        self.snippet1.ratings.clear()
-        
-        rendered = t.render(c)
-        self.assertEqual(rendered, 'N')
-        
-        c = Context({'snippet': self.snippet1, 'user': AnonymousUser()})
-        rendered = t.render(c)
-        self.assertEqual(rendered, 'N')
     
     def test_core_tags(self):
         t = Template('{% load core_tags %}{% for s in "cab.snippet"|latest:2 %}{{ s.title }}|{% endfor %}')
