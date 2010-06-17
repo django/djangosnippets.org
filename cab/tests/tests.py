@@ -255,12 +255,14 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(language_url, '/languages/')
         
         resp = self.client.get(language_url)
+        self.assertEqual(resp.status_code, 200)
         self.assertQSEqual(resp.context['object_list'], [self.python, self.sql])
         
         language_detail = reverse('cab_language_detail', args=['python'])
         self.assertEqual(language_detail, '/languages/python/')
         
         resp = self.client.get(language_detail)
+        self.assertEqual(resp.status_code, 200)
         self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
         self.assertEqual(resp.context['language'], self.python)
     
@@ -269,6 +271,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(top_authors, '/users/')
         
         resp = self.client.get(top_authors)
+        self.assertEqual(resp.status_code, 200)
         user_a, user_b = resp.context['object_list']
         self.assertEqual(user_a, self.user_a)
         self.assertEqual(user_b, self.user_b)
@@ -277,6 +280,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(top_languages, '/popular/languages/')
         
         resp = self.client.get(top_languages)
+        self.assertEqual(resp.status_code, 200)
         python, sql = resp.context['object_list']
         self.assertEqual(python, self.python)
         self.assertEqual(sql, self.sql)
@@ -285,6 +289,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(top_tags, '/tags/')
         
         resp = self.client.get(top_tags)
+        self.assertEqual(resp.status_code, 200)
         tag_names = [tag.name for tag in resp.context['object_list']]
         self.assertEqual(tag_names, ['world', 'goodbye', 'haxor', 'hello'])
         
@@ -292,6 +297,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(top_bookmarked, '/popular/bookmarked/')
         
         resp = self.client.get(top_bookmarked)
+        self.assertEqual(resp.status_code, 200)
         s1, s3, s2 = resp.context['object_list']
         self.assertEqual(s1, self.snippet1)
         self.assertEqual(s3, self.snippet3)
@@ -300,7 +306,8 @@ class ViewTestCase(BaseCabTestCase):
         top_rated = reverse('cab_top_rated')
         self.assertEqual(top_rated, '/popular/rated/')
         
-        resp = self.client.get(top_bookmarked)
+        resp = self.client.get(top_rated)
+        self.assertEqual(resp.status_code, 200)
         s1, s3, s2 = resp.context['object_list']
         self.assertEqual(s1, self.snippet1)
         self.assertEqual(s3, self.snippet3)
@@ -311,6 +318,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(tag_detail, '/tags/world/')
         
         resp = self.client.get(tag_detail)
+        self.assertEqual(resp.status_code, 200)
         self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
     
     def test_author_detail(self):
@@ -318,6 +326,7 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(author_detail, '/users/a/')
         
         resp = self.client.get(author_detail)
+        self.assertEqual(resp.status_code, 200)
         self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet3])
 
     def test_feeds(self):
@@ -351,6 +360,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet_index, '/snippets/')
         
         resp = self.client.get(snippet_index)
+        self.assertEqual(resp.status_code, 200)
         self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
     
     def test_snippet_detail(self):
@@ -358,6 +368,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet_detail, '/snippets/%d/' % self.snippet1.pk)
         
         resp = self.client.get(snippet_detail)
+        self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['object'], self.snippet1)
     
     def test_snippet_download(self):
