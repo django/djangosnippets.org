@@ -5,7 +5,7 @@
 {% block content %}
 <h3>{{ snippet.title }}</h3>
 
-<form method="post" action=".">
+<form method="post" action=".">{% csrf_token %}
   <input type="submit" value="Delete" />
 </form>
 {% endblock %}

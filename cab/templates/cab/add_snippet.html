@@ -11,7 +11,7 @@
     <p class="error">Please correct the errors below:</p>
   {% endif %}
 
-  <form method="post" action="">
+  <form method="post" action="">{% csrf_token %}
     <dl>
       <dt><label for="id_title">Title: {% if form.title.errors %}<span class="error">{{ form.title.errors|join:", " }}</span>{% endif %}</label></dt>
       <dd>{{ form.title }}</dd>
