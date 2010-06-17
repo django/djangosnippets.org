@@ -10,7 +10,7 @@ from taggit.models import Tag, TaggedItem
 class BaseCabTestCase(TestCase):
     urls = 'cab.tests.urls'
     
-    def assertQuerysetEqual(self, a, b):
+    def assertQSEqual(self, a, b):
         """
         Takes 2 lists/querysets/iterables, sorts them by pk, and checks for
         equality
@@ -211,10 +211,10 @@ class ViewTestCase(BaseCabTestCase):
         
         # test for the login-required bits
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])
+        self.assertQSEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])
         
         resp = self.ensure_login_required(user_bookmarks, 'b', 'b')
-        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark2])
+        self.assertQSEqual(resp.context['object_list'], [self.bookmark2])
         
         add_bookmark = reverse('cab_bookmark_add', args=[self.snippet2.pk])
         self.assertEqual(add_bookmark, '/bookmarks/add/%d/' % self.snippet2.pk)
@@ -228,7 +228,7 @@ class ViewTestCase(BaseCabTestCase):
         new_bookmark = Bookmark.objects.get(user=self.user_a, snippet=self.snippet2)
         
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3, new_bookmark])
+        self.assertQSEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3, new_bookmark])
         
         # make sure we have to log in to delete a bookmark
         delete_bookmark = reverse('cab_bookmark_delete', args=[self.snippet2.pk])
@@ -247,7 +247,7 @@ class ViewTestCase(BaseCabTestCase):
         
         # check the bookmark list view and make sure
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQuerysetEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])        
+        self.assertQSEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])        
     
     def test_language_views(self):
         # where would we be without you
@@ -255,13 +255,13 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(language_url, '/languages/')
         
         resp = self.client.get(language_url)
-        self.assertQuerysetEqual(resp.context['object_list'], [self.python, self.sql])
+        self.assertQSEqual(resp.context['object_list'], [self.python, self.sql])
         
         language_detail = reverse('cab_language_detail', args=['python'])
         self.assertEqual(language_detail, '/languages/python/')
         
         resp = self.client.get(language_detail)
-        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
+        self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
         self.assertEqual(resp.context['language'], self.python)
     
     def test_popular_views(self):
@@ -311,14 +311,14 @@ class ViewTestCase(BaseCabTestCase):
         self.assertEqual(tag_detail, '/tags/world/')
         
         resp = self.client.get(tag_detail)
-        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
+        self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
     
     def test_author_detail(self):
         author_detail = reverse('cab_author_snippets', args=['a'])
         self.assertEqual(author_detail, '/users/a/')
         
         resp = self.client.get(author_detail)
-        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet3])
+        self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet3])
 
     def test_feeds(self):
         # I don't want to put much time into testing these since the response
@@ -351,7 +351,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet_index, '/snippets/')
         
         resp = self.client.get(snippet_index)
-        self.assertQuerysetEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
+        self.assertQSEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
     
     def test_snippet_detail(self):
         snippet_detail = reverse('cab_snippet_detail', args=[self.snippet1.pk])
