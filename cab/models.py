@@ -1,13 +1,15 @@
 import datetime
+
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Count, Sum, permalink
-from pygments import formatters, highlight, lexers
-from markdown import markdown
 
 from ratings.models import Ratings
 from taggit.managers import TaggableManager
+
+from markdown import markdown
+from pygments import formatters, highlight, lexers
 
 
 class LanguageManager(models.Manager):
@@ -58,12 +60,20 @@ class SnippetManager(models.Manager):
         return self.filter(tags__in=[tag])
 
 DJANGO_VERSIONS = (
-    (0, ''),
-    (.95, 'Pre .96'),
-    (.96, '.96'),
-    (1, '1.0'),
-    (1.1, '1.1'),
     (1.2, '1.2'),
+    (1.1, '1.1'),
+    (1, '1.0'),
+    (.96, '.96'),
+    (.95, 'Pre .96'),
+    (0, 'Not specified'),
+)
+
+VERSION_MAPPING = (
+    (1.2, datetime.datetime(2010, 5, 17)),
+    (1.1, datetime.datetime(2009, 7, 29)),
+    (1.0, datetime.datetime(2008, 9, 3)),
+    (.96, datetime.datetime(2007, 3, 23)),
+    (.95, datetime.datetime(2000, 1, 1)),
 )
 
 class Snippet(models.Model):

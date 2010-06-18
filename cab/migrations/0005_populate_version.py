@@ -4,18 +4,17 @@ from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 
+from cab.models import VERSION_MAPPING
+
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        VERSION_MAPPING = (
-            (1.2, datetime.datetime(2010, 5, 17)),
-            (1.1, datetime.datetime(2009, 7, 29)),
-            (1.0, datetime.datetime(2008, 9, 3)),
-            (.96, datetime.datetime(2007, 3, 23)),
-            (.95, datetime.datetime(2000, 1, 1)),
-        )
+        python = orm['cab.language'].objects.get(name='Python')
         
         for snippet in orm['cab.snippet'].objects.all():
+            if snippet.language != python:
+                continue
+            
             for version, date in VERSION_MAPPING:
                 if snippet.pub_date >= date:
                     snippet.django_version = version

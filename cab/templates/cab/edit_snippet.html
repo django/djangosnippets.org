@@ -16,6 +16,8 @@
     <dd>{{ form.title }}</dd>
     <dt><label for="id_language">Language:</label></dt>
     <dd>{{ form.language }}{% if form.language.errors %}<span class="error">&nbsp;&nbsp;{{ form.language.errors|join:", " }}</span>{% endif %}</dd>
+    <dt><label for="id_django_version">Django version:</label></dt>
+    <dd>{{ form.django_version }}{% if form.django_version.errors %}<span class="error">&nbsp;&nbsp;{{ form.django_version.errors|join:", " }}</span>{% endif %}</dd>
     <dt><label for="id_tag_list">Tags: {% if form.tag_list.errors %}<span class="error">{{ form.tag_list.errors|join:", " }}</span>{% endif %} </label></dt>
     <dd>{{ form.tags }}<br />Use commas between tag names, and hyphens for multiple words, like "tag1, tag2, tag3-with-long-name"</dd>
     <dd>{{ form.code }}</dd>

@@ -21,6 +21,8 @@
     <dd>{{ object.pub_date|date:"F j, Y" }}</dd>
     <dt>Language:</dt>
     <dd><a href="{{ object.language.get_absolute_url }}">{{ object.language.name }}</a></dd>
+    <dt>Django Version:</dt>
+    <dd>{{ object.django_version }}</dd>
     <dt>Tags:</dt>
     <dd>{% for tag in object.tags.all %}<a href="{% url cab_snippet_matches_tag tag.slug %}">{{ tag.name }}</a> {% endfor %}</dd>
     <dt>Score:</dt>
