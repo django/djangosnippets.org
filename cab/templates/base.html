@@ -52,10 +52,18 @@ Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a h
 <div id="sidebar">
   <div style="padding: 15px;">
   <form method="get" action="/search/">
-    <label for="id_q">Search:</label>
-    <input type="text" name="q" id="id_q" style="width: 110px;" value="{{ request.GET.q }}" />
-    <input type="submit" value="Go" />
-</form>
+    <table>
+      <tr>
+        <td><label for="id_q">Search:</label></td>
+        <td><input type="text" name="q" id="id_q" style="width: 110px;" value="{{ request.GET.q }}" /></td>
+        <td><input type="submit" value="Go" /></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><a href="/search/advanced/">Advanced Search</a></td>
+      </tr>
+    </table>
+  </form>
 </div>
 {% block sidebar %}
 {% load core_tags %}
