@@ -118,6 +118,9 @@ class Snippet(models.Model):
     def get_tagstring(self):
         return ", ".join([t.name for t in self.tags.all()])
     
+    def get_version(self):
+        return dict(DJANGO_VERSIONS)[self.django_version]
+    
     def update_rating(self):
         self.rating_score = self.ratings.cumulative_score() or 0
         self.save()
