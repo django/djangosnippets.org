@@ -4,24 +4,29 @@ from south.db import db
 from south.v2 import DataMigration
 
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models import signals
 
-from cab.models import Snippet
+from ratings.models import RatedItem, SimilarItem
+
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
+        signals.post_save.disconnect(sender=RatedItem, dispatch_uid='update_rating_score')
+        ctype = ContentType.objects.get(app_label='cab', model='snippet')
+        
         for rating in orm['cab.rating'].objects.all():
-            snippet = Snippet.objects.get(pk=rating.snippet.pk) # real snippet
-            user = User.objects.get(pk=rating.user.pk) # real user
-            snippet.ratings.rate(user=user, score=rating.score)
+            RatedItem.objects.create(
+                user_id=rating.user.pk,
+                object_id=rating.snippet.pk,
+                content_type=ctype,
+                score=rating.score)
 
     def backwards(self, orm):
-        if 'ratings' in settings.INSTALLED_APPS:
-            from ratings.models import RatedItem, SimilarItem
-            RatedItem.objects.all().delete()
-            SimilarItem.objects.all().delete()
+        RatedItem.objects.all().delete()
+        SimilarItem.objects.all().delete()
 
     models = {
         'auth.group': {
