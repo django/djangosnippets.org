@@ -8,6 +8,10 @@ class SnippetIndex(SearchIndex):
     title = CharField(model_attr='title')
     tags = CharField()
     language = CharField()
+    pub_date = DateTimeField(model_attr='pub_date')
+    django_version = FloatField(model_attr='django_version')
+    bookmark_count = IntegerField(model_attr='bookmark_count')
+    rating_score = IntegerField(model_attr='rating_score')
 
     def prepare_author(self, obj):
         return obj.author.username
