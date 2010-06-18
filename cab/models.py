@@ -57,6 +57,15 @@ class SnippetManager(models.Manager):
     def matches_tag(self, tag):
         return self.filter(tags__in=[tag])
 
+DJANGO_VERSIONS = (
+    (0, ''),
+    (.95, 'Pre .96'),
+    (.96, '.96'),
+    (1, '1.0'),
+    (1.1, '1.1'),
+    (1.2, '1.2'),
+)
+
 class Snippet(models.Model):
     title = models.CharField(max_length=255)
     language = models.ForeignKey(Language)
@@ -65,6 +74,7 @@ class Snippet(models.Model):
     description_html = models.TextField(editable=False)
     code = models.TextField()
     highlighted_code = models.TextField(editable=False)
+    django_version = models.FloatField(choices=DJANGO_VERSIONS, default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0) # denormalized count
