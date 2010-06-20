@@ -25,6 +25,10 @@ Cab has a couple of external dependencies:
 
     * `django-taggit`_ for tagging 
 
+    * `django-haystack`_ for search
+
+    * `django-amazon-resources`_ for recommended titles
+
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
 
@@ -58,6 +62,8 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 .. _python-markdown: http://www.freewisdom.org/projects/python-markdown/
 .. _django-simple-ratings: http://github.com/coleifer/django-simple-ratings/
 .. _django-taggit: http://github.com/alex/django-taggit/
+.. _django-haystack: http://github.com/toastdriven/django-haystack/
+.. _django-amazon-resources: http://github.com/coleifer/django-amazon-resources/
 
 
 Templates
