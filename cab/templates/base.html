@@ -16,7 +16,7 @@
         {% if user.is_authenticated %}
           Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/snippets/add/">Add a snippet</a>) (<a href="/accounts/logout/">Log out</a>)
         {% else %}
-          <a href="/accounts/login/?next=/">Log in</a> or <a href="/accounts/register/">register</a>
+          <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
         {% endif %}
       </span>
       <ul>
