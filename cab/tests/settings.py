@@ -1,5 +1,4 @@
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'test.db'
 
 SITE_ID = 1
 ROOT_URLCONF = 'cab.tests.urls'
@@ -15,7 +14,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'relationships.tests.urls'
+HAYSTACK_SITECONF = 'cab.tests.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'dummy'
 
 INSTALLED_APPS = (
     'django.contrib.admin',

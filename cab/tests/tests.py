@@ -423,7 +423,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['form'].instance, self.snippet1)
         
-        payload = {'title': 'Hi', 'language': str(self.python.pk), 'description': 'wazzah\n======', 'code': 'print "Hi"', 'tags': 'hi, world'}
+        payload = {'title': 'Hi', 'django_version': '1.1', 'language': str(self.python.pk), 'description': 'wazzah\n======', 'code': 'print "Hi"', 'tags': 'hi, world'}
         resp = self.client.post(snippet_edit, payload)
 
         snippet1 = Snippet.objects.get(pk=self.snippet1.pk)
@@ -442,7 +442,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         resp = self.ensure_login_required(snippet_add, 'a', 'a')
         
         self.client.login(username='a', password='a')
-        payload = {'title': 'Hi', 'language': str(self.python.pk), 'description': 'wazzah\n======', 'code': 'print "Hi"', 'tags': 'hi, world'}
+        payload = {'title': 'Hi', 'django_version': '1.1', 'language': str(self.python.pk), 'description': 'wazzah\n======', 'code': 'print "Hi"', 'tags': 'hi, world'}
         resp = self.client.post(snippet_add, payload)
 
         new_snippet = Snippet.objects.get(title='Hi')
