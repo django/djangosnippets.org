@@ -102,7 +102,7 @@ class Snippet(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.description_html = markdown(self.description)
+        self.description_html = markdown(self.description, safe_mode="escape")
         self.highlighted_code = self.highlight()
         super(Snippet, self).save(*args, **kwargs)
         
