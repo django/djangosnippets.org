@@ -147,6 +147,10 @@ class ModelTestCase(BaseCabTestCase):
     Tests to make sure that custom model signal handlers, denormalized fields,
     work as expected
     """
+    def test_snippet_escaping(self):
+        self.snippet1.description = '<script>alert("hacked");</script>'
+        self.snippet1.save()
+        self.assertEqual(self.snippet1.description_html, '<p>&lt;script&gt;alert(&quot;hacked&quot;);&lt;/script&gt;</p>')
     
     def test_ratings_hooks(self):
         # setUp() will actually fire off most of these hooks
