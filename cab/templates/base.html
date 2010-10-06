@@ -3,10 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Django snippets: {% block title %}Home{% endblock %}</title>
+  
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
   <link rel="stylesheet" href="/media/css/snippets.css" type="text/css" />
   <link rel="stylesheet" href="/media/css/pygments.css" type="text/css" />
   <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
+  
+  <script type="text/javascript" language="javascript">
+    $(function() {
+      $("input#id_q").autocomplete({
+        minLength: 3,
+        source: function(request, response) {
+          var term = request.term;
+	        $.getJSON("/search/autocomplete/", {'q': term}, function(data) {
+	          var results = [];
+	          $.each(data, function(k, v) {results.push(v.title);});
+		        response(results);
+	        });
+        }
+      });
+    });
+  </script>
 </head>
 <body class="{% block bodyclass %}snippets{% endblock %}">
   <div id="header">

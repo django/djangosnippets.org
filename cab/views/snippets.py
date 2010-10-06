@@ -6,12 +6,16 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404, Ht
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.template.defaultfilters import slugify
+from django.utils import simplejson as json
 from django.views.generic.list_detail import object_list, object_detail
+
+from haystack.query import SearchQuerySet
 
 from taggit.models import Tag
 
 from cab.forms import SnippetForm
 from cab.models import Snippet, Language
+
 
 def snippet_list(request, queryset=None, **kwargs):
     if queryset is None:
@@ -96,3 +100,17 @@ def search(request):
         queryset=snippet_qs,
         template_name='search/search.html',
         extra_context={'query':query})
+
+def autocomplete(request):
+    q = request.GET.get('q')
+    results = []
+    if len(q) > 2:
+        sqs = SearchQuerySet()
+        result_set = sqs.filter(title_ngram=q)[:10]
+        for obj in result_set:
+            results.append({
+                'title': obj.title,
+                'author': obj.author,
+                'url': obj.url
+            })
+    return HttpResponse(json.dumps(results), mimetype='application/json')
