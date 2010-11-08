@@ -57,7 +57,7 @@ class SnippetManager(models.Manager):
         return self.all().order_by('-bookmark_count')
 
     def matches_tag(self, tag):
-        return self.filter(tags__in=[tag])
+        return self.filter(tags__name__in=[tag])
 
 DJANGO_VERSIONS = (
     (1.2, '1.2'),
