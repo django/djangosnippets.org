@@ -122,7 +122,7 @@ class SnippetsByTagFeed(Feed):
         return Tag.objects.get(slug__exact=bits[0])
     
     def items(self, obj):
-        return Snippet.objects.matches_tag(obj.slug)[:15]
+        return Snippet.objects.matches_tag(obj)[:15]
     
     def link(self, obj):
         return reverse('cab_snippet_matches_tag', args=[obj.slug])
