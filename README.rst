@@ -47,9 +47,9 @@ from somewhere on your Python path::
 
     git clone git://github.com/coleifer/djangosnippets.org.git 
 
-Then add ``cab`` to the ``INSTALLED_APPS`` setting of your Django
-project, run ``manage.py syncdb``, and either put a call to
-``include('cab.urls')`` somewhere inn your root URLConf or copy over
+Then add ``ratings``, ``taggit`` and ``cab`` to the ``INSTALLED_APPS`` setting
+of your Django project, run ``manage.py syncdb``, and either put a call to
+``include('cab.urls.snippets')`` somewhere inn your root URLConf or copy over
 the URL patterns from Cab that you want to use.
 
 Note that the ``get_absolute_url`` methods of the ``Language``,
@@ -64,6 +64,20 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 .. _django-taggit: http://github.com/alex/django-taggit/
 .. _django-haystack: http://github.com/toastdriven/django-haystack/
 .. _django-amazon-resources: http://github.com/coleifer/django-amazon-resources/
+
+For search support you need to set up a search engine and configure haystack:
+
+``HAYSTACK_SITECONF = 'search_sites'``
+``HAYSTACK_SEARCH_ENGINE = 'whoosh'``
+``# Place where search indexes are stored for snippets - should be non web accessible``
+``HAYSTACK_WHOOSH_PATH = '/some-path/search-index'``
+
+And you should add a file called ``search_sites.py`` to your project with the 
+following lines:
+
+``import haystack``
+``haystack.autodiscover()``
+
 
 
 Templates
