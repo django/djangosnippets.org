@@ -8,8 +8,8 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
-  <link rel="stylesheet" href="/media/css/snippets.css" type="text/css" />
-  <link rel="stylesheet" href="/media/css/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/snippets.css" type="text/css" />
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/pygments.css" type="text/css" />
   <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
   
@@ -106,7 +106,7 @@
         <li><a href="/tags/">By tag</a></li>
         <li><a href="/popular/rated/">Highest-rated</a></li>
         <li><a href="/popular/bookmarked/">Most bookmarked</a></li>
-        <li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="http://djangosnippets.org/media/img/feed-icon-10x10.png" alt="" /> Feed of latest snippets</a></li>
+        <li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{{ MEDIA_URL }}img/feed-icon-10x10.png" alt="" /> Feed of latest snippets</a></li>
       </ul>
     </div>
     {% if user.is_authenticated %}
