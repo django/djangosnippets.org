@@ -20,15 +20,12 @@ class AdvancedSearchForm(SearchForm):
     minimum_bookmark_count = forms.IntegerField(required=False)
     minimum_rating_score = forms.IntegerField(required=False)
 
-    def __init__(self, data, *args, **kwargs):
-        if data is None:
-            data = {}
-
-        super(AdvancedSearchForm, self).__init__(data, *args, **kwargs)
-
     def search(self):
         # First, store the SearchQuerySet received from other processing.
         sqs = super(AdvancedSearchForm, self).search()
+
+        if not self.is_valid():
+            return sqs
 
         if self.cleaned_data['language']:
             sqs = sqs.filter(language=self.cleaned_data['language'].name)
