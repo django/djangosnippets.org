@@ -21,7 +21,10 @@ def is_bookmarked(snippet, user):
 
 @register.filter
 def more_like_this(snippet, limit=None):
-    sqs = SearchQuerySet().more_like_this(snippet)
-    if limit is not None:
-        sqs = sqs[:limit]
+    try:
+        sqs = SearchQuerySet().more_like_this(snippet)
+        if limit is not None:
+            sqs = sqs[:limit]
+    except AttributeError:
+        sqs = []
     return sqs
