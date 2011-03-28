@@ -43,7 +43,9 @@
   <p><a href="http://readthedocs.org/">Find documentation</a> for popular open source apps</p>
 
   <h3>Recommended Django titles</h3>
+  {% cache 600 sidebar %}
   {% for resource in "amazon_resources.resource"|latest:3 %}
     {% include "amazon_resources/resource_snippet.html" %}
   {% endfor %}
+  {% endcache %}
 {% endblock %}
