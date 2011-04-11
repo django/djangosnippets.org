@@ -102,7 +102,7 @@ def search(request):
         extra_context={'query':query})
 
 def autocomplete(request):
-    q = request.GET.get('q')
+    q = request.GET.get('q', '')
     results = []
     if len(q) > 2:
         sqs = SearchQuerySet()
