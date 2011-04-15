@@ -60,6 +60,7 @@ class SnippetManager(models.Manager):
         return self.filter(tags__in=[tag])
 
 DJANGO_VERSIONS = (
+    (1.3, '1.3'),
     (1.2, '1.2'),
     (1.1, '1.1'),
     (1, '1.0'),
@@ -69,6 +70,7 @@ DJANGO_VERSIONS = (
 )
 
 VERSION_MAPPING = (
+    (1.3, datetime.datetime(2011, 3, 23)),
     (1.2, datetime.datetime(2010, 5, 17)),
     (1.1, datetime.datetime(2009, 7, 29)),
     (1.0, datetime.datetime(2008, 9, 3)),
