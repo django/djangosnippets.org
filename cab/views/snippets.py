@@ -93,8 +93,8 @@ def flag_snippet(request, snippet_id):
         )
         
         mail_admins(
-            subject='Snippet flagged: "%s"' % (snippet.title),
-            message='%s\n\nAdmin link: %s' % (snippet_flag, admin_link),
+            'Snippet flagged: "%s"' % (snippet.title),
+            '%s\n\nAdmin link: %s' % (snippet_flag, admin_link),
             fail_silently=True,
         )
         
