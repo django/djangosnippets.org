@@ -1,6 +1,9 @@
 from django import forms
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.mail import mail_admins
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
@@ -13,8 +16,8 @@ from haystack.query import SearchQuerySet
 
 from taggit.models import Tag
 
-from cab.forms import SnippetForm
-from cab.models import Snippet, Language
+from cab.forms import SnippetForm, SnippetFlagForm
+from cab.models import Snippet, SnippetFlag, Language
 
 
 def snippet_list(request, queryset=None, **kwargs):
@@ -30,7 +33,9 @@ def snippet_detail(request, snippet_id):
     return object_detail(
         request,
         queryset=Snippet.objects.all(),
-        object_id=snippet_id)
+        object_id=snippet_id,
+        extra_context={'flag_form': SnippetFlagForm()},
+    )
 
 def download_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
@@ -51,6 +56,9 @@ def rate_snippet(request, snippet_id):
 
 @login_required
 def edit_snippet(request, snippet_id=None, template_name='cab/edit_snippet.html'):
+    if not request.user.is_active:
+        return HttpResponseForbidden()
+    
     if snippet_id:
         snippet = get_object_or_404(Snippet, pk=snippet_id)
         if request.user.id != snippet.author.id:
@@ -58,15 +66,43 @@ def edit_snippet(request, snippet_id=None, template_name='cab/edit_snippet.html'
     else:
         template_name = 'cab/add_snippet.html'
         snippet = Snippet(author=request.user, language=Language.objects.get(name='Python'))
+    
     if request.method == 'POST':
         form = SnippetForm(instance=snippet, data=request.POST)
         if form.is_valid():
             snippet = form.save()
+            messages.info(request, 'Your snippet has been saved')
             return HttpResponseRedirect(snippet.get_absolute_url())
     else:
         form = SnippetForm(instance=snippet)
+    
     return render_to_response(template_name,
         {'form': form}, context_instance=RequestContext(request))
+
+@login_required
+def flag_snippet(request, snippet_id):
+    snippet = get_object_or_404(Snippet, id=snippet_id)
+    snippet_flag = SnippetFlag(snippet=snippet, user=request.user)
+    form = SnippetFlagForm(request.POST, instance=snippet_flag)
+    
+    if form.is_valid():
+        snippet_flag = form.save()
+        
+        admin_link = request.build_absolute_uri(
+            reverse('admin:cab_snippetflag_changelist')
+        )
+        
+        mail_admins(
+            subject='Snippet flagged: "%s"' % (snippet.title),
+            message='%s\n\nAdmin link: %s' % (snippet_flag, admin_link),
+            fail_silently=True,
+        )
+        
+        messages.info(request, 'Thank you for helping improve the site!')
+    else:
+        messages.error(request, 'Invalid form submission')
+    
+    return HttpResponseRedirect(snippet.get_absolute_url())
 
 def author_snippets(request, username):
     user = get_object_or_404(User, username=username)

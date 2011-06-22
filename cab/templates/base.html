@@ -60,6 +60,13 @@
   {% endblock %}
   </ul>
 
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message {% if message.tags %} message_{{ message.tags }}{% else %}message_info{% endif %}">
+        <h4>{{ message }}</h4>
+      </div>
+    {% endfor %}
+  {% endif %}
 
   <h2>{% block content_header %}{% endblock %}</h2>
   <div id="content">

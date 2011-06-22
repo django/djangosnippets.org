@@ -1,6 +1,10 @@
+from django.db.models import signals
+
 from haystack.indexes import *
 from haystack import site
+
 from cab.models import Snippet
+
 
 class SnippetIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
@@ -14,6 +18,14 @@ class SnippetIndex(SearchIndex):
     bookmark_count = IntegerField(model_attr='bookmark_count')
     rating_score = IntegerField(model_attr='rating_score')
     url = CharField(indexed=False)
+    
+    def _setup_delete(self, model):
+        # copied more or less from `haystack.indexes.RealTimeSearchIndex`
+        signals.post_delete.connect(
+            self.remove_object,
+            sender=model,
+            dispatch_uid='cab.snippet_index.remove_object',
+        )
 
     def prepare_author(self, obj):
         return obj.author.username
@@ -32,5 +44,6 @@ class SnippetIndex(SearchIndex):
 
     def get_updated_field(self):
         return 'updated_date'
+
 
 site.register(Snippet, SnippetIndex)

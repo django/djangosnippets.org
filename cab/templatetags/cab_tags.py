@@ -1,6 +1,6 @@
 from django import template
 
-from cab.models import Bookmark
+from cab.models import Bookmark, SnippetFlag
 from haystack.query import SearchQuerySet
 
 register = template.Library()
@@ -16,7 +16,13 @@ def is_bookmarked(snippet, user):
     """
     if not user.is_authenticated():
         return False
-    return bool(Bookmark.objects.filter(snippet=snippet, user=user).count())
+    return Bookmark.objects.filter(snippet=snippet, user=user).exists()
+
+@register.filter
+def has_flagged(user, snippet):
+    if not user.is_authenticated():
+        return False
+    return SnippetFlag.objects.filter(snippet=snippet, user=user).exists()
 
 
 @register.filter

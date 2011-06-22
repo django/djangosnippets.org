@@ -63,6 +63,16 @@
     {% endif %}
     <li><a href="/snippets/{{ object.id }}/download/" type="{{ object.language.mime_type }}">Download this snippet</a></li>
     <li><a href="#comments">Comment on this snippet</a></li>
+    {% if user.is_authenticated %}
+      <li>
+        {% if not user|has_flagged:object %}
+        <form method="post" class="flag_form" action="{% url cab_snippet_flag object.id %}">{% csrf_token %}
+          {{ flag_form.flag }}
+          <input type="submit" value="Flag" />
+        </form>
+        {% endif %}
+      </li>
+    {% endif %}
   </ul>
 {% endblock %}
 

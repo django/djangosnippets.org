@@ -132,6 +132,33 @@ class Snippet(models.Model):
         self.save()
 
 
+SNIPPET_FLAG_SPAM = 1
+SNIPPET_FLAG_INAPPROPRIATE = 2
+SNIPPET_FLAG_CHOICES = (
+    (SNIPPET_FLAG_SPAM, 'Spam'),
+    (SNIPPET_FLAG_INAPPROPRIATE, 'Inappropriate'),
+)
+
+class SnippetFlag(models.Model):
+    snippet = models.ForeignKey(Snippet, related_name='flags')
+    user = models.ForeignKey(User)
+    flag = models.IntegerField(choices=SNIPPET_FLAG_CHOICES)
+    
+    def __unicode__(self):
+        return '%s flagged as %s by %s' % (
+            self.snippet.title,
+            self.get_flag_display(),
+            self.user.username,
+        )
+    
+    def remove_and_ban(self):
+        user = self.snippet.author
+        user.set_unusable_password()
+        user.is_active = False
+        user.save()
+        self.snippet.delete()
+
+
 class Bookmark(models.Model):
     snippet = models.ForeignKey(Snippet, related_name='bookmarks')
     user = models.ForeignKey(User, related_name='cab_bookmarks')

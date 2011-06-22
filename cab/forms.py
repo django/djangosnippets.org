@@ -3,13 +3,19 @@ from django.contrib import admin
 
 from haystack.forms import SearchForm
 
-from cab.models import Language, Snippet, DJANGO_VERSIONS
+from cab.models import Language, Snippet, SnippetFlag, DJANGO_VERSIONS
 
 
 class SnippetForm(forms.ModelForm):
     class Meta:
         model = Snippet
         exclude = ('author', 'bookmark_count', 'rating_score',)
+
+
+class SnippetFlagForm(forms.ModelForm):
+    class Meta:
+        model = SnippetFlag
+        fields = ('flag',)
 
 
 class AdvancedSearchForm(SearchForm):
