@@ -3,7 +3,9 @@
 {% block bodyclass %}account{% endblock %}
 
 {% block secondary_nav %}
-<li><a href="/users/{{ user.username }}/">Your snippets</a></li>
+{% if request.user.is_authenticated %}
+  <li><a href="/users/{{ user.username }}/">Your snippets</a></li>
+{% endif %}
 <li><a href="/snippets/add/">Add a snippet</a></li>
 <li><a href="/bookmarks/">Your bookmarks</a></li>
 {% endblock %}
