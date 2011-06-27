@@ -18,16 +18,19 @@ from taggit.models import Tag
 
 from cab.forms import SnippetForm, SnippetFlagForm
 from cab.models import Snippet, SnippetFlag, Language
+from cab.utils import month_object_list
 
 
 def snippet_list(request, queryset=None, **kwargs):
     if queryset is None:
         queryset = Snippet.objects.all()
-    return object_list(
+    
+    return month_object_list(
         request,
         queryset=queryset,
         paginate_by=20,
-        **kwargs)
+        **kwargs
+    )
 
 def snippet_detail(request, snippet_id):
     return object_detail(
@@ -111,7 +114,8 @@ def author_snippets(request, username):
         request,
         snippet_qs,
         template_name='cab/user_detail.html',
-        extra_context={'author': user})
+        extra_context={'author': user},
+    )
 
 def matches_tag(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
@@ -120,7 +124,8 @@ def matches_tag(request, slug):
         request,
         queryset=snippet_qs,
         template_name='cab/tag_detail.html',
-        extra_context={'tag': tag})
+        extra_context={'tag': tag},
+    )
 
 def search(request):
     query = request.GET.get('q')
@@ -131,11 +136,13 @@ def search(request):
             Q(tags__in=[query]) | 
             Q(author__username__iexact=query)
         ).distinct().order_by('-rating_score', '-pub_date')
+    
     return snippet_list(
         request,
         queryset=snippet_qs,
         template_name='search/search.html',
-        extra_context={'query':query})
+        extra_context={'query':query},
+    )
 
 def autocomplete(request):
     q = request.GET.get('q', '')

@@ -1,27 +1,16 @@
-{% extends "base_user.html" %}
-{% load core_tags %}
+{% extends "cab/snippet_list.html" %}
+{% load cache core_tags %}
 
 {% block feeds %}<link rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml" title="Feed of snippets by {{ author.username }}" />{% endblock %}
-{% block title %}Snippets by {{ author.username }}{% endblock %}
 
-{% block content_header %}Snippets by {{ author.username }}{% endblock %}
+{% block title %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
-{% block content %}
-  {% if object_list %}
-    <ul>
-    {% for snippet in object_list %}
-      <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) {{ snippet.pub_date|timesince }} ago</li>
-    {% endfor %}
-    </ul>
+{% block content_header %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
-    <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
-  {% else %}
-    <p>{% ifequal request.user author %}You haven't{% else %}{{ author.username }} hasn't{% endifequal %} posted any snippets yet.</p>
-  {% endif %}
-{% endblock %}
 
 {% block sidebar %}
-  <p>{% ifequal request.user author %}You've{% else %}{{ author.username }} has{% endifequal %} posted {{ hits }} snippet{{ object_list.count|pluralize }}.</p>
+  {% cache 600 author_detail_sidebar author.username %}
+  <p>{% ifequal request.user author %}You've{% else %}{{ author.username }} has{% endifequal %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
 
   <p><a rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml"><img src="http://djangosnippets.org/media/img/feed-icon-10x10.png" alt="" /> Feed of snippets by {{ author.username }}</a></p>
 
@@ -31,5 +20,5 @@
     <li><a href="/users/{{ author.username }}/">{{ author.username }}</a></li>
   {% endfor %}
   </ol>
-
+  {% endcache %}
 {% endblock %}

@@ -1,17 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}All snippets{% endblock %}
+{% block title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
-{% block content_header %}All snippets{% endblock %}
+{% block content_header %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
 {% block content %}
+  <ul class="snippet_filter">
+    <li{% if not months %} class="active"{% endif %}><a href="{{ request.path }}">Any time</a></li>
+    <li{% if months == 3 %} class="active"{% endif %}><a href="{{ request.path }}?months=3">3 months</a></li>
+    <li{% if months == 6 %} class="active"{% endif %}><a href="{{ request.path }}?months=6">6 months</a></li>
+    <li{% if months == 12 %} class="active"{% endif %}><a href="{{ request.path }}?months=12">1 year</a></li>
+  </ul>
   {% if object_list %}
-    <ul>
+    <ul class="snippet_list">
     {% for snippet in object_list %}
-      <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
+      <li>
+        <a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a>
+        <p class="details">{{ snippet.pub_date|timesince }} ago, <span class="rating-{% if snippet.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if snippet.rating_score >= 0 %}+{% endif %}{{ snippet.rating_score }}</span></p>
+      </li>
     {% endfor %}
     </ul>
-    <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+    <p class="pagination">
+      {% if has_previous %}
+        <a href="?page={{ previous }}{% if months %}&months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
+      {% endif %}
+      &nbsp;&nbsp;
+      {% if has_next %}
+        <a href="?page={{ next }}{% if months %}&months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
+      {% endif %}
+    </p>
   {% else %}
     <p>No snippets posted yet.</p>
   {% endif %}

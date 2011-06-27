@@ -41,7 +41,7 @@ class Language(models.Model):
 
 class SnippetManager(models.Manager):
     def top_authors(self):
-        return User.objects.annotate(score=Count('snippet')).order_by('-score')
+        return User.objects.annotate(score=Count('snippet')).order_by('-score', 'username')
     
     def top_tags(self):
         return self.model.tags.most_common().order_by('-num_times', 'name')
@@ -49,12 +49,12 @@ class SnippetManager(models.Manager):
     def top_rated(self):
         # this is slow
         # return self.annotate(score=Sum('ratings__score')).order_by('-score')
-        return self.all().order_by('-rating_score')
+        return self.all().order_by('-rating_score', '-pub_date')
 
     def most_bookmarked(self):
         # this is slow
         # self.annotate(score=Count('bookmarks')).order_by('-score')
-        return self.all().order_by('-bookmark_count')
+        return self.all().order_by('-bookmark_count', '-pub_date')
 
     def matches_tag(self, tag):
         return self.filter(tags__in=[tag])
