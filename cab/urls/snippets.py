@@ -24,4 +24,7 @@ urlpatterns = patterns('',
     url(r'^add/$',
         snippets.edit_snippet,
         name='cab_snippet_add'),
+    url(r'^tag-hint/$',
+        snippets.tag_hint,
+        name='cab_snippet_tag_hint'),
 )

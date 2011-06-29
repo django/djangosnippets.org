@@ -1,5 +1,15 @@
 {% extends "base_user.html" %}
 
+{% block extra_scripts %}
+  <script type="text/javascript" language="javascript" src="{{ MEDIA_URL }}js/snippets.js"></script>
+  <script type="text/javascript" language="javascript">
+    $(function() {
+      var tag_hint = new Snippets.TagCompletion();
+      tag_hint.bind_listener('input#id_q', 'input#id_output');
+    });
+  </script>
+{% endblock %}
+
 {% block title %}Add a snippet{% endblock %}
 
 {% block content_header %}Add a snippet{% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import mail_admins
 from django.core.urlresolvers import reverse
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
@@ -156,4 +156,19 @@ def autocomplete(request):
                 'author': obj.author,
                 'url': obj.url
             })
+    return HttpResponse(json.dumps(results), mimetype='application/json')
+
+def tag_hint(request):
+    q = request.GET.get('q', '')
+    results = []
+    if len(q) > 2:
+        tag_qs = Tag.objects.filter(slug__startswith=q)
+        annotated_qs = tag_qs.annotate(count=Count('taggit_taggeditem_items__id'))
+        
+        for obj in annotated_qs.order_by('-count', 'slug')[:10]:
+            results.append({
+                'tag': obj.slug,
+                'count': obj.count,
+            })
+    
     return HttpResponse(json.dumps(results), mimetype='application/json')

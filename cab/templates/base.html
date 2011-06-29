@@ -13,19 +13,17 @@
   <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
   
+  {% block extra_scripts %}{% endblock %}
+  <script type="text/javascript" language="javascript" src="{{ MEDIA_URL }}js/snippets.js"></script>
   <script type="text/javascript" language="javascript">
     $(function() {
-      $("input#id_q").autocomplete({
-        minLength: 3,
-        source: function(request, response) {
-          var term = request.term;
-	        $.getJSON("/search/autocomplete/", {'q': term}, function(data) {
-	          var results = [];
-	          $.each(data, function(k, v) {results.push(v.title);});
-		        response(results);
-	        });
-        }
-      });
+      var snippet_completion = new Snippets.SnippetCompletion()
+      snippet_completion.bind_listener('#id_q');
+      
+      if ($('#id_tags').length > 0) {
+        var tag_completion = new Snippets.TagCompletion()
+        tag_completion.bind_listener('#id_tags');
+      }
     });
   </script>
 </head>
