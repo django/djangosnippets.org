@@ -117,7 +117,7 @@ Snippets = window.Snippets || {};
     }).data('autocomplete')._renderItem = this.render_item;
   };
 
-  Snippets.TagCompletion = TagCompletion;
-  Snippets.SnippetCompletion = SnippetCompletion;
+  S.TagCompletion = TagCompletion;
+  S.SnippetCompletion = SnippetCompletion;
 
 })(Snippets, jQuery);
