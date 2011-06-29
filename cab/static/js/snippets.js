@@ -55,15 +55,6 @@ Snippets = window.Snippets || {};
     });
   };
   
-  TagCompletion.prototype.render_item = function(ul, item) {
-    var html = '<a>'+item.label+'</a>';
-    
-    return $('<li></li>')
-      .data('item.autocomplete', item)
-      .append(html)
-      .appendTo(ul);
-  }
-  
   TagCompletion.prototype.bind_listener = function(input_sel) {
     var self = this;
     
@@ -72,7 +63,7 @@ Snippets = window.Snippets || {};
     this.input_element.autocomplete({
       minLength: self.options.min_length || 3,
       source: function(request, response) {self.fetch_results(request, response);},
-    }).data('autocomplete')._renderItem = this.render_item;
+    });
   };
   
   var SnippetCompletion = function(options) {
