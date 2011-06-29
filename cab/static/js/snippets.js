@@ -95,7 +95,13 @@ Snippets = window.Snippets || {};
     
     $.getJSON(url, {'q': term}, function(data) {
       var results = [];
-      $.each(data, function(k, v) {results.push(v.title);});
+      $.each(data, function(k, v) {
+        results.push({
+          'label': v.title,
+          'value': v.title,
+          'url': v.url
+        });
+      });
       response(results);
     });
   };
@@ -108,7 +114,7 @@ Snippets = window.Snippets || {};
     this.input_element.autocomplete({
       minLength: self.options.min_length || 3,
       source: function(request, response) {self.fetch_results(request, response);},
-    }).data('autocomplete')._renderItem = this.render_item;;
+    }).data('autocomplete')._renderItem = this.render_item;
   };
 
   Snippets.TagCompletion = TagCompletion;
