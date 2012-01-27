@@ -1,0 +1,10 @@
+{% extends "base_about.html" %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block content_header %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+{% load markup %}
+{{ flatpage.content|markdown }}
+{% endblock %}

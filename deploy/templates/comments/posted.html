@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Comment posted{% endblock %}
+
+{% block content_header %}Comment posted{% endblock %}
+
+{% block content %}
+<p>Your comment posted successfully; perhaps you'd like to <a href="{{ comment.content_object.get_absolute_url }}#c{{ comment.id }}">go take a look at it</a>?</p>
+{% endblock %}

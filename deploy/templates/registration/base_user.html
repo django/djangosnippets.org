@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{% firstof person.get_full_name user.get_full_name %}{% endblock %}
+
+{% block content_header %}
+  {% if person %}
+    {{ person.username }} {% if person.get_full_name %}<em>({{ person.get_full_name }})</em>{% endif %}
+  {% else %}
+    {% if user %}
+      {{ user.username }} {% if user.get_full_name %}<em>({{ user.get_full_name }})</em>{% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
