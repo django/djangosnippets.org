@@ -97,8 +97,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'amazon_resources', # <-- not really necessary, can replace the recommended
-                        #     titles link on the homepage with static links
     'cab',
     'haystack',
     'pagination',

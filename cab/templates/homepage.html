@@ -43,9 +43,6 @@
   <p><a href="http://readthedocs.org/">Find documentation</a> for popular open source apps</p>
 
   <h3>Recommended Django titles</h3>
-  {% cache 600 sidebar %}
-  {% for resource in "amazon_resources.resource"|latest:3 %}
-    {% include "amazon_resources/resource_snippet.html" %}
-  {% endfor %}
-  {% endcache %}
+  <a style="margin: 10px;" href="http://www.amazon.com/dp/1430210478/?tag=djangsnipp-20"><img src="http://djangosnippets.org/media/amazon_resources/pro-django-experts-voice-in-we.jpg" alt="Pro Django (Expert's Voice in Web Development)" /></a>
+  <a style="margin: 10px;" href="http://www.amazon.com/dp/1430219386/?tag=djangsnipp-20"><img src="http://djangosnippets.org/media/amazon_resources/practical-django-projects-seco.jpg" alt="Practical Django Projects, Second Edition (Expert's Voice in Web Development)" /></a>
 {% endblock %}
