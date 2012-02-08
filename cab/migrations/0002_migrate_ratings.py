@@ -15,7 +15,11 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         signals.post_save.disconnect(sender=RatedItem, dispatch_uid='update_rating_score')
-        ctype = ContentType.objects.get(app_label='cab', model='snippet')
+        try:
+            ctype = ContentType.objects.get(app_label='cab', model='snippet')
+        except ContentType.DoesNotExist, _:
+            # If the content type doesn't even exist yet, this is probably a fresh installation
+            return
         
         for rating in orm['cab.rating'].objects.all():
             RatedItem.objects.create(
