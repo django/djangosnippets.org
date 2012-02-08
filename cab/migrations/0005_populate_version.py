@@ -5,7 +5,6 @@ from south.v2 import DataMigration
 from django.db import models
 
 from cab.models import VERSION_MAPPING
-import cab.models
 
 class Migration(DataMigration):
 
