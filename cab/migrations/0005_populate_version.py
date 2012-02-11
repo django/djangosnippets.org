@@ -9,7 +9,11 @@ from cab.models import VERSION_MAPPING
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        python = orm['cab.language'].objects.get(name='Python')
+        python = None
+        try:
+            python = orm['cab.language'].objects.get(name='Python')
+        except models.ObjectDoesNotExist, _:
+            return
         
         for snippet in orm['cab.snippet'].objects.all():
             if snippet.language != python:
