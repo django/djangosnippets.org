@@ -20,7 +20,7 @@ feed_dict = {
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/', include('registration.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
