@@ -1,0 +1,16 @@
+Django==1.3.1
+Markdown==2.1.1
+Pygments==1.5
+South==0.7.5
+django-generic-aggregation==0.1.1
+django-haystack==1.2.7
+django-pagination==1.0.7
+django-registration==0.8
+django-simple-ratings==0.3.0
+django-taggit==0.9.3
+django-redis-cache==0.9.4
+pysolr==2.1.0-beta
+django-mailgun==0.2
+gunicorn==0.14.3
+dj-database-url==0.2.0
+# django-storages==1.1.4
