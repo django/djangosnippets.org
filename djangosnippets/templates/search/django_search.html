@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content_header %}Search{% endblock %}
+
+{% block content %}
+  <form method="get" action=".">
+    <dl>
+      <dt><label for="id_q">Search:</dt>
+      <dd><input type="text" name="q" id="id_q" value="{{ request.GET.q }}" /></dd>
+      <dt></dt>
+      <dd><input type="submit" value="Search" /></dd>
+    </dl>
+  </form>
+  {% if query %}
+    <h3>Results</h3>
+    <ul>
+    {% for result in object_list %}
+    <li><a href="{{ result.get_absolute_url }}">{{ result.title }}</a>, by <a href="/users/{{ result.author.username }}/">{{ result.author.username }}</a> (user rating: {{ result.rating_score }})</li>
+    {% empty %}
+      <li>No results found.</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    {# pass #}
+  {% endif %}
+{% endblock %}

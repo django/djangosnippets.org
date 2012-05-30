@@ -1,0 +1,13 @@
+{% extends "registration/base_user.html" %}
+
+{% block title %}Account activiation unsuccessful{% endblock %}
+
+{% block content_header %}Your account was not activated{% endblock %}
+
+{% block content %}
+  <p>
+    There was an error creating this account.  Perhaps your registration key
+    expired, in which case please re-register.
+  </p>
+  <p><a href="{% url registration_register %}">Register again &raquo;</a></p>
+{% endblock %}
