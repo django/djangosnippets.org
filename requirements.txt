@@ -14,3 +14,4 @@ django-mailgun==0.2
 gunicorn==0.14.3
 dj-database-url==0.2.0
 # django-storages==1.1.4
+psycopg2==2.4.5
