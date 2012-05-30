@@ -6,7 +6,7 @@ import dj_database_url
 from djangosnippets.settings.base import *
 
 # Heroku needs Gunicorn specifically.
-INSTALLED_APPS += ['gunicorn']
+INSTALLED_APPS += ('gunicorn',)
 
 #
 # Now lock this sucker down.
