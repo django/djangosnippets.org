@@ -22,19 +22,19 @@ class Language(models.Model):
     language_code = models.CharField(max_length=50)
     mime_type = models.CharField(max_length=100)
     file_extension = models.CharField(max_length=10)
-    
+
     objects = LanguageManager()
-    
+
     class Meta:
         ordering = ('name',)
-    
+
     def __unicode__(self):
         return self.name
-    
+
     @permalink
     def get_absolute_url(self):
         return ('cab_language_detail', (), {'slug': self.slug})
-        
+
     def get_lexer(self):
         return lexers.get_lexer_by_name(self.language_code)
 
@@ -42,10 +42,10 @@ class Language(models.Model):
 class SnippetManager(models.Manager):
     def top_authors(self):
         return User.objects.annotate(score=Count('snippet')).order_by('-score', 'username')
-    
+
     def top_tags(self):
         return self.model.tags.most_common().order_by('-num_times', 'name')
-    
+
     def top_rated(self):
         # this is slow
         # return self.annotate(score=Sum('ratings__score')).order_by('-score')
@@ -93,15 +93,15 @@ class Snippet(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0) # denormalized count
     rating_score = models.IntegerField(default=0) # denormaliazed score
-    
+
     ratings = Ratings()
     tags = TaggableManager()
-    
+
     objects = SnippetManager()
-    
+
     class Meta:
         ordering = ('-pub_date',)
-        
+
     def __unicode__(self):
         return self.title
 
@@ -109,11 +109,11 @@ class Snippet(models.Model):
         self.description_html = markdown(self.description, safe_mode="escape")
         self.highlighted_code = self.highlight()
         super(Snippet, self).save(*args, **kwargs)
-        
+
     @permalink
     def get_absolute_url(self):
         return ('cab_snippet_detail', (), {'snippet_id': self.id})
-        
+
     def highlight(self):
         return highlight(self.code,
                          self.language.get_lexer(),
@@ -121,14 +121,14 @@ class Snippet(models.Model):
 
     def get_tagstring(self):
         return ", ".join([t.name for t in self.tags.all()])
-    
+
     def get_version(self):
         return dict(DJANGO_VERSIONS)[self.django_version]
-    
+
     def update_rating(self):
         self.rating_score = self.ratings.cumulative_score() or 0
         self.save()
-    
+
     def update_bookmark_count(self):
         self.bookmark_count = self.bookmarks.count() or 0
         self.save()
@@ -145,14 +145,14 @@ class SnippetFlag(models.Model):
     snippet = models.ForeignKey(Snippet, related_name='flags')
     user = models.ForeignKey(User)
     flag = models.IntegerField(choices=SNIPPET_FLAG_CHOICES)
-    
+
     def __unicode__(self):
         return '%s flagged as %s by %s' % (
             self.snippet.title,
             self.get_flag_display(),
             self.user.username,
         )
-    
+
     def remove_and_ban(self):
         user = self.snippet.author
         user.set_unusable_password()
@@ -165,17 +165,17 @@ class Bookmark(models.Model):
     snippet = models.ForeignKey(Snippet, related_name='bookmarks')
     user = models.ForeignKey(User, related_name='cab_bookmarks')
     date = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ('-date',)
-    
+
     def __unicode__(self):
         return "%s bookmarked by %s" % (self.snippet, self.user)
-    
+
     def save(self, *args, **kwargs):
         super(Bookmark, self).save(*args, **kwargs)
         self.snippet.update_bookmark_count()
-    
+
     def delete(self, *args, **kwargs):
         super(Bookmark, self).delete(*args, **kwargs)
         self.snippet.update_bookmark_count()
