@@ -6,7 +6,7 @@ from haystack import site
 from cab.models import Snippet
 
 
-class SnippetIndex(SearchIndex):
+class SnippetIndex(RealTimeSearchIndex):
     text = CharField(document=True, use_template=True)
     author = CharField()
     title = CharField(model_attr='title')
