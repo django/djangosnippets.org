@@ -78,7 +78,7 @@ HAYSTACK_SOLR_URL = os.environ.get('WEBSOLR_URL', '')
 
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_ACCESS_KEY')
-MAILGUN_SERVER_NAME = 'djangosnippets.mailgun.org'
+MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_SERVER_NAME')
 
 LOGGING = {
     'version': 1,
