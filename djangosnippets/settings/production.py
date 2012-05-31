@@ -8,10 +8,7 @@ from djangosnippets.settings.base import *
 # Heroku needs Gunicorn specifically.
 INSTALLED_APPS += ('gunicorn',)
 
-#
-# Now lock this sucker down.
-#
-# INSTALLED_APPS += ['djangosecure']
+# INSTALLED_APPS += ('djangosecure',)
 # MIDDLEWARE_CLASSES.insert(0, 'djangosecure.middleware.SecurityMiddleware')
 # SECURE_SSL_REDIRECT = True
 # SECURE_HSTS_SECONDS = 600
