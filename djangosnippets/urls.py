@@ -8,7 +8,6 @@ from haystack.views import SearchView, search_view_factory
 from cab import feeds
 from cab.forms import AdvancedSearchForm
 
-
 admin.autodiscover()
 
 feed_dict = {

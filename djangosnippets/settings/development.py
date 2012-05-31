@@ -11,12 +11,11 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": 'snippets.db',
+        "NAME": os.path.join(PROJECT_ROOT, "snippets.db"),
     },
 }
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 2525
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHE_BACKEND = 'dummy://'
 
