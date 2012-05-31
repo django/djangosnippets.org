@@ -16,3 +16,4 @@ dj-database-url==0.2.0
 # django-storages==1.1.4
 psycopg2==2.4.5
 gevent==0.13.7
+raven==1.9.1
