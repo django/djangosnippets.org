@@ -6,7 +6,7 @@ from haystack import site
 from cab.models import Snippet
 
 
-class SnippetIndex(SearchIndex):
+class SnippetIndex(RealTimeSearchIndex):
     text = CharField(document=True, use_template=True)
     author = CharField()
     title = CharField(model_attr='title')
@@ -18,7 +18,7 @@ class SnippetIndex(SearchIndex):
     bookmark_count = IntegerField(model_attr='bookmark_count')
     rating_score = IntegerField(model_attr='rating_score')
     url = CharField(indexed=False)
-    
+
     def _setup_delete(self, model):
         # copied more or less from `haystack.indexes.RealTimeSearchIndex`
         signals.post_delete.connect(
