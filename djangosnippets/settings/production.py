@@ -29,16 +29,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # MIDDLEWARE_CLASSES.insert(0, 'dashboard.middleware.CanonicalDomainMiddleware')
 # CANONICAL_HOSTNAME = 'dashboard.djangoproject.com'
 
-#
-# Store files on S3, pulling config from os.environ.
-#
-# DEFAULT_FILE_STORAGE = STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-# AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-# AWS_S3_SECURE_URLS = False
-# AWS_QUERYSTRING_AUTH = False
-
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'assets', 'static')
 STATIC_URL = '/assets/static/'
 ADMIN_MEDIA_PREFIX = '/assets/static/admin/'
@@ -76,9 +66,11 @@ if 'SENTRY_DSN' in os.environ:
 HAYSTACK_SEARCH_ENGINE = 'solr'
 HAYSTACK_SOLR_URL = os.environ.get('WEBSOLR_URL', '')
 
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_ACCESS_KEY')
-MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_SERVER_NAME')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 LOGGING = {
     'version': 1,
