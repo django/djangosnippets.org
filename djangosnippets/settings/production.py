@@ -61,7 +61,7 @@ CACHES = {
         'BACKEND': 'redis_cache.RedisCache',
         'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
         'OPTIONS': {
-            'DB': 5,
+            'DB': 0,
             'PASSWORD': redis_url.password,
         },
         'VERSION': os.environ.get('CACHE_VERSION', 0),
