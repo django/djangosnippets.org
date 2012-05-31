@@ -53,6 +53,7 @@ CACHES = {
         'OPTIONS': {
             'DB': 0,
             'PASSWORD': redis_url.password,
+            'PARSER_CLASS': 'redis.connection.HiredisParser'
         },
         'VERSION': os.environ.get('CACHE_VERSION', 0),
     },
