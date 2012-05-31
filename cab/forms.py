@@ -35,18 +35,17 @@ class AdvancedSearchForm(SearchForm):
 
         if self.cleaned_data['language']:
             sqs = sqs.filter(language=self.cleaned_data['language'].name)
-        
+
         if self.cleaned_data['django_version']:
             sqs = sqs.filter(django_version__in=self.cleaned_data['django_version'])
-        
+
         if self.cleaned_data['minimum_pub_date']:
             sqs = sqs.filter(pub_date__gte=self.cleaned_data['minimum_pub_date'])
-        
+
         if self.cleaned_data['minimum_bookmark_count']:
             sqs = sqs.filter(bookmark_count__gte=self.cleaned_data['minimum_bookmark_count'])
-        
+
         if self.cleaned_data['minimum_rating_score']:
             sqs = sqs.filter(rating_score__gte=self.cleaned_data['minimum_rating_score'])
 
         return sqs
-

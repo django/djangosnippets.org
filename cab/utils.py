@@ -12,6 +12,7 @@ def get_past_datetime(months_ago):
 
     return now - datetime.timedelta(days=months_ago * 31)
 
+
 def month_object_list(request, queryset, *args, **kwargs):
     extra_context = kwargs.pop('extra_context', {})
 

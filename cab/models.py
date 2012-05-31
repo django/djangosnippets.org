@@ -16,6 +16,7 @@ class LanguageManager(models.Manager):
     def top_languages(self):
         return self.annotate(score=Count('snippet')).order_by('-score')
 
+
 class Language(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -80,6 +81,7 @@ VERSION_MAPPING = (
     (.95, datetime.datetime(2000, 1, 1)),
 )
 
+
 class Snippet(models.Model):
     title = models.CharField(max_length=255)
     language = models.ForeignKey(Language)
@@ -91,8 +93,8 @@ class Snippet(models.Model):
     django_version = models.FloatField(choices=DJANGO_VERSIONS, default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    bookmark_count = models.IntegerField(default=0) # denormalized count
-    rating_score = models.IntegerField(default=0) # denormaliazed score
+    bookmark_count = models.IntegerField(default=0)  # denormalized count
+    rating_score = models.IntegerField(default=0)  # denormaliazed score
 
     ratings = Ratings()
     tags = TaggableManager()
@@ -140,6 +142,7 @@ SNIPPET_FLAG_CHOICES = (
     (SNIPPET_FLAG_SPAM, 'Spam'),
     (SNIPPET_FLAG_INAPPROPRIATE, 'Inappropriate'),
 )
+
 
 class SnippetFlag(models.Model):
     snippet = models.ForeignKey(Snippet, related_name='flags')
