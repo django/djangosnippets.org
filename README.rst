@@ -92,5 +92,4 @@ OMGWTF Tests?
 
 Yeah, there are tests now.
 
-
 .. _djangosnippets.org: http://djangosnippets.org/
