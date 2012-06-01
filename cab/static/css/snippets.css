@@ -21,7 +21,7 @@ a img {
     border: 0;
 }
 
-input[type='text'], input[type='password'], select { 
+input[type='text'], input[type='password'], select {
     border: 1px solid #ccc; padding: 3px; font-family: Helvetica, Verdana, Arial, sans; width: 350px; }
 input[type='text'].small { width: 120px; }
 textarea { border: 1px solid #ccc; padding: 3px; width: 500px; font-family: "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", monospace; font-size: 11px;}
@@ -434,4 +434,9 @@ h2 {
     padding-top: 1em;
     margin-bottom: 1em;
     margin-left: 20px;
+}
+
+.bee-like-this {
+    position: absolute;
+    left: -9999px;
 }

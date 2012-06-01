@@ -8,13 +8,14 @@
   <p>Registration is free. Start by giving us your e-mail address, and we'll send you instructions on how to continue. We will not spam you or give your e-mail address to anybody.</p>
 
   <form action="" method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
     <table>
       {% for field in form %}
         {% if field.is_hidden %}
           {{ field }}
         {% else %}
           {% if field.errors %}{{ field.errors }}{% endif %}
-        <tr {% ifequal field.name "name" %} style="display:none;"{% endifequal %}>
+        <tr {% ifequal field.name "name" %} class="bee-like-this"{% endifequal %}>
           <td{% if field.errors %} class="error"{% endif %}>
             {{ field.label_tag }}
           </td>

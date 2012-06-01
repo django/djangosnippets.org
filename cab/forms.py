@@ -57,7 +57,7 @@ class RegisterForm(RegistrationFormUniqueEmail):
     name = forms.CharField(label='Your Name', required=False,
         widget=forms.TextInput(attrs={'autocomplete': 'off'}))
 
-    def clean_name(self):
+    def clean(self):
         if self.cleaned_data.get('name'):
-            raise forms.ValidationError('Please keep this Name field blank')
-        return ''
+            raise forms.ValidationError('Please keep the Name field blank')
+        return self.cleaned_data

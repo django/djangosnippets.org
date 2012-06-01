@@ -2,8 +2,16 @@
 {% if request.user.is_authenticated %}
 <form action="/comments/post/" method="post">{% csrf_token %}
 
+{{ form.non_field_errors }}
+
 <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="/accounts/logout/">{% trans "Log out" %}</a>)</p>
 <dl>
+
+<div class="bee-like-this">
+    {# A honeypot field called "name" #}
+    <dt><label for="id_name">{% trans "Your Name:" %}</label></dt>
+    <dd>{{ form.name }}</dd>
+</div>
 
 <dt><label for="id_comment">{% trans "Comment:" %}</label></dt>
 <dd><textarea name="comment" id="id_comment" rows="10" cols="60"></textarea><br />
@@ -11,13 +19,13 @@ You may use <a href="http://daringfireball.net/projects/markdown/syntax">Markdow
 
 <dt>
 <div style="display:none;">
-{{ form.honeypot }}
-{{ form.content_type }}
-{{ form.object_pk }}
-{{ form.timestamp }}
-{{ form.security_hash }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
 </div>
-<input type="submit" name="preview" value="{% trans "Preview comment" %}" />
+    <input type="submit" name="preview" value="{% trans "Preview comment" %}" />
 </dt>
 </dl>
 </form>

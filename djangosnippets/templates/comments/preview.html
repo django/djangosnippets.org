@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block title %}Post a comment{% endblock %}
 
 {% block content_header %}Post a comment{% endblock %}
 
 {% block content %}
 {% load safe_markup %}
+{{ form.non_field_errors }}
+
 <dl>
+
+<div class="bee-like-this">
+    {# A honeypot field called "name" #}
+    <dt><label for="id_name">{% trans "Your Name:" %}</label></dt>
+    <dd>{{ form.name.errors }}{{ form.name }}</dd>
+</div>
+
 <dt><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dt>
 <dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
 </dl>

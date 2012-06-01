@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'cab',
+    'cab.comments',
     'haystack',
     'pagination',
     'ratings',
@@ -87,3 +88,5 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+COMMENTS_APP = 'cab.comments'
