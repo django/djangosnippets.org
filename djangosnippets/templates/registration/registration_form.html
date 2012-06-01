@@ -9,7 +9,21 @@
 
   <form action="" method="post">{% csrf_token %}
     <table>
-      {{ form.as_table }}
+      {% for field in form %}
+        {% if field.is_hidden %}
+          {{ field }}
+        {% else %}
+          {% if field.errors %}{{ field.errors }}{% endif %}
+        <tr {% ifequal field.name "name" %} style="display:none;"{% endifequal %}>
+          <td{% if field.errors %} class="error"{% endif %}>
+            {{ field.label_tag }}
+          </td>
+          <td>
+            {{ field }}
+          </td>
+        </tr>
+        {% endif %}
+      {% endfor %}
       <tr>
         <th></th>
         <td><input type="submit" name="submit" value="Sign up" class="button"></td>

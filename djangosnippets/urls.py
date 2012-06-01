@@ -6,7 +6,7 @@ from django.contrib.syndication.views import feed
 from haystack.views import SearchView, search_view_factory
 
 from cab import feeds
-from cab.forms import AdvancedSearchForm
+from cab.forms import AdvancedSearchForm, RegisterForm
 
 admin.autodiscover()
 
@@ -19,6 +19,10 @@ feed_dict = {
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/register/$', 'registration.views.register', {
+            'backend': 'registration.backends.default.DefaultBackend',
+            'form_class': RegisterForm,
+        }, name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

@@ -5,6 +5,8 @@ from haystack.forms import SearchForm
 
 from cab.models import Language, Snippet, SnippetFlag, DJANGO_VERSIONS
 
+from registration.forms import RegistrationFormUniqueEmail
+
 
 class SnippetForm(forms.ModelForm):
     class Meta:
@@ -49,3 +51,13 @@ class AdvancedSearchForm(SearchForm):
             sqs = sqs.filter(rating_score__gte=self.cleaned_data['minimum_rating_score'])
 
         return sqs
+
+
+class RegisterForm(RegistrationFormUniqueEmail):
+    name = forms.CharField(label='Your Name', required=False,
+        widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+
+    def clean_name(self):
+        if self.cleaned_data.get('name'):
+            raise forms.ValidationError('Please keep this Name field blank')
+        return ''
