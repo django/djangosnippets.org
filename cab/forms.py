@@ -31,9 +31,6 @@ class SnippetForm(forms.ModelForm):
         model = Snippet
         exclude = ('author', 'bookmark_count', 'rating_score',)
 
-    def __init__(self, *args, **kwargs):
-        super(SnippetForm, self).__init__(*args, **kwargs)
-
 
 class SnippetFlagForm(forms.ModelForm):
     class Meta:
