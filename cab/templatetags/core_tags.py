@@ -40,3 +40,13 @@ def call_manager(model_or_obj, method):
         manager = model_or_obj._default_manager
 
     return getattr(manager, method)()
+
+
+@register.filter
+def strip(value):
+    """
+    Strips a string.
+    """
+    if value:
+        return value.strip()
+    return value

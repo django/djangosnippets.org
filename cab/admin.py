@@ -8,7 +8,7 @@ class LanguageAdmin(admin.ModelAdmin):
 
 
 class SnippetAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'rating_score', 'pub_date')
+    list_display = ('id', 'title', 'author', 'rating_score', 'pub_date')
     list_filter = ('language',)
     date_hierarchy = 'pub_date'
     search_fields = ('author__username', 'title', 'description', 'code',)
