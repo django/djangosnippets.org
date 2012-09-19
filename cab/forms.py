@@ -8,7 +8,25 @@ from cab.models import Language, Snippet, SnippetFlag, DJANGO_VERSIONS
 from registration.forms import RegistrationFormUniqueEmail
 
 
+def validate_non_whitespace_only_string(value):
+    """
+    Additionally to requiring a non-empty string, this validator also strips
+    the string to treat strings with only whitespaces in them as empty.
+    """
+    if not value or not value.strip():
+        raise forms.ValidationError(u'This field is required', code='required')
+
+
 class SnippetForm(forms.ModelForm):
+    title = forms.CharField(
+        validators=[validate_non_whitespace_only_string])
+    description = forms.CharField(
+        validators=[validate_non_whitespace_only_string],
+        widget=forms.Textarea)
+    code = forms.CharField(
+        validators=[validate_non_whitespace_only_string],
+        widget=forms.Textarea)
+
     class Meta:
         model = Snippet
         exclude = ('author', 'bookmark_count', 'rating_score',)

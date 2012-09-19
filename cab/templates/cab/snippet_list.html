@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load core_tags %}
 {% block title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
 {% block content_header %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
@@ -15,18 +15,18 @@
     <ul class="snippet_list">
     {% for snippet in object_list %}
       <li>
-        <a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a>
+        <a href="{{ snippet.get_absolute_url }}">{% if not snippet.title|strip %}Untitled{% else %}{{ snippet.title }}{% endif %}</a> by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a>
         <p class="details">{{ snippet.pub_date|timesince }} ago, <span class="rating-{% if snippet.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if snippet.rating_score >= 0 %}+{% endif %}{{ snippet.rating_score }}</span></p>
       </li>
     {% endfor %}
     </ul>
     <p class="pagination">
       {% if has_previous %}
-        <a href="?page={{ previous }}{% if months %}&months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
+        <a href="?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
       {% endif %}
       &nbsp;&nbsp;
       {% if has_next %}
-        <a href="?page={{ next }}{% if months %}&months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
+        <a href="?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
       {% endif %}
     </p>
   {% else %}
