@@ -16,6 +16,7 @@ DEBUG = TEMPLATE_DEBUG = False
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
+USE_TZ = False
 
 DEFAULT_FROM_EMAIL = 'no-reply@djangosnippets.org'
 SERVER_EMAIL = 'no-reply@djangosnippets.org'
