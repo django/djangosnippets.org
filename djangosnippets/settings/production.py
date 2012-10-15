@@ -35,8 +35,12 @@ ADMIN_MEDIA_PREFIX = '/assets/static/admin/'
 # but we're not and it's just as well -- I like doing this by hand.
 
 # Grab database info
-DATABASES = {}
 DATABASES = {'default': dj_database_url.config()}
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
+
+SOUTH_DATABASE_ADAPTERS = {
+    'default': 'south.db.postgresql_psycopg2'
+}
 
 # Make sure urlparse understands custom config schemes.
 urlparse.uses_netloc.append('redis')
