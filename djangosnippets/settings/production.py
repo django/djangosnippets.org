@@ -5,6 +5,10 @@ import dj_database_url
 
 from djangosnippets.settings.base import *
 
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+)
+
 # Heroku needs Gunicorn specifically.
 INSTALLED_APPS += ('gunicorn',)
 
