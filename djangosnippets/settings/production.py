@@ -61,9 +61,9 @@ CACHES = {
 }
 
 # Use Sentry for debugging if available.
-if 'SENTRY_DSN' in os.environ:
-    INSTALLED_APPS += ("raven.contrib.django",)
-    SENTRY_DSN = os.environ.get('SENTRY_DSN')
+# if 'SENTRY_DSN' in os.environ:
+#     INSTALLED_APPS += ("raven.contrib.django",)
+#     SENTRY_DSN = os.environ.get('SENTRY_DSN')
 
 HAYSTACK_SEARCH_ENGINE = 'solr'
 HAYSTACK_SOLR_URL = os.environ.get('WEBSOLR_URL', '')
