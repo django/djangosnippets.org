@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from django.contrib.syndication.views import feed
 
 from haystack.views import SearchView, search_view_factory
 
@@ -9,13 +8,6 @@ from cab import feeds
 from cab.forms import AdvancedSearchForm, RegisterForm
 
 admin.autodiscover()
-
-feed_dict = {
-    'author': feeds.SnippetsByAuthorFeed,
-    'language': feeds.SnippetsByLanguageFeed,
-    'latest': feeds.LatestSnippetsFeed,
-    'tag': feeds.SnippetsByTagFeed,
-}
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
@@ -28,7 +20,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django.contrib.comments.urls')),
-    url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': feed_dict}),
+    url(r'^feeds/author/(?P<username>[\w.@+-]+)/$', feeds.SnippetsByAuthorFeed()),
+    url(r'^feeds/language/(?P<slug>[\w-]+)/$', feeds.SnippetsByLanguageFeed()),
+    url(r'^feeds/latest/$', feeds.LatestSnippetsFeed()),
+    url(r'^feeds/tag/(?P<slug>[\w-]+)/$', feeds.SnippetsByTagFeed()),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),
     url(r'^search/$', 'haystack.views.basic_search', name='cab_search'),

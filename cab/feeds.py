@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from django.contrib.syndication.feeds import Feed
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.syndication.views import Feed
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.utils.feedgenerator import Atom1Feed
 
@@ -46,10 +46,8 @@ class SnippetsByAuthorFeed(Feed):
     def author_name(self, obj):
         return obj.username
 
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        return User.objects.get(username__exact=bits[0])
+    def get_object(self, request, username=None):
+        return get_object_or_404(User, username__exact=username)
 
     def items(self, obj):
         return Snippet.objects.filter(author=obj)[:15]
@@ -79,10 +77,8 @@ class SnippetsByLanguageFeed(Feed):
     description_template = 'cab/feeds/description.html'
     item_copyright = 'Freely redistributable'
 
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        return Language.objects.get(slug__exact=bits[0])
+    def get_object(self, request, slug=None):
+        return get_object_or_404(Language, slug__exact=slug)
 
     def items(self, obj):
         return Snippet.objects.filter(language=obj)[:15]
@@ -113,10 +109,8 @@ class SnippetsByTagFeed(Feed):
     description_template = 'cab/feeds/description.html'
     item_copyright = 'Freely redistributable'
 
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        return Tag.objects.get(slug__exact=bits[0])
+    def get_object(self, request, slug=None):
+        return get_object_or_404(Tag, slug__exact=slug)
 
     def items(self, obj):
         return Snippet.objects.matches_tag(obj)[:15]
