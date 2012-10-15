@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+{% load static from staticfiles %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,14 +8,14 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
-  <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/snippets.css" type="text/css" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/pygments.css" type="text/css" />
+  <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
+  <link rel="stylesheet" href="{% static "css/snippets.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "css/pygments.css" %}" type="text/css" />
   <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
   
   {% block extra_scripts %}{% endblock %}
-  <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/snippets.js"></script>
+  <script type="text/javascript" language="javascript" src="{% static "js/snippets.js" %}"></script>
   <script type="text/javascript" language="javascript">
     $(function() {
       var snippet_completion = new Snippets.SnippetCompletion()
@@ -112,7 +112,7 @@
         <li><a href="/tags/">By tag</a></li>
         <li><a href="/popular/rated/">Highest-rated</a></li>
         <li><a href="/popular/bookmarked/">Most bookmarked</a></li>
-        <li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{{ STATIC_URL }}img/feed-icon-10x10.png" alt="" /> Feed of latest snippets</a></li>
+        <li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></li>
       </ul>
     </div>
     {% if user.is_authenticated %}

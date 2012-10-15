@@ -1,5 +1,6 @@
 {% extends "base_user.html" %}
 {% load cache core_tags %}
+{% load static from staticfiles %}
 
 {% block feeds %}<link rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml" title="Feed of snippets by {{ author.username }}" />{% endblock %}
 
@@ -42,7 +43,7 @@
   {% cache 600 author_detail_sidebar author.username %}
   <p>{% ifequal request.user author %}You've{% else %}{{ author.username }} has{% endifequal %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
 
-  <p><a rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml"><img src="{{ STATIC_URL }}img/feed-icon-10x10.png" alt="" /> Feed of snippets by {{ author.username }}</a></p>
+  <p><a rel="alternate" href="/feeds/author/{{ author.username }}/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of snippets by {{ author.username }}</a></p>
 
   <p>The users who've submitted the most snippets are:</p>
   <ol>

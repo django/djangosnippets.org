@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
 {% load core_tags %}
 
 {% block title %}Welcome{% endblock %}
@@ -38,11 +39,11 @@
 
   <p>If you'd like to contribute, <a href="/accounts/register/">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
 
-  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{{ STATIC_URL }}img/feed-icon-10x10.png" alt="" /> Feed of latest snippets</a></p>
+  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></p>
 
   <p><a href="http://readthedocs.org/">Find documentation</a> for popular open source apps</p>
 
   <h3>Recommended Django titles</h3>
-  <a style="margin: 10px;" href="http://www.amazon.com/dp/1430210478/?tag=djangsnipp-20"><img src="{{ STATIC_URL }}amazon_resources/pro-django-experts-voice-in-we.jpg" alt="Pro Django (Expert's Voice in Web Development)" /></a>
+  <a style="margin: 10px;" href="http://www.amazon.com/dp/1430210478/?tag=djangsnipp-20"><img src="{% static "amazon_resources/pro-django-experts-voice-in-we.jpg" %}" alt="Pro Django (Expert's Voice in Web Development)" /></a>
   <a style="margin: 10px;" href="http://www.amazon.com/dp/1430219386/?tag=djangsnipp-20"><img src="{{ STATIC_URL }}amazon_resources/practical-django-projects-seco.jpg" alt="Practical Django Projects, Second Edition (Expert's Voice in Web Development)" /></a>
 {% endblock %}

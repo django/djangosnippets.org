@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load core_tags %}
+{% load static from staticfiles %}
+
 {% block title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
 {% block content_header %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
@@ -36,5 +38,5 @@
 
 {% block sidebar %}
   <p>{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
-  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{{ STATIC_URL }}img/feed-icon-10x10.gif" alt="" /> Feed of latest snippets</a></p>
+  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.gif" %}" alt="" /> Feed of latest snippets</a></p>
 {% endblock %}
