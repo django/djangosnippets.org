@@ -10,7 +10,7 @@ django-simple-ratings==0.3.0
 django-taggit==0.9.3
 django-redis-cache==0.9.4
 pysolr==2.1.0-beta
-gunicorn==0.14.3
+gunicorn==0.15.0
 dj-database-url==0.2.0
 psycopg2==2.4.5
 gevent==0.13.7
