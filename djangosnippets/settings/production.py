@@ -12,6 +12,14 @@ TEMPLATE_LOADERS = (
 # Heroku needs Gunicorn specifically.
 INSTALLED_APPS += ('gunicorn',)
 
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_PRELOAD_METADATA = True
+AWS_IS_GZIPPED = True
+AWS_S3_SECURE_URLS = True
+AWS_QUERYSTRING_AUTH = False
+
 # INSTALLED_APPS += ('djangosecure',)
 # MIDDLEWARE_CLASSES.insert(0, 'djangosecure.middleware.SecurityMiddleware')
 # SECURE_SSL_REDIRECT = True
@@ -26,9 +34,7 @@ INSTALLED_APPS += ('gunicorn',)
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'assets', 'static')
-STATIC_URL = '/assets/static/'
-ADMIN_MEDIA_PREFIX = '/assets/static/admin/'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
 

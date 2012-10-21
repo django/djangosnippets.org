@@ -18,3 +18,5 @@ raven==1.9.4
 BeautifulSoup==3.2.1
 hiredis>=0.1.1
 django-postgrespool==0.2.2
+django-storages==1.1.5
+boto==2.6.0

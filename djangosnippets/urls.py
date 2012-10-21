@@ -41,6 +41,4 @@ urlpatterns = patterns('',
     url(r'^users/$', 'cab.views.popular.top_authors', name='cab_top_authors'),
     url(r'^users/(?P<username>[-\w]+)/$', 'cab.views.snippets.author_snippets', name='cab_author_snippets'),
     url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'homepage.html'}),
-    url(r'^%s/(?P<path>.*)$' % settings.STATIC_URL.strip('/'),
-        'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
 )
