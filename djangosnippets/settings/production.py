@@ -36,7 +36,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
+# MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
 
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
