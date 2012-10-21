@@ -18,5 +18,6 @@ raven==1.9.4
 BeautifulSoup==3.2.1
 hiredis>=0.1.1
 django-postgrespool==0.2.2
-django-storages==1.1.5
+# django-storages==1.1.5
+https://bitbucket.org/jezdez/django-storages/get/f312d8bc7520.zip
 boto==2.6.0
