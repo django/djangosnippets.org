@@ -14,7 +14,7 @@ gunicorn==0.15.0
 dj-database-url==0.2.1
 psycopg2==2.4.5
 gevent==0.13.8
-raven==2.0.7
+raven==1.9.4
 BeautifulSoup==3.2.1
 hiredis>=0.1.1
 django-postgrespool==0.2.2
