@@ -26,13 +26,11 @@ INSTALLED_APPS += ('gunicorn',)
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Canoncalize on "dashboard.djangoproject.com"
-# MIDDLEWARE_CLASSES.insert(0, 'dashboard.middleware.CanonicalDomainMiddleware')
-# CANONICAL_HOSTNAME = 'dashboard.djangoproject.com'
-
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'assets', 'static')
 STATIC_URL = '/assets/static/'
 ADMIN_MEDIA_PREFIX = '/assets/static/admin/'
+
+MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
 
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
@@ -65,9 +63,9 @@ CACHES = {
 }
 
 # Use Sentry for debugging if available.
-# if 'SENTRY_DSN' in os.environ:
-#     INSTALLED_APPS += ("raven.contrib.django",)
-#     SENTRY_DSN = os.environ.get('SENTRY_DSN')
+if 'SENTRY_DSN' in os.environ:
+    INSTALLED_APPS += ("raven.contrib.django",)
+    SENTRY_DSN = os.environ.get('SENTRY_DSN')
 
 HAYSTACK_SEARCH_ENGINE = 'solr'
 HAYSTACK_SOLR_URL = os.environ.get('WEBSOLR_URL', '')
@@ -78,44 +76,44 @@ EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True,
-#     'root': {
-#         'level': 'WARNING',
-#         'handlers': ['sentry'],
-#     },
-#     'formatters': {
-#         'verbose': {
-#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'sentry': {
-#             'level': 'ERROR',
-#             'class': 'raven.contrib.django.handlers.SentryHandler',
-#         },
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'verbose'
-#         }
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'level': 'ERROR',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#         'raven': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#         'sentry.errors': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
