@@ -27,8 +27,6 @@ Cab has a couple of external dependencies:
 
     * `django-haystack`_ for search
 
-    * `django-amazon-resources`_ for recommended titles
-
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
 
