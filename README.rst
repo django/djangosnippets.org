@@ -14,30 +14,28 @@ Installation notes
 
 Cab has a couple of external dependencies:
 
-    * `Pygments`_ for code highlighting.
+* `Pygments`_ for code highlighting.
 
-    * `python-markdown`_ for processing snippet descriptions. Other
-      Python ports of Markdown will not work, since the code which
-      calls Markdown assumes the existence of python-markdown's "safe
-      mode".
+* `python-markdown`_ for processing snippet descriptions. Other
+  Python ports of Markdown will not work, since the code which
+  calls Markdown assumes the existence of python-markdown's "safe
+  mode".
 
-    * `django-simple-ratings`_ for item ranking
+* `django-simple-ratings`_ for item ranking
 
-    * `django-taggit`_ for tagging 
+* `django-taggit`_ for tagging 
 
-    * `django-haystack`_ for search
-
-    * `django-amazon-resources`_ for recommended titles
+* `django-haystack`_ for search
 
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
 
-    * ``django.contrib.comments`` to enable commenting.
+* ``django.contrib.comments`` to enable commenting.
 
-    * ``django.contrib.markup`` to handle Markdown formatting of
-       comments.
+* ``django.contrib.markup`` to handle Markdown formatting of
+  comments.
 
-    * ``django.contrib.syndication`` to enable feeds.
+* ``django.contrib.syndication`` to enable feeds.
 
 It's also recommended that you have ``django.contrib.admin`` installed
 for ease of site maintenance.
@@ -65,27 +63,24 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 .. _django-haystack: http://github.com/toastdriven/django-haystack/
 .. _django-amazon-resources: http://github.com/coleifer/django-amazon-resources/
 
-For search support you need to set up a search engine and configure haystack:
+For search support you need to set up a search engine and configure haystack::
 
-``HAYSTACK_SITECONF = 'search_sites'``
-``HAYSTACK_SEARCH_ENGINE = 'whoosh'``
-``# Place where search indexes are stored for snippets - should be non web accessible``
-``HAYSTACK_WHOOSH_PATH = '/some-path/search-index'``
+  ``HAYSTACK_SITECONF = 'search_sites'``
+  ``HAYSTACK_SEARCH_ENGINE = 'whoosh'``
+  ``# Place where search indexes are stored for snippets - should be non web accessible``
+  ``HAYSTACK_WHOOSH_PATH = '/some-path/search-index'``
 
 And you should add a file called ``search_sites.py`` to your project with the 
-following lines:
+following lines::
 
-``import haystack``
-``haystack.autodiscover()``
-
-
+  ``import haystack``
+  ``haystack.autodiscover()``
 
 Templates
 =========
 
 The git repo will get you a set of example templates
 matching those currently in use on `djangosnippets.org`_
-
 
 OMGWTF Tests?
 =============
