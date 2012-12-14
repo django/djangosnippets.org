@@ -65,16 +65,16 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 
 For search support you need to set up a search engine and configure haystack::
 
-  ``HAYSTACK_SITECONF = 'search_sites'``
-  ``HAYSTACK_SEARCH_ENGINE = 'whoosh'``
-  ``# Place where search indexes are stored for snippets - should be non web accessible``
-  ``HAYSTACK_WHOOSH_PATH = '/some-path/search-index'``
+  HAYSTACK_SITECONF = 'search_sites'
+  HAYSTACK_SEARCH_ENGINE = 'whoosh'
+  # Place where search indexes are stored for snippets - should be non web accessible
+  HAYSTACK_WHOOSH_PATH = '/some-path/search-index'
 
 And you should add a file called ``search_sites.py`` to your project with the 
 following lines::
 
-  ``import haystack``
-  ``haystack.autodiscover()``
+  import haystack
+  haystack.autodiscover()
 
 Templates
 =========
