@@ -1,6 +1,6 @@
 Django==1.4.4
-Markdown==2.2.0
-Pygments==1.5
+Markdown==2.2.1
+Pygments==1.6
 South==0.7.5
 django-generic-aggregation==0.3.1
 django-simple-ratings==0.3.2
@@ -8,16 +8,16 @@ django-haystack==1.2.7
 django-pagination==1.0.7
 django-registration==0.8
 django-taggit==0.9.3
-django-redis-cache==0.9.5
+django-redis-cache==0.9.6
 pysolr==2.1.0-beta
-gunicorn==0.15.0
+gunicorn==0.17.2
 dj-database-url==0.2.1
-psycopg2==2.4.5
+psycopg2==2.4.6
 gevent==0.13.8
 raven==1.9.4
 BeautifulSoup==3.2.1
 hiredis>=0.1.1
-django-postgrespool==0.2.2
+django-postgrespool==0.2.4
 # django-storages==1.1.5
 https://bitbucket.org/jezdez/django-storages/get/f312d8bc7520.zip
-boto==2.6.0
+boto==2.8.0
