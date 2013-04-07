@@ -21,3 +21,4 @@ django-postgrespool==0.2.4
 # django-storages==1.1.5
 https://bitbucket.org/jezdez/django-storages/get/f312d8bc7520.zip
 boto==2.8.0
+Whoosh==2.4.1
