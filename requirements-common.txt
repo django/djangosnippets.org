@@ -8,15 +8,3 @@ django-haystack==1.2.7
 django-pagination==1.0.7
 django-registration==0.8
 django-taggit==0.9.3
-django-redis-cache==0.9.6
-pysolr==2.1.0-beta
-gunicorn==0.17.2
-dj-database-url==0.2.1
-psycopg2==2.4.6
-gevent==0.13.8
-raven==1.9.4
-BeautifulSoup==3.2.1
-hiredis>=0.1.1
-django-postgrespool==0.2.4
-https://bitbucket.org/jezdez/django-storages/get/f312d8bc7520.zip
-boto==2.8.0
