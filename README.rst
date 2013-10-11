@@ -90,6 +90,6 @@ matching those currently in use on `djangosnippets.org`_
 OMGWTF Tests?
 =============
 
-Yeah, there are tests now.
+Yeah, there are tests now. See https://travis-ci.org/django-de/cab
 
 .. _djangosnippets.org: http://djangosnippets.org/
