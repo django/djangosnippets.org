@@ -2,6 +2,10 @@
 Cab
 ===
 
+.. image:: https://secure.travis-ci.org/django-de/cab.png
+   :alt: Build Status
+   :target: https://travis-ci.org/django-de/cab
+
 Cab (named for the jazz bandleader and scat singer Cab Calloway) is a
 Django application which allows users to post and share useful
 "snippets" of code.
