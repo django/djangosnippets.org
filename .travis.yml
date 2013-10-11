@@ -14,4 +14,4 @@ script:
 env:
   - DJANGO=1.4.8
   - DJANGO=1.5.4
-  - DJANGO=stable/1.6.x
+  # - DJANGO=stable/1.6.x
