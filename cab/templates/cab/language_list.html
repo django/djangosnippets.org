@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% block title %}All languages{% endblock %}
+
+{% block content_header %}All languages{% endblock %}
+
+{% block content %}
+  <ul>
+  {% for language in object_list %}
+    <li><a href="{{ language.get_absolute_url }}">{{ language.name }}</a></li>
+  {% endfor %}
+  </ul>
+
+  <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
+
+{% endblock %}
