@@ -23,7 +23,7 @@ Cab has a couple of external dependencies:
 
 * `django-simple-ratings`_ for item ranking
 
-* `django-taggit`_ for tagging 
+* `django-taggit`_ for tagging
 
 * `django-haystack`_ for search
 
@@ -43,7 +43,7 @@ for ease of site maintenance.
 Once you've got those taken care of, grab a git checkout of Cab
 from somewhere on your Python path::
 
-    git clone git://github.com/coleifer/djangosnippets.org.git 
+    git clone git://github.com/django-de/djangosnippets.org.git
 
 Then add ``ratings``, ``taggit`` and ``cab`` to the ``INSTALLED_APPS`` setting
 of your Django project, run ``manage.py syncdb``, and either put a call to
@@ -61,20 +61,22 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 .. _django-simple-ratings: http://github.com/coleifer/django-simple-ratings/
 .. _django-taggit: http://github.com/alex/django-taggit/
 .. _django-haystack: http://github.com/toastdriven/django-haystack/
-.. _django-amazon-resources: http://github.com/coleifer/django-amazon-resources/
 
 For search support you need to set up a search engine and configure haystack::
 
-  HAYSTACK_SITECONF = 'search_sites'
-  HAYSTACK_SEARCH_ENGINE = 'whoosh'
   # Place where search indexes are stored for snippets - should be non web accessible
-  HAYSTACK_WHOOSH_PATH = '/some-path/search-index'
+  HAYSTACK_CONNECTIONS = {
+      'default': {
+          'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+          'PATH': '/some-path/search-index',
+          'STORAGE': 'file',
+          'POST_LIMIT': 128 * 1024 * 1024,
+          'INCLUDE_SPELLING': True,
+          'BATCH_SIZE': 100,
+      },
+  }
+  HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-And you should add a file called ``search_sites.py`` to your project with the 
-following lines::
-
-  import haystack
-  haystack.autodiscover()
 
 Templates
 =========

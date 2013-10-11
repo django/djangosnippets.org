@@ -1,6 +1,7 @@
 import os
 
-PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            os.pardir)
 
 ADMINS = (
     ('Jannis Leidel', 'jannis@leidel.info'),
@@ -25,7 +26,6 @@ EMAIL_SUBJECT_PREFIX = '[djangosnippets] '
 FORCE_WWW = False
 
 ROOT_URLCONF = 'djangosnippets.urls'
-HAYSTACK_SITECONF = 'djangosnippets.search_sites'
 
 CACHE_KEY_PREFIX = 'djangosnippets'
 CACHE_MIDDLEWARE_KEY_PREFIX = CACHE_KEY_PREFIX
@@ -91,3 +91,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 COMMENTS_APP = 'cab.comments'
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+CAB_VERSIONS = (
+    (1.6, '1.6'),
+    (1.5, '1.5'),
+    (1.4, '1.4'),
+    (1.3, '1.3'),
+    (1.2, '1.2'),
+    (1.1, '1.1'),
+    (1, '1.0'),
+    (.96, '.96'),
+    (.95, 'Pre .96'),
+    (0, 'Not specified'),
+)

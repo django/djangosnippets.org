@@ -34,6 +34,10 @@ AWS_QUERYSTRING_AUTH = False
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+ALLOWED_HOSTS = [
+    'djangosnippets.org',
+]
+
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
@@ -73,8 +77,16 @@ if 'SENTRY_DSN' in os.environ:
     INSTALLED_APPS += ("raven.contrib.django",)
     SENTRY_DSN = os.environ.get('SENTRY_DSN')
 
-HAYSTACK_SEARCH_ENGINE = 'solr'
-HAYSTACK_SOLR_URL = os.environ.get('WEBSOLR_URL', '')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': os.environ.get('WEBSOLR_URL', ''),
+        'TIMEOUT': 60 * 5,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    },
+}
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')

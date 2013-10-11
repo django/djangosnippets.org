@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Django snippets: {% block title %}Home{% endblock %}</title>
-  
+
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
@@ -13,14 +13,14 @@
   <link rel="stylesheet" href="{% static "css/pygments.css" %}" type="text/css" />
   <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
-  
+
   {% block extra_scripts %}{% endblock %}
   <script type="text/javascript" language="javascript" src="{% static "js/snippets.js" %}"></script>
   <script type="text/javascript" language="javascript">
     $(function() {
       var snippet_completion = new Snippets.SnippetCompletion()
       snippet_completion.bind_listener('#id_q');
-      
+
       if ($('#id_tags').length > 0) {
         var tag_completion = new Snippets.TagCompletion()
         tag_completion.bind_listener('#id_tags');
@@ -134,7 +134,7 @@
       <p><a href="/about/tos/">Terms of service</a></p>
       <p><a href="/about/legal/">Legal notices</a></p>
     </div>
-    <p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a>, <a href="http://charlesleifer.com">Charles Leifer</a> and <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">other contributors</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>. Hosted by <span class="heroku">Heroku</span></p>
+    <p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a>, <a href="http://charlesleifer.com">Charles Leifer</a>, <a href="https://twitter.com/jezdez">Jannis Leidel</a> and <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">other contributors</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>. Hosted by <span class="heroku">Heroku</span></p>
   </div>
   <script type="text/javascript">
     var _gaq = _gaq || [];

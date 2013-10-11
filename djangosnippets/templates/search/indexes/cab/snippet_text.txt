@@ -1,5 +1,0 @@
-{{ object.title }}
-{{ object.description_html|safe }}
-{% for tag in object.tags.all %}{{ tag.name }} {% endfor %}
-{{ object.author.username }}
-{{ object.language.name }}
