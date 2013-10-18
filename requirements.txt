@@ -1,5 +1,5 @@
 -r requirements-common.txt
-gunicorn==0.18
+gunicorn==18.0
 psycopg2==2.5.1
 django-postgrespool==0.2.4
 pyelasticsearch==0.6
