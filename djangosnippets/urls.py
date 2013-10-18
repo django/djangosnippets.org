@@ -6,16 +6,19 @@ from haystack.views import SearchView, search_view_factory
 
 from cab import feeds
 from cab.forms import AdvancedSearchForm, RegisterForm
+from registration.backends.default.views import RegistrationView
 
 admin.autodiscover()
 
 
+class CabRegistrationView(RegistrationView):
+    form_class = RegisterForm
+
+
 urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/register/$', 'registration.views.register', {
-            'backend': 'registration.backends.default.DefaultBackend',
-            'form_class': RegisterForm,
-        }, name='registration_register'),
+    url(r'^accounts/register/$', CabRegistrationView.as_view(),
+        name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

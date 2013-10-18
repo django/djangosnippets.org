@@ -5,7 +5,7 @@ South==0.8.2
 django-generic-aggregation==0.3.2
 django-haystack>=2.1
 django-pagination==1.0.7
-django-registration==0.8
+django-registration==1.0
 django-taggit==0.10
 
 -e git+https://github.com/django-de/cab#egg=cab
