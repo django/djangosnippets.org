@@ -4,7 +4,7 @@ psycopg2==2.5.1
 django-postgrespool==0.2.4
 pyelasticsearch==0.6
 django-redis-cache==0.10.0
-raven==3.5.0
+raven==1.9.4
 django-storages>=1.1.8
 boto==2.15.0
 gevent==0.13.8
