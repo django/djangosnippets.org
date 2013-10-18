@@ -1,0 +1,12 @@
+New comment on snippet "{{ content_object.title }}" ({{ content_object.pk }})
+
+Submitted: {{ comment.submit_date }}
+URL: {{ content_object.get_absolute_url }}
+Author: {{ comment.user_name }}
+Email address: {{ comment.user_email }}
+Website: {{ comment.user_url }}
+IP: {{ comment.ip_address }}
+Public: {{ comment.is_public|yesno }}
+Removed: {{ comment.is_removed|yesno }}
+Comment:
+{{ comment.comment }}
