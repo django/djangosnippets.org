@@ -45,6 +45,7 @@ INSTALLED_APPS = (
 
     'cab',
     'cab.comments',
+    'comments_spamfighter',
     'haystack',
     'pagination',
     'ratings',
