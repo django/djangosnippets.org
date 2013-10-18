@@ -138,3 +138,5 @@ LOGGING = {
 }
 
 SECRET_KEY = os.environ['SECRET_KEY']
+
+AKISMET_SECRET_API_KEY = os.environ['AKISMET_KEY']
