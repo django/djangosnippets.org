@@ -80,8 +80,9 @@ if 'SENTRY_DSN' in os.environ:
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': os.environ.get('WEBSOLR_URL', ''),
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': os.environ.get('SEARCHBOX_SSL_URL', ''),
+        'INDEX_NAME': 'djangosnippets-prod',
         'TIMEOUT': 60 * 5,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
