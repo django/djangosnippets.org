@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
+from django.contrib.comments.moderation import moderator
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, permalink
 
+from comments_spamfighter.moderation import SpamFighterModerator
 from ratings.models import Ratings
 from taggit.managers import TaggableManager
 
@@ -161,6 +163,27 @@ class Bookmark(models.Model):
     def delete(self, *args, **kwargs):
         super(Bookmark, self).delete(*args, **kwargs)
         self.snippet.update_bookmark_count()
+
+
+class SnippetModerator(SpamFighterModerator):
+    # Regular options by Django's contributed CommentModerator
+    email_notification = True
+
+    # Spam fighter options:
+    # Check with Akismet for spam
+    akismet_check = True
+    # If Akismet marks this message as spam, delete it instantly (False) or
+    # add it the comment the moderation queue (True). Default is True.
+    akismet_check_moderate = True
+    # Do a keyword check
+    keyword_check = False
+    # If a keyword is found, delete it instantly (False) or add the comment to
+    # the moderation queue (True). Default is False.
+    keyword_check_moderate = True
+
+
+moderator.register(Snippet, SnippetModerator)
+
 
 from cab.listeners import start_listening
 start_listening()

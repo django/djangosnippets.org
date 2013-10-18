@@ -117,12 +117,14 @@ requirements = [
     'Markdown>=2.2.1',
     'Pygments>=1.6',
     'South>=0.7.5',
+    'akismet>=0.2.0',
     'django-generic-aggregation>=0.3.2',
     'django-simple-ratings>=0.3.2',
     'django-haystack>=2.1',
     'django-pagination==1.0.7',
     'django-registration==0.8',
     'django-taggit==0.10',
+    'django-comments-spamfighter>=0.4',
 ]
 
 setup(
