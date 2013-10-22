@@ -27,6 +27,9 @@
 <p><label for="id_comment">Comment:</label><br />
 {{ form.comment }}</p>
 <p>
+<p><label for="id_captcha">{% trans "Captcha:" %}</label><br />
+{{ form.captcha }}</p>
+
 <input type="submit" name="preview" value="Preview comment" />
 <input type="submit" name="post" value="Post comment" />
 </p>
