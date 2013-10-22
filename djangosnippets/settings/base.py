@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'taggit',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,3 +108,7 @@ CAB_VERSIONS = (
     (.95, 'Pre .96'),
     (0, 'Not specified'),
 )
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', )
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', )
+RECAPTCHA_USE_SSL = True
