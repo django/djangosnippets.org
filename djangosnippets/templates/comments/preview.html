@@ -18,18 +18,18 @@
     <dd>{{ form.name.errors }}{{ form.name }}</dd>
 </div>
 
-<dt><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dt>
-<dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
-</dl>
-
 <form action="/comments/post/" method="post">{% csrf_token %}
 
-<p><label for="id_comment">Comment:</label><br />
-{{ form.comment }}</p>
-<p>
-<p><label for="id_captcha">{% trans "Captcha:" %}</label><br />
-{{ form.captcha }}</p>
+<dt><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dt>
+<dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
 
+<dt><label for="id_comment">Comment:</label></dt>
+<dd>{{ form.comment.errors }}{{ form.comment }}</dd>
+
+<dt><label for="id_captcha">{% trans "Captcha:" %}</label></dt>
+<dd>{{ form.captcha.errors }}{{ form.captcha }}</dd>
+
+<p>
 <input type="submit" name="preview" value="Preview comment" />
 <input type="submit" name="post" value="Post comment" />
 </p>
@@ -41,6 +41,7 @@
   {{ form.security_hash }}
 </p>
 </form>
+</dl>
 
 {% endblock %}
 
