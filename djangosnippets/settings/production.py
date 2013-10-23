@@ -20,16 +20,16 @@ AWS_IS_GZIPPED = True
 AWS_S3_SECURE_URLS = True
 AWS_QUERYSTRING_AUTH = False
 
-# INSTALLED_APPS += ('djangosecure',)
-# MIDDLEWARE_CLASSES.insert(0, 'djangosecure.middleware.SecurityMiddleware')
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 600
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_FRAME_DENY = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SESSION_COOKIE_SECURE = True
-# SESSION_COOKIE_HTTPONLY = True
+INSTALLED_APPS += ('djangosecure',)
+MIDDLEWARE_CLASSES.insert(0, 'djangosecure.middleware.SecurityMiddleware')
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 600
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_FRAME_DENY = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -39,8 +39,6 @@ ALLOWED_HOSTS = [
 ]
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-# MIDDLEWARE_CLASSES += ('raven.contrib.django.middleware.Sentry404CatchMiddleware',)
 
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
