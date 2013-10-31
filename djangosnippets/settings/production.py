@@ -47,7 +47,6 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Grab database info
 DATABASES = {'default': dj_database_url.config()}
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 SOUTH_DATABASE_ADAPTERS = {
     'default': 'south.db.postgresql_psycopg2'
