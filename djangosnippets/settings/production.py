@@ -42,7 +42,6 @@ ALLOWED_HOSTS = [
 ]
 
 STATICFILES_STORAGE = 'djangosnippets.storage.DjangoSnippetsStaticFilesStorage'
-ECSTATIC_MANIFEST_FILE = os.path.join(PROJECT_ROOT, 'staticmanifest.json')
 
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
