@@ -122,10 +122,10 @@ requirements = [
     'django-simple-ratings>=0.3.2',
     'django-haystack>=2.1',
     'django-pagination==1.0.7',
-    'django-registration==0.8',
+    'django-registration==1.0',
     'django-taggit==0.10',
     'django-comments-spamfighter>=0.4',
-    'django-recaptcha>=0.0.6',
+    'django-simple-captcha>=0.4.0',
 ]
 
 setup(

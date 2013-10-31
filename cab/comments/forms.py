@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.comments.forms import CommentForm
-from captcha.fields import ReCaptchaField
+from captcha.fields import CaptchaField
 
 
 class CabCommentForm(CommentForm):
@@ -8,7 +8,7 @@ class CabCommentForm(CommentForm):
                                 widget=forms.TextInput(attrs={
                                     'autocomplete': 'off',
                                 }))
-    captcha = ReCaptchaField(attrs={'theme': 'clean'})
+    captcha = CaptchaField()
 
     def clean(self):
         if self.cleaned_data.get('your_name'):
