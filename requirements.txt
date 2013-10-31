@@ -10,3 +10,4 @@ gevent==0.13.8
 hiredis>=0.1.1
 dj-database-url==0.2.2
 django-secure==1.0
+django-ecstatic==0.1

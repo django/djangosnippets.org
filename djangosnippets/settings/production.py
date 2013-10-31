@@ -15,10 +15,12 @@ INSTALLED_APPS += ('gunicorn',)
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_S3_CUSTOM_DOMAIN = os.environ['AWS_S3_CUSTOM_DOMAIN']
 AWS_PRELOAD_METADATA = True
-AWS_IS_GZIPPED = True
-AWS_S3_SECURE_URLS = True
+# AWS_IS_GZIPPED = True
+AWS_S3_USE_SSL = True
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_URL_PROTOCOL = '//:'
 
 INSTALLED_APPS += ('djangosecure',)
 MIDDLEWARE_CLASSES = (('djangosecure.middleware.SecurityMiddleware',) +
@@ -39,7 +41,8 @@ ALLOWED_HOSTS = [
     'djangosnippets.org',
 ]
 
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'djangosnippets.storages.DjangoSnippetsStaticFilesStorage'
+ECSTATIC_MANIFEST_FILE = os.path.join(PROJECT_ROOT, 'staticmanifest.json')
 
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
