@@ -109,6 +109,11 @@ CAB_VERSIONS = (
     (0, 'Not specified'),
 )
 
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-RECAPTCHA_USE_SSL = True
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = (
+    'captcha.helpers.noise_arcs',
+    'captcha.helpers.noise_dots',
+    'captcha.helpers.noise_arcs',
+)
+CAPTCHA_BACKGROUND_COLOR = '#316241'
+CAPTCHA_FOREGROUND_COLOR = '#ffffff'
