@@ -86,6 +86,10 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
