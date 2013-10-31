@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from ecstatic.storage import CachedStaticFilesMixin, StaticManifestMixin
 from storages.backends.s3boto import S3BotoStorage
 
