@@ -114,5 +114,5 @@ CAPTCHA_NOISE_FUNCTIONS = (
     'captcha.helpers.noise_arcs',
     'captcha.helpers.noise_dots',
 )
-CAPTCHA_BACKGROUND_COLOR = '#316241'
-CAPTCHA_FOREGROUND_COLOR = '#ffffff'
+CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_FOREGROUND_COLOR = '#316241'
