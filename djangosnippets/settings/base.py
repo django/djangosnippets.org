@@ -85,6 +85,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ACCOUNT_ACTIVATION_DAYS = 7
