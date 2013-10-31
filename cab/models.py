@@ -176,7 +176,7 @@ class SnippetModerator(SpamFighterModerator):
     # add it the comment the moderation queue (True). Default is True.
     akismet_check_moderate = True
     # Do a keyword check
-    keyword_check = False
+    keyword_check = True
     # If a keyword is found, delete it instantly (False) or add the comment to
     # the moderation queue (True). Default is False.
     keyword_check_moderate = True
