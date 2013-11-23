@@ -1,2 +1,2 @@
 -r requirements-common.txt
-Whoosh==2.4.1
+Whoosh==2.5.5

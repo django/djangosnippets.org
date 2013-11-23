@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import url, patterns, include
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib import admin
 from django.shortcuts import render
 
@@ -45,3 +47,7 @@ urlpatterns = patterns('',
         name='cab_author_snippets'),
     url(r'^$', lambda request: render(request, 'homepage.html')),
 )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+        document_root=settings.STATIC_ROOT)
