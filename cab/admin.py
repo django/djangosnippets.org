@@ -12,12 +12,14 @@ class SnippetAdmin(admin.ModelAdmin):
     list_filter = ('language',)
     date_hierarchy = 'pub_date'
     search_fields = ('author__username', 'title', 'description', 'code',)
+    raw_id_fields = ('author',)
 
 
 class SnippetFlagAdmin(admin.ModelAdmin):
     list_display = ('snippet', 'flag')
     list_filter = ('flag',)
     actions = ['remove_and_ban']
+    raw_id_fields = ('snippet', 'user',)
 
     def remove_and_ban(self, request, queryset):
         for obj in queryset:
