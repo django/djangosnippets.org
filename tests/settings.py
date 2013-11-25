@@ -55,3 +55,8 @@ PASSWORD_HASHERS = (
 TEMPLATES_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates'),
 )
+
+CAB_VERSIONS = (
+    (0.0, '0.0'),
+    (1.1, '1.1'),
+)
