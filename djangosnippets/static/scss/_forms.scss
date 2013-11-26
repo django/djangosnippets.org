@@ -1,0 +1,18 @@
+form {
+    label {
+        font-weight: bold;
+    }
+    textarea {
+        min-height: rem-calc(300px);
+    }
+    button {
+        border-radius: 5px;
+    }
+    .help {
+        font-size: rem-calc(14px);
+        color: lighten($body-font-color, 20);
+    }
+    .error {
+        margin-bottom: 2px;
+    }
+}

@@ -1,0 +1,215 @@
+$green: #316241;
+$orange: #ffc656;
+$primary-color: #555;
+$secondary-color: $orange;
+
+@import "normalize";
+@import "foundation";
+@import "forms";
+
+
+header > .inner, footer, #main {
+    @include grid-row("collapse");
+    margin: auto;
+}
+
+a {
+    &:hover {
+        text-decoration: underline;
+        color: $secondary-color;
+    }
+}
+
+header {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 40px;
+    background: #FAFAFA;
+    #logo {
+        @include grid-column(4);
+        font-size: rem-calc(40px);
+        text-transform: lowercase;
+        font-weight: 300;
+        line-height: rem-calc(50px);
+        color: $green;
+        b {
+            font-weight: 400;
+            color: $secondary-color;
+        }
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .inner > nav {
+        @include grid-column(8);
+        line-height: 50px;
+        text-transform: lowercase;
+        font-family: $header-font-family;
+        text-align: right;
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: right;
+            @include grid-column(8, $collapse: true);
+        }
+        li {
+            display: inline-block;
+            line-height: rem-calc(50px);
+            &:after {
+                content: '/';
+                display: inline-block;
+                padding: 0 10px;
+                color: $secondary-color;
+            }
+        }
+        form {
+            @include grid-column(4, $last-column: true, $collapse: true);
+            padding-top: 6px;
+            input {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+#accountbar {
+    background: #EFEFEF;
+    width: 100%;
+    p {
+        width: $row-width;
+        padding: 5px 0;
+        margin: auto;
+        font-size: rem-calc(12px);
+        color: #666;
+        text-align: right;
+    }
+    a {
+        color: lighten($primary-color, 30);
+    }
+}
+
+#content {
+    @include grid-column(12, $collapse: true);
+    table {
+        width: 100%;
+        tr:hover td {
+            background: lighten($secondary-color, 30);
+        }
+        &.highlighttable tr:hover td {
+            background: inherit;
+        }
+    }
+}
+
+#sidebar {
+    h2, h3 {
+        font-size: rem-calc(22px);
+    }
+    .filter {
+        ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        li {
+            border-left: 5px solid lighten($primary-color, 40);
+            padding-left: 10px;
+            margin-bottom: 3px;
+            &:hover {
+                border-color: lighten($secondary-color, 0);
+            }
+        }
+    }
+}
+h1 {
+    @include grid-column(12);
+    margin-bottom: 20px;
+}
+
+#meta {
+    opacity: 0.6;
+    &:hover {
+        opacity: 1;
+    }
+    dd, dt {
+        display: inline-block;
+        font-size: rem-calc(12px);
+    }
+    dd {
+        margin-right: 10px;
+    }
+}
+
+#description {
+    padding: 15px;
+    background: lighten($table-border-color, 10);
+    border-left: 1px solid $table-border-color;
+    border-right: 1px solid $table-border-color;
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+body.snippet-details {
+    h1 {
+        margin-bottom: 0;
+    }
+    #meta {
+        margin-bottom: 20px;
+    }
+    table {
+        border-top: 0;
+    }
+    #actions {
+        background: $table-border-color;
+        text-align: right;
+        list-style: none;
+        margin: 0;
+        li {
+            display: inline-block;
+        }
+        a {
+            font-size: rem-calc(18px);
+            display: inline-block;
+            padding: 5px 10px;
+            color: darken($table-border-color, 30);
+            text-transform: lowercase;
+            span {
+                display: none;
+            }
+            &:hover {
+                color: darken($table-border-color, 50);
+            }
+        }
+    }
+}
+
+body.snippet-list,
+body.snippet-form {
+    #content {
+        @include grid-column(8);
+    }
+    #sidebar {
+        @include grid-column(4);
+    }
+    .pagination, .count {
+        text-align: center;
+    }
+}
+
+body.frontpage {
+    #content, #sidebar {
+        @include grid-column(6);
+    }
+}
+
+footer {
+    padding: 30px 0 30px 0;
+    p {
+        text-align: center;
+        font-size: rem-calc(13px);
+        opacity: 0.8;
+        padding: 0;
+        margin: 0;
+    }
+}

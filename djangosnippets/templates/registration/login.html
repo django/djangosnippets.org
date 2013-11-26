@@ -2,43 +2,49 @@
 
 {% block title %}Log in to {{ site_name }}{% endblock %}
 
-{% block content_header %}Log in{% endblock %}
+{% block content_header %}Log in / Sign up{% endblock %}
 
 {% block content %}
-  <form action="/accounts/login/" method="post" class="login_form">{% csrf_token %}
+  <form action="/accounts/login/" method="post" class="login_form column large-6">{% csrf_token %}
     {{ form.non_field_errors }}
-    {% if next %}<p>The page you're trying to access is only available to readers with free {{ site_name }} accounts. Just sign in below, and we'll send you on your way.</p>{% endif %}
-    <table>
-      <tr>
-        <th><label for="id_username">Username:</label></th>
-        <td>{{ form.username.errors }} {{ form.username }}</td>
-      </tr>
-      <tr>
-        <th><label for="id_password">Password:</label></th>
-        <td>{{ form.password.errors }} {{ form.password }}</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>
-          <input type="hidden" name="next" value="{{ next }}">
-          <input type="submit" value="Log in" class="button">
-          <a href="/accounts/password/reset/" class="alt_button">Forgotten your password?</a>
-        </td>
-      </tr>
-    </table>
+    {% if next %}<p class="alert-box warning">The page you're trying to access is only available to readers with free {{ site_name }} accounts. Just sign up and we'll send you on your way.</p>{% endif %}
+    <p class="help">Already have an account? Welcome back! Please use your username and password to sign in.</p>
+    <div class="row">
+        <label class="columns large-4 inline" for="id_username">Username:</label>
+        <div class="columns large-8">
+          {{ form.username }}
+          {% if form.username.errors %}<span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}
+        </div>
+    </div>
+    <div class="row">
+      <label class="columns large-4 inline" for="id_password">Password:</label>
+      <div class="columns large-8">
+        {{ form.password }}
+        {% if form.password.errors %}<span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns large-push-4 large-8">
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit">Log in</button>
+        <a href="/accounts/password/reset/" class="alt_button">Forgotten your password?</a>
+      </div>
+    </div>
   </form>
 
-  <form action="/accounts/register/" method="post" class="signup_form">{% csrf_token %}
-    <h3>Sign up for a new account</h3>
-    <table>
-      <tr>
-        <th><label for="id_email">Your email:</label></th>
-        <td>
-          <input type="text" name="email" value="" id="id_email">
-          <input type="submit" value="Sign up" class="button">
-        </td>
-      </tr>
-    </table>
+  <form action="/accounts/register/" method="post" class="signup_form column large-6">{% csrf_token %}
+    <p class="help">If you don't have an account yet, you can sign up here using your email address.</p>
+    <div class="row">
+      <label for="id_email" class="column large-4 inline">Your email:</label>
+      <div class="column large-8">
+        <input type="text" name="email" value="" id="id_email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="column large-push-4 large-8">
+        <button type="submit">Sign up</button>
+      </div>
+    </div>
   </form>
 {% endblock %}
 
