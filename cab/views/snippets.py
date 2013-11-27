@@ -54,6 +54,8 @@ def rate_snippet(request, snippet_id):
     if score and score in ['up', 'down']:
         score = {'up': 1, 'down': -1}[score]
         snippet.ratings.rate(user=request.user, score=score)
+    elif score == 'reset':
+        snippet.ratings.unrate(request.user)
     return redirect(snippet)
 
 

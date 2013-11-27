@@ -433,6 +433,28 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(self.snippet1.ratings.count(), 1)
         self.assertEqual(self.snippet1.ratings.cumulative_score(), -1)
 
+    def test_snippet_unrate_up(self):
+        """
+        Sending the score "reset" should remove a user's vote.
+        """
+        self.snippet1.ratings.clear()
+        self.snippet1 = Snippet.objects.get(pk=self.snippet1.pk)
+        snippet_rate = reverse('cab_snippet_rate', args=[self.snippet1.pk])
+        self.assertEqual(self.snippet1.rating_score, 0)
+        self.assertEqual(self.snippet1.ratings.count(), 0)
+
+        self.client.login(username='a', password='a')
+
+        resp = self.client.get(snippet_rate + '?score=up')
+        self.assertEqual(self.snippet1.ratings.count(), 1)
+        self.snippet1.update_rating()
+        self.assertEqual(self.snippet1.rating_score, 1)
+
+        resp = self.client.get(snippet_rate + '?score=reset')
+        self.assertEqual(self.snippet1.ratings.count(), 0)
+        self.snippet1.update_rating()
+        self.assertEqual(self.snippet1.rating_score, 0)
+
     def test_snippet_edit(self):
         snippet_edit = reverse('cab_snippet_edit', args=[self.snippet1.pk])
         self.assertEqual(snippet_edit, '/snippets/%d/edit/' % self.snippet1.pk)
