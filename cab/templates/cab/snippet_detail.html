@@ -56,7 +56,7 @@
       {% endif %}
       {% with object|rating_score:request.user as rating_score %}
         {% if rating_score %}
-          <li>You rated this snippet <strong>{% ifequal rating_score 1 %}useful{% else %}not useful{% endifequal %}</strong>.</li>
+          <li>You rated this snippet <strong>{% ifequal rating_score 1 %}useful{% else %}not useful{% endifequal %}</strong>. (<a href="{% url 'cab_snippet_rate' snippet_id=object.id %}?score=reset">Remove your vote</a>)</li>
         {% else %}
           <li>Rate this snippet: <a href="/snippets/{{ object.id }}/rate/?score=up">useful</a> or <a href="/snippets/{{ object.id }}/rate/?score=down">not useful</a></li>
         {% endif %}
