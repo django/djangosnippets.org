@@ -119,7 +119,7 @@ requirements = [
     'South>=0.7.5',
     'akismet>=0.2.0',
     'django-generic-aggregation>=0.3.2',
-    'django-simple-ratings>=0.3.2',
+    'django-simple-ratings>=0.3.3',
     'django-haystack>=2.1',
     'django-pagination==1.0.7',
     'django-registration==1.0',
