@@ -95,6 +95,7 @@ header {
         li {
             display: inline-block;
             line-height: rem-calc(50px);
+            vertical-align: middle;
             &:after {
                 content: '/';
                 display: inline-block;
@@ -106,8 +107,7 @@ header {
             }
         }
         form {
-            display: inline-block;
-            padding-top: 6px;
+            display: inline;
             input {
                 margin-bottom: 0;
             }
