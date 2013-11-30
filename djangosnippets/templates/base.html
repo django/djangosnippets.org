@@ -51,16 +51,17 @@
     </nav>
   </div></header>
   <div id="main">
-
-<!--   <ul id="nav-secondary">
-  {% block secondary_nav %}
-    <li><a href="/users/">By author</a></li>
-    <li><a href="/languages/">By language</a></li>
-    <li><a href="/tags/">By tag</a></li>
-    <li><a href="/popular/rated/">Highest-rated</a></li>
-    <li><a href="/popular/bookmarked/">Most bookmarked</a></li>
-  {% endblock %}
-  </ul> -->
+    {% block secondary_nav %}
+    <nav id="subnav">
+      <ul>
+        <li><a href="">By author</a></li>
+        <li><a href="">By language</a></li>
+        <li><a href="">By tag</a></li>
+        <li><a href="">Highest rated</a></li>
+        <li><a href="">Most bookmarked</a></li>
+      </ul>
+    </nav>
+    {% endblock %}
 
   {% if messages %}
     {% for message in messages %}

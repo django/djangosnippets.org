@@ -20,6 +20,30 @@ a {
     }
 }
 
+#subnav {
+    margin-top: -40px;
+    margin-right: 0.9375rem;
+    ul {
+        border-radius: 0 0 20px 20px;
+        list-style: none;
+        background: #FAFAFA;
+        @media #{$small-up} {
+            text-align: center;
+        }
+        @media #{$large-up} {
+            text-align: right;
+            float: right;
+        }
+    }
+    li {
+        display: inline-block;
+        padding: 10px 15px;
+    }
+    a {
+        font-size: rem-calc(12px);
+    }
+}
+
 header {
     padding-bottom: 20px;
     padding-top: 20px;
@@ -123,6 +147,9 @@ header {
 #sidebar {
     h2, h3 {
         font-size: rem-calc(22px);
+    }
+    p, dt, dd {
+        font-size: rem-calc(13px);
     }
     .filter {
         ul {
