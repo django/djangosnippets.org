@@ -177,6 +177,19 @@ body.snippet-details {
     }
     table {
         border-top: 0;
+        table-layout: fixed;
+        td.linenos {
+            width: 60px;
+        }
+        td {
+            vertical-align: top;
+        }
+    }
+    .highlighttable .code {
+        overflow: scroll;
+    }
+    .highlight pre {
+        white-space: pre;
     }
     #actions {
         background: $table-border-color;
@@ -205,10 +218,20 @@ body.snippet-details {
 body.snippet-list,
 body.snippet-form {
     #content {
-        @include grid-column(8);
+        @media #{$small-up} {
+            @include grid-column(12);
+        }
+        @media #{$medium-up} {
+            @include grid-column(8);
+        }
     }
     #sidebar {
-        @include grid-column(4);
+        @media #{$small-up} {
+            @include grid-column(12);
+        }
+        @media #{$medium-up} {
+            @include grid-column(4);
+        }
     }
     .pagination, .count {
         text-align: center;

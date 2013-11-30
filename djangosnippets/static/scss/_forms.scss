@@ -20,4 +20,11 @@ form {
             display: block;
         }
     }
+
+    &.fullsize {
+        @include grid-row("collapse");
+        .field-group {
+            @include grid-column(12, $collapse:true);
+        }
+    }
 }

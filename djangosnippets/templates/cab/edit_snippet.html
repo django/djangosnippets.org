@@ -4,28 +4,58 @@
 
 {% block content_header %}Editing "{{ form.instance.title }}"{% endblock %}
 {% block bodyclass %}snippet-form{% endblock %}
+{% load static from staticfiles %}
+
+{% block extra_scripts %}
+  <script type="text/javascript" language="javascript" src="{% static "js/snippets.js" %}"></script>
+  <script type="text/javascript" language="javascript">
+    $(function() {
+      var tag_hint = new Snippets.TagCompletion();
+      tag_hint.bind_listener('input#id_q', 'input#id_output');
+    });
+  </script>
+{% endblock %}
 {% block content %}
+  {% block content_preamble %}{% endblock %}
 
   {% if form.errors %}
     <p class="error">Please correct the errors below:</p>
   {% endif %}
 
-  <form method="post" action="">{% csrf_token %}
-    <dl>
-    <dt><label for="id_title">Title:</label></dt>
-    <dd>{% if form.title.errors %}<span class="error">{{ form.title.errors|join:", " }}</span>{% endif %}{{ form.title }}</dd>
-    <dt><label for="id_language">Language:</label></dt>
-    <dd>{% if form.language.errors %}<span class="error">&nbsp;&nbsp;{{ form.language.errors|join:", " }}</span>{% endif %}{{ form.language }}</dd>
-    <dt><label for="id_version">Version:</label></dt>
-    <dd>{% if form.version.errors %}<span class="error">&nbsp;&nbsp;{{ form.version.errors|join:", " }}</span>{% endif %}{{ form.version }}</dd>
-    <dt><label for="id_tag_list">Tags:</label></dt>
-    <dd>{% if form.tags.errors %}<span class="error">{{ form.tags.errors|join:", " }}</span>{% endif %}{{ form.tags }}<p class="help">Use commas between tag names, and hyphens for multiple words, like "tag1, tag2, tag3-with-long-name".</p></dd>
-    <dd>{{ form.code }}</dd>
-    <dt><label for="id_description">Description:</label></dt>
-    <dd>{% if form.description.errors %}<span class="error">{{ form.description.errors|join:", " }}</span>{% endif %}{{ form.description }}
-    <p class="help">You can use Markdown syntax here (see the sidebar), but <strong>raw HTML will be removed</strong>.</p></dd>
-    <dt><button type="submit">Save</button></dt>
-    </dl>
+  <form class="fullsize" method="post" action="">{% csrf_token %}
+    <div class="field-group {% if form.title.errors %}error{% endif %}">
+      <label for="id_title">Title:</label>
+      {{ form.title }}
+      {% if form.title.errors %}<small class="error">{{ form.title.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="field-group {% if form.language.errors %}error{% endif %}">
+      <label for="id_language">Language:</label>
+      {{ form.language }}
+      {% if form.language.errors %}<small class="error">{{ form.language.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="field-group {% if form.version.errors %}error{% endif %}">
+      <label for="id_version">Version:</label>
+      {{ form.version }}
+      {% if form.version.errors %}<small class="error">{{ form.version.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="field-group {% if form.tags.errors %}error{% endif %}">
+      <label for="id_tag_list">Tags:</label>
+      {{ form.tags }}
+      {% if form.tags.errors %}<span class="error">{{ form.tags.errors|join:", " }}</span>{% endif %}
+      <p class="help">Use commas between tag names, and hyphens for multiple words, like "tag1, tag2, tag3-with-long-name".</p>
+    </div>
+    <div class="field-group {% if form.code.errors %}error{% endif %}">
+      <label for="id_code">Code:</label>
+      {{ form.code }}
+      {% if form.code.errors %}<span class="error">{{ form.code.errors|join:", " }}</span>{% endif %}
+    </div>
+    <div class="field-group {% if form.description.errors %}error{% endif %}">
+      <label for="id_description">Description:</label>
+      {{ form.description }}
+      {% if form.description.errors %}<span class="error">{{ form.description.errors|join:", " }}</span>{% endif %}
+      <p class="help">You can use Markdown syntax here (see the sidebar), but <strong>raw HTML will be removed</strong>.</p>
+    </div>
+    <div class="button-group"><button type="submit">Save</button></div>
   </form>
 {% endblock %}
 
