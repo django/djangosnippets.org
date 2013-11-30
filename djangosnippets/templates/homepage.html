@@ -6,7 +6,7 @@
 
 {% block content_header %}Welcome{% endblock %}
 
-{% block content %}
+{% block sidebar %}
   {% load cache %}
   {% cache 600 homepage %}
   <h2>Latest snippets posted:</h2>
@@ -32,7 +32,7 @@
   {% endcache %}
 {% endblock %}
 
-{% block sidebar %}
+{% block content %}
   <p>Welcome to <a href="https://djangosnippets.org/">Djangosnippets.org</a>, a site for users of the <a href="https://www.djangoproject.com/">Django web framework</a> to come together and share useful "snippets" of reusable code.</p>
 
   <p>If you're just here to browse, you can look through snippets organized <a href="/users/">by author</a>, <a href="/languages/">by language</a> or <a href="/tags/">by tag</a>. You can also have a look at the <a href="/popular/rated/">top-rated snippets</a> and the <a href="/popular/bookmarked/">most-bookmarked snippets</a>.</p>

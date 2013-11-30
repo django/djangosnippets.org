@@ -7,3 +7,6 @@ pip-log.txt
 dist/
 *.egg-info/
 *.db
+.sass-cache
+bower_components
+whoosh_index

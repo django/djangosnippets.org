@@ -54,11 +54,11 @@
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
-        <li><a href="">By author</a></li>
-        <li><a href="">By language</a></li>
-        <li><a href="">By tag</a></li>
-        <li><a href="">Highest rated</a></li>
-        <li><a href="">Most bookmarked</a></li>
+        <li><a href="{% url "cab_top_authors" %}">By author</a></li>
+        <li><a href="{% url "cab_language_list" %}">By language</a></li>
+        <li><a href="{% url "cab_top_tags" %}">By tag</a></li>
+        <li><a href="{% url "cab_top_rated" %}">Highest rated</a></li>
+        <li><a href="{% url "cab_top_bookmarked" %}">Most bookmarked</a></li>
       </ul>
     </nav>
     {% endblock %}
@@ -76,15 +76,6 @@
   </div>
   <div id="sidebar">
     {% block sidebar %}
-    <aside>
-      {% load core_tags %}
-      <p>Latest snippets:</p>
-      <ul>
-      {% for snippet in "cab.snippet"|latest:5 %}
-        <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a></li>
-      {% endfor %}
-      </ul>
-    </aside>
     {% endblock %}
   </div>
   {% block extra_content %}

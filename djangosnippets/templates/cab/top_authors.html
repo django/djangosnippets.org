@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Top authors{% endblock %}
+
+{% block content_header %}Top authors{% endblock %}
+{% block bodyclass %}simple{% endblock %}
+
+{% block content %}
+  <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Number of snippets</th>
+          </tr>
+      </thead>
+      <tbody>
+  {% for author in object_list %}
+    <tr><td><a href="/users/{{ author.username }}/">{{ author.username }}</a></td><td>({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</td></tr>
+  {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

@@ -42,6 +42,13 @@ a {
     a {
         font-size: rem-calc(12px);
     }
+    &:after {
+        content: "\0020";
+        clear: both;
+        display: block;
+        overflow: hidden;
+        height: 0px;
+    }
 }
 
 header {
@@ -133,6 +140,10 @@ header {
 
 #content {
     @include grid-column(12, $collapse: true);
+    font-size: rem-calc(15px);
+    ul, ol, p {
+        font-size: rem-calc(15px);
+    }
     table {
         width: 100%;
         tr:hover td {
@@ -169,6 +180,11 @@ header {
 h1 {
     @include grid-column(12);
     margin-bottom: 20px;
+    color: $green;
+}
+
+h2 {
+    font-size: rem-calc(24px);
 }
 
 #meta {
@@ -243,7 +259,8 @@ body.snippet-details {
 }
 
 body.snippet-list,
-body.snippet-form {
+body.snippet-form,
+body.tags-list {
     #content {
         @media #{$small-up} {
             @include grid-column(12);
@@ -272,6 +289,22 @@ body.frontpage {
         }
         @media #{$medium-up} {
             @include grid-column(6);
+        }
+    }
+    #sidebar {
+        ul, ol, p {
+            font-size: rem-calc(15px);
+        }
+    }
+}
+
+body.simple {
+    h1 {
+        text-align: center;
+    }
+    h1, #content {
+        @media #{$medium-up} {
+            @include grid-column(8, $center:true, $collapse:true);
         }
     }
 }
