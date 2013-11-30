@@ -317,5 +317,14 @@ footer {
         opacity: 0.8;
         padding: 0;
         margin: 0;
+        vertical-align: middle;
+        line-height: 31px;
+    }
+    .heroku {
+        background: url(../img/heroku-logo.png) 50% 50% no-repeat;
+        display: inline-block;
+        width: 88px;
+        height: 31px;
+        color: transparent;
     }
 }
