@@ -6,7 +6,10 @@ form {
         min-height: rem-calc(300px);
     }
     button {
-        border-radius: 5px;
+        @include button($padding:rem-calc(10px), $radius:5px);
+    }
+    select[multiple] {
+        background-image: none;
     }
     .help {
         font-size: rem-calc(14px);
@@ -15,9 +18,17 @@ form {
     .error {
         margin-bottom: 2px;
     }
-    .buttongrp {
+    .button-group {
         a {
-            display: block;
+            display: inline-block;
+            @include button($padding:rem-calc(10px));
+            color: $body-font-color;
+            background: transparent;
+            &:hover {
+                background: transparent;
+                color: $secondary-color;
+                text-decoration: underline;
+            }
         }
     }
 

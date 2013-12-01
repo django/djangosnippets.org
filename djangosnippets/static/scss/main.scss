@@ -260,7 +260,8 @@ body.snippet-details {
 
 body.snippet-list,
 body.snippet-form,
-body.tags-list {
+body.tags-list,
+body.search {
     #content {
         @media #{$small-up} {
             @include grid-column(12);

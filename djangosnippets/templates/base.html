@@ -44,8 +44,8 @@
       <ul>
         <li><a href="/snippets/add/">Create a snippet</a></li>
         <li><a href="/snippets/">All snippets</a></li>
-        <li>      <form method="GET" action="/search/">
-        <input type="search" name="q" placeholder="Search a snippet...">
+        <li><form method="GET" action="/search/">
+        <input type="search" name="q" value="{% if form.q.value %}{{ form.q.value }}{% endif %}" placeholder="Search a snippet...">
       </form></li>
       </ul>
     </nav>

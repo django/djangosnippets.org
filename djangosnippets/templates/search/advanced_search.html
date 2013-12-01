@@ -1,32 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'search/search.html' %}
 
-{% block title %}Search{% endblock %}
-
-{% block content_header %}Search{% endblock %}
-
-{% block content %}
-  <form method="get" action=".">
-    <dl>
-      <dt><label for="id_q">Search:</dt>
-      <dd>{{ form.q }}</dd>
-      <dt><label for="id_language">Language:</dt>
-      <dd>{{ form.language }}</dd>
-      <dt><label for="id_django_version">Django version:</dt>
-      <dd>{{ form.django_version }}</dd>
-      <dt></dt>
-      <dd><input type="submit" value="Search" /></dd>
-    </dl>
+{% block sidebar %}
+  <form method="GET" class="fullsize">
+    <div class="field-group {% if form.q.errors %}error{% endif %}">
+      <label for="id_q">Search:</label>
+      {{ form.q }}
+      {% if form.q.errors %}<small class="error">{{ form.q.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="field-group {% if form.language.errors %}error{% endif %}">
+      <label for="id_language">Language:</label>
+      {{ form.language }}
+      {% if form.language.errors %}<small class="error">{{ form.language.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="field-group {% if form.version.errors %}error{% endif %}">
+      <label for="id_version">Django version:</label>
+      {{ form.version }}
+      {% if form.version.errors %}<small class="error">{{ form.version.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="button-group">
+      <button type="submit">Go</button>
+      <a href="{% url 'cab_search_advanced' %}">Advanced search</a>
+    </div>
   </form>
-  {% if query %}
-    <h3>Results</h3>
-    <ul>
-    {% for result in page.object_list %}
-    <li><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>, by <a href="/users/{{ result.object.author.username }}/">{{ result.object.author.username }}</a> (user rating: {{ result.object.rating_score }})</li>
-    {% empty %}
-      <li>No results found.</li>
-    {% endfor %}
-    </ul>
-  {% else %}
-    {# pass #}
-  {% endif %}
 {% endblock %}
