@@ -4,42 +4,19 @@ from django.conf import settings
 from django.contrib import admin
 from django.shortcuts import render
 
-from haystack.views import SearchView, search_view_factory
-
-from cab import feeds
-from cab.forms import AdvancedSearchForm, RegisterForm
-from registration.backends.default.views import RegistrationView
-
 admin.autodiscover()
-
-
-class CabRegistrationView(RegistrationView):
-    form_class = RegisterForm
-
 
 urlpatterns = patterns('',
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/register/$', CabRegistrationView.as_view(),
-        name='registration_register'),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('cab.urls.accounts')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django.contrib.comments.urls')),
-    url(r'^feeds/author/(?P<username>[\w.@+-]+)/$',
-        feeds.SnippetsByAuthorFeed()),
-    url(r'^feeds/language/(?P<slug>[\w-]+)/$', feeds.SnippetsByLanguageFeed()),
-    url(r'^feeds/latest/$', feeds.LatestSnippetsFeed()),
-    url(r'^feeds/tag/(?P<slug>[\w-]+)/$', feeds.SnippetsByTagFeed()),
+    url(r'^feeds/', include('cab.urls.feeds')),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),
-    url(r'^search/$', 'haystack.views.basic_search', name='cab_search'),
-    url(r'^search/autocomplete/$', 'cab.views.snippets.autocomplete',
-        name='snippet_autocomplete'),
-    url(r'^search/advanced/$', search_view_factory(view_class=SearchView,
-        template='search/advanced_search.html', form_class=AdvancedSearchForm),
-        name='cab_search_advanced'),
+    url(r'^search/', include('cab.urls.search')),
     url(r'^snippets/', include('cab.urls.snippets')),
     url(r'^tags/', include('cab.urls.tags')),
     url(r'^users/$', 'cab.views.popular.top_authors', name='cab_top_authors'),
@@ -50,4 +27,4 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
-        document_root=settings.STATIC_ROOT)
+                          document_root=settings.STATIC_ROOT)
