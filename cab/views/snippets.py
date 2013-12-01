@@ -157,7 +157,7 @@ def autocomplete(request):
     results = []
     if len(q) > 2:
         sqs = SearchQuerySet()
-        result_set = sqs.filter(title_ngram=q)[:10]
+        result_set = sqs.filter(title=q)[:10]
         for obj in result_set:
             results.append({
                 'title': obj.title,

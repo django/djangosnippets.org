@@ -104,6 +104,11 @@ Snippets = window.Snippets || {};
 
     this.input_element.autocomplete({
       minLength: self.options.min_length || 3,
+      select: function(evt, ui) {
+        if (ui.item && ui.item.url) {
+          window.location = ui.item.url;
+        }
+      },
       source: function(request, response) {self.fetch_results(request, response);},
     }).data('autocomplete')._renderItem = this.render_item;
   };
