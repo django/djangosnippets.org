@@ -2,31 +2,13 @@
 <html lang="en">
 <head>
   <title>Django snippets: {% block title %}Home{% endblock %}</title>
-
-  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   <link rel="stylesheet" href="{% static "css/pygments.css" %}" type="text/css" />
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
-
-  {% block extra_scripts %}{% endblock %}
-  <script type="text/javascript" src="{% static "js/snippets.js" %}"></script>
-  <script type="text/javascript">
-    $(function() {
-      var snippet_completion = new Snippets.SnippetCompletion()
-      snippet_completion.bind_listener('#id_q');
-
-      if ($('#id_tags').length > 0) {
-        var tag_completion = new Snippets.TagCompletion()
-        tag_completion.bind_listener('#id_tags');
-      }
-    });
-  </script>
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
   <div id="accountbar"><div class="inner">
@@ -86,6 +68,22 @@
     <p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a>, <a href="http://charlesleifer.com">Charles Leifer</a>, <a href="https://twitter.com/jezdez">Jannis Leidel</a> and <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">other contributors</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>. Hosted by <a href="https://www.heroku.com" class="heroku">Heroku</a>, powered by <a href="http://www.djangoproject.com/">Django</a></p>
     <p class="legal"><a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>
   </footer>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script type="text/javascript">console.log(jQuery);</script>
+  <script type="text/javascript" src="{% static "js/snippets.js" %}"></script>
+  {% block extra_scripts %}{% endblock %}
+  <script type="text/javascript">
+    $(function() {
+      var snippet_completion = new Snippets.SnippetCompletion()
+      snippet_completion.bind_listener('input[name=q]');
+
+      if ($('#id_tags').length > 0) {
+        var tag_completion = new Snippets.TagCompletion()
+        tag_completion.bind_listener('#id_tags');
+      }
+    });
+  </script>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-32271424-1']);
