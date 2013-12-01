@@ -159,7 +159,7 @@ header {
     h2, h3 {
         font-size: rem-calc(22px);
     }
-    p, dt, dd {
+    p, dt, dd, li {
         font-size: rem-calc(13px);
     }
     .filter {
@@ -261,7 +261,8 @@ body.snippet-details {
 body.snippet-list,
 body.snippet-form,
 body.tags-list,
-body.search {
+body.search,
+body.bookmarks {
     #content {
         @media #{$small-up} {
             @include grid-column(12);
