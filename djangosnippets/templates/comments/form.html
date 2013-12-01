@@ -1,44 +1,62 @@
 {% load i18n %}
 {% if request.user.is_authenticated %}
-<form action="/comments/post/" method="post">{% csrf_token %}
+<form class="fullsize" action="/comments/post/" method="post">{% csrf_token %}
 
-{{ form.non_field_errors }}
+    {{ form.non_field_errors }}
 
-<p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="/accounts/logout/">{% trans "Log out" %}</a>)</p>
-<dl>
+    <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="/accounts/logout/">{% trans "Log out" %}</a>)</p>
+    <dl>
 
-<div class="bee-like-this">
-    {# A honeypot field called "your_name" #}
-    <dt><label for="id_your_name">{% trans "Your Name:" %}</label></dt>
-    <dd>{{ form.your_name }}</dd>
-</div>
+    <div class="bee-like-this">
+        {# A honeypot field called "your_name" #}
+        <div class="field {% if form.your_name.errors %}error{% endif %}">
+            <label for="id_your_name">{% trans "Your Name:" %}</label>
+            <div class="controls">
+                {{ form.your_name }}
+                {% if form.your_name.errors %}<span class="error">{{ form.your_name.errors|join:", " }}</span>{% endif %}
+            </div>
+        </div>
+    </div>
 
-<dt><label for="id_comment">{% trans "Comment:" %}</label></dt>
-<dd><textarea name="comment" id="id_comment" rows="10" cols="60"></textarea><br />
-You may use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> here, but <strong>raw HTML will be removed</strong>.</dd>
+    <div class="field {% if form.comment.errors %}error{% endif %}">
+        <label for="id_comment">{% trans "Comment:" %}</label>
+        <div class="controls">
+            <textarea name="comment" id="id_comment" rows="10" cols="60"></textarea>
+            {% if form.your_name.errors %}<span class="error">{{ form.your_name.errors|join:", " }}</span>{% endif %}
+            <p class="help">You may use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> here, but <strong>raw HTML will be removed</strong>.</p>
+        </div>
+    </div>
 
-<dt>
-<div style="display:none;">
-    {{ form.honeypot }}
-    {{ form.content_type }}
-    {{ form.object_pk }}
-    {{ form.timestamp }}
-    {{ form.security_hash }}
-</div>
-    <input type="submit" name="preview" value="{% trans "Preview comment" %}" />
-</dt>
-</dl>
+    <div style="display:none;">
+        {{ form.honeypot }}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+    </div>
+    <div class="button-group">
+        <button type="submit" name="preview">{% trans "Preview comment" %}</button>
+    </div>
 </form>
 {% else %}
-<form action="/accounts/login/" method="post">{% csrf_token %}
-<dl>
-<dt><label for="id_username">{% trans "Username:" %}</label></dt>
-<dd><input type="text" name="username" id="id_username" /></dd>
-<dt><label for="id_password">{% trans "Password:" %}</label></dt>
-<dd><input type="password" name="password" id="id_password" /> (<a href="/accounts/password_reset/">{% trans "Forgotten your password?" %}</a>)</dd>
-<dt></dt>
-<dd><input type="submit" value="Login" /></dd>
-</dl>
-<input type="hidden" name="next" value="{{ request.get_full_path }}" />
+<form action="/accounts/login/" method="post" class="inline">{% csrf_token %}
+    <div class="field">
+        <label for="id_username">{% trans "Username:" %}</label>
+        <div class="controls"><input type="text" name="username" id="id_username" /></div>
+    </div>
+    <div class="field">
+        <label for="id_password">{% trans "Password:" %}</label>
+        <div class="controls">
+            <input type="password" name="password" id="id_password" />
+        </div>
+    </div>
+
+    <div class="button-group">
+        <div class="controls">
+            <button type="submit">Login</button>
+             <a href="/accounts/password_reset/">{% trans "Forgotten your password?" %}</a>
+        </div>
+    </div>
+    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
 </form>
 {% endif %}

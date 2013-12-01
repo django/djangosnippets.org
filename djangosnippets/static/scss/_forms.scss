@@ -32,14 +32,56 @@ form {
         }
     }
 
+    .errorlist {
+        margin-top: -1px;
+        margin-bottom: 1rem;
+        margin-left: 0px;
+        li {
+            @include form-error-message();
+            font-size: 80%;
+        }
+    }
+
     &.fullsize {
         @include grid-row("collapse");
-        .field-group {
+        .field {
             @include grid-column(12, $collapse:true);
+        }
+    }
+    &.inline {
+        .field {
+            @include grid-row("collapse");
+            label {
+                @media #{$medium-up} {
+                    @include grid-column(4);
+                }
+                @include form-label($alignment:inline);
+                font-weight: bold;
+            }
+            &.error label {
+                color: $alert-color;
+            }
+            .controls {
+                @media #{$medium-up} {
+                    @include grid-column(8);
+                }
+            }
+        }
+        .button-group {
+            @include grid-row("collapse");
+            .controls {
+                @media #{$medium-up} {
+                    @include grid-column(8, $push:4);
+                }
+            }
         }
     }
 }
 
 .ui-menu .ui-menu-item a {
     font-size: rem-calc(13px);
+}
+
+.bee-like-this {
+    display: none;
 }

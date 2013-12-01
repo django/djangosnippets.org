@@ -2,17 +2,17 @@
 
 {% block sidebar %}
   <form method="GET" class="fullsize">
-    <div class="field-group {% if form.q.errors %}error{% endif %}">
+    <div class="field {% if form.q.errors %}error{% endif %}">
       <label for="id_q">Search:</label>
       {{ form.q }}
       {% if form.q.errors %}<small class="error">{{ form.q.errors|join:", " }}</small>{% endif %}
     </div>
-    <div class="field-group {% if form.language.errors %}error{% endif %}">
+    <div class="field {% if form.language.errors %}error{% endif %}">
       <label for="id_language">Language:</label>
       {{ form.language }}
       {% if form.language.errors %}<small class="error">{{ form.language.errors|join:", " }}</small>{% endif %}
     </div>
-    <div class="field-group {% if form.version.errors %}error{% endif %}">
+    <div class="field {% if form.version.errors %}error{% endif %}">
       <label for="id_version">Django version:</label>
       {{ form.version }}
       {% if form.version.errors %}<small class="error">{{ form.version.errors|join:", " }}</small>{% endif %}

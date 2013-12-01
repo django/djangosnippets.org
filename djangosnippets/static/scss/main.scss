@@ -268,7 +268,8 @@ body.snippet-form,
 body.tags-list,
 body.search,
 body.bookmarks,
-body.user {
+body.user,
+body.with-sidebar {
     #content {
         @media #{$small-up} {
             @include grid-column(12);
