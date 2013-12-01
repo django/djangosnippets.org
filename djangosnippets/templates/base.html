@@ -29,7 +29,7 @@
   </script>
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
-  <div id="accountbar">
+  <div id="accountbar"><div class="inner">
     <p>
     {% if user.is_authenticated %}
       Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/accounts/logout/">Log out</a>)
@@ -37,7 +37,7 @@
       <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
     {% endif %}
     </p>
-  </div>
+  </div></div>
   <header><div class="inner">
     <a title="Go back to the frontpage" href="/" id="logo">Django<b>Snippets</b></a>
     <nav>

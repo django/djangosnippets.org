@@ -24,15 +24,15 @@ a {
     margin-top: -40px;
     margin-right: 0.9375rem;
     ul {
-        border-radius: 0 0 20px 20px;
         list-style: none;
-        background: #FAFAFA;
         @media #{$small-up} {
             text-align: center;
         }
         @media #{$large-up} {
+            background: #FAFAFA;
             text-align: right;
             float: right;
+            border-radius: 0 0 20px 20px;
         }
     }
     li {
@@ -125,9 +125,14 @@ header {
 #accountbar {
     background: #EFEFEF;
     width: 100%;
+    > .inner {
+        @include grid-row();
+    }
+
     p {
-        max-width: $row-width;
-        padding: 5px 0;
+        @include grid-column(12);
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin: auto;
         font-size: rem-calc(12px);
         color: #666;
@@ -262,7 +267,8 @@ body.snippet-list,
 body.snippet-form,
 body.tags-list,
 body.search,
-body.bookmarks {
+body.bookmarks,
+body.user {
     #content {
         @media #{$small-up} {
             @include grid-column(12);
@@ -305,8 +311,11 @@ body.simple {
         text-align: center;
     }
     h1, #content {
+        @media #{$small-up} {
+            @include grid-column(12);
+        }
         @media #{$medium-up} {
-            @include grid-column(8, $center:true, $collapse:true);
+            @include grid-column(8, $center:true);
         }
     }
 }
