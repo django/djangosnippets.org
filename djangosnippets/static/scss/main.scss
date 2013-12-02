@@ -3,9 +3,22 @@ $orange: #ffc656;
 $primary-color: #555;
 $secondary-color: $orange;
 
+// We don't need everything from foundation but still want to be able
+// to use certain mixins:
+$include-html-classes: false;
+$include-html-visibility-classes: true;
+$include-html-form-classes: true;
+$include-html-grid-classes: true;
+$include-html-table-classes: true;
+$include-html-alert-classes: true;
+$include-html-button-classes: true;
+$include-html-global-classes: true;
+$include-html-type-classes: true;
+
 @import "normalize";
 @import "foundation";
 @import "forms";
+@import "pygments";
 
 
 header > .inner, footer, #main {
