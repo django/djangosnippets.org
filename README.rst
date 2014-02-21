@@ -2,9 +2,9 @@
 Cab
 ===
 
-.. image:: https://secure.travis-ci.org/django-de/cab.png
+.. image:: https://secure.travis-ci.org/django-de/django-cab.png
    :alt: Build Status
-   :target: https://travis-ci.org/django-de/cab
+   :target: https://travis-ci.org/django-de/django-cab
 
 Cab (named for the jazz bandleader and scat singer Cab Calloway) is a
 Django application which allows users to post and share useful
@@ -90,6 +90,6 @@ matching those currently in use on `djangosnippets.org`_
 OMGWTF Tests?
 =============
 
-Yeah, there are tests now. See https://travis-ci.org/django-de/cab
+Yeah, there are tests now. See https://travis-ci.org/django-de/django-cab
 
 .. _djangosnippets.org: http://djangosnippets.org/

@@ -129,13 +129,13 @@ requirements = [
 ]
 
 setup(
-    name='cab',
+    name='django-cab',
     version=find_version("cab", "__init__.py"),
     description='A code snippet manager, originally written to power djangosnippets.org',
     long_description=read('README.rst'),
     author='James Bennett',
     license='BSD',
-    url='http://github.com/django-de/cab',
+    url='http://github.com/django-de/django-cab',
     packages=find_packages(),
     package_data=find_package_data(),
     install_requires=requirements,
