@@ -5,6 +5,7 @@ from django.db import models
 
 
 VERSIONS_MAPPING = (
+    (1.6, datetime.datetime(2013, 11, 6)),
     (1.5, datetime.datetime(2013, 2, 26)),
     (1.4, datetime.datetime(2012, 3, 23)),
     (1.3, datetime.datetime(2011, 3, 23)),
