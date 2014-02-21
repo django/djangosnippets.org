@@ -7,6 +7,5 @@ django-haystack==2.1.0
 django-pagination==1.0.7
 django-registration==1.0
 django-taggit==0.11.2
-
--e git+https://github.com/django-de/cab#egg=cab
--e git+https://github.com/jezdez/django-simple-ratings#egg=django-simple-ratings
+django-cab==0.3
+django-simple-ratings==0.3.3
