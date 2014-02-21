@@ -77,7 +77,6 @@ input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
     margin: 3px 0.75em 0 0.5em;
     height: 19px;
     width: 80px;
-    background: url(../img/sign_out.gif) top left no-repeat;
     text-align: center;
     padding-top: 2px;
 }
