@@ -133,7 +133,7 @@ setup(
     version=find_version("cab", "__init__.py"),
     description='A code snippet manager, originally written to power djangosnippets.org',
     long_description=read('README.rst'),
-    author='James Bennett',
+    author='James Bennett and contributors',
     license='BSD',
     url='http://github.com/django-de/django-cab',
     packages=find_packages(),
