@@ -1,13 +1,13 @@
 -r requirements-common.txt
 gunicorn==18.0
-psycopg2==2.5.1
-pyelasticsearch==0.6
-django-redis-cache==0.10.0
+psycopg2==2.5.2
+pyelasticsearch==0.6.1
+django-redis-cache==0.11.1
 raven==1.9.4
 django-storages>=1.1.8
-boto==2.15.0
-gevent==0.13.8
-hiredis>=0.1.1
+boto==2.25.0
+gevent==1.0
+hiredis==0.1.2
 dj-database-url==0.2.2
 django-secure==1.0
-django-ecstatic==0.1
+django-ecstatic==0.2.0
