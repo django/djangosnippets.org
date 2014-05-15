@@ -1,4 +1,4 @@
-Django==1.5.6
+Django==1.5.8
 Markdown==2.4
 Pygments==1.6
 South==0.8.4
@@ -6,6 +6,6 @@ django-generic-aggregation==0.3.2
 django-haystack==2.1.0
 django-pagination==1.0.7
 django-registration==1.0
-django-taggit==0.11.2
+django-taggit==0.12
 django-cab==0.3
 django-simple-ratings==0.3.3
