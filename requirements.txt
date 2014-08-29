@@ -10,6 +10,7 @@ django-redis-cache==0.13.0
 django-secure==1.0
 django-simple-captcha==0.4.2
 django-storages==1.1.8
+elasticsearch==0.4.5
 gevent==1.0.1
 greenlet==0.4.3
 gunicorn==19.1.1
