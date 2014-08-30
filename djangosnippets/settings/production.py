@@ -39,6 +39,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 ALLOWED_HOSTS = [
     'djangosnippets.org',
+    'www.djangosnippets.org',
 ]
 
 STATICFILES_STORAGE = 'djangosnippets.storage.DjangoSnippetsStaticFilesStorage'
