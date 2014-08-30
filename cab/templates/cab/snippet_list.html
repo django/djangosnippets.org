@@ -38,5 +38,5 @@
 
 {% block sidebar %}
   <p>{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
-  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></p>
+  <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></p>
 {% endblock %}
