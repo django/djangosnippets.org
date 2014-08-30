@@ -1,25 +1,81 @@
-{% load static from staticfiles %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static from staticfiles %}<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>Django snippets: {% block title %}Home{% endblock %}</title>
-
-  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
-  <link rel="stylesheet" href="{% static "css/snippets.css" %}" type="text/css" />
-  <link rel="stylesheet" href="{% static "css/pygments.css" %}" type="text/css" />
-  <link rel="alternate" href="/feeds/latest/" type="application/atom+xml" title="Feed of latest snippets" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
+  <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+  <div id="accountbar"><div class="inner">
+    <p>
+    {% if user.is_authenticated %}
+      Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/accounts/logout/">Log out</a>)
+    {% else %}
+      <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
+    {% endif %}
+    </p>
+  </div></div>
+  <header><div class="inner">
+    <a title="Go back to the frontpage" href="/" id="logo">Django<b>Snippets</b></a>
+    <nav>
+      <ul>
+        <li><a href="/snippets/add/">Create a snippet</a></li>
+        <li><a href="/snippets/">All snippets</a></li>
+        <li><form method="GET" action="/search/">
+        <input type="search" name="q" value="{% if form.q.value %}{{ form.q.value }}{% endif %}" placeholder="Search a snippet...">
+      </form></li>
+      </ul>
+    </nav>
+  </div></header>
+  <div id="main">
+    {% block secondary_nav %}
+    <nav id="subnav">
+      <ul>
+        <li><a href="{% url "cab_top_authors" %}">By author</a></li>
+        <li><a href="{% url "cab_language_list" %}">By language</a></li>
+        <li><a href="{% url "cab_top_tags" %}">By tag</a></li>
+        <li><a href="{% url "cab_top_rated" %}">Highest rated</a></li>
+        <li><a href="{% url "cab_top_bookmarked" %}">Most bookmarked</a></li>
+      </ul>
+    </nav>
+    {% endblock %}
 
+  {% if messages %}
+    {% for message in messages %}
+      <p class="message {% if message.tags %} message_{{ message.tags }}{% else %}message_info{% endif %}">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <h1>{% block content_header %}{% endblock %}</h1>
+  <div id="content">
+      {% block content %}
+      {% endblock %}
+  </div>
+  <div id="sidebar">
+    {% block sidebar %}
+    {% endblock %}
+  </div>
+  {% block extra_content %}
+  {% endblock %}
+  </div>
+
+  <footer>
+    <p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a>, <a href="http://charlesleifer.com">Charles Leifer</a>, <a href="https://twitter.com/jezdez">Jannis Leidel</a> and <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">other contributors</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>. Hosted by <a href="https://www.heroku.com" class="heroku">Heroku</a>, powered by <a href="http://www.djangoproject.com/">Django</a></p>
+    <p class="legal"><a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>
+  </footer>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script type="text/javascript">console.log(jQuery);</script>
+  <script type="text/javascript" src="{% static "js/snippets.js" %}"></script>
   {% block extra_scripts %}{% endblock %}
-  <script type="text/javascript" language="javascript" src="{% static "js/snippets.js" %}"></script>
-  <script type="text/javascript" language="javascript">
+  <script type="text/javascript">
     $(function() {
       var snippet_completion = new Snippets.SnippetCompletion()
-      snippet_completion.bind_listener('#id_q');
+      snippet_completion.bind_listener('input[name=q]');
 
       if ($('#id_tags').length > 0) {
         var tag_completion = new Snippets.TagCompletion()
@@ -27,115 +83,6 @@
       }
     });
   </script>
-</head>
-<body class="{% block bodyclass %}snippets{% endblock %}">
-  <div id="header">
-    <h1><a href="/">Django snippets</a></h1>
-    <div id="nav-main">
-      <span>
-        {% if user.is_authenticated %}
-          Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/snippets/add/">Add a snippet</a>) (<a href="/accounts/logout/">Log out</a>)
-        {% else %}
-          <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
-        {% endif %}
-      </span>
-      <ul>
-        <li id="nav-snippets"><a href="/snippets/">Snippets</a></li>
-        {% if user.is_authenticated %}
-          <li id="nav-account"><a href="/users/{{ user.username }}/">You</a></li>
-        {% endif %}
-        <li id="nav-about"><a href="/about/">About</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <ul id="nav-secondary">
-  {% block secondary_nav %}
-    <li><a href="/users/">By author</a></li>
-    <li><a href="/languages/">By language</a></li>
-    <li><a href="/tags/">By tag</a></li>
-    <li><a href="/popular/rated/">Highest-rated</a></li>
-    <li><a href="/popular/bookmarked/">Most bookmarked</a></li>
-  {% endblock %}
-  </ul>
-
-  {% if messages %}
-    {% for message in messages %}
-      <div class="message {% if message.tags %} message_{{ message.tags }}{% else %}message_info{% endif %}">
-        <h4>{{ message }}</h4>
-      </div>
-    {% endfor %}
-  {% endif %}
-
-  <h2>{% block content_header %}{% endblock %}</h2>
-  <div id="content">
-    <div id="main">
-      {% block content %}
-      {% endblock %}
-    </div>
-    <div id="sidebar">
-      <div style="padding: 15px;">
-        <form method="get" action="/search/">
-          <table>
-            <tr>
-              <td><label for="id_q">Search:</label></td>
-              <td><input type="text" name="q" id="id_q" style="width: 110px;" value="{{ request.GET.q }}" /></td>
-              <td><input type="submit" value="Go" /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><a href="/search/advanced/">Advanced Search</a></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-      {% block sidebar %}
-        {% load core_tags %}
-        <p>Latest snippets:</p>
-        <ul>
-        {% for snippet in "cab.snippet"|latest:5 %}
-          <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a></li>
-        {% endfor %}
-        </ul>
-      {% endblock %}
-    </div>
-  </div>
-  {% block extra_content %}
-  {% endblock %}
-
-  <div id="footer">
-    <div class="chunk">
-      <h3>Snippets</h3>
-      <ul>
-        <li><a href="/users/">By author</a></li>
-        <li><a href="/languages/">By language</a></li>
-        <li><a href="/tags/">By tag</a></li>
-        <li><a href="/popular/rated/">Highest-rated</a></li>
-        <li><a href="/popular/bookmarked/">Most bookmarked</a></li>
-        <li><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></li>
-      </ul>
-    </div>
-    {% if user.is_authenticated %}
-    <div class="chunk">
-      <h3>Your account</h3>
-      <ul>
-        <li><a href="/users/{{ user.username }}/">Your snippets</a></li>
-        <li><a href="/snippets/add/">Add a snippet</a></li>
-        <li><a href="/bookmarks/">Your bookmarks</a></li>
-        <li><a href="/accounts/logout/">Log out</a></li>
-      </ul>
-    </div>
-    {% endif %}
-    <div class="chunk">
-      <h3>About</h3>
-      <p>Powered by <a href="https://www.djangoproject.com/">Django</a>.</p>
-      <p>Learn more <a href="/about/">about this site</a>.</p>
-      <p>Read the <a href="/about/faq/">FAQ</a>.</p>
-      <p><a href="/about/tos/">Terms of service</a></p>
-      <p><a href="/about/legal/">Legal notices</a></p>
-    </div>
-    <p id="copyright">Backend code by <a href="http://www.b-list.org/">James Bennett</a>, <a href="http://charlesleifer.com">Charles Leifer</a>, <a href="https://twitter.com/jezdez">Jannis Leidel</a> and <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">other contributors</a>, design by <a href="http://www2.jeffcroft.com/">Jeff Croft</a>. Hosted by <span class="heroku">Heroku</span></p>
-  </div>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-32271424-1']);

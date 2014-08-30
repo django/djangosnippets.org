@@ -3,9 +3,13 @@
 {% block bodyclass %}account{% endblock %}
 
 {% block secondary_nav %}
-{% if request.user.is_authenticated %}
-  <li><a href="/users/{{ user.username }}/">Your snippets</a></li>
-{% endif %}
-<li><a href="/snippets/add/">Add a snippet</a></li>
-<li><a href="/bookmarks/">Your bookmarks</a></li>
+<nav id="subnav">
+    <ul>
+    {% if request.user.is_authenticated %}
+      <li><a href="{% url "cab_author_snippets" username=user.username %}">Your snippets</a></li>
+    {% endif %}
+    <li><a href="{% url "cab_snippet_add" %}">Add a snippet</a></li>
+    <li><a href="{% url "cab_user_bookmarks" %}">Your bookmarks</a></li>
+    </ul>
+</nav>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends "cab/snippet_list.html" %}
+{% load static from staticfiles %}
+
+{% block feeds %}<link rel="alternate" href="{% url 'cab_feed_language' slug=language.slug %}" type="application/atom+xml" title="Feed of snippets written in {{ language.name }}" />{% endblock %}
+
+{% block title %}All snippets written in {{ language.name }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+
+{% block content_header %}All snippets written in {{ language.name }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+
+{% block sidebar %}
+  <p><a rel="alternate" href="{% url 'cab_feed_language' slug=language.slug %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i>Feed of snippets written in {{ language.name }}</a></p>
+{% endblock %}

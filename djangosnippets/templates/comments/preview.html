@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block title %}Post a comment{% endblock %}
+{% block bodyclass %}with-sidebar{% endblock %}
 
 {% block content_header %}Post a comment{% endblock %}
 
@@ -10,38 +11,45 @@
 {% load safe_markup %}
 {{ form.non_field_errors }}
 
-<dl>
 
 <div class="bee-like-this">
+<dl>
     {# A honeypot field called "name" #}
     <dt><label for="id_name">{% trans "Your Name:" %}</label></dt>
     <dd>{{ form.name.errors }}{{ form.name }}</dd>
+</dl>
 </div>
 
-<form action="/comments/post/" method="post">{% csrf_token %}
+<form action="/comments/post/" class="fullsize" method="post">{% csrf_token %}
 
-<dt><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dt>
-<dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
+    <dl class="preview">
+        <dt>Username:</dt><dd><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dd>
+        <dt>Comment:</dt><dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
+    </dl>
 
-<dt><label for="id_comment">Comment:</label></dt>
-<dd>{{ form.comment.errors }}{{ form.comment }}</dd>
+    <div class="field {% if form.comment.errors %}error{% endif %}">
+        <label for="id_comment">Comment:</label>
+        <div class="controls">{{ form.comment }}{{ form.comment.errors }}</div>
+    </div>
 
-<dt><label for="id_captcha">{% trans "Captcha:" %}</label></dt>
-<dd>{{ form.captcha.errors }}{{ form.captcha }}</dd>
+    <div class="field {% if form.captcha.errors %}error{% endif %}">
+        <label for="id_captcha">{% trans "Captcha:" %}</label>
+        <div class="controls">{{ form.captcha }}{{ form.captcha.errors }}</div>
+    </div>
 
-<p>
-<input type="submit" name="preview" value="Preview comment" />
-<input type="submit" name="post" value="Post comment" />
-</p>
-<p style="display:none;">
-  {{ form.honeypot }}
-  {{ form.content_type }}
-  {{ form.object_pk }}
-  {{ form.timestamp }}
-  {{ form.security_hash }}
-</p>
+    <div class="button-group"><div class="controls">
+        <button type="submit" name="preview">Preview comment</button>
+        <button type="submit" name="post">Post comment</button>
+    </div></div>
+
+    <div style="display:none;">
+      {{ form.honeypot }}
+      {{ form.content_type }}
+      {{ form.object_pk }}
+      {{ form.timestamp }}
+      {{ form.security_hash }}
+    </div>
 </form>
-</dl>
 
 {% endblock %}
 

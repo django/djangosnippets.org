@@ -8,3 +8,5 @@ dist/
 *.egg-info/
 *.db
 whoosh_index/
+.sass-cache
+bower_components

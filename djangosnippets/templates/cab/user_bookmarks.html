@@ -1,0 +1,47 @@
+{% extends "base_user.html" %}
+{% load core_tags %}
+{% block bodyclass %}bookmarks{% endblock %}
+
+{% block title %}Your bookmarks{% endblock %}
+
+{% block content_header %}Your bookmarks{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Language</th>
+          <th>Added</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for bookmark in object_list %}
+        <tr>
+          <td><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a></td>
+          <td><a href="{% url 'cab_language_detail' slug=bookmark.snippet.language.slug %}">{{ bookmark.snippet.language.name }}</a></td>
+          <td>{{ bookmark.date|timesince }}</td>
+          <td><a href="{% url 'cab_bookmark_delete' snippet_id=bookmark.snippet.id %}">Delete this bookmark</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+  {% else %}
+    <p>You haven't bookmarked any snippets yet.</p>
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+  <p>To bookmark a snippet, just click the "add this snippet to your bookmarks" link on its page.</p>
+  <p>The snippets other users have bookmarked most often are:</p>
+  <ol>
+  {% for snippet in "cab.snippet"|call_manager:"most_bookmarked"|slice:":5" %}
+    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a></li>
+  {% endfor %}
+  </ol>
+{% endblock %}

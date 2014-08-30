@@ -1,0 +1,8 @@
+{
+  "name": "djangosnippets",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "foundation": "zurb/bower-foundation#f89c07d756b5b37175dc4064327e982cf8974676"
+  }
+}

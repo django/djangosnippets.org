@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load core_tags %}
-
+{% block bodyclass %}frontpage{% endblock %}
 {% block title %}Welcome{% endblock %}
 
 {% block content_header %}Welcome{% endblock %}
 
-{% block content %}
+{% block sidebar %}
   {% load cache %}
   {% cache 600 homepage %}
-  <h3>Latest snippets posted:</h3>
+  <h2>Latest snippets posted:</h2>
   <ul>
   {% for snippet in "cab.snippet"|latest:5 %}
     <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
   {% endfor %}
   </ul>
 
-  <h3>Top-rated snippets:</h3>
+  <h2>Top-rated snippets:</h2>
   <ol>
   {% for snippet in "cab.snippet"|call_manager:"top_rated"|slice:":5" %}
     <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="/users/{{ snippet.author.username }}/">{{ snippet.author.username }}</a></li>
   {% endfor %}
   </ol>
 
-  <h3>Top users:</h3>
+  <h2>Top users:</h2>
   <ol>
   {% for author in "cab.snippet"|call_manager:"top_authors"|slice:":5" %}
     <li><a href="/users/{{ author.username }}/">{{ author.username }}</a></li>
@@ -32,14 +32,14 @@
   {% endcache %}
 {% endblock %}
 
-{% block sidebar %}
+{% block content %}
   <p>Welcome to <a href="https://djangosnippets.org/">Djangosnippets.org</a>, a site for users of the <a href="https://www.djangoproject.com/">Django web framework</a> to come together and share useful "snippets" of reusable code.</p>
 
   <p>If you're just here to browse, you can look through snippets organized <a href="/users/">by author</a>, <a href="/languages/">by language</a> or <a href="/tags/">by tag</a>. You can also have a look at the <a href="/popular/rated/">top-rated snippets</a> and the <a href="/popular/bookmarked/">most-bookmarked snippets</a>.</p>
 
   <p>If you'd like to contribute, <a href="/accounts/register/">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
 
-  <p><a rel="alternate" href="/feeds/latest/" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of latest snippets</a></p>
+  <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i> Feed of latest snippets</a></p>
 
   <p><a href="https://readthedocs.org/">Find documentation</a> for popular open source apps</p>
 {% endblock %}
