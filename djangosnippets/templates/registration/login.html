@@ -5,7 +5,7 @@
 {% block content_header %}Log in / Sign up{% endblock %}
 
 {% block content %}
-  <form action="/accounts/login/" method="post" class="login_form inline column medium-6">{% csrf_token %}
+  <form action="{% url 'login' %}" method="post" class="login_form inline column medium-6">{% csrf_token %}
     {{ form.non_field_errors }}
     {% if next %}<p class="alert-box warning">The page you're trying to access is only available to readers with free {{ site_name }} accounts. Just sign up and we'll send you on your way.</p>{% endif %}
     <p class="help">Already have an account? Welcome back! Please use your username and password to sign in.</p>
@@ -27,17 +27,36 @@
       <div class="controls">
         <input type="hidden" name="next" value="{{ next }}">
         <button type="submit">Log in</button>
-        <a href="/accounts/password/reset/" class="alt_button">Forgotten your password?</a>
+        <a href="{% url 'auth_password_reset' %}" class="alt_button">Forgotten your password?</a>
       </div>
     </div>
   </form>
 
-  <form action="/accounts/register/" method="post" class="inline signup_form column medium-6">{% csrf_token %}
+  <form action="{% url 'registration_register' %}" method="post" class="inline signup_form column medium-6">{% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
     <p class="help">If you don't have an account yet, you can sign up here using your email address.</p>
     <div class="field">
-      <label for="id_email">Your email:</label>
+      <label for="id_username">Username:</label>
+      <div class="controls">
+        <input type="text" name="username" value="" id="id_username">
+      </div>
+    </div>
+    <div class="field">
+      <label for="id_email">E-mail:</label>
       <div class="controls">
         <input type="text" name="email" value="" id="id_email">
+      </div>
+    </div>
+    <div class="field">
+      <label for="id_password1">Password:</label>
+      <div class="controls">
+        <input type="password" name="password1" value="" id="id_password1">
+      </div>
+    </div>
+    <div class="field">
+      <label for="id_password2">Password (again):</label>
+      <div class="controls">
+        <input type="password" name="password2" value="" id="id_password2">
       </div>
     </div>
     <div class="button-group">

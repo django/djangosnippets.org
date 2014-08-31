@@ -1,7 +1,7 @@
 Somebody with this e-mail address registered a user account at {{ site.domain }}.
 To activate your registration, please visit the following page:
 
-https://{{ site.domain }}{% url "registration_activate" activation_key %}
+https://{{ site.domain }}{% url 'registration_activate' activation_key %}
 
 Note that this page will expire in {{ expiration_days }} day{{ expiration_days|pluralize }}, so act quickly.
 

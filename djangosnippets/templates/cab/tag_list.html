@@ -11,7 +11,7 @@
   {% if object_list %}
     <ul>
     {% for tag in object_list %}
-      <li><a href="{% url "cab_snippet_matches_tag" tag.slug %}">{{ tag.name }}</a></li>
+      <li><a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a></li>
     {% endfor %}
     </ul>
 
@@ -27,7 +27,7 @@
 
   <ol>
   {% for tag in "cab.snippet"|call_manager:"top_tags"|slice:":5" %}
-    <li><a href="{% url "cab_snippet_matches_tag" tag.slug %}">{{ tag.name }}</a></li>
+    <li><a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a></li>
   {% endfor %}
   </ol>
 {% endblock %}

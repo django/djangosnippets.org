@@ -20,7 +20,7 @@
     <dt>Version:</dt>
     <dd>{{ object.get_version }}</dd>
     <dt>Tags:</dt>
-    <dd>{% for tag in object.tags.all %}<a href="{% url "cab_snippet_matches_tag" tag.slug %}">{{ tag.name }}</a> {% endfor %}</dd>
+    <dd>{% for tag in object.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</dd>
     <dt>Score:</dt>
     <dd>{{ object.rating_score }} (after {{ object.ratings.count }} ratings)</dd>
   </dl>
@@ -40,7 +40,7 @@
         <li><a href="{{ rate_url }}?score={% if rating_score == -1 %}reset{% else %}down{% endif %}"><i class="fa fa-fw fa-thumbs{% if rating_score != -1 %}-o{% endif %}-down"></i><span>Is not useful</span></a></li>
       {% endwith %}
     {% endif %}
-    <li><a href="{% url "cab_snippet_flag" object.id %}"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
+    <li><a href="{% url 'cab_snippet_flag' object.id %}"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
     <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
   </ul>
   <div id="description">{{ object.description_html|safe }}</div>

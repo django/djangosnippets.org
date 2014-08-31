@@ -4,7 +4,7 @@
 
     {{ form.non_field_errors }}
 
-    <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="/accounts/logout/">{% trans "Log out" %}</a>)</p>
+    <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="{% url 'logout' %}">{% trans "Log out" %}</a>)</p>
     <dl>
 
     <div class="bee-like-this">
@@ -39,7 +39,7 @@
     </div>
 </form>
 {% else %}
-<form action="/accounts/login/" method="post" class="inline">{% csrf_token %}
+<form action="{% url 'login' %}" method="post" class="inline">{% csrf_token %}
     <div class="field">
         <label for="id_username">{% trans "Username:" %}</label>
         <div class="controls"><input type="text" name="username" id="id_username" /></div>
@@ -54,7 +54,7 @@
     <div class="button-group">
         <div class="controls">
             <button type="submit">Login</button>
-             <a href="/accounts/password_reset/">{% trans "Forgotten your password?" %}</a>
+             <a href="{% url 'auth_password_reset' %}">{% trans "Forgotten your password?" %}</a>
         </div>
     </div>
     <input type="hidden" name="next" value="{{ request.get_full_path }}" />

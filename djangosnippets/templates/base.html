@@ -13,9 +13,10 @@
   <div id="accountbar"><div class="inner">
     <p>
     {% if user.is_authenticated %}
-      Logged in as <a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a> (<a href="/accounts/logout/">Log out</a>)
+      Logged in as <a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a> (<a href="{% url 'logout' %}">Log out</a>)
     {% else %}
-      <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
+      {% url 'logout' as logout_url %}
+      <a href="{% url 'login' %}?next={% ifequal request.path logout_url %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="{% url 'registration_register' %}">register</a>
     {% endif %}
     </p>
   </div></div>
@@ -35,11 +36,11 @@
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
-        <li><a href="{% url "cab_top_authors" %}">By author</a></li>
-        <li><a href="{% url "cab_language_list" %}">By language</a></li>
-        <li><a href="{% url "cab_top_tags" %}">By tag</a></li>
-        <li><a href="{% url "cab_top_rated" %}">Highest rated</a></li>
-        <li><a href="{% url "cab_top_bookmarked" %}">Most bookmarked</a></li>
+        <li><a href="{% url 'cab_top_authors' %}">By author</a></li>
+        <li><a href="{% url 'cab_language_list' %}">By language</a></li>
+        <li><a href="{% url 'cab_top_tags' %}">By tag</a></li>
+        <li><a href="{% url 'cab_top_rated' %}">Highest rated</a></li>
+        <li><a href="{% url 'cab_top_bookmarked' %}">Most bookmarked</a></li>
       </ul>
     </nav>
     {% endblock %}

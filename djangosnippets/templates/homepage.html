@@ -37,7 +37,7 @@
 
   <p>If you're just here to browse, you can look through snippets organized <a href="{% url 'cab_top_authors' %}">by author</a>, <a href="{% url 'cab_language_list' %}">by language</a> or <a href="{% url 'cab_top_tags' %}">by tag</a>. You can also have a look at the <a href="{% url 'cab_top_rated' %}">top-rated snippets</a> and the <a href="{% url 'cab_top_bookmarked' %}">most-bookmarked snippets</a>.</p>
 
-  <p>If you'd like to contribute, <a href="/accounts/register/">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
+  <p>If you'd like to contribute, <a href="{% url 'registration_register' %}">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
 
   <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i> Feed of latest snippets</a></p>
 
