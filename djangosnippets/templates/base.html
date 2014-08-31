@@ -13,18 +13,18 @@
   <div id="accountbar"><div class="inner">
     <p>
     {% if user.is_authenticated %}
-      Logged in as <a href="/users/{{ user.username }}/">{{ user.username }}</a> (<a href="/accounts/logout/">Log out</a>)
+      Logged in as <a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a> (<a href="/accounts/logout/">Log out</a>)
     {% else %}
       <a href="/accounts/login/?next={% ifequal request.path "/accounts/logout/" %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="/accounts/register/">register</a>
     {% endif %}
     </p>
   </div></div>
   <header><div class="inner">
-    <a title="Go back to the frontpage" href="/" id="logo">Django<b>Snippets</b></a>
+    <a title="Go back to the frontpage" href="{% url 'home' %}" id="logo">Django<b>Snippets</b></a>
     <nav>
       <ul>
-        <li><a href="/snippets/add/">Create a snippet</a></li>
-        <li><a href="/snippets/">All snippets</a></li>
+        <li><a href="{% url 'cab_snippet_add' %}">Create a snippet</a></li>
+        <li><a href="{% url 'cab_snippet_list' %}">All snippets</a></li>
         <li><form method="GET" action="/search/">
         <input type="search" name="q" value="{% if form.q.value %}{{ form.q.value }}{% endif %}" placeholder="Search a snippet...">
       </form></li>

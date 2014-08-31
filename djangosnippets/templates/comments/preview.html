@@ -23,7 +23,7 @@
 <form action="/comments/post/" class="fullsize" method="post">{% csrf_token %}
 
     <dl class="preview">
-        <dt>Username:</dt><dd><a href="/users/{{ comment.user.username }}/">{{ user.username }}</a></dd>
+        <dt>Username:</dt><dd><a href="{% url 'cab_author_snippets' username=comment.user.username %}">{{ user.username }}</a></dd>
         <dt>Comment:</dt><dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
     </dl>
 

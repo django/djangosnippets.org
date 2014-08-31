@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     url(r'^snippets/', include('cab.urls.snippets')),
     url(r'^tags/', include('cab.urls.tags')),
     url(r'^users/', include('cab.urls.users')),
-    url(r'^$', lambda request: render(request, 'homepage.html')),
+    url(r'^$', lambda request: render(request, 'homepage.html'), name='home'),
 )
 
 if settings.DEBUG:

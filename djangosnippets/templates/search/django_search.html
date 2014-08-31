@@ -17,7 +17,7 @@
     <h3>Results</h3>
     <ul>
     {% for result in object_list %}
-    <li><a href="{{ result.get_absolute_url }}">{{ result.title }}</a>, by <a href="/users/{{ result.author.username }}/">{{ result.author.username }}</a> (user rating: {{ result.rating_score }})</li>
+    <li><a href="{{ result.get_absolute_url }}">{{ result.title }}</a>, by <a href="{% url 'cab_author_snippets' username=result.author.username %}">{{ result.author.username }}</a> (user rating: {{ result.rating_score }})</li>
     {% empty %}
       <li>No results found.</li>
     {% endfor %}
