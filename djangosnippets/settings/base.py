@@ -86,6 +86,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+STATIC_URL = '/assets/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', 'assets', 'static')
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
@@ -122,3 +124,4 @@ CAPTCHA_NOISE_FUNCTIONS = (
 )
 CAPTCHA_BACKGROUND_COLOR = '#ffffff'
 CAPTCHA_FOREGROUND_COLOR = '#316241'
+
