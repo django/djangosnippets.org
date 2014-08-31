@@ -47,22 +47,23 @@
   <ul>
     {% if user.is_authenticated %}
       {% ifequal user.id object.author.id %}
-        <li><a href="/snippets/{{ object.id }}/edit/">Edit this snippet</a></li>
+        <li><a href="{% url 'cab_snippet_edit' snippet_id=object.id %}">Edit this snippet</a></li>
       {% endifequal %}
       {% if object|is_bookmarked:request.user %}
-        <li>This snippet is in <a href="/bookmarks/">your bookmarks</a></li>
+        <li>This snippet is in <a href="{% url 'cab_user_bookmarks' %}">your bookmarks</a></li>
       {% else %}
-        <li><a href="/bookmarks/add/{{ object.id }}/">Bookmark this snippet</a></li>
+        <li><a href="{% url 'cab_bookmark_add' snippet_id=object.id %}">Bookmark this snippet</a></li>
       {% endif %}
       {% with object|rating_score:request.user as rating_score %}
         {% if rating_score %}
           <li>You rated this snippet <strong>{% ifequal rating_score 1 %}useful{% else %}not useful{% endifequal %}</strong>. (<a href="{% url 'cab_snippet_rate' snippet_id=object.id %}?score=reset">Remove your vote</a>)</li>
         {% else %}
-          <li>Rate this snippet: <a href="/snippets/{{ object.id }}/rate/?score=up">useful</a> or <a href="/snippets/{{ object.id }}/rate/?score=down">not useful</a></li>
+          {% url 'cab_snippet_rate' snippet_id=object.id as rate_url %}
+          <li>Rate this snippet: <a href="{{ rate_url }}?score=up">useful</a> or <a href="{{ rate_url }}?score=down">not useful</a></li>
         {% endif %}
       {% endwith %}
     {% endif %}
-    <li><a href="/snippets/{{ object.id }}/download/" type="{{ object.language.mime_type }}">Download this snippet</a></li>
+    <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}">Download this snippet</a></li>
     <li><a href="#comments">Comment on this snippet</a></li>
     {% if user.is_authenticated %}
       <li>
