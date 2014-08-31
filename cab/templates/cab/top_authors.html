@@ -7,7 +7,7 @@
 {% block content %}
   <ul>
   {% for author in object_list %}
-    <li><a href="/users/{{ author.username }}/">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
+    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
   {% endfor %}
   </ul>
 {% endblock %}

@@ -9,7 +9,7 @@
   {% if object_list %}
     <ul>
     {% for bookmark in object_list %}
-      <li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="/users/{{ bookmark.snippet.author.username }}/">{{ bookmark.snippet.author.username }}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="/bookmarks/delete/{{ bookmark.snippet.id }}/">Delete this bookmark</a></li>
+      <li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="{% url 'cab_author_snippets' username=bookmark.snippet.author.username %}">{{ bookmark.snippet.author.username }}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="{% url 'cab_bookmark_delete' snippet_id=bookmark.snippet.id %}">Delete this bookmark</a></li>
     {% endfor %}
     </ul>
 
