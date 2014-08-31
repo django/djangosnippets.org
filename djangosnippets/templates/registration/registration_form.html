@@ -15,7 +15,7 @@
           {{ field }}
         {% else %}
           {% if field.errors %}{{ field.errors }}{% endif %}
-        <tr {% ifequal field.name "your_name" %} class="bee-like-this"{% endifequal %}>
+        <tr {% if field.name == "your_name" %} class="bee-like-this"{% endif %}>
           <td{% if field.errors %} class="error"{% endif %}>
             {{ field.label_tag }}
           </td>

@@ -16,7 +16,7 @@
       Logged in as <a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a> (<a href="{% url 'logout' %}">Log out</a>)
     {% else %}
       {% url 'logout' as logout_url %}
-      <a href="{% url 'login' %}?next={% ifequal request.path logout_url %}/{% else %}{{ request.path }}{% endifequal %}">Log in</a> or <a href="{% url 'registration_register' %}">register</a>
+      <a href="{% url 'login' %}?next={% if request.path == logout_url %}/{% else %}{{ request.path }}{% endif %}">Log in</a> or <a href="{% url 'registration_register' %}">register</a>
     {% endif %}
     </p>
   </div></div>

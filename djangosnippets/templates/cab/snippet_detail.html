@@ -25,9 +25,9 @@
     <dd>{{ object.rating_score }} (after {{ object.ratings.count }} ratings)</dd>
   </dl>
   <ul id="actions">
-    {% ifequal user.id object.author.id %}
+    {% if user.id == object.author.id %}
       <li><a href="{% url 'cab_snippet_edit' snippet_id=object.id %}"><i class="fa fa-fw fa-pencil"></i><span>Edit</span></a></li>
-    {% endifequal %}
+    {% endif %}
     {% if user.is_authenticated %}
       {% if object|is_bookmarked:user %}
         <li><a href="{% url 'cab_bookmark_delete' snippet_id=object.id %}"><i class="fa fa-star fa-fw"></i><span>Remove bookmark</span></a></li>

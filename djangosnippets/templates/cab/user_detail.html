@@ -33,7 +33,7 @@
       </tbody>
     </table>
     {% cache 600 author_detail_sidebar author.username %}
-    <p class="count">{% ifequal request.user author %}You've{% else %}{{ author.username }} has{% endifequal %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
+    <p class="count">{% if request.user.username == author.username %}You've{% else %}{{ author.username }} has{% endif %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
     {% endcache %}
     <p class="pagination">
       {% if has_previous %}
