@@ -19,9 +19,7 @@ urlpatterns = patterns('',
     url(r'^search/', include('cab.urls.search')),
     url(r'^snippets/', include('cab.urls.snippets')),
     url(r'^tags/', include('cab.urls.tags')),
-    url(r'^users/$', 'cab.views.popular.top_authors', name='cab_top_authors'),
-    url(r'^users/(?P<username>[-\w]+)/$', 'cab.views.snippets.author_snippets',
-        name='cab_author_snippets'),
+    url(r'^users/', include('cab.urls.users')),
     url(r'^$', lambda request: render(request, 'homepage.html')),
 )
 
