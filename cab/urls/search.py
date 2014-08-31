@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 from cab.forms import AdvancedSearchForm
 
 from haystack.views import SearchView, search_view_factory
