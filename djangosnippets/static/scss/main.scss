@@ -246,7 +246,7 @@ body.snippet-details {
             vertical-align: top;
         }
     }
-    .highlighttable .code {
+    .highlighttable .code > div {
         overflow: scroll;
     }
     .highlight pre {
@@ -336,6 +336,7 @@ body.simple {
 
 footer {
     padding: 30px 0 30px 0;
+    clear: both;
     p {
         text-align: center;
         font-size: rem-calc(13px);

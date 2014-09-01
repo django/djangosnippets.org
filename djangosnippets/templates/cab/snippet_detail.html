@@ -46,7 +46,7 @@
   <div id="description">{{ object.description_html|safe }}</div>
   {{ object.highlighted_code|safe }}
   <section id="more">
-    <h2>More like this</h3>
+    <h2>More like this</h2>
     {% cache 600 mlt object.pk %}
       <ol>
       {% for related in object|more_like_this:5 %}
