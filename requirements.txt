@@ -4,6 +4,7 @@ certifi==14.05.14
 dj-database-url==0.3.0
 django-appconf==0.6
 django-comments-spamfighter==0.4
+django-disqus==0.4.3
 django-redis-cache==0.13.0
 django-secure==1.0
 django-simple-captcha==0.4.2
