@@ -53,7 +53,6 @@ INSTALLED_APPS = (
     'south',
     'taggit',
     'captcha',
-    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,5 +123,3 @@ CAPTCHA_NOISE_FUNCTIONS = (
 )
 CAPTCHA_BACKGROUND_COLOR = '#ffffff'
 CAPTCHA_FOREGROUND_COLOR = '#316241'
-
-DISQUS_WEBSITE_SHORTNAME = 'djangosnippets'
