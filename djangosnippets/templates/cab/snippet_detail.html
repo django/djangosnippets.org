@@ -26,22 +26,22 @@
   </dl>
   <ul id="actions">
     {% if user.id == object.author.id %}
-      <li><a href="{% url 'cab_snippet_edit' snippet_id=object.id %}"><i class="fa fa-fw fa-pencil"></i><span>Edit</span></a></li>
+      <li><a href="{% url 'cab_snippet_edit' snippet_id=object.id %}" title="Edit"><i class="fa fa-fw fa-pencil"></i><span>Edit</span></a></li>
     {% endif %}
     {% if user.is_authenticated %}
       {% if object|is_bookmarked:user %}
-        <li><a href="{% url 'cab_bookmark_delete' snippet_id=object.id %}"><i class="fa fa-star fa-fw"></i><span>Remove bookmark</span></a></li>
+        <li><a href="{% url 'cab_bookmark_delete' snippet_id=object.id %}" title="Remove bookmark"><i class="fa fa-star fa-fw"></i><span>Remove bookmark</span></a></li>
       {% else %}
-        <li><a href="{% url 'cab_bookmark_add' snippet_id=object.id %}"><i class="fa fa-star-o fa-fw"></i><span>Bookmark</span></a></li>
+        <li><a href="{% url 'cab_bookmark_add' snippet_id=object.id %}" title="Bookmark"><i class="fa fa-star-o fa-fw"></i><span>Bookmark</span></a></li>
       {% endif %}
       {% url 'cab_snippet_rate' snippet_id=object.id as rate_url %}
       {% with object|rating_score:request.user as rating_score %}
-        <li><a href="{{ rate_url }}?score={% if rating_score == 1 %}reset{% else %}up{% endif %}"><i class="fa fa-fw fa-thumbs{% if rating_score != 1 %}-o{% endif %}-up"></i><span>Is useful</span></a></li>
-        <li><a href="{{ rate_url }}?score={% if rating_score == -1 %}reset{% else %}down{% endif %}"><i class="fa fa-fw fa-thumbs{% if rating_score != -1 %}-o{% endif %}-down"></i><span>Is not useful</span></a></li>
+        <li><a href="{{ rate_url }}?score={% if rating_score == 1 %}reset{% else %}up{% endif %}" title="Mark as useful"><i class="fa fa-fw fa-thumbs{% if rating_score != 1 %}-o{% endif %}-up"></i><span>Is useful</span></a></li>
+        <li><a href="{{ rate_url }}?score={% if rating_score == -1 %}reset{% else %}down{% endif %}" title="Mark as not useful"><i class="fa fa-fw fa-thumbs{% if rating_score != -1 %}-o{% endif %}-down"></i><span>Is not useful</span></a></li>
       {% endwith %}
     {% endif %}
-    <li><a href="{% url 'cab_snippet_flag' object.id %}"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
-    <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
+    <li><a href="{% url 'cab_snippet_flag' object.id %}" title="Flag this snippet"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
+    <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}" title="Download"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
   </ul>
   <div id="description">{{ object.description_html|safe }}</div>
   {{ object.highlighted_code|safe }}
