@@ -71,15 +71,6 @@ Snippets = window.Snippets || {};
     this.default_url = '/search/autocomplete/';
   };
 
-  SnippetCompletion.prototype.render_item = function(ul, item) {
-    var html = '<a href="'+item.url+'">'+item.label+'</a>';
-
-    return $('<li></li>')
-      .data('item.autocomplete', item)
-      .append(html)
-      .appendTo(ul);
-  }
-
   SnippetCompletion.prototype.fetch_results = function(request, response) {
     var term = request.term,
         url = this.options.url || this.default_url;
@@ -110,7 +101,7 @@ Snippets = window.Snippets || {};
         }
       },
       source: function(request, response) {self.fetch_results(request, response);},
-    }).data('autocomplete')._renderItem = this.render_item;
+    });
   };
 
   S.TagCompletion = TagCompletion;
