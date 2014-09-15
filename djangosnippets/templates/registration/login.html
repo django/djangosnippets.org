@@ -30,39 +30,9 @@
         <a href="{% url 'auth_password_reset' %}" class="alt_button">Forgotten your password?</a>
       </div>
     </div>
+  <p class="help">If you don't have an account yet, you can <a href="{% url 'registration_register' %}">sign up here</a>.</p>
   </form>
 
-  <form action="{% url 'registration_register' %}" method="post" class="inline signup_form column medium-6">{% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}">
-    <p class="help">If you don't have an account yet, you can sign up here using your email address.</p>
-    <div class="field">
-      <label for="id_username">Username:</label>
-      <div class="controls">
-        <input type="text" name="username" value="" id="id_username">
-      </div>
-    </div>
-    <div class="field">
-      <label for="id_email">E-mail:</label>
-      <div class="controls">
-        <input type="text" name="email" value="" id="id_email">
-      </div>
-    </div>
-    <div class="field">
-      <label for="id_password1">Password:</label>
-      <div class="controls">
-        <input type="password" name="password1" value="" id="id_password1">
-      </div>
-    </div>
-    <div class="field">
-      <label for="id_password2">Password (again):</label>
-      <div class="controls">
-        <input type="password" name="password2" value="" id="id_password2">
-      </div>
-    </div>
-    <div class="button-group">
-      <div class="controls"><button type="submit">Sign up</button></div>
-    </div>
-  </form>
 {% endblock %}
 
 
