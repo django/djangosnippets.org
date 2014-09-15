@@ -118,14 +118,9 @@ CAB_VERSIONS = (
     (0, 'Not specified'),
 )
 
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
-CAPTCHA_NOISE_FUNCTIONS = (
-    'captcha.helpers.noise_arcs',
-    'captcha.helpers.noise_dots',
-)
-CAPTCHA_BACKGROUND_COLOR = '#ffffff'
-CAPTCHA_FOREGROUND_COLOR = '#316241'
-CAPTCHA_FONT_SIZE = 24
+RECAPTCHA_PUBLIC_KEY = 'oooh-so-public'
+RECAPTCHA_PRIVATE_KEY = 'yeah-yeah-totally-sekrit'
+RECAPTCHA_USE_SSL = True
 
 AUTHENTICATION_BACKENDS = (
     'ratelimitbackend.backends.RateLimitModelBackend',

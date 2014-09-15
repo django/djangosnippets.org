@@ -1,4 +1,4 @@
-django-cab==0.3.6
+django-cab==0.3.7
 django-generic-aggregation==0.3.2
 django-haystack==2.1.0
 django-pagination==1.0.7

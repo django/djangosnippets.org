@@ -6,7 +6,6 @@ django-appconf==0.6
 django-comments-spamfighter==0.4
 django-redis-cache==0.13.0
 django-secure==1.0
-django-simple-captcha==0.4.2
 elasticsearch==0.4.5
 gevent==1.0.1
 greenlet==0.4.4
