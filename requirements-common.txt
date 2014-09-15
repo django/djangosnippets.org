@@ -6,6 +6,6 @@ django-registration==1.0
 django-simple-ratings==0.3.3
 django-taggit==0.12.1
 Django==1.5.9
-Markdown==2.4.1
+Markdown==2.5
 Pygments==1.6
 South==1.0
