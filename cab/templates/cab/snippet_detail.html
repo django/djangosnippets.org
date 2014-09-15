@@ -64,6 +64,7 @@
       {% endwith %}
     {% endif %}
     <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}">Download this snippet</a></li>
+    <li><a href="{% url 'cab_snippet_raw' snippet_id=object.id %}">This snippet as plain text</a></li>
     <li><a href="#comments">Comment on this snippet</a></li>
     {% if user.is_authenticated %}
       <li>
