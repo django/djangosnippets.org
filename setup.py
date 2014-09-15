@@ -125,7 +125,7 @@ requirements = [
     'django-registration==1.0',
     'django-taggit==0.10',
     'django-comments-spamfighter>=0.4',
-    'django-simple-captcha>=0.4.0',
+    'django-recaptcha>=1.0',
     'django-ratelimit-backend==0.6.2',
 ]
 

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 
 from haystack.forms import SearchForm
-from captcha.fields import CaptchaField
+from captcha.fields import ReCaptchaField
 
 from cab.models import Language, Snippet, SnippetFlag, VERSIONS
 
@@ -78,4 +78,4 @@ class AdvancedSearchForm(SearchForm):
 
 
 class RegisterForm(RegistrationFormUniqueEmail):
-    captcha = CaptchaField()
+    captcha = ReCaptchaField(attrs={'theme': 'clean'})
