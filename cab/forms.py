@@ -78,13 +78,4 @@ class AdvancedSearchForm(SearchForm):
 
 
 class RegisterForm(RegistrationFormUniqueEmail):
-    your_name = forms.CharField(label='Your Name', required=False,
-                                widget=forms.TextInput(attrs={
-                                    'autocomplete': 'off',
-                                }))
     captcha = CaptchaField()
-
-    def clean(self):
-        if self.cleaned_data.get('your_name'):
-            raise forms.ValidationError('Please keep the Name field blank')
-        return self.cleaned_data
