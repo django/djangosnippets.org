@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 
 from haystack.forms import SearchForm
+from captcha.fields import CaptchaField
 
 from cab.models import Language, Snippet, SnippetFlag, VERSIONS
 
@@ -81,6 +82,7 @@ class RegisterForm(RegistrationFormUniqueEmail):
                                 widget=forms.TextInput(attrs={
                                     'autocomplete': 'off',
                                 }))
+    captcha = CaptchaField()
 
     def clean(self):
         if self.cleaned_data.get('your_name'):
