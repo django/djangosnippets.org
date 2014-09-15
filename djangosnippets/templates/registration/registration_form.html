@@ -5,9 +5,8 @@
 {% block content_header %}Register for an account{% endblock %}
 
 {% block content %}
-  <p>Registration is free. Start by giving us your e-mail address, and we'll send you instructions on how to continue. We will not spam you or give your e-mail address to anybody.</p>
-
-  <form action="" method="post">{% csrf_token %}
+  <form action="" method="post" class="column">{% csrf_token %}
+    <p>Registration is free. Start by giving us your e-mail address, and we'll send you instructions on how to continue. We will not spam you or give your e-mail address to anybody.</p>
     {{ form.non_field_errors }}
     <table>
       {% for field in form %}
