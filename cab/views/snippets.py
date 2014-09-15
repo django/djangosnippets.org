@@ -47,6 +47,13 @@ def download_snippet(request, snippet_id):
     return response
 
 
+def raw_snippet(request, snippet_id):
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
+    response = HttpResponse(snippet.code, mimetype='text/plain')
+    response['Content-Disposition'] = 'inline'
+    return response
+
+
 @login_required
 def rate_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
