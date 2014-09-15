@@ -5,7 +5,7 @@
 {% block content_header %}Log in / Sign up{% endblock %}
 
 {% block content %}
-  <form action="{% url 'login' %}" method="post" class="login_form inline column medium-6">{% csrf_token %}
+  <form action="{% url 'auth_login' %}" method="post" class="login_form inline column medium-6">{% csrf_token %}
     {{ form.non_field_errors }}
     {% if next %}<p class="alert-box warning">The page you're trying to access is only available to readers with free {{ site_name }} accounts. Just sign up and we'll send you on your way.</p>{% endif %}
     <p class="help">Already have an account? Welcome back! Please use your username and password to sign in.</p>

@@ -4,7 +4,7 @@
 
     {{ form.non_field_errors }}
 
-    <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="{% url 'logout' %}">{% trans "Log out" %}</a>)</p>
+    <p>{% trans "Username:" %} <strong>{{ user.username }}</strong> (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a>)</p>
     <dl>
 
     <div class="bee-like-this">
@@ -39,7 +39,7 @@
     </div>
 </form>
 {% else %}
-<form action="{% url 'login' %}" method="post" class="inline">{% csrf_token %}
+<form action="{% url 'auth_login' %}" method="post" class="inline">{% csrf_token %}
     <div class="field">
         <label for="id_username">{% trans "Username:" %}</label>
         <div class="controls"><input type="text" name="username" id="id_username" /></div>
