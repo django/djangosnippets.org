@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns, include
-from django.contrib import admin
+from ratelimitbackend import admin
 from django.shortcuts import render
 
 admin.autodiscover()

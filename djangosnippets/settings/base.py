@@ -65,6 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'ratelimitbackend.middleware.RateLimitMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -125,3 +126,7 @@ CAPTCHA_NOISE_FUNCTIONS = (
 CAPTCHA_BACKGROUND_COLOR = '#ffffff'
 CAPTCHA_FOREGROUND_COLOR = '#316241'
 CAPTCHA_FONT_SIZE = 24
+
+AUTHENTICATION_BACKENDS = (
+    'ratelimitbackend.backends.RateLimitModelBackend',
+)
