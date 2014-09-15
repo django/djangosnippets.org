@@ -4,7 +4,8 @@ from ratings.models import RatedItem
 
 
 def update_rating_score(sender, instance, *args, **kwargs):
-    instance.content_object.update_rating()
+    if instance.content_object:
+        instance.content_object.update_rating()
 
 
 def start_listening():
