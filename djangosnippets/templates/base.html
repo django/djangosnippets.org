@@ -3,8 +3,8 @@
 <head>
   <title>Django snippets: {% block title %}Home{% endblock %}</title>
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
@@ -68,21 +68,11 @@
     <p id="copyright">Written by <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">various people</a>. Hosted by <a href="https://www.heroku.com" class="heroku">Heroku</a>, powered by <a href="http://www.djangoproject.com/">Django</a></p>
     <p class="legal"><a href="/about/">About</a> | <a href="/about/faq/">FAQ</a> | <a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>
   </footer>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-  <script type="text/javascript">console.log(jQuery);</script>
+  {% block extra_body %}{% endblock %}
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="{% static "js/snippets.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/main.js" %}"></script>
   {% block extra_scripts %}{% endblock %}
-  <script type="text/javascript">
-    $(function() {
-      var snippet_completion = new Snippets.SnippetCompletion()
-      snippet_completion.bind_listener('input[name=q]');
-
-      if ($('#id_tags').length > 0) {
-        var tag_completion = new Snippets.TagCompletion()
-        tag_completion.bind_listener('#id_tags');
-      }
-    });
-  </script>
 </body>
 </html>

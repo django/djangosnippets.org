@@ -78,10 +78,15 @@ form {
     }
 }
 
-.ui-menu .ui-menu-item a {
+.ui-menu .ui-menu-item {
     font-size: rem-calc(13px);
 }
 
 .bee-like-this {
     display: none;
+}
+
+
+#flagform {
+    font-size: rem-calc(14px);
 }

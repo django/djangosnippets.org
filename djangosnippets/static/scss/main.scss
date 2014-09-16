@@ -1,5 +1,6 @@
 $green: #316241;
 $orange: #ffc656;
+$red: #CE2929;
 $primary-color: #555;
 $secondary-color: $orange;
 
@@ -205,6 +206,20 @@ h2 {
     font-size: rem-calc(24px);
 }
 
+.message {
+    @include grid-column(12);
+    margin-bottom: 20px;
+    background: $green;
+    color: #FFF;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    &.message_error {
+        background: $red;
+    }
+}
+
 #meta {
     opacity: 0.6;
     &:hover {
@@ -352,5 +367,16 @@ footer {
         width: 88px;
         height: 31px;
         color: transparent;
+    }
+}
+
+.ui-dialog {
+    padding: 0;
+    border-radius: 0;
+
+    > .ui-widget-header {
+        background: #ddd;
+        border-radius: 0;
+        border: none;
     }
 }

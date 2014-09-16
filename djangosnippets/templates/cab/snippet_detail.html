@@ -40,7 +40,9 @@
         <li><a href="{{ rate_url }}?score={% if rating_score == -1 %}reset{% else %}down{% endif %}" title="Mark as not useful"><i class="fa fa-fw fa-thumbs{% if rating_score != -1 %}-o{% endif %}-down"></i><span>Is not useful</span></a></li>
       {% endwith %}
     {% endif %}
-    <li><a href="{% url 'cab_snippet_flag' object.id %}" title="Flag this snippet"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
+    {% if user.is_authenticated %}
+    <li><a class="actions__flag" href="{% url 'cab_snippet_flag' object.id %}" title="Flag this snippet"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
+    {% endif %}
     <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}" title="Download"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
     <li><a href="{% url 'cab_snippet_raw' snippet_id=object.id %}" title="Raw"><i class="fa fa-fw fa-align-left"></i><span>Raw</span></a></li>
   </ul>
@@ -73,3 +75,11 @@
   </section>
 {% endblock %}
 {% block sidebar %}{% endblock %}
+{% block extra_body %}
+{{block.super}}
+<form id="flagform" method="POST" action="flag/">
+  {% csrf_token %}
+  {{ flag_form.as_p }}
+  <button type="submit">Flag this snippet</button>
+</form>
+{% endblock %}
