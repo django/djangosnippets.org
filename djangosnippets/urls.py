@@ -5,7 +5,6 @@ from django.shortcuts import render
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^captcha/', include('captcha.urls')),
     url(r'^accounts/', include('cab.urls.accounts')),
     url(r'^manage/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
