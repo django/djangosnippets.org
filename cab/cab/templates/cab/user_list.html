@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}All users{% endblock %}
+
+{% block content_header %}All users{% endblock %}
+
+{% block content %}
+  <ul>
+  {% for user in object_list %}
+    <li><a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a></li>
+  {% endfor %}
+  </ul>
+
+  <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
+{% endblock %}
+
+{% block sidebar %}
+  <p>There are currently {{ hits }} users posting snippets.</p>
+
+  <p>The users who've submitted the most snippets are:</p>
+  {% load popular %}
+  {% get_top_authors 5 as top_authors %}
+  <ol>
+  {% for author in top_authors %}
+    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a></li>
+  {% endfor %}
+  </ol>
+{% endblock %}

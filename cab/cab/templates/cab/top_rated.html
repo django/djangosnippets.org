@@ -1,0 +1,10 @@
+{% extends "cab/snippet_list.html" %}
+
+
+{% block title %}Top-rated snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+
+{% block content_header %}Top-rated snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+
+{% block sidebar %}
+  <p>You're looking at the top-rated snippets currently on the site; {% if user.is_authenticated %}if you'd like to contribute, just click the ratings link in the sidebar of a particular snippet's page; you can rate any snippet "useful" or "not useful"{% else %}if you'd like to contribute, <a href="/accounts/register/">sign up for an account</a> and you'll be able to rate any snippet you see{% endif %}.</p>
+{% endblock %}

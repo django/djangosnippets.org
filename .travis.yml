@@ -1,0 +1,16 @@
+language: python
+python:
+  - 2.6
+  - 2.7
+install:
+  - pip install Django==$DJANGO
+  - pip install -e .
+  - pip install -r tests/requirements.txt
+script:
+  - export PYTHONPATH=.
+  - flake8 --ignore=W801,E128,E501,W402 cab
+  - coverage run `which django-admin.py` test --settings=tests.settings
+  - coverage report
+env:
+  - DJANGO=1.5.9
+  # - DJANGO=1.6.6

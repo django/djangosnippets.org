@@ -1,0 +1,10 @@
+{% extends "cab/snippet_list.html" %}
+
+
+{% block title %}Most-bookmarked snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+
+{% block content_header %}Most-bookmarked snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+
+{% block sidebar %}
+  <p>You're looking at the most-bookmarked snippets on the site; {% if user.is_authenticated %}you can help useful snippets show up here by clicking the "bookmark this snippet" link on their pages and ading them to <a href="{% url 'cab_user_bookmarks' %}">your bookmarks</a>{% else %}if you'd like to help useful snippets show up here, <a href="/accounts/register/">sign up for an account</a> and you'll get your own bookmarks list{% endif %}.</p>
+{% endblock %}

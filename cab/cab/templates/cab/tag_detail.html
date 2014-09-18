@@ -1,0 +1,14 @@
+{% extends "cab/snippet_list.html" %}
+{% load static from staticfiles %}
+
+{% block feeds %}<link rel="alternate" href="{% url 'cab_feed_tag' slug=tag.slug %}" type="application/atom+xml" title="Feed of snippets tagged with '{{ tag.name }}'" />{% endblock %}
+
+{% block title %}Tag "{{ tag.name }}"{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+
+{% block content_header %}Tag "{{ tag.name }}"{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+
+{% block sidebar %}
+  <p>{{ hits }} snippet{{ hits|pluralize }} {% ifequal hits 1 %}is{% else %}are{% endifequal %} tagged with "{{ tag.name }}":</p>
+
+  <p><a rel="alternate" href="{% url 'cab_feed_tag' slug=tag.slug %}" type="application/atom+xml"><img src="{% static "img/feed-icon-10x10.png" %}" alt="" /> Feed of snippets tagged with '{{ tag.slug }}'</a></p>
+{% endblock %}

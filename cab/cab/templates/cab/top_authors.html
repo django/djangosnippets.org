@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Top authors{% endblock %}
+
+{% block content_header %}Top authors{% endblock %}
+
+{% block content %}
+  <ul>
+  {% for author in object_list %}
+    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
