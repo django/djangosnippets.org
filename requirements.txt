@@ -1,9 +1,8 @@
--r requirements-common.txt
-akismet==0.2.0
+-r requirements-vendor.txt
+Django==1.5.9
 certifi==14.05.14
 dj-database-url==0.3.0
 django-appconf==0.6
-django-comments-spamfighter==0.4
 django-redis-cache==0.13.0
 django-secure==1.0
 elasticsearch==0.4.5
