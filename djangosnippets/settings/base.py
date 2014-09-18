@@ -118,8 +118,9 @@ CAB_VERSIONS = (
     (0, 'Not specified'),
 )
 
-RECAPTCHA_PUBLIC_KEY = 'oooh-so-public'
-RECAPTCHA_PRIVATE_KEY = 'yeah-yeah-totally-sekrit'
+# keys for localhost and 127.0.0.1
+RECAPTCHA_PUBLIC_KEY = '6LcXj_oSAAAAAPQ3u23Y6MqQqd2yMYtnHqa7Zj61'
+RECAPTCHA_PRIVATE_KEY = '6LcXj_oSAAAAAFN31LR-F31lwFSQAcJgsg1pE5WP'
 RECAPTCHA_USE_SSL = True
 
 AUTHENTICATION_BACKENDS = (
