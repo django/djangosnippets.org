@@ -2,6 +2,8 @@ from django.conf.urls import url, patterns, include
 from ratelimitbackend import admin
 from django.shortcuts import render
 
+from .feeds import SnippetWxrFeed
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -9,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^manage/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^feeds/wxr/$', SnippetWxrFeed(), name='cab_feed_wxr'),
     url(r'^feeds/', include('cab.urls.feeds')),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),

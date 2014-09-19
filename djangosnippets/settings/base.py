@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'south',
     'taggit',
     'captcha',
+    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,3 +127,5 @@ RECAPTCHA_USE_SSL = True
 AUTHENTICATION_BACKENDS = (
     'ratelimitbackend.backends.RateLimitModelBackend',
 )
+
+DISQUS_WEBSITE_SHORTNAME = 'djangosnippets'

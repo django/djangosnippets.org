@@ -3,6 +3,7 @@ Django==1.5.9
 certifi==14.05.14
 dj-database-url==0.3.0
 django-appconf==0.6
+django-disqus==0.4.3
 django-redis-cache==0.13.0
 django-secure==1.0
 elasticsearch==0.4.5
