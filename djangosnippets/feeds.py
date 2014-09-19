@@ -1,5 +1,7 @@
 from disqus.wxr_feed import ContribCommentsWxrFeed
 from cab.models import Snippet
+from cab.templatetags.safe_markup import safe_markdown
+
 
 class SnippetWxrFeed(ContribCommentsWxrFeed):
     link = "/feeds/wxr/"
@@ -13,3 +15,7 @@ class SnippetWxrFeed(ContribCommentsWxrFeed):
 
     def item_title(self, item):
         return item.title
+
+    def comment_comment(self, comment):
+        comment = super(SnippetWxrFeed, self).comment_comment(comment)
+        return safe_markdown(comment, 'safe')
