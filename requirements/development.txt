@@ -1,2 +1,3 @@
 -r base.txt
+-r vendor.txt
 Whoosh==2.6.0
