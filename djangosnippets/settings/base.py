@@ -124,6 +124,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_ADAPTER = 'djangosnippets.adapters.DjangoSnippetsAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'djangosnippets.adapters.DjangoSnippetsSocialAccountAdapter'
+SOCIALACCOUNT_AUTO_SIGNUP = False
 
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
