@@ -329,19 +329,6 @@ h2 {
     width: auto;
 }
 
-.message {
-    margin: 30px 20px 10px 20px;
-    padding: 15px;
-    background-color: #f3f3f3;
-}
-.message h4 { margin-bottom: 0; font-size: 18px; font-weight: bold; }
-
-.message_info { background-color: #e0f1f9; }
-.message_info h4 { color: #4e7894; }
-
-.message_error { background-color: #ffecec; }
-.message_error h4 { color: #af4949; }
-
 #comments {
     clear: left;
 }

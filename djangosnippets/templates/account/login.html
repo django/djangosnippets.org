@@ -1,0 +1,49 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load url from future %}
+{% load account %}
+{% load socialaccount %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block content_header %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+<p>
+Please log in with one of the following 3rd party systems or with your existing account.
+</p>
+
+<ul class="socialaccount_providers button-group radius">
+  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+</ul>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+{% endblock %}
+
+{% block sidebar %}
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {% for field in form %}
+    {% if field.name == 'remember' %}
+      {{ field }}
+      {{ field.label_tag }}
+    {% else %}
+      {{ field.label_tag }}
+      {{ field }}
+    {% endif %}
+    {% if field.errors %}
+      {{ field.errors }}
+    {% endif %}
+  {% endfor %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <div class="button-group">
+    <div class="controls">
+      <button type="submit">Log in</button>
+      <a href="{% url 'account_reset_password' %}" class="alt_button">Forgotten your password?</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

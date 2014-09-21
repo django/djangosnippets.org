@@ -3,7 +3,7 @@
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_language' slug=language.slug %}" type="application/atom+xml" title="Feed of snippets written in {{ language.name }}" />{% endblock %}
 
-{% block title %}All snippets written in {{ language.name }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+{% block head_title %}All snippets written in {{ language.name }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
 {% block content_header %}All snippets written in {{ language.name }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 

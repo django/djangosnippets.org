@@ -1,30 +1,33 @@
 {% load static from staticfiles %}<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Django snippets: {% block title %}Home{% endblock %}</title>
+  <title>djangosnippets: {% block head_title %}Home{% endblock %}</title>
+  <script src="{% static 'bower_components/modernizr/modernizr.js' %}"></script>
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "css/social-buttons.css" %}" type="text/css" />
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   {% block feeds %}{% endblock %}
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
   <div id="accountbar"><div class="inner">
     <p>
-    {% url 'auth_logout' as logout_url %}
+    {% url 'account_logout' as logout_url %}
+    {% url 'account_login' as login_url %}
     {% if user.is_authenticated %}
-      Logged in as <a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a> (<a href="{{ logout_url }}">Log out</a>)
+      Logged in as <a href="{{ user.get_absolute_url }}">{{ user.username }}</a> (<a href="{{ logout_url }}{% if request.path != login_url or request.path != logout_url %}?next={{ request.path }}{% endif %}">Logout</a>)
     {% else %}
-      <a href="{% url 'auth_login' %}?next={% if request.path == logout_url %}/{% else %}{{ request.path }}{% endif %}">Log in</a> or <a href="{% url 'registration_register' %}">register</a>
+      <a href="{{ login_url }}?next={% if request.path == logout_url or request.path == login_url %}/{% else %}{{ request.path }}{% endif %}">Login</a>
     {% endif %}
     </p>
   </div></div>
   <header><div class="inner">
-    <a title="Go back to the frontpage" href="{% url 'home' %}" id="logo">Django<b>Snippets</b></a>
+    <a title="Go back to the frontpage" href="{% url 'home' %}" id="logo">django<b>snippets</b></a>
     <nav>
       <ul>
-        <li><a href="{% url 'cab_snippet_add' %}">Create a snippet</a></li>
+        <li><a href="{% url 'cab_snippet_add' %}">Add a snippet</a></li>
         <li><a href="{% url 'cab_snippet_list' %}">All snippets</a></li>
         <li><form method="GET" action="/search/">
         <input type="search" name="q" value="{% if form.q.value %}{{ form.q.value }}{% endif %}" placeholder="Search a snippet...">
@@ -47,7 +50,10 @@
 
   {% if messages %}
     {% for message in messages %}
-      <p class="message {% if message.tags %} message_{{ message.tags }}{% else %}message_info{% endif %}">{{ message }}</p>
+      <div data-alert class="alert-box {% if message.tags %} {{ message.tags }}{% else %}message_info{% endif %}">
+        {{ message }}
+        <a href="#" class="close">&times;</a>
+      </div>
     {% endfor %}
   {% endif %}
 
@@ -69,10 +75,15 @@
     <p class="legal"><a href="/about/">About</a> | <a href="/about/faq/">FAQ</a> | <a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>
   </footer>
   {% block extra_body %}{% endblock %}
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="{% static "js/snippets.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/main.js" %}"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{% static 'bower_components/fastclick/lib/fastclick.js' %}"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <script src="{% static 'bower_components/foundation/js/foundation.min.js' %}"></script>
+  <script src="{% static 'js/snippets.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    $(document).foundation();
+  </script>
   {% block extra_scripts %}{% endblock %}
 </body>
 </html>

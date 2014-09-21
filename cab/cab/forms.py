@@ -2,11 +2,8 @@ from django import forms
 from django.contrib import admin
 
 from haystack.forms import SearchForm
-from captcha.fields import ReCaptchaField
 
 from cab.models import Language, Snippet, SnippetFlag, VERSIONS
-
-from registration.forms import RegistrationFormUniqueEmail
 
 
 def validate_non_whitespace_only_string(value):
@@ -75,7 +72,3 @@ class AdvancedSearchForm(SearchForm):
                 rating_score__gte=self.cleaned_data['minimum_rating_score'])
 
         return sqs
-
-
-class RegisterForm(RegistrationFormUniqueEmail):
-    captcha = ReCaptchaField(attrs={'theme': 'clean'})

@@ -1,0 +1,9 @@
+Somebody with this e-mail address registered a user account at {{ current_site.domain }}.
+To activate your account, please visit the following page:
+
+{{ activate_url }}
+
+If clicking the above link does not work, please copy and paste the link into your browser.
+
+-------------------------------------------------------------------------------------
+If you didn't request it, you may safely delete this message; we won't bug you again.

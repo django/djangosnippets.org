@@ -3,7 +3,7 @@
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_tag' slug=tag.slug %}" type="application/atom+xml" title="Feed of snippets tagged with '{{ tag.name }}'" />{% endblock %}
 
-{% block title %}Tag "{{ tag.name }}"{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+{% block head_title %}Tag "{{ tag.name }}"{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
 {% block content_header %}Tag "{{ tag.name }}"{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 

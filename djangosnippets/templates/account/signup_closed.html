@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Up closed" %}{% endblock %}
+
+{% block content_header %}{% trans "Sign Up closed" %}{% endblock %}
+
+{% block content %}
+<p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+{% endblock %}

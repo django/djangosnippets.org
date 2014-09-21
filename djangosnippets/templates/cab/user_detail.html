@@ -5,7 +5,7 @@
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_author' username=author.username %}" type="application/atom+xml" title="Feed of snippets by {{ author.username }}" />{% endblock %}
 
-{% block title %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+{% block head_title %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
 {% block content_header %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 

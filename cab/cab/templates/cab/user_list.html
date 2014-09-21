@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}All users{% endblock %}
+{% block head_title %}All users{% endblock %}
 
 {% block content_header %}All users{% endblock %}
 
 {% block content %}
   <ul>
   {% for user in object_list %}
-    <li><a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a></li>
+    <li><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></li>
   {% endfor %}
   </ul>
 
@@ -22,7 +22,7 @@
   {% get_top_authors 5 as top_authors %}
   <ol>
   {% for author in top_authors %}
-    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a></li>
+    <li><a href="{{ author.get_absolute_url }}">{{ author.username }}</a></li>
   {% endfor %}
   </ol>
 {% endblock %}

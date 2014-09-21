@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns, include
-from ratelimitbackend import admin
+from django.contrib import admin
 from django.shortcuts import render
 
 from .feeds import SnippetWxrFeed
@@ -7,7 +7,7 @@ from .feeds import SnippetWxrFeed
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^accounts/', include('cab.urls.accounts')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^manage/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django.contrib.comments.urls')),

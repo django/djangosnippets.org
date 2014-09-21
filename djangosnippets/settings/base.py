@@ -1,4 +1,10 @@
 import os
+from django.core.urlresolvers import reverse
+
+
+def user_url(user):
+    return reverse('cab_author_snippets', kwargs={'username': user.username})
+
 
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             os.pardir)
@@ -23,6 +29,11 @@ DEFAULT_FROM_EMAIL = 'no-reply@djangosnippets.org'
 SERVER_EMAIL = 'no-reply@djangosnippets.org'
 EMAIL_SUBJECT_PREFIX = '[djangosnippets] '
 
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': user_url,
+}
+
 FORCE_WWW = False
 
 ROOT_URLCONF = 'djangosnippets.urls'
@@ -43,13 +54,19 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.bitbucket',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.twitter',
+
     'cab',
     'cab.comments',
     'comments_spamfighter',
     'haystack',
     'pagination',
     'ratings',
-    'registration',
     'south',
     'taggit',
     'captcha',
@@ -66,7 +83,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'pagination.middleware.PaginationMiddleware',
-    'ratelimitbackend.middleware.RateLimitMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -75,7 +91,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request'
+    'django.core.context_processors.request',
+    # allauth specific context processors
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 TEMPLATE_LOADERS = (
@@ -96,10 +115,17 @@ STATICFILES_DIRS = (
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_ADAPTER = 'djangosnippets.adapters.DjangoSnippetsAccountAdapter'
+
 
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 COMMENTS_APP = 'cab.comments'
 
@@ -125,8 +151,19 @@ RECAPTCHA_PRIVATE_KEY = '6LcXj_oSAAAAAFN31LR-F31lwFSQAcJgsg1pE5WP'
 RECAPTCHA_USE_SSL = True
 
 AUTHENTICATION_BACKENDS = (
-    'ratelimitbackend.backends.RateLimitModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 DISQUS_WEBSITE_SHORTNAME = 'djangosnippets'
 DISQUS_USE_SINGLE_SIGNON = True
+
+from django.contrib import messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'secondary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'alert',
+}

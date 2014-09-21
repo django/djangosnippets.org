@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load account %}
 
-{% block title %}Top authors{% endblock %}
+{% block head_title %}Top authors{% endblock %}
 
 {% block content_header %}Top authors{% endblock %}
 
 {% block content %}
   <ul>
   {% for author in object_list %}
-    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
+    <li><a href="{{ author.get_absolute_url }}">{% user_display author %}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
   {% endfor %}
   </ul>
 {% endblock %}

@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}You are now logged out.{% endblocktrans %}

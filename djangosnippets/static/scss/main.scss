@@ -21,13 +21,14 @@ $include-html-type-classes: true;
 @import "forms";
 @import "pygments";
 
-
 header > .inner, footer, #main {
     @include grid-row("collapse");
     margin: auto;
 }
 
 a {
+    color: $green;
+
     &:hover {
         text-decoration: underline;
         color: $secondary-color;
@@ -200,6 +201,7 @@ h1 {
     @include grid-column(12);
     margin-bottom: 20px;
     color: $green;
+    font-weight: 300;
 }
 
 h2 {
@@ -297,6 +299,7 @@ body.tags-list,
 body.search,
 body.bookmarks,
 body.user,
+body.snippet-list,
 body.with-sidebar {
     #content {
         @media #{$small-up} {
@@ -319,7 +322,7 @@ body.with-sidebar {
     }
 }
 
-body.frontpage {
+body.frontpage,  {
     #content, #sidebar {
         @media #{$small-up} {
             @include grid-column(12, $last-column: true);
@@ -379,4 +382,16 @@ footer {
         border-radius: 0;
         border: none;
     }
+}
+
+.socialaccount_providers {
+    margin-left: 0;
+}
+
+.socialaccount_providers li {
+    list-style: none;
+}
+
+a.button:hover {
+    text-decoration: none;
 }

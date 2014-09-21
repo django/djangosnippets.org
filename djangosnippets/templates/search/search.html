@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load core_tags %}
+{% load account %}
+
 {% block bodyclass %}search{% endblock %}
-{% block title %}Search{% endblock %}
+{% block head_title %}Search{% endblock %}
 
 {% block content_header %}Search{% endblock %}
 
@@ -22,7 +24,7 @@
       {% for result in page.object_list %}
         <tr>
           <td><a href="{{ result.object.get_absolute_url }}">{% if not result.object.title|strip %}Untitled{% else %}{{ result.object.title }}{% endif %}</a></td>
-          <td><a href="{% url 'cab_author_snippets' username=result.object.author.username %}">{{ result.object.author.username }}</a></td>
+          <td><a href="{{ result.object.author.get_absolute_url }}">{% user_display result.object.author %}</a></td>
           <td>{% for tag in result.object.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</td>
           <td>{{ result.object.pub_date }}</td>
           <td><span class="rating-{% if result.object.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if result.object.rating_score >= 0 %}+{% endif %}{{ result.object.rating_score }}</span></td>

@@ -1,0 +1,7 @@
+{% load socialaccount %}
+
+{% for provider in socialaccount.providers %}
+<li>
+  <a title="{{ provider.name }}" class="button small" href="{% provider_login_url provider.id process=process %}"><i class="fa fa-{{ provider.id }}"></i> {{ provider.name }}</a>
+</li>
+{% endfor %}

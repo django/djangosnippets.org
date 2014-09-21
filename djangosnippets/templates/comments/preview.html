@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block title %}Post a comment{% endblock %}
+{% block head_title %}Post a comment{% endblock %}
 {% block bodyclass %}with-sidebar{% endblock %}
 
 {% block content_header %}Post a comment{% endblock %}
@@ -23,7 +23,7 @@
 <form action="/comments/post/" class="fullsize" method="post">{% csrf_token %}
 
     <dl class="preview">
-        <dt>Username:</dt><dd><a href="{% url 'cab_author_snippets' username=user.username %}">{{ user.username }}</a></dd>
+        <dt>Username:</dt><dd><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></dd>
         <dt>Comment:</dt><dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
     </dl>
 

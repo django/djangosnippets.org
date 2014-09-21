@@ -2,7 +2,7 @@
 {% load static from staticfiles %}
 {% load core_tags %}
 {% block bodyclass %}frontpage{% endblock %}
-{% block title %}Welcome{% endblock %}
+{% block head_title %}Welcome{% endblock %}
 
 {% block content_header %}Welcome{% endblock %}
 
@@ -12,21 +12,21 @@
   <h2>Latest snippets posted:</h2>
   <ul>
   {% for snippet in "cab.snippet"|latest:5 %}
-    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{% url 'cab_author_snippets' username=snippet.author.username %}">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
+    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
   {% endfor %}
   </ul>
 
   <h2>Top-rated snippets:</h2>
   <ol>
   {% for snippet in "cab.snippet"|call_manager:"top_rated"|slice:":5" %}
-    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{% url 'cab_author_snippets' username=snippet.author.username %}">{{ snippet.author.username }}</a></li>
+    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a></li>
   {% endfor %}
   </ol>
 
   <h2>Top users:</h2>
   <ol>
   {% for author in "cab.snippet"|call_manager:"top_authors"|slice:":5" %}
-    <li><a href="{% url 'cab_author_snippets' username=author.username %}">{{ author.username }}</a></li>
+    <li><a href="{{ author.get_absolute_url }}">{{ author.username }}</a></li>
   {% endfor %}
   </ol>
   {% endcache %}
@@ -37,7 +37,7 @@
 
   <p>If you're just here to browse, you can look through snippets organized <a href="{% url 'cab_top_authors' %}">by author</a>, <a href="{% url 'cab_language_list' %}">by language</a> or <a href="{% url 'cab_top_tags' %}">by tag</a>. You can also have a look at the <a href="{% url 'cab_top_rated' %}">top-rated snippets</a> and the <a href="{% url 'cab_top_bookmarked' %}">most-bookmarked snippets</a>.</p>
 
-  <p>If you'd like to contribute, <a href="{% url 'registration_register' %}">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
+  <p>If you'd like to contribute, <a href="{% url 'account_login' %}">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
 
   <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i> Feed of latest snippets</a></p>
 
