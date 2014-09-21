@@ -125,6 +125,7 @@ requirements = [
     'django-taggit==0.10',
     'django-comments-spamfighter>=0.4',
     'django-recaptcha>=1.0',
+    'django-ratelimit-backend==0.6.2',
 ]
 
 setup(

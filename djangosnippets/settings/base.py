@@ -83,6 +83,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'ratelimitbackend.middleware.RateLimitMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -151,7 +152,7 @@ RECAPTCHA_PRIVATE_KEY = '6LcXj_oSAAAAAFN31LR-F31lwFSQAcJgsg1pE5WP'
 RECAPTCHA_USE_SSL = True
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'ratelimitbackend.backends.RateLimitModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
