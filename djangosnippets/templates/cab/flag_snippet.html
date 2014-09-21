@@ -1,0 +1,49 @@
+{% extends "base_user.html" %}
+
+{% block head_title %}Editing "{{ snippet.title }}"{% endblock %}
+
+{% block content_header %}Flag "{{ snippet.title }}"{% endblock %}
+{% block bodyclass %}snippet-form{% endblock %}
+{% load static from staticfiles %}
+
+{% block content %}
+  {% block content_preamble %}{% endblock %}
+
+  {% if form.errors %}
+    <p class="error">Please correct the errors below:</p>
+  {% endif %}
+
+  <form class="fullsize" method="post" action="">{% csrf_token %}
+    <div class="field {% if form.flag.errors %}error{% endif %}">
+      <label for="id_flag">Flag:</label>
+      {{ form.flag }}
+      {% if form.flag.errors %}<small class="error">{{ form.flag.errors|join:", " }}</small>{% endif %}
+    </div>
+    
+    <div class="button-group"><button type="submit">Go</button> <a href="{% url 'cab_snippet_detail' snippet_id=snippet.id %}">Cancel</a></div>
+  </form>
+  {% if snippet.description_html %}
+  <section id="snippet_description">
+    <h2>Snippet description</h2>
+    <div>{{ snippet.description_html|safe }}</div>
+  </section>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<h2>Details</h2>
+<dl>
+  <dt>Author:</dt>
+  <dd><a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a></dd>
+  <dt>Posted:</dt>
+  <dd>{{ snippet.pub_date|date:"F j, Y" }}</dd>
+  <dt>Language:</dt>
+  <dd><a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a></dd>
+  <dt>Version:</dt>
+  <dd>{{ snippet.get_version }}</dd>
+  <dt>Tags:</dt>
+  <dd>{% for tag in snippet.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</dd>
+  <dt>Score:</dt>
+  <dd>{{ snippet.rating_score }} (after {{ snippet.ratings.count }} ratings)</dd>
+</dl>
+{% endblock %}
