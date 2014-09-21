@@ -1,0 +1,78 @@
+{% extends "base_user.html" %}
+{% load static from staticfiles %}
+
+{% block extra_scripts %}
+  <script type="text/javascript" language="javascript" src="{% static "js/snippets.js" %}"></script>
+  <script type="text/javascript" language="javascript">
+    $(function() {
+      var tag_hint = new Snippets.TagCompletion();
+      tag_hint.bind_listener('input#id_q', 'input#id_output');
+    });
+  </script>
+{% endblock %}
+
+{% block head_title %}Add a snippet{% endblock %}
+
+{% block content_header %}Add a snippet{% endblock %}
+
+{% block content %}
+  <p class="alert-box warning">Please remember that this site is not a pastebin or debugging tool; it is intended for finished, working pieces of code.</p>
+  <p>If you need someplace to temporarily post some code while others help you debug it, please use the pastebin at <a href="http://dpaste.org/">dpaste.org</a>.</p>
+
+  {% if form.errors %}
+    <p class="error">Please correct the errors below:</p>
+  {% endif %}
+
+  <form method="post" action="">{% csrf_token %}
+    <dl>
+      <dt><label for="id_title">Title: {% if form.title.errors %}<span class="error">{{ form.title.errors|join:", " }}</span>{% endif %}</label></dt>
+      <dd>{{ form.title }}</dd>
+      <dt><label for="id_language">Language:</label></dt>
+      <dd>{{ form.language }}{% if form.language.errors %}<span class="error">&nbsp;&nbsp;{{ form.language.errors|join:", " }}</span>{% endif %}</dd>
+      <dt><label for="id_version">Version:</label></dt>
+      <dd>{{ form.version }}{% if form.version.errors %}<span class="error">&nbsp;&nbsp;{{ form.version.errors|join:", " }}</span>{% endif %}</dd>
+      <dt><label for="id_tag_list">Tags: {% if form.tag_list.errors %}<span class="error">{{ form.tag_list.errors|join:", " }}</span>{% endif %} </label></dt>
+      <dd>{{ form.tags }} <br />Use commas between tag names, and hyphens for multiple words, like "tag1, tag2, tag3-with-long-name"</dd>
+      <dt><label for="id_code">Code: {% if form.code.errors %}<span class="error">{{ form.code.errors|join:", " }}</span>{% endif %}</label></dt>
+      <dd>{{ form.code }}</dd>
+      <dt><label for="id_description">Description: {% if form.description.errors %}<span class="error">{{ form.description.errors|join:", " }}</span>{% endif %}</label></dt>
+      <dd>{{ form.description }}<br />
+      You can use Markdown syntax here (see the sidebar), but <strong>raw HTML will be removed</strong>.</dd>
+      <dt><button type="submit">Save</button></dt>
+    </dl>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+  <p>All fields are required; tags should be separated with spaces, and you can use Markdown in the description for your snippet, but <strong>raw HTML will be removed</strong>.</p>
+
+  <p>Remember: by posting a snippet, you agree to let anyone make use of the code.</p>
+
+  <h3>Markdown quick reference:</h3>
+    <dl>
+    <dt>Bold and italic text:</dt>
+    <dd><strong>**bold**</strong> and <em>*italic*</em> text</dd>
+
+    <dt>Links:</dt>
+    <dd>[link text](link URL)</dd>
+
+    <dt>Code:</dt>
+    <dd><code>`code`</code></dd>
+
+    <dt>Code block:</dt>
+    <dd>Indent each line four spaces</dd>
+
+    <dt>Blockquote:</dt>
+    <dd>Start each line with &gt;</dd>
+
+    <dt>Unordered lists:</dt>
+    <dd>Start each item with *</dd>
+
+    <dt>Ordered lists:</dt>
+    <dd>Start each item with a number and a period (e.g., 1. for the first item, 2. for the second, and so on)</dd>
+
+    <dt></dt>
+    <dd></dd>
+  </dl>
+
+{% endblock %}
