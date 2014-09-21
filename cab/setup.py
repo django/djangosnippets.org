@@ -124,6 +124,7 @@ requirements = [
     'django-pagination==1.0.7',
     'django-taggit==0.10',
     'django-comments-spamfighter>=0.4',
+    'django-recaptcha>=1.0',
 ]
 
 setup(
