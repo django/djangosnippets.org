@@ -1,0 +1,2 @@
+-r base.txt
+Whoosh==2.6.0
