@@ -94,29 +94,38 @@ def edit_snippet(request, snippet_id=None,
 
 
 @login_required
-def flag_snippet(request, snippet_id):
+def flag_snippet(request, snippet_id, template_name='cab/flag_snippet.html'):
     snippet = get_object_or_404(Snippet, id=snippet_id)
     snippet_flag = SnippetFlag(snippet=snippet, user=request.user)
-    form = SnippetFlagForm(request.POST, instance=snippet_flag)
 
-    if form.is_valid():
-        snippet_flag = form.save()
+    if request.method == 'POST':
+        form = SnippetFlagForm(request.POST, instance=snippet_flag)
 
-        admin_link = request.build_absolute_uri(
-            reverse('admin:cab_snippetflag_changelist')
-        )
+        if form.is_valid():
+            snippet_flag = form.save()
 
-        mail_admins(
-            'Snippet flagged: "%s"' % (snippet.title),
-            '%s\n\nAdmin link: %s' % (snippet_flag, admin_link),
-            fail_silently=True,
-        )
+            admin_link = request.build_absolute_uri(
+                reverse('admin:cab_snippetflag_changelist')
+            )
 
-        messages.info(request, 'Thank you for helping improve the site!')
+            mail_admins(
+                'Snippet flagged: "%s"' % (snippet.title),
+                '%s\n\nAdmin link: %s' % (snippet_flag, admin_link),
+                fail_silently=True,
+            )
+
+            messages.info(request, 'Thank you for helping improve the site!')
+            return redirect(snippet)
+        else:
+            if request.is_ajax():
+                return redirect(snippet)
+                messages.error(request, 'Invalid form submission')
     else:
-        messages.error(request, 'Invalid form submission')
-
-    return redirect(snippet)
+        form = SnippetFlagForm(instance=snippet_flag)
+    return render(request, template_name, {
+        'form': form,
+        'snippet': snippet,
+    })
 
 
 def author_snippets(request, username):
