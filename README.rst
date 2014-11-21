@@ -8,8 +8,10 @@ Development setup
 -----------------
 
 ::
-
-    $ pip install -r requirmenets-dev.txt
+    
+    $ cd requirements
+    $ pip install -r development.txt
+    $ cd ..
     $ python manage.py syncdb --migrate
 
 Now you can start the develoment server::
@@ -50,7 +52,7 @@ as this is what will be deployed.
 Production setup
 ----------------
 
-The production setup is right now tailored to Heroku and therefor mostly
+The production setup is right now tailored to Heroku and therefore mostly
 automatic. The difference between these two setups is configured in
 the djangosnippets.settings.production module and the requirements.txt.
 
