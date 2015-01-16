@@ -1,4 +1,4 @@
-Django==1.5.9
+Django==1.5.12
 certifi==14.05.14
 dj-database-url==0.3.0
 django-allauth==0.18.0
@@ -6,7 +6,7 @@ django-appconf==0.6
 django-disqus==0.4.3
 django-secure==1.0
 pip-tools==0.3.5
-Pillow==2.5.3
+Pillow==2.7.0
 requests==2.4.1
 simplejson==3.6.3
 six==1.8.0
