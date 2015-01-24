@@ -77,16 +77,23 @@ if 'SENTRY_DSN' in os.environ:
         'dsn': os.environ.get('SENTRY_DSN'),
     }
 
+es = urlparse(os.environ.get('SEARCHBOX_SSL_URL') or 'http://127.0.0.1:9200/')
+es_port = es.port or 80
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': os.environ.get('SEARCHBOX_SSL_URL', ''),
+        'URL': es.scheme + '://' + es.hostname + ':' + str(es_port),
         'INDEX_NAME': 'djangosnippets-prod',
         'TIMEOUT': 60 * 5,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
     },
 }
+if es.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {
+        "http_auth": es.username + ':' + es.password
+    }
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
