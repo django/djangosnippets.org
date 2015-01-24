@@ -77,7 +77,7 @@ if 'SENTRY_DSN' in os.environ:
         'dsn': os.environ.get('SENTRY_DSN'),
     }
 
-es = urlparse(os.environ.get('SEARCHBOX_SSL_URL') or 'http://127.0.0.1:9200/')
+es = urlparse.urlparse(os.environ.get('SEARCHBOX_SSL_URL') or 'http://127.0.0.1:9200/')
 es_port = es.port or 80
 
 HAYSTACK_CONNECTIONS = {
