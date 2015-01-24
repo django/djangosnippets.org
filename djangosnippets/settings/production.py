@@ -9,9 +9,6 @@ TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
 )
 
-# Heroku needs Gunicorn specifically.
-INSTALLED_APPS += ('gunicorn',)
-
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
