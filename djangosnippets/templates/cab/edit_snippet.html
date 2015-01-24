@@ -11,6 +11,9 @@
     $(function() {
       var tag_hint = new Snippets.TagCompletion();
       tag_hint.bind_listener('input#id_q', 'input#id_output');
+      $('form').submit(function(){
+          $(this).children('button[type=submit]').prop('disabled', true);
+      });
     });
   </script>
 {% endblock %}
