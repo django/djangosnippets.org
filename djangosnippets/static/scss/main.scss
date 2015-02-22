@@ -338,6 +338,12 @@ body.frontpage,  {
     }
 }
 
+body.search {
+    select[multiple] {
+        height: auto;
+    }
+}
+
 body.simple {
     h1 {
         text-align: center;
