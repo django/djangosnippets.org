@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load account %}
 
 {% block head_title %}Top authors{% endblock %}
 
@@ -8,7 +7,7 @@
 {% block content %}
   <ul>
   {% for author in object_list %}
-    <li><a href="{{ author.get_absolute_url }}">{% user_display author %}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
+    <li><a href="{{ author.get_absolute_url }}">{{ author.username }}</a> ({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</li>
   {% endfor %}
   </ul>
 {% endblock %}

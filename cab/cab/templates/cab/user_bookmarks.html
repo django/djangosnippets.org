@@ -1,6 +1,5 @@
 {% extends "base_user.html" %}
 {% load core_tags %}
-{% load account %}
 
 {% block head_title %}Your bookmarks{% endblock %}
 
@@ -10,7 +9,7 @@
   {% if object_list %}
     <ul>
     {% for bookmark in object_list %}
-      <li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="{{ bookmark.snippet.author.get_absolute_url }}">{% user_display bookmark.snippet.author %}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="{% url 'cab_bookmark_delete' snippet_id=bookmark.snippet.id %}">Delete this bookmark</a></li>
+      <li><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a> (<a href="{{ bookmark.snippet.language.get_absolute_url }}">{{ bookmark.snippet.language.name }}</a>) by <a href="{{ bookmark.snippet.author.get_absolute_url }}">{{ bookmark.snippet.author.username }}</a> (bookmarked {{ bookmark.date|timesince }} ago) <a href="{% url 'cab_bookmark_delete' snippet_id=bookmark.snippet.id %}">Delete this bookmark</a></li>
     {% endfor %}
     </ul>
 
