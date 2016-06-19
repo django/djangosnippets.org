@@ -41,7 +41,7 @@ def snippet_detail(request, snippet_id):
 
 def download_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    response = HttpResponse(snippet.code, mimetype='text/plain')
+    response = HttpResponse(snippet.code, content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename=%s.%s' % \
         (snippet.id, snippet.language.file_extension)
     response['Content-Type'] = snippet.language.mime_type
@@ -50,7 +50,7 @@ def download_snippet(request, snippet_id):
 
 def raw_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    response = HttpResponse(snippet.code, mimetype='text/plain')
+    response = HttpResponse(snippet.code, content_type='text/plain')
     response['Content-Disposition'] = 'inline'
     return response
 
@@ -181,7 +181,7 @@ def autocomplete(request):
                 'author': obj.author,
                 'url': obj.url
             })
-    return HttpResponse(json.dumps(results), mimetype='application/json')
+    return HttpResponse(json.dumps(results), content_type='application/json')
 
 
 def tag_hint(request):
@@ -197,4 +197,4 @@ def tag_hint(request):
                 'count': obj.count,
             })
 
-    return HttpResponse(json.dumps(results), mimetype='application/json')
+    return HttpResponse(json.dumps(results), content_type='application/json')

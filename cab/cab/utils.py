@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def object_list(request, queryset, paginate_by=None, page=None,
                 allow_empty=True, template_name=None, template_loader=loader,
                 extra_context=None, context_processors=None,
-                template_object_name='object', mimetype=None):
+                template_object_name='object', content_type=None):
     """
     Generic list of objects.
 
@@ -113,14 +113,14 @@ def object_list(request, queryset, paginate_by=None, page=None,
         template_name = "%s/%s_list.html" % (model._meta.app_label,
                                              model._meta.object_name.lower())
     t = template_loader.get_template(template_name)
-    return HttpResponse(t.render(c), mimetype=mimetype)
+    return HttpResponse(t.render(c), content_type=content_type)
 
 
 def object_detail(request, queryset, object_id=None, slug=None,
                   slug_field='slug', template_name=None,
                   template_name_field=None, template_loader=loader,
                   extra_context=None, context_processors=None,
-                  template_object_name='object', mimetype=None):
+                  template_object_name='object', content_type=None):
     """
     Generic detail of an object.
 
@@ -160,7 +160,7 @@ def object_detail(request, queryset, object_id=None, slug=None,
             c[key] = value()
         else:
             c[key] = value
-    response = HttpResponse(t.render(c), mimetype=mimetype)
+    response = HttpResponse(t.render(c), content_type=content_type)
     return response
 
 
