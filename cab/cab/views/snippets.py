@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -6,7 +8,6 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 from django.http import HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import simplejson as json
 
 from haystack.query import SearchQuerySet
 
