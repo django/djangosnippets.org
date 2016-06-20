@@ -1,8 +1,8 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from cab import feeds
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^author/(?P<username>[\w.@+-]+)/$',
         feeds.SnippetsByAuthorFeed(), name='cab_feed_author'),
     url(r'^language/(?P<slug>[\w-]+)/$',
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
         feeds.LatestSnippetsFeed(), name='cab_feed_latest'),
     url(r'^tag/(?P<slug>[\w-]+)/$',
         feeds.SnippetsByTagFeed(), name='cab_feed_tag'),
-)
+]

@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from cab.views import bookmarks
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$',
         bookmarks.user_bookmarks,
         name='cab_user_bookmarks'),
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
     url(r'^delete/(?P<snippet_id>\d+)/$',
         bookmarks.delete_bookmark,
         name='cab_bookmark_delete'),
-)
+]

@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from cab.views import snippets
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$',
         snippets.snippet_list,
         name='cab_snippet_list'),
@@ -30,4 +30,4 @@ urlpatterns = patterns('',
     url(r'^tag-hint/$',
         snippets.tag_hint,
         name='cab_snippet_tag_hint'),
-)
+]

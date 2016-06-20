@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^feeds/', include('cab.urls.feeds')),
@@ -10,4 +10,4 @@ urlpatterns = patterns('',
     url(r'^snippets/', include('cab.urls.snippets')),
     url(r'^tags/', include('cab.urls.tags')),
     url(r'^users/', include('cab.urls.users')),
-)
+]

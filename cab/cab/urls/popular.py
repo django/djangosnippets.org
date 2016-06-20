@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from cab.views import popular
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^languages/$',
         popular.top_languages,
         name='cab_top_languages'),
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
     url(r'^rated/$',
         popular.top_rated,
         name='cab_top_rated'),
-)
+]
