@@ -114,6 +114,7 @@ def find_package_data(where='.', package='',
 
 
 requirements = [
+    'bleach==1.4.3',
     'Markdown>=2.2.1',
     'Pygments>=1.6',
     'South>=0.7.5',

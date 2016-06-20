@@ -18,4 +18,4 @@ class SnippetWxrFeed(ContribCommentsWxrFeed):
 
     def comment_comment(self, comment):
         comment = super(SnippetWxrFeed, self).comment_comment(comment)
-        return safe_markdown(comment, 'safe')
+        return safe_markdown(comment)

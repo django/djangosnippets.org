@@ -68,7 +68,7 @@
     <dl>
     {% for comment in comment_list %}
       <dt id="c{{ comment.id }}"><a href="{{ comment.user.get_absolute_url }}">{% user_display comment.user %}</a> (on {{ comment.submit_date|date:"F j, Y" }}):</dt>
-      <dd>{{ comment.comment|safe_markdown:"safe"|safe }}
+      <dd>{{ comment.comment|safe_markdown }}
       <p><a href="{{ comment.get_absolute_url }}">#</a></p></dd>
     {% endfor %}
     </dl>

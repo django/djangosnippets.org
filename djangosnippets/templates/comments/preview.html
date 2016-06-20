@@ -24,7 +24,7 @@
 
     <dl class="preview">
         <dt>Username:</dt><dd><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></dd>
-        <dt>Comment:</dt><dd>{{ comment|safe_markdown:"safe"|safe }}</dd>
+        <dt>Comment:</dt><dd>{{ comment|safe_markdown }}</dd>
     </dl>
 
     <div class="field {% if form.comment.errors %}error{% endif %}">
