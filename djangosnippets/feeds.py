@@ -1,6 +1,6 @@
 from disqus.wxr_feed import ContribCommentsWxrFeed
 from cab.models import Snippet
-from cab.templatetags.safe_markup import safe_markdown
+from cab.templatetags.markup import safe_markdown
 
 
 class SnippetWxrFeed(ContribCommentsWxrFeed):
