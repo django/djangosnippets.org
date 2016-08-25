@@ -63,7 +63,6 @@ INSTALLED_APPS = (
     'south',
     'taggit',
     'captcha',
-    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
