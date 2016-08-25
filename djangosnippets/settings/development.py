@@ -4,10 +4,6 @@ DEBUG = True
 
 SECRET_KEY = 'abcdefghijklmnopqrstuvwxyz0123456789'
 
-ADMINS = (
-)
-MANAGERS = ADMINS
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

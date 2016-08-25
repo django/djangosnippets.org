@@ -9,12 +9,6 @@ def user_url(user):
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             os.pardir)
 
-ADMINS = (
-    ('Jannis Leidel', 'jannis@leidel.info'),
-)
-MANAGERS = ADMINS
-
-
 SITE_ID = 1
 SITE_NAME = 'djangosnippets.org'
 
