@@ -1,7 +1,7 @@
 bleach==1.4.3
 Django==1.6.11
 dj-database-url==0.4.1
-django-allauth==0.18.0
+django-allauth==0.25.2
 django-appconf==0.6
 django-secure==1.0
 pip-tools==0.3.5
