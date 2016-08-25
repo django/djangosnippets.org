@@ -7,6 +7,6 @@ greenlet==0.4.10
 pyelasticsearch==0.7.1
 raven==5.25.0
 redis==2.10.3
-gunicorn==19.1.1
+gunicorn==19.6
 hiredis==0.1.4
 psycopg2==2.6.2
