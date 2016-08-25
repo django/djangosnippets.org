@@ -3,4 +3,3 @@
 https://github.com/pyinvoke/invoke/archive/771110190ddb729913e8afc67724b84f42e6176d.zip
 coverage==3.6
 flake8==2.0
-django-discover-runner==1.0

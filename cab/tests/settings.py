@@ -44,9 +44,6 @@ SECRET_KEY = 'yadayada'
 
 STATIC_URL = '/static/'
 
-if django.VERSION[:2] < (1, 6):
-    TEST_RUNNER = 'discover_runner.DiscoverRunner'
-
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
