@@ -1,5 +1,6 @@
 -r base.txt
 -r vendor.txt
+certifi==2016.8.8
 django-redis-cache==0.13.0
 elasticsearch==0.4.5
 gevent==1.1.2
