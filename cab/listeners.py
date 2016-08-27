@@ -4,7 +4,7 @@ from ratings.models import RatedItem
 
 
 def update_rating_score(sender, instance, *args, **kwargs):
-    if instance.content_object:
+    if instance.content_object and hasattr(instance.content_object, 'update_rating'):
         instance.content_object.update_rating()
 
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'ratings',
     'taggit',
     'south',
+    'ratings.tests',
 )
 
 SECRET_KEY = 'yadayada'

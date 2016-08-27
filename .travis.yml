@@ -5,5 +5,5 @@ install:
   - pip install -r requirements/development.txt
 script:
   - export PYTHONPATH=.
-  - flake8 --ignore=W801,E128,E501,W402 cab
+  - flake8 --ignore=W801,E128,E501,W402 cab ratings
   - python manage.py test --settings=cab.tests.settings

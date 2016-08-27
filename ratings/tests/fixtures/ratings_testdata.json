@@ -1,0 +1,66 @@
+[
+  {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+      "username": "john",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2010-05-23 11:43:11",
+      "groups": [],
+      "user_permissions": [],
+      "password": "!",
+      "email": "john@doe.com",
+      "date_joined": "2010-05-23 11:43:11"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+      "username": "jane",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2010-05-23 11:43:17",
+      "groups": [],
+      "user_permissions": [],
+      "password": "!",
+      "email": "jane@doe.com",
+      "date_joined": "2010-05-23 11:43:17"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.food",
+    "fields": {
+      "name": "apple"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.food",
+    "fields": {
+      "name": "orange"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "tests.beverage",
+    "fields": {
+      "name": "coke"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.beverage",
+    "fields": {
+      "name": "pepsi"
+    }
+  }
+]
