@@ -12,7 +12,7 @@ Development setup
     $ cd requirements
     $ pip install -r development.txt
     $ cd ..
-    $ python manage.py syncdb
+    $ python manage.py migrate
 
 Now you can start the develoment server::
 

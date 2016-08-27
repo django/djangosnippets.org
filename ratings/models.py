@@ -1,5 +1,4 @@
 import hashlib
-import django
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -73,10 +72,7 @@ class Ratings(object):
 class RatingsQuerySet(QuerySet):
     def __init__(self, model=None, query=None, using=None, hints=None, rated_model=None):
         self.rated_model = rated_model
-        if django.VERSION < (1, 7):
-            super(RatingsQuerySet, self).__init__(model, query, using)
-        else:
-            super(RatingsQuerySet, self).__init__(model, query, using, hints)
+        super(RatingsQuerySet, self).__init__(model, query, using, hints)
 
     def _clone(self, *args, **kwargs):
         instance = super(RatingsQuerySet, self)._clone(*args, **kwargs)
@@ -133,7 +129,7 @@ class _RatingsDescriptor(models.Manager):
         manager = self.__get__(instance)
         manager.add(*value)
 
-    def get_query_set(self):
+    def get_queryset(self):
         base_filters = self.rating_model.base_kwargs(self.rated_model)
         qs = RatingsQuerySet(self.rating_model, rated_model=self.rated_model)
         return qs.filter(**base_filters)
@@ -155,7 +151,7 @@ class _RatingsDescriptor(models.Manager):
         rated_model = self.rated_model
 
         class RelatedManager(superclass):
-            def get_query_set(self):
+            def get_queryset(self):
                 qs = RatingsQuerySet(rel_model, rated_model=rated_model)
                 return qs.filter(**(self.core_filters))
 

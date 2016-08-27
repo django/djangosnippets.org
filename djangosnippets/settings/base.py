@@ -55,7 +55,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
 
     'cab',
-    'cab.comments',
     'comments_spamfighter',
     'haystack',
     'pagination',
@@ -117,7 +116,7 @@ SOCIALACCOUNT_AUTO_SIGNUP = False
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
-COMMENTS_APP = 'cab.comments'
+COMMENTS_APP = 'cab'
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
