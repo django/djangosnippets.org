@@ -445,12 +445,12 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
         self.client.login(username='a', password='a')
 
-        resp = self.client.get(snippet_rate + '?score=up')
+        self.client.get(snippet_rate + '?score=up')
         self.assertEqual(self.snippet1.ratings.count(), 1)
         self.snippet1.update_rating()
         self.assertEqual(self.snippet1.rating_score, 1)
 
-        resp = self.client.get(snippet_rate + '?score=reset')
+        self.client.get(snippet_rate + '?score=reset')
         self.assertEqual(self.snippet1.ratings.count(), 0)
         self.snippet1.update_rating()
         self.assertEqual(self.snippet1.rating_score, 0)

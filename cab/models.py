@@ -11,6 +11,8 @@ from taggit.managers import TaggableManager
 from markdown import markdown
 from pygments import formatters, highlight, lexers
 
+from .listeners import start_listening
+
 
 VERSIONS = getattr(settings, 'CAB_VERSIONS', ())
 
@@ -183,7 +185,4 @@ class SnippetModerator(SpamFighterModerator):
 
 
 moderator.register(Snippet, SnippetModerator)
-
-
-from cab.listeners import start_listening
 start_listening()
