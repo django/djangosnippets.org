@@ -60,7 +60,6 @@ INSTALLED_APPS = (
     'haystack',
     'pagination',
     'ratings',
-    'south',
     'taggit',
     'captcha',
 )

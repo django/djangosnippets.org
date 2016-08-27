@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'cab',
     'ratings',
     'taggit',
-    'south',
     'ratings.tests',
 )
 

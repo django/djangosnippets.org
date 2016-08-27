@@ -8,20 +8,20 @@ Development setup
 -----------------
 
 ::
-    
+
     $ cd requirements
     $ pip install -r development.txt
     $ cd ..
-    $ python manage.py syncdb --migrate
+    $ python manage.py syncdb
 
 Now you can start the develoment server::
-    
+
     $ python manage.py runserver
 
 Before you can actually use the site now you have to define at least one
 language. If you just want to use the ones from djangosnippets.org, they
 are included in the fixtures folder::
-    
+
     $ python manage.py loaddata fixtures/languages.json
 
 Now you should be able to use the development version of djangosnippets
@@ -38,7 +38,7 @@ but use the .scss ones.
 
 To keep the setup path as short as possible, simply run following commands
 in your terminal::
-    
+
     $ cd djangosnippets/static
     $ bower install && compass watch
 
