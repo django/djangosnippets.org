@@ -34,7 +34,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'cab',
-    'tests',
     'ratings',
     'taggit',
     'south',
@@ -48,8 +47,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
 
-
-TEMPLATES_DIRS = (
+TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates'),
 )
 

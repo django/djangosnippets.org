@@ -2,10 +2,6 @@
 Cab
 ===
 
-.. image:: https://secure.travis-ci.org/django-de/django-cab.png
-   :alt: Build Status
-   :target: https://travis-ci.org/django-de/django-cab
-
 Cab (named for the jazz bandleader and scat singer Cab Calloway) is a
 Django application which allows users to post and share useful
 "snippets" of code.
@@ -43,12 +39,7 @@ bundled with Django itself:
 It's also recommended that you have ``django.contrib.admin`` installed
 for ease of site maintenance.
 
-Once you've got those taken care of, grab a git checkout of Cab
-from somewhere on your Python path::
-
-    git clone git://github.com/django-de/djangosnippets.org.git
-
-Then add ``ratings``, ``taggit`` and ``cab`` to the ``INSTALLED_APPS`` setting
+Add ``ratings``, ``taggit`` and ``cab`` to the ``INSTALLED_APPS`` setting
 of your Django project, run ``manage.py syncdb``, and either put a call to
 ``include('cab.urls.snippets')`` somewhere inn your root URLConf or copy over
 the URL patterns from Cab that you want to use.
@@ -86,10 +77,3 @@ Templates
 
 The git repo will get you a set of example templates
 matching those currently in use on `djangosnippets.org`_
-
-OMGWTF Tests?
-=============
-
-Yeah, there are tests now. See https://travis-ci.org/django-de/django-cab
-
-.. _djangosnippets.org: http://djangosnippets.org/

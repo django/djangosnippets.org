@@ -7,7 +7,7 @@ from cab.models import Snippet, Language, Bookmark
 
 
 class BaseCabTestCase(TestCase):
-    urls = 'tests.urls'
+    urls = 'cab.tests.urls'
 
     def assertQSEqual(self, a, b):
         """
