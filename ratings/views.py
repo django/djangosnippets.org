@@ -21,7 +21,7 @@ def rate_object(request, ct, pk, score=1, add=True):
         return HttpResponseNotAllowed('Invalid request method: "%s". '
                                       'Must be POST.' % request.method)
 
-    redirect_url = request.REQUEST.get('next') or request.META.get('HTTP_REFERER')
+    redirect_url = request.POST.get('next') or request.GET.get('next') or request.META.get('HTTP_REFERER')
     if redirect_url and not is_safe_url(redirect_url):
         return HttpResponseBadRequest("Invalid next URL.")
     if not redirect_url:
