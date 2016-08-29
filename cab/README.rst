@@ -26,13 +26,10 @@ Cab has a couple of external dependencies:
 
 * `django-haystack`_ for search
 
+* ``django_comments`` to enable commenting.
+
 Additionally, the default setup requires a few applications which are
 bundled with Django itself:
-
-* ``django.contrib.comments`` to enable commenting.
-
-* ``django.contrib.markup`` to handle Markdown formatting of
-  comments.
 
 * ``django.contrib.syndication`` to enable feeds.
 

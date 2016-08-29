@@ -3,6 +3,7 @@ Django==1.7.11
 dj-database-url==0.4.1
 django-allauth==0.27
 django-appconf==0.6
+django-contrib-comments==1.7.1
 django-secure==1.0
 pip-tools==0.3.5
 Pillow==3.3.1

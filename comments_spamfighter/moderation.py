@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.comments.moderation import CommentModerator
+from django_comments.moderation import CommentModerator
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured

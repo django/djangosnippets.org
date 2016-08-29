@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^manage/', include(admin.site.urls)),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
-    url(r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^feeds/', include('cab.urls.feeds')),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),

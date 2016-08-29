@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.comments.moderation import moderator
+from django_comments.moderation import moderator
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, permalink

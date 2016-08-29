@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
-    url(r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^feeds/', include('cab.urls.feeds')),
     url(r'^languages/', include('cab.urls.languages')),
     url(r'^popular/', include('cab.urls.popular')),

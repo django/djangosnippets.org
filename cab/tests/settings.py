@@ -27,7 +27,7 @@ HAYSTACK_CONNECTIONS = {
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.comments',
+    'django_comments',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',

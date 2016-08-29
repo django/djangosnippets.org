@@ -39,7 +39,7 @@ CACHE_MIDDLEWARE_SECONDS = 60
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
-    'django.contrib.comments',
+    'django_comments',
     'django.contrib.contenttypes',
     'django.contrib.flatpages',
     'django.contrib.messages',
