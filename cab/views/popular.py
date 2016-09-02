@@ -1,5 +1,5 @@
-from cab.models import Snippet, Language
-from cab.utils import month_object_list, object_list
+from ..models import Language, Snippet
+from ..utils import month_object_list, object_list
 
 
 def top_authors(request):

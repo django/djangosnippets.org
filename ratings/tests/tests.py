@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-#
 import unittest
 
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.template import Template, Context
+from django.template import Context, Template
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from ratings.models import RatedItem
-from ratings.tests.models import Food, Beverage, BeverageRating
-from ratings.utils import (
+from .. import utils as ratings_utils, views as ratings_views
+from ..models import RatedItem
+from ..tests.models import Beverage, BeverageRating, Food
+from ..utils import (
+    calculate_similar_items, recommendations, recommended_items,
     sim_euclidean_distance, sim_pearson_correlation, top_matches,
-    recommendations, calculate_similar_items, recommended_items,
 )
-from ratings import utils as ratings_utils
-from ratings import views as ratings_views
 
 
 def skipUnlessDB(engine):

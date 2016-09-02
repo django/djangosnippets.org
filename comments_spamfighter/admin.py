@@ -1,8 +1,10 @@
 import re
-from django.contrib import admin
+
 from django import forms
+from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from comments_spamfighter.models import Keyword
+
+from .models import Keyword
 
 
 class KeywordAdminForm(forms.ModelForm):

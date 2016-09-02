@@ -1,13 +1,12 @@
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.http import (
-    HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed, Http404,
+    Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed,
+    HttpResponseRedirect,
 )
-from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.utils.http import is_safe_url
-
 
 # allow GET requests to create ratings -- this goes against the "GET" requests
 # should be idempotent but avoids the necessity of using <form> elements or

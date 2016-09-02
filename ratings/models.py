@@ -1,14 +1,13 @@
 import hashlib
 
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.query import QuerySet
-
-from ratings.utils import get_content_object_field, is_gfk, recommended_items
-
 from generic_aggregation import generic_annotate
+
+from .utils import get_content_object_field, is_gfk, recommended_items
 
 
 class RatedItemBase(models.Model):

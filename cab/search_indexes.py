@@ -1,8 +1,7 @@
 from django.db.models import signals
-
 from haystack import indexes
 
-from cab.models import Snippet
+from .models import Snippet
 
 
 class SnippetIndex(indexes.SearchIndex, indexes.Indexable):

@@ -1,8 +1,9 @@
 from __future__ import absolute_import
+
 import os
 import urlparse
-import dj_database_url
 
+import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
 
 TEMPLATE_LOADERS = (

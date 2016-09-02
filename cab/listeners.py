@@ -1,5 +1,4 @@
 from django.db.models import signals
-
 from ratings.models import RatedItem
 
 

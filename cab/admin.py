@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cab.models import Language, Snippet, SnippetFlag
+from .models import Language, Snippet, SnippetFlag
 
 
 class LanguageAdmin(admin.ModelAdmin):

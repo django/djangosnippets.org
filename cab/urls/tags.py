@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from cab.views import popular, snippets
+
+from ..views import popular, snippets
 
 urlpatterns = [
     url(r'^$',

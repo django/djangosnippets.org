@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from cab import feeds
+from .. import feeds
 
 urlpatterns = [
     url(r'^author/(?P<username>[\w.@+-]+)/$',

@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.conf.urls import include, url
 
 urlpatterns = [
     url(r'^bookmarks/', include('cab.urls.bookmarks')),

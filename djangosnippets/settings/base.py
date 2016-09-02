@@ -1,6 +1,7 @@
 import os
-from django.core.urlresolvers import reverse
+
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 
 def user_url(user):

@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib import admin
-
 from haystack.forms import SearchForm
 
-from cab.models import Language, Snippet, SnippetFlag, VERSIONS
+from .models import VERSIONS, Language, Snippet, SnippetFlag
 
 
 def validate_non_whitespace_only_string(value):

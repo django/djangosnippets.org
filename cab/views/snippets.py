@@ -5,17 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import mail_admins
 from django.core.urlresolvers import reverse
-from django.db.models import Q, Count
-from django.http import HttpResponseForbidden, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.db.models import Count, Q
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect, render
 from haystack.query import SearchQuerySet
-
 from taggit.models import Tag
 
-from cab.forms import SnippetForm, SnippetFlagForm
-from cab.models import Snippet, SnippetFlag, Language
-from cab.utils import month_object_list, object_detail
+from ..forms import SnippetFlagForm, SnippetForm
+from ..models import Language, Snippet, SnippetFlag
+from ..utils import month_object_list, object_detail
 
 
 def snippet_list(request, queryset=None, **kwargs):

@@ -1,9 +1,9 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
-from django.template import Template, Context
+from django.template import Context, Template
 from django.test import TestCase, override_settings
 
-from cab.models import Snippet, Language, Bookmark
+from ..models import Bookmark, Language, Snippet
 
 
 @override_settings(ROOT_URLCONF='cab.tests.urls')

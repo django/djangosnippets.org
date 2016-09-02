@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
-from cab.models import Bookmark, Snippet
-from cab.utils import object_list
+from ..models import Bookmark, Snippet
+from ..utils import object_list
 
 
 @login_required

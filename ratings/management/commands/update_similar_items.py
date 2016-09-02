@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.management.base import AppCommand
 
-from ratings.models import _RatingsDescriptor
+from ...models import _RatingsDescriptor
 
 
 class Command(AppCommand):

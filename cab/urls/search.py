@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from cab.forms import AdvancedSearchForm
-
 from haystack.views import SearchView, search_view_factory
+
+from ..forms import AdvancedSearchForm
 
 search_view = search_view_factory(view_class=SearchView,
                                   template='search/advanced_search.html',

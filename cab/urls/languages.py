@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from cab.views import languages
+
+from ..views import languages
 
 urlpatterns = [
     url(r'^$',

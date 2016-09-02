@@ -6,4 +6,5 @@ install:
 script:
   - export PYTHONPATH=.
   - flake8
+  - isort --recursive --check-only --diff cab comments_spamfighter djangosnippets ratings
   - python manage.py test --settings=cab.tests.settings

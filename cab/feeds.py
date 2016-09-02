@@ -1,13 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.syndication.views import Feed
-from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
-
-from cab.models import Language, Snippet
 from taggit.models import Tag
 
+from .models import Language, Snippet
 
 SITE_NAME = getattr(settings, 'SITE_NAME', None)
 

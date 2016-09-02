@@ -1,6 +1,6 @@
 from django.db import models
 
-from ratings.models import Ratings, RatedItemBase
+from ..models import RatedItemBase, Ratings
 
 
 class Food(models.Model):

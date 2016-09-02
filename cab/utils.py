@@ -1,9 +1,9 @@
 import datetime
 
-from django.template import loader, RequestContext
-from django.http import Http404, HttpResponse
-from django.core.paginator import Paginator, InvalidPage
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import InvalidPage, Paginator
+from django.http import Http404, HttpResponse
+from django.template import RequestContext, loader
 
 
 def object_list(request, queryset, paginate_by=None, page=None,

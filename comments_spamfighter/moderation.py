@@ -1,9 +1,9 @@
 import re
 
-from django_comments.moderation import CommentModerator
-from django.contrib.sites.models import Site
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
+from django_comments.moderation import CommentModerator
 
 from .models import Keyword
 

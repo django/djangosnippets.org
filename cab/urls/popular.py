@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from cab.views import popular
+
+from ..views import popular
 
 urlpatterns = [
     url(r'^languages/$',

@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from cab.views import bookmarks
+
+from ..views import bookmarks
 
 urlpatterns = [
     url(r'^$',

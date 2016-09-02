@@ -1,7 +1,7 @@
-from django.apps import apps
-from django.db.models.query import QuerySet
-from django.db.models.fields import DateTimeField, DateField
 from django import template
+from django.apps import apps
+from django.db.models.fields import DateField, DateTimeField
+from django.db.models.query import QuerySet
 
 register = template.Library()
 
