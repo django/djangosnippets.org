@@ -1,4 +1,4 @@
 -r base.txt
 -r vendor.txt
 flake8
-Whoosh==2.6.0
+Whoosh==2.7.4
