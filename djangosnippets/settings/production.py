@@ -25,9 +25,6 @@ AWS_S3_USE_SSL = True
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_URL_PROTOCOL = '//:'
 
-INSTALLED_APPS += ('djangosecure',)
-MIDDLEWARE_CLASSES = (('djangosecure.middleware.SecurityMiddleware',) +
-                      MIDDLEWARE_CLASSES)
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
