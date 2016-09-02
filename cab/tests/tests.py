@@ -1,13 +1,13 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from cab.models import Snippet, Language, Bookmark
 
 
+@override_settings(ROOT_URLCONF='cab.tests.urls')
 class BaseCabTestCase(TestCase):
-    urls = 'cab.tests.urls'
 
     def assertQSEqual(self, a, b):
         """
