@@ -3,7 +3,7 @@ import os
 import urlparse
 import dj_database_url
 
-from djangosnippets.settings.base import *
+from djangosnippets.settings.base import *  # noqa: F403
 
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),

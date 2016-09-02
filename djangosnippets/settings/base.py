@@ -1,5 +1,6 @@
 import os
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
 
 def user_url(user):
@@ -148,8 +149,6 @@ AUTHENTICATION_BACKENDS = (
 
 DISQUS_WEBSITE_SHORTNAME = 'djangosnippets'
 DISQUS_USE_SINGLE_SIGNON = True
-
-from django.contrib import messages
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'secondary',

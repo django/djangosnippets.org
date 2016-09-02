@@ -1,4 +1,4 @@
-from djangosnippets.settings.base import *
+from djangosnippets.settings.base import *  # noqa: F403
 
 DEBUG = True
 
