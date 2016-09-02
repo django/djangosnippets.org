@@ -6,8 +6,13 @@ import urlparse
 import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+# Use the cached template loader.
+del TEMPLATES[0]['APP_DIRS']
+TEMPLATES[0]['OPTIONS']['loaders'] = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']

@@ -14,7 +14,7 @@ PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 SITE_ID = 1
 SITE_NAME = 'djangosnippets.org'
 
-DEBUG = TEMPLATE_DEBUG = False
+DEBUG = False
 
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
@@ -78,23 +78,21 @@ MIDDLEWARE_CLASSES = (
     'ratelimitbackend.middleware.RateLimitMiddleware',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-)
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
-)
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [os.path.join(PROJECT_ROOT, 'templates')],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.contrib.auth.context_processors.auth',
+            'django.core.context_processors.debug',
+            'django.core.context_processors.media',
+            'django.core.context_processors.static',
+            'django.contrib.messages.context_processors.messages',
+            'django.core.context_processors.request',
+        ],
+    },
+}]
 
 STATIC_URL = '/assets/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', 'assets', 'static')
