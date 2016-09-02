@@ -36,7 +36,9 @@ class Migration(migrations.Migration):
                 ('similar_object_id', models.IntegerField()),
                 ('score', models.FloatField(default=0)),
                 ('content_type', models.ForeignKey(related_name='similar_items', to='contenttypes.ContentType')),
-                ('similar_content_type', models.ForeignKey(related_name='similar_items_set', to='contenttypes.ContentType')),
+                ('similar_content_type', models.ForeignKey(
+                    related_name='similar_items_set', to='contenttypes.ContentType',
+                )),
             ],
             options={
             },

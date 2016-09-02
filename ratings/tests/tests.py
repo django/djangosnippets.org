@@ -10,7 +10,10 @@ from django.test.utils import override_settings
 
 from ratings.models import RatedItem
 from ratings.tests.models import Food, Beverage, BeverageRating
-from ratings.utils import sim_euclidean_distance, sim_pearson_correlation, top_matches, recommendations, calculate_similar_items, recommended_items
+from ratings.utils import (
+    sim_euclidean_distance, sim_pearson_correlation, top_matches,
+    recommendations, calculate_similar_items, recommended_items,
+)
 from ratings import utils as ratings_utils
 from ratings import views as ratings_views
 
@@ -654,14 +657,24 @@ class RecommendationsTestCase(TestCase):
 
     def test_recommending(self):
         results = recommendations(RatedItem.objects.all(), self.users, self.user_g)
-        expected = [(3.3477895267131017, self.food_f), (2.8325499182641614, self.food_a), (2.5309807037655649, self.food_c)]
+        expected = [
+            (3.3477895267131017, self.food_f),
+            (2.8325499182641614, self.food_a),
+            (2.5309807037655649, self.food_c),
+        ]
         for res, exp in zip(results, expected):
             self.assertEqual(res[1], exp[1])
             self.assertAlmostEqual(res[0], exp[0])
 
     def test_item_recommendation(self):
         results = top_matches(RatedItem.objects.all(), self.foods, self.food_d)
-        expected = [(0.65795169495976946, self.food_e), (0.48795003647426888, self.food_a), (0.11180339887498941, self.food_b), (-0.17984719479905439, self.food_f), (-0.42289003161103106, self.food_c)]
+        expected = [
+            (0.65795169495976946, self.food_e),
+            (0.48795003647426888, self.food_a),
+            (0.11180339887498941, self.food_b),
+            (-0.17984719479905439, self.food_f),
+            (-0.42289003161103106, self.food_c),
+        ]
         for res, exp in zip(results, expected):
             self.assertEqual(res[1], exp[1])
             self.assertAlmostEqual(res[0], exp[0])

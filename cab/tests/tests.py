@@ -539,6 +539,9 @@ class TemplatetagTestCase(BaseCabTestCase):
         self.assertEqual(rendered,
                          '%s|%s|' % (self.snippet3.title, self.snippet2.title))
 
-        t = Template('''{% load core_tags %}{% for t in "cab.snippet"|call_manager:"top_tags"|slice:":2" %}{{ t.name }}|{% endfor %}''')
+        t = Template(
+            '{% load core_tags %}{% for t in "cab.snippet"|call_manager:"top_tags"|slice:":2" %}'
+            '{{ t.name }}|{% endfor %}'
+        )
         rendered = t.render(Context({}))
         self.assertEqual(rendered, 'world|goodbye|')

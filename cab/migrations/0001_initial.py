@@ -49,14 +49,28 @@ class Migration(migrations.Migration):
                 ('description_html', models.TextField(editable=False)),
                 ('code', models.TextField()),
                 ('highlighted_code', models.TextField(editable=False)),
-                ('version', models.FloatField(default=0, choices=[(1.9, b'1.9'), (1.8, b'1.8'), (1.7, b'1.7'), (1.6, b'1.6'), (1.5, b'1.5'), (1.4, b'1.4'), (1.3, b'1.3'), (1.2, b'1.2'), (1.1, b'1.1'), (1, b'1.0'), (0.96, b'.96'), (0.95, b'Pre .96'), (0, b'Not specified')])),
+                ('version', models.FloatField(
+                    default=0,
+                    choices=[
+                        (1.9, b'1.9'), (1.8, b'1.8'), (1.7, b'1.7'),
+                        (1.6, b'1.6'), (1.5, b'1.5'), (1.4, b'1.4'),
+                        (1.3, b'1.3'), (1.2, b'1.2'), (1.1, b'1.1'),
+                        (1, b'1.0'), (0.96, b'.96'), (0.95, b'Pre .96'),
+                        (0, b'Not specified')
+                    ],
+                )),
                 ('pub_date', models.DateTimeField(auto_now_add=True)),
                 ('updated_date', models.DateTimeField(auto_now=True)),
                 ('bookmark_count', models.IntegerField(default=0)),
                 ('rating_score', models.IntegerField(default=0)),
                 ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('language', models.ForeignKey(to='cab.Language')),
-                ('tags', taggit.managers.TaggableManager(to='taggit.Tag', through='taggit.TaggedItem', help_text='A comma-separated list of tags.', verbose_name='Tags')),
+                ('tags', taggit.managers.TaggableManager(
+                    to='taggit.Tag',
+                    through='taggit.TaggedItem',
+                    help_text='A comma-separated list of tags.',
+                    verbose_name='Tags',
+                )),
             ],
             options={
                 'ordering': ('-pub_date',),
