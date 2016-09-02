@@ -30,30 +30,20 @@ def skipUnlessDB(engine):
     return lambda func: func
 
 
+@override_settings(
+    MIDDLEWARE_CLASSES=(
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
+        'django.middleware.common.CommonMiddleware',
+    ),
+    ROOT_URLCONF='ratings.tests.urls',
+)
 class RatingsTestCase(TestCase):
     fixtures = ['ratings_testdata.json']
 
     rated_model = Food
     rating_model = RatedItem
-
-    new_settings = dict(
-        MIDDLEWARE_CLASSES=(
-            'django.contrib.sessions.middleware.SessionMiddleware',
-            'django.contrib.auth.middleware.AuthenticationMiddleware',
-            'django.middleware.locale.LocaleMiddleware',
-            'django.middleware.common.CommonMiddleware',
-        ),
-        ROOT_URLCONF='ratings.tests.urls',
-    )
-
-    @classmethod
-    def setUpClass(cls):
-        cls._override = override_settings(**cls.new_settings)
-        cls._override.enable()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls._override.disable()
 
     def setUp(self):
         self.item1 = self.rated_model.objects.get(pk=1)
