@@ -9,4 +9,4 @@ Pillow==3.3.1
 requests==2.11.1
 six==1.10.0
 urllib3==1.9.1
-whitenoise==1.0.3
+whitenoise==3.2.1
