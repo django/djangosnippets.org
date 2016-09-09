@@ -1,5 +1,6 @@
 import re
 
+from akismet import Akismet
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
@@ -58,35 +59,21 @@ class SpamFighterModerator(CommentModerator):
         Connects to Akismet and returns True if Akismet marks this comment as
         spam. Otherwise returns False.
         """
-
-        # Check if the akismet library is installed, fail silently if
-        # settings.DEBUG is False and return False (not moderated)
-        try:
-            from akismet import Akismet
-        except ImportError:
-            raise ImportError('Akismet library is not installed. "easy_install akismet" does the job.')
-
         # Check if the akismet api key is set, fail silently if
         # settings.DEBUG is False and return False (not moderated)
         AKISMET_API_KEY = getattr(settings, 'AKISMET_SECRET_API_KEY', False)
         if not AKISMET_API_KEY:
             raise ImproperlyConfigured('You must set AKISMET_SECRET_API_KEY with your api key in your settings file.')
 
-        from django.utils.encoding import smart_str
-        akismet_api = Akismet(key=AKISMET_API_KEY,
-                              blog_url='%s://%s/' % (request.is_secure() and 'https' or 'http',
-                                                     Site.objects.get_current().domain))
-        if akismet_api.verify_key():
-            akismet_data = {'comment_type': 'comment',
-                            'referrer': '',
-                            'user_agent': '',
-                            'user_ip': comment.ip_address}
-
-            if akismet_api.comment_check(smart_str(comment.comment),
-                                         data=akismet_data,
-                                         build_data=True):
-                return True
-        return False
+        akismet_api = Akismet(
+            AKISMET_API_KEY,
+            blog='%s://%s/' % (request.scheme, Site.objects.get_current().domain),
+        )
+        return akismet_api.check(
+            comment.ip_address,
+            request.META['HTTP_USER_AGENT'],
+            comment_content=comment.comment,
+        )
 
     def allow(self, comment, content_object, request):
         """
