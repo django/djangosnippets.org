@@ -2,10 +2,10 @@
 -r vendor.txt
 certifi==2016.8.31
 django-redis-cache==1.7.0
-elasticsearch==0.4.5
+elasticsearch==2.4.0
 gevent==1.1.2
 greenlet==0.4.10
-pyelasticsearch==0.7.1
+pyelasticsearch==1.4
 raven==5.26.0
 redis==2.10.5
 gunicorn==19.6
