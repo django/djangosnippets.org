@@ -31,7 +31,7 @@ class Language(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @permalink
@@ -86,7 +86,7 @@ class Snippet(models.Model):
     class Meta:
         ordering = ('-pub_date',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
@@ -129,7 +129,7 @@ class SnippetFlag(models.Model):
     user = models.ForeignKey(User)
     flag = models.IntegerField(choices=FLAG_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s flagged as %s by %s' % (
             self.snippet.title,
             self.get_flag_display(),
@@ -152,7 +152,7 @@ class Bookmark(models.Model):
     class Meta:
         ordering = ('-date',)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s bookmarked by %s" % (self.snippet, self.user)
 
     def save(self, *args, **kwargs):

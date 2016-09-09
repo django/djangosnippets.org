@@ -9,7 +9,7 @@ register = template.Library()
 @register.filter
 def latest(model_or_obj, num=5):
     # load up the model if we were given a string
-    if isinstance(model_or_obj, basestring):
+    if isinstance(model_or_obj, str):
         model_or_obj = apps.get_model(*model_or_obj.split('.'))
 
     # figure out the manager to query
@@ -31,7 +31,7 @@ def latest(model_or_obj, num=5):
 @register.filter
 def call_manager(model_or_obj, method):
     # load up the model if we were given a string
-    if isinstance(model_or_obj, basestring):
+    if isinstance(model_or_obj, str):
         model_or_obj = apps.get_model(*model_or_obj.split('.'))
 
     # figure out the manager to query

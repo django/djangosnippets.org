@@ -30,5 +30,5 @@ class Keyword(models.Model):
         verbose_name = _('Keyword')
         verbose_name_plural = _('Keywords')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.keyword

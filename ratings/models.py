@@ -18,8 +18,8 @@ class RatedItemBase(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
-        return u"%s rated %s by %s" % (self.content_object, self.score, self.user)
+    def __str__(self):
+        return "%s rated %s by %s" % (self.content_object, self.score, self.user)
 
     def save(self, *args, **kwargs):
         self.hashed = self.generate_hash()
@@ -29,7 +29,7 @@ class RatedItemBase(models.Model):
         content_field = get_content_object_field(self)
         related_object = getattr(self, content_field.name)
         uniq = '%s.%s' % (related_object._meta, related_object.pk)
-        return hashlib.sha1(uniq).hexdigest()
+        return hashlib.sha1(uniq.encode('ascii')).hexdigest()
 
     @classmethod
     def lookup_kwargs(cls, instance):
@@ -159,7 +159,7 @@ class _RatingsDescriptor(models.Manager):
                 for obj in objs:
                     if not isinstance(obj, self.model):
                         raise TypeError("'%s' instance expected" % self.model._meta.object_name)
-                    for (k, v) in lookup_kwargs.iteritems():
+                    for (k, v) in lookup_kwargs.items():
                         setattr(obj, k, v)
                     obj.save()
             add.alters_data = True
@@ -273,5 +273,5 @@ class SimilarItem(models.Model):
 
     objects = SimilarItemManager()
 
-    def __unicode__(self):
-        return u'%s (%s)' % (self.similar_object, self.score)
+    def __str__(self):
+        return '%s (%s)' % (self.similar_object, self.score)

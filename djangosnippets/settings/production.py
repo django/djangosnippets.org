@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 import os
-import urlparse
+from urllib import parse
 
 import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
@@ -52,10 +52,10 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 DATABASES = {'default': dj_database_url.config()}
 
 # Make sure urlparse understands custom config schemes.
-urlparse.uses_netloc.append('redis')
+parse.uses_netloc.append('redis')
 
 # Now do redis and the cache.
-redis_url = urlparse.urlparse(os.environ['REDISTOGO_URL'])
+redis_url = parse.urlparse(os.environ['REDISTOGO_URL'])
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',

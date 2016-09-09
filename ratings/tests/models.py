@@ -8,7 +8,7 @@ class Food(models.Model):
 
     ratings = Ratings()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -21,5 +21,5 @@ class Beverage(models.Model):
 
     ratings = Ratings(BeverageRating)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

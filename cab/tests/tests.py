@@ -406,7 +406,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
         resp = self.client.get(snippet_download)
         self.assertEqual(resp['content-type'], 'text/x-python')
-        self.assertEqual(resp.content, 'print "Hello, world"')
+        self.assertEqual(resp.content, b'print "Hello, world"')
 
     def test_snippet_rate(self):
         self.snippet1.ratings.clear()

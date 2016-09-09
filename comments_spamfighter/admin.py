@@ -31,7 +31,7 @@ class KeywordAdminForm(forms.ModelForm):
         if self.cleaned_data['is_regex']:
             try:
                 re.match(self.cleaned_data['keyword'], '', re.MULTILINE)
-            except Exception, e:
+            except Exception as e:
                 raise forms.ValidationError(_('This regular expression is not valid. Error message was: "%s"' % e))
         return self.cleaned_data
 

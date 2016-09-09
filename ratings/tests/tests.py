@@ -62,17 +62,6 @@ class RatingsTestCase(TestCase):
     def tearDown(self):
         ratings_views.ALLOW_GET = self._orig_setting
 
-    def _sort_by_pk(self, list_or_qs):
-        # decorate, sort, undecorate using the pk of the items
-        # in the list or queryset
-        annotated = [(item.pk, item) for item in list_or_qs]
-        annotated.sort()
-        return map(lambda item_tuple: item_tuple[1], annotated)
-
-    def assertQuerySetEqual(self, a, b):
-        # assert list or queryset a is the same as list or queryset b
-        return self.assertEqual(self._sort_by_pk(a), self._sort_by_pk(b))
-
     def test_add(self):
         rating = self.rating_model(user=self.john, score=1)
         self.item1.ratings.add(rating)
@@ -82,7 +71,7 @@ class RatingsTestCase(TestCase):
 
         # get the rating and check that it saved correctly
         item_rating = self.item1.ratings.all()[0]
-        self.assertTrue(unicode(item_rating).endswith(' rated 1.0 by john'))
+        self.assertTrue(str(item_rating).endswith(' rated 1.0 by john'))
 
         # get the rating another way and check that it works
         user_manager = getattr(self.john, self.related_name)
@@ -166,8 +155,8 @@ class RatingsTestCase(TestCase):
         rating2 = self.item1.ratings.rate(self.jane, -1)
         rating3 = self.item2.ratings.rate(self.john, -1)
 
-        self.assertQuerySetEqual(self.item1.ratings.all(), [rating1, rating2])
-        self.assertQuerySetEqual(self.item2.ratings.all(), [rating3])
+        self.assertSequenceEqual(self.item1.ratings.all(), [rating1, rating2])
+        self.assertSequenceEqual(self.item2.ratings.all(), [rating3])
 
         self.assertEqual(rating1.content_object, self.item1)
         self.assertEqual(rating2.content_object, self.item1)
@@ -202,9 +191,9 @@ class RatingsTestCase(TestCase):
         rating3 = self.rating_model(user=self.john, score=-1)
         self.item2.ratings.add(rating3)
 
-        self.assertQuerySetEqual(self.item1.ratings.all(), [rating, rating2])
-        self.assertQuerySetEqual(self.item2.ratings.all(), [rating3])
-        self.assertQuerySetEqual(self.rated_model.ratings.all(), [rating, rating2, rating3])
+        self.assertSequenceEqual(self.item1.ratings.all(), [rating, rating2])
+        self.assertSequenceEqual(self.item2.ratings.all(), [rating3])
+        self.assertSequenceEqual(self.rated_model.ratings.all(), [rating, rating2, rating3])
 
     def test_filtering(self):
         john_rating_1 = self.rating_model(user=self.john, score=1)
@@ -217,10 +206,10 @@ class RatingsTestCase(TestCase):
         self.item1.ratings.add(jane_rating_1)
 
         rated_qs = self.rated_model.ratings.filter(user=self.john)
-        self.assertQuerySetEqual(rated_qs, [john_rating_2, john_rating_1])
+        self.assertSequenceEqual(rated_qs, [john_rating_1, john_rating_2])
 
         rated_qs = self.rated_model.ratings.filter(user=self.john).order_by_rating()
-        self.assertQuerySetEqual(rated_qs, [self.item2, self.item1])
+        self.assertSequenceEqual(rated_qs, [self.item2, self.item1])
         self.assertEqual(rated_qs[0].score, 2.0)
         self.assertEqual(rated_qs[1].score, 1.0)
 
@@ -278,7 +267,7 @@ class RatingsTestCase(TestCase):
         self.assertEqual(list(rated_qs), [self.item3, self.item1])
 
         # check that the model method results are what we expect
-        self.assertQuerySetEqual(rated_qs, self.rated_model.ratings.order_by_rating(queryset=item13_qs))
+        self.assertQuerysetEqual(rated_qs, self.rated_model.ratings.order_by_rating(queryset=item13_qs))
 
         # check that the scores are correct
         self.assertEqual(rated_qs[0].score, None)
@@ -359,7 +348,7 @@ class RatingsTestCase(TestCase):
         self.assertEqual(list(rated_qs), [self.item1, self.item3])
 
         # check that the model method results are what we expect
-        self.assertQuerySetEqual(rated_qs, self.rated_model.ratings.order_by_rating(queryset=item13_qs))
+        self.assertSequenceEqual(list(rated_qs), self.rated_model.ratings.order_by_rating(queryset=item13_qs))
 
         # check that the scores are correct
         self.assertEqual(rated_qs[0].score, 0)
@@ -577,9 +566,9 @@ class RatingsTestCase(TestCase):
         self.assertEqual(resp.url, 'http://testserver/')
 
     def test_rated_item_model_unicode(self):
-        self.john.username = u'Иван'
+        self.john.username = 'Иван'
         rating = self.item1.ratings.rate(self.john, 1)
-        unicode(rating)
+        str(rating)
 
 
 class CustomModelRatingsTestCase(RatingsTestCase):
@@ -718,11 +707,11 @@ class RecommendationsTestCase(TestCase):
         self.assertEqual(r2[1], self.food_e)
 
     def test_similar_item_model_unicode(self):
-        self.food_b.name = u'яблоко'
+        self.food_b.name = 'яблоко'
         self.food_b.save()
         calculate_similar_items(RatedItem.objects.all(), 10)
         top_for_food_a = self.food_a.ratings.similar_items()[0]
-        unicode(top_for_food_a)
+        str(top_for_food_a)
 
 
 class QueryHasWhereTestCase(TestCase):
