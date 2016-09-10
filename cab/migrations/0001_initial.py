@@ -52,11 +52,11 @@ class Migration(migrations.Migration):
                 ('version', models.FloatField(
                     default=0,
                     choices=[
-                        (1.9, b'1.9'), (1.8, b'1.8'), (1.7, b'1.7'),
-                        (1.6, b'1.6'), (1.5, b'1.5'), (1.4, b'1.4'),
-                        (1.3, b'1.3'), (1.2, b'1.2'), (1.1, b'1.1'),
-                        (1, b'1.0'), (0.96, b'.96'), (0.95, b'Pre .96'),
-                        (0, b'Not specified')
+                        (1.9, '1.9'), (1.8, '1.8'), (1.7, '1.7'),
+                        (1.6, '1.6'), (1.5, '1.5'), (1.4, '1.4'),
+                        (1.3, '1.3'), (1.2, '1.2'), (1.1, '1.1'),
+                        (1, '1.0'), (0.96, '.96'), (0.95, 'Pre .96'),
+                        (0, 'Not specified')
                     ],
                 )),
                 ('pub_date', models.DateTimeField(auto_now_add=True)),
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
             name='SnippetFlag',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('flag', models.IntegerField(choices=[(1, b'Spam'), (2, b'Inappropriate')])),
+                ('flag', models.IntegerField(choices=[(1, 'Spam'), (2, 'Inappropriate')])),
                 ('snippet', models.ForeignKey(related_name='flags', to='cab.Snippet')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
