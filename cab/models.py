@@ -72,7 +72,7 @@ class Snippet(models.Model):
     description_html = models.TextField(editable=False)
     code = models.TextField()
     highlighted_code = models.TextField(editable=False)
-    version = models.FloatField(choices=VERSIONS, default=0)
+    version = models.CharField(max_length=5, choices=VERSIONS, default='0')
     pub_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0)  # denormalized count
