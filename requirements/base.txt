@@ -3,7 +3,7 @@ Django==1.8.16
 dj-database-url==0.4.1
 django-allauth==0.27
 django-contrib-comments==1.7.3
-Pillow==3.3.1
+Pillow==3.4.2
 requests==2.11.1
 six==1.10.0
 urllib3==1.17
