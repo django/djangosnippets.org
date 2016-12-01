@@ -1,7 +1,7 @@
 -r base.txt
 -r vendor.txt
 certifi==2016.9.26
-django-redis-cache==1.7.0
+django-redis-cache==1.7.1
 elasticsearch==2.4.0
 gevent==1.1.2
 greenlet==0.4.10
