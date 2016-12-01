@@ -55,4 +55,5 @@ class KeywordAdmin(admin.ModelAdmin):
         },),
     )
 
+
 admin.site.register(Keyword, KeywordAdmin)
