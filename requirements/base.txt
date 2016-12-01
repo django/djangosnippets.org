@@ -6,5 +6,5 @@ django-contrib-comments==1.7.3
 Pillow==3.4.2
 requests==2.11.1
 six==1.10.0
-urllib3==1.17
+urllib3==1.19.1
 whitenoise==3.2.2
