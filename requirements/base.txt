@@ -1,6 +1,6 @@
 bleach==1.5.0
 Django==1.8.17
-dj-database-url==0.4.1
+dj-database-url==0.4.2
 django-allauth==0.29.0
 django-contrib-comments==1.7.3
 Pillow==3.4.2
