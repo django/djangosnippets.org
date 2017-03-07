@@ -2,7 +2,7 @@ Markdown==2.6.8
 Pygments==2.2.0
 python-akismet==0.3.0
 django-generic-aggregation==0.4.0
-django-haystack==2.5.1
+django-haystack==2.6.0
 django-pagination==1.0.7
 django-taggit==0.22
 django-recaptcha==1.1.0
