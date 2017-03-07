@@ -59,7 +59,6 @@ INSTALLED_APPS = (
     'cab',
     'comments_spamfighter',
     'haystack',
-    'pagination',
     'ratings',
     'taggit',
     'captcha',
@@ -75,7 +74,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'pagination.middleware.PaginationMiddleware',
     'ratelimitbackend.middleware.RateLimitMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 )
