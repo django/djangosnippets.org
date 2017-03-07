@@ -9,14 +9,6 @@ from ..models import Bookmark, Language, Snippet
 @override_settings(ROOT_URLCONF='cab.tests.urls')
 class BaseCabTestCase(TestCase):
 
-    def assertQSEqual(self, a, b):
-        """
-        Takes 2 lists/querysets/iterables, sorts them by pk, and checks for
-        equality
-        """
-        self.assertEqual(sorted(list(a), key=lambda x: x.pk),
-                         sorted(list(b), key=lambda x: x.pk))
-
     def setUp(self):
         """
         Because tags and ratings use GFKs which require content-type-ids, and
@@ -223,11 +215,10 @@ class ViewTestCase(BaseCabTestCase):
 
         # test for the login-required bits
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.bookmark1, self.bookmark3])
+        self.assertCountEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])
 
         resp = self.ensure_login_required(user_bookmarks, 'b', 'b')
-        self.assertQSEqual(resp.context['object_list'], [self.bookmark2])
+        self.assertCountEqual(resp.context['object_list'], [self.bookmark2])
 
         add_bookmark = reverse('cab_bookmark_add', args=[self.snippet2.pk])
         self.assertEqual(add_bookmark, '/bookmarks/add/%d/' % self.snippet2.pk)
@@ -241,8 +232,7 @@ class ViewTestCase(BaseCabTestCase):
                                             snippet=self.snippet2)
 
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.bookmark1, self.bookmark3, new_bookmark])
+        self.assertCountEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3, new_bookmark])
 
         # make sure we have to log in to delete a bookmark
         delete_bookmark = reverse('cab_bookmark_delete',
@@ -263,8 +253,7 @@ class ViewTestCase(BaseCabTestCase):
 
         # check the bookmark list view and make sure
         resp = self.ensure_login_required(user_bookmarks, 'a', 'a')
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.bookmark1, self.bookmark3])
+        self.assertCountEqual(resp.context['object_list'], [self.bookmark1, self.bookmark3])
 
     def test_language_views(self):
         # where would we be without you
@@ -273,15 +262,14 @@ class ViewTestCase(BaseCabTestCase):
 
         resp = self.client.get(language_url)
         self.assertEqual(resp.status_code, 200)
-        self.assertQSEqual(resp.context['object_list'], [self.python, self.sql])
+        self.assertCountEqual(resp.context['object_list'], [self.python, self.sql])
 
         language_detail = reverse('cab_language_detail', args=['python'])
         self.assertEqual(language_detail, '/languages/python/')
 
         resp = self.client.get(language_detail)
         self.assertEqual(resp.status_code, 200)
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.snippet1, self.snippet2])
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
         self.assertEqual(resp.context['language'], self.python)
 
     def test_popular_views(self):
@@ -337,8 +325,7 @@ class ViewTestCase(BaseCabTestCase):
 
         resp = self.client.get(tag_detail)
         self.assertEqual(resp.status_code, 200)
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.snippet1, self.snippet2])
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2])
 
     def test_author_detail(self):
         author_detail = reverse('cab_author_snippets', args=['a'])
@@ -346,8 +333,7 @@ class ViewTestCase(BaseCabTestCase):
 
         resp = self.client.get(author_detail)
         self.assertEqual(resp.status_code, 200)
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.snippet1, self.snippet3])
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet3])
 
     def test_feeds(self):
         # I don't want to put much time into testing these since the response
@@ -381,8 +367,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
         resp = self.client.get(snippet_index)
         self.assertEqual(resp.status_code, 200)
-        self.assertQSEqual(resp.context['object_list'],
-                           [self.snippet1, self.snippet2, self.snippet3])
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
 
     def test_snippet_detail(self):
         snippet_detail = reverse('cab_snippet_detail', args=[self.snippet1.pk])
