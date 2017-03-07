@@ -12,7 +12,7 @@ from .utils import get_content_object_field, is_gfk, recommended_items
 
 class RatedItemBase(models.Model):
     score = models.FloatField(default=0, db_index=True)
-    user = models.ForeignKey(User, related_name='%(class)ss')
+    user = models.ForeignKey(User, related_name='%(class)ss', on_delete=models.CASCADE)
     hashed = models.CharField(max_length=40, editable=False, db_index=True)
 
     class Meta:
@@ -42,7 +42,11 @@ class RatedItemBase(models.Model):
 
 class RatedItem(RatedItemBase):
     object_id = models.IntegerField()
-    content_type = models.ForeignKey(ContentType, related_name="rated_items")
+    content_type = models.ForeignKey(
+        ContentType,
+        related_name='rated_items',
+        on_delete=models.CASCADE,
+    )
     content_object = GenericForeignKey()
 
     @classmethod
@@ -261,11 +265,19 @@ class SimilarItemManager(models.Manager):
 
 
 class SimilarItem(models.Model):
-    content_type = models.ForeignKey(ContentType, related_name='similar_items')
+    content_type = models.ForeignKey(
+        ContentType,
+        related_name='similar_items',
+        on_delete=models.CASCADE,
+    )
     object_id = models.IntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    similar_content_type = models.ForeignKey(ContentType, related_name='similar_items_set')
+    similar_content_type = models.ForeignKey(
+        ContentType,
+        related_name='similar_items_set',
+        on_delete=models.CASCADE,
+    )
     similar_object_id = models.IntegerField()
     similar_object = GenericForeignKey('similar_content_type', 'similar_object_id')
 

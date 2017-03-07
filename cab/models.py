@@ -66,8 +66,8 @@ class SnippetManager(models.Manager):
 
 class Snippet(models.Model):
     title = models.CharField(max_length=255)
-    language = models.ForeignKey(Language)
-    author = models.ForeignKey(User)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
     description_html = models.TextField(editable=False)
     code = models.TextField()
@@ -125,8 +125,8 @@ class SnippetFlag(models.Model):
         (FLAG_SPAM, 'Spam'),
         (FLAG_INAPPROPRIATE, 'Inappropriate'),
     )
-    snippet = models.ForeignKey(Snippet, related_name='flags')
-    user = models.ForeignKey(User)
+    snippet = models.ForeignKey(Snippet, related_name='flags', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     flag = models.IntegerField(choices=FLAG_CHOICES)
 
     def __str__(self):
@@ -145,8 +145,8 @@ class SnippetFlag(models.Model):
 
 
 class Bookmark(models.Model):
-    snippet = models.ForeignKey(Snippet, related_name='bookmarks')
-    user = models.ForeignKey(User, related_name='cab_bookmarks')
+    snippet = models.ForeignKey(Snippet, related_name='bookmarks', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='cab_bookmarks', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

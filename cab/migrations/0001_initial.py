@@ -63,8 +63,8 @@ class Migration(migrations.Migration):
                 ('updated_date', models.DateTimeField(auto_now=True)),
                 ('bookmark_count', models.IntegerField(default=0)),
                 ('rating_score', models.IntegerField(default=0)),
-                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('language', models.ForeignKey(to='cab.Language')),
+                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('language', models.ForeignKey(to='cab.Language', on_delete=models.CASCADE)),
                 ('tags', taggit.managers.TaggableManager(
                     to='taggit.Tag',
                     through='taggit.TaggedItem',
@@ -82,8 +82,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('flag', models.IntegerField(choices=[(1, 'Spam'), (2, 'Inappropriate')])),
-                ('snippet', models.ForeignKey(related_name='flags', to='cab.Snippet')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('snippet', models.ForeignKey(related_name='flags', to='cab.Snippet', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -92,13 +92,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bookmark',
             name='snippet',
-            field=models.ForeignKey(related_name='bookmarks', to='cab.Snippet'),
+            field=models.ForeignKey(related_name='bookmarks', to='cab.Snippet', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='bookmark',
             name='user',
-            field=models.ForeignKey(related_name='cab_bookmarks', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                related_name='cab_bookmarks', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+            ),
             preserve_default=True,
         ),
     ]
