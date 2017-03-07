@@ -89,9 +89,7 @@ class BaseCabTestCase(TestCase):
         self.client.logout()
 
         resp = self.client.get(url)
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver/accounts/login/?next=%s' % url)
+        self.assertRedirects(resp, '/accounts/login/?next=%s' % url, fetch_redirect_response=False)
 
         self.client.login(username=username, password=password)
 
@@ -237,9 +235,7 @@ class ViewTestCase(BaseCabTestCase):
         # add a bookmark -- this does *not* require a POST for some reason so
         # this test will need to be amended when I get around to fixing this
         resp = self.ensure_login_required(add_bookmark, 'a', 'a')
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver/snippets/%d/' % self.snippet2.pk)
+        self.assertRedirects(resp, '/snippets/%d/' % self.snippet2.pk)
 
         new_bookmark = Bookmark.objects.get(user=self.user_a,
                                             snippet=self.snippet2)
@@ -259,9 +255,7 @@ class ViewTestCase(BaseCabTestCase):
         # login and post to delete the bookmark
         self.client.login(username='a', password='a')
         resp = self.client.post(delete_bookmark)
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver/snippets/%d/' % self.snippet2.pk)
+        self.assertRedirects(resp, '/snippets/%d/' % self.snippet2.pk)
 
         # the bookmark is gone!
         self.assertRaises(Bookmark.DoesNotExist, Bookmark.objects.get,
@@ -485,10 +479,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet1.description_html, '<h1>wazzah</h1>')
         self.assertEqual(snippet1.code, 'print "Hi"')
         self.assertEqual([t.name for t in snippet1.tags.all()], ['world', 'hi'])
-
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver/snippets/%d/' % snippet1.pk)
+        self.assertRedirects(resp, '/snippets/%d/' % snippet1.pk)
 
     def test_snippet_add(self):
         snippet_add = reverse('cab_snippet_add')
@@ -509,10 +500,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(new_snippet.code, 'print "Hi"')
         self.assertEqual([t.name for t in new_snippet.tags.all()],
                          ['world', 'hi'])
-
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver/snippets/%d/' % new_snippet.pk)
+        self.assertRedirects(resp, '/snippets/%d/' % new_snippet.pk)
 
 
 class TemplatetagTestCase(BaseCabTestCase):

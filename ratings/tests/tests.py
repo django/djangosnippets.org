@@ -562,8 +562,7 @@ class RatingsTestCase(TestCase):
 
         # if no redirect url is given, redirect to /
         resp = self.client.get(test_url)
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp.url, 'http://testserver/')
+        self.assertRedirects(resp, '/', fetch_redirect_response=False)
 
     def test_rated_item_model_unicode(self):
         self.john.username = 'Иван'
