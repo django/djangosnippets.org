@@ -1,5 +1,4 @@
 -r base.txt
--r vendor.txt
 certifi==2017.1.23
 django-redis-cache==1.7.1
 elasticsearch==2.4.0

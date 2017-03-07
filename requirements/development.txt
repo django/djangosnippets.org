@@ -1,5 +1,4 @@
 -r base.txt
--r vendor.txt
 flake8
 isort
 Whoosh==2.7.4

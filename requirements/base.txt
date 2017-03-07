@@ -3,7 +3,15 @@ Django==1.8.17
 dj-database-url==0.4.2
 django-allauth==0.31.0
 django-contrib-comments==1.8.0
+django-generic-aggregation==0.4.0
+django-haystack==2.6.0
+django-ratelimit-backend==0.6.2
+django-recaptcha==1.2.1
+django-taggit==0.22
+Markdown==2.6.8
 Pillow==4.0.0
+Pygments==2.2.0
+python-akismet==0.3.0
 requests==2.13.0
 six==1.10.0
 urllib3==1.20
