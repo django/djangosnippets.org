@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^manage/', include(admin.site.urls)),
+    url(r'^manage/', admin.site.urls),
     url(r'^bookmarks/', include('cab.urls.bookmarks')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^feeds/', include('cab.urls.feeds')),

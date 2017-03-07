@@ -19,13 +19,8 @@ def is_gfk(content_field):
 
 
 def query_has_where(query):
-    compiler = query.get_compiler(using='default')
-    if getattr(compiler, 'compile', None):
-        where, params = compiler.compile(query.where)
-        return where is None
-    else:
-        qn = connection.ops.quote_name
-        return query.where.as_sql(qn, connection)[0] is None
+    where, params = query.get_compiler(using='default').compile(query.where)
+    return where == ''
 
 
 def query_as_sql(query):
