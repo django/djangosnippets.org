@@ -8,7 +8,7 @@ DATABASES = {
 }
 
 SITE_ID = 1
-ROOT_URLCONF = 'tests.urls'
+ROOT_URLCONF = 'cab.tests.urls'
 
 MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +52,11 @@ TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [os.path.join(os.path.dirname(__file__), 'templates')],
     'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.contrib.auth.context_processors.auth',
+        ],
+    },
 }]
 
 CAB_VERSIONS = (
