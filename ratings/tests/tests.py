@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-#
 import unittest
 
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
 from django.template import Context, Template
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from .. import utils as ratings_utils, views as ratings_views
 from ..models import RatedItem
@@ -33,7 +32,7 @@ def skipUnlessDB(engine):
 
 
 @override_settings(
-    MIDDLEWARE_CLASSES=(
+    MIDDLEWARE=(
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.middleware.locale.LocaleMiddleware',

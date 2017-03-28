@@ -4,10 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import mail_admins
-from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from haystack.query import SearchQuerySet
 from taggit.models import Tag
 

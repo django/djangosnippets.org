@@ -14,14 +14,14 @@ def is_bookmarked(snippet, user):
         not bookmarked yet
     {% endif %}
     """
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return False
     return Bookmark.objects.filter(snippet=snippet, user=user).exists()
 
 
 @register.filter
 def has_flagged(user, snippet):
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return False
     return SnippetFlag.objects.filter(snippet=snippet, user=user).exists()
 

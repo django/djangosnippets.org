@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from generic_aggregation import generic_annotate
 
-from .utils import get_content_object_field, is_gfk, recommended_items
+from .utils import is_gfk, recommended_items
 
 
 class RatedItemBase(models.Model):
@@ -26,7 +26,7 @@ class RatedItemBase(models.Model):
         super(RatedItemBase, self).save(*args, **kwargs)
 
     def generate_hash(self):
-        content_field = get_content_object_field(self)
+        content_field = self._meta.get_field('content_object')
         related_object = getattr(self, content_field.name)
         uniq = '%s.%s' % (related_object._meta, related_object.pk)
         return hashlib.sha1(uniq.encode('ascii')).hexdigest()
@@ -84,7 +84,7 @@ class RatingsQuerySet(QuerySet):
 
     def order_by_rating(self, aggregator=models.Sum, descending=True,
                         queryset=None, alias='score'):
-        related_field = get_content_object_field(self.model)
+        related_field = self.model._meta.get_field('content_object')
 
         if queryset is None:
             queryset = self.rated_model._default_manager.all()
@@ -230,15 +230,6 @@ class _RatingsDescriptor(models.Manager):
         manager.model = rel_model
 
         return manager
-
-    def get_content_object_field(self):
-        if not hasattr(self, '_content_object_field'):
-            self._content_object_field = get_content_object_field(self.rating_model)
-        return self._content_object_field
-
-    @property
-    def is_gfk(self):
-        return is_gfk(self.get_content_object_field())
 
     def update_similar_items(self):
         from ratings.utils import calculate_similar_items

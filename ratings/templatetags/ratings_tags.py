@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 register = template.Library()
 
@@ -10,7 +10,7 @@ def rating_score(obj, user):
     """
     Returns the score a user has given an object
     """
-    if not user.is_authenticated() or not hasattr(obj, '_ratings_field'):
+    if not user.is_authenticated or not hasattr(obj, '_ratings_field'):
         return False
 
     ratings_descriptor = getattr(obj, obj._ratings_field)

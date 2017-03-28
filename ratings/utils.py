@@ -6,14 +6,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import connection
 
 
-def get_content_object_field(rating_model):
-    opts = rating_model._meta
-    for virtual_field in opts.virtual_fields:
-        if virtual_field.name == 'content_object':
-            return virtual_field  # break out early
-    return opts.get_field('content_object')
-
-
 def is_gfk(content_field):
     return isinstance(content_field, GenericForeignKey)
 
@@ -201,7 +193,7 @@ def recommendations(ratings_queryset, people, person, similarity=sim_pearson_cor
 
 def calculate_similar_items(ratings_queryset, num=10):
     # get distinct items from the ratings queryset - this can be optimized
-    field = get_content_object_field(ratings_queryset.model)
+    field = ratings_queryset.model._meta.get_field('content_object')
 
     if is_gfk(field):
         rated_ctypes = ratings_queryset.values_list('content_type', flat=True).distinct()

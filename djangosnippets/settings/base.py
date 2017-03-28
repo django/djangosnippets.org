@@ -1,7 +1,7 @@
 import os
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 def user_url(user):
@@ -64,7 +64,7 @@ INSTALLED_APPS = (
     'captcha',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,7 +75,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'ratelimitbackend.middleware.RateLimitMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 )
 
 TEMPLATES = [{

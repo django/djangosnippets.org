@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.syndication.views import Feed
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.feedgenerator import Atom1Feed
 from taggit.models import Tag
 

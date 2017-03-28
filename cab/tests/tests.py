@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser, User
-from django.core.urlresolvers import reverse
 from django.template import Context, Template
 from django.test import TestCase, override_settings
+from django.urls import reverse
 
 from ..models import Bookmark, Language, Snippet
 
