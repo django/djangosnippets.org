@@ -5,7 +5,7 @@ django-allauth==0.31.0
 django-contrib-comments==1.8.0
 django-generic-aggregation==0.4.0
 django-haystack==2.6.0
-django-ratelimit-backend==0.6.2
+django-ratelimit-backend==1.1
 django-recaptcha==1.2.1
 django-taggit==0.22
 Markdown==2.6.8
