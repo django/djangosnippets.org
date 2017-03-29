@@ -1,9 +1,10 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
 from ..models import Bookmark, Language, Snippet
+from ..templatetags.markup import safe_markdown
 
 
 @override_settings(ROOT_URLCONF='cab.tests.urls')
@@ -518,3 +519,8 @@ class TemplatetagTestCase(BaseCabTestCase):
         )
         rendered = t.render(Context({}))
         self.assertEqual(rendered, 'world|goodbye|')
+
+
+class MarkupTests(SimpleTestCase):
+    def test_safe_markdown(self):
+        self.assertEqual(safe_markdown('<p>foo</p>'), '<p>foo</p>')

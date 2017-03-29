@@ -19,4 +19,12 @@ def safe_markdown(value):
     """
     Strip raw HTML and run Markdown over a given value.
     """
-    return mark_safe(bleach.clean(markdown_func(value)))
+    return mark_safe(
+        bleach.clean(
+            markdown_func(value),
+            tags=[
+                'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i',
+                'li', 'ol', 'p', 'strong', 'ul',
+            ],
+        )
+    )
