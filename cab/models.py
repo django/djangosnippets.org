@@ -2,7 +2,8 @@ from comments_spamfighter.moderation import SpamFighterModerator
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Count, permalink
+from django.db.models import Count
+from django.urls import reverse
 from django_comments.moderation import moderator
 from markdown import markdown
 from pygments import formatters, highlight, lexers
@@ -34,9 +35,8 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-    @permalink
     def get_absolute_url(self):
-        return ('cab_language_detail', (), {'slug': self.slug})
+        return reverse('cab_language_detail', kwargs={'slug': self.slug})
 
     def get_lexer(self):
         return lexers.get_lexer_by_name(self.language_code)
@@ -94,9 +94,8 @@ class Snippet(models.Model):
         self.highlighted_code = self.highlight()
         super(Snippet, self).save(*args, **kwargs)
 
-    @permalink
     def get_absolute_url(self):
-        return ('cab_snippet_detail', (), {'snippet_id': self.id})
+        return reverse('cab_snippet_detail', kwargs={'snippet_id': self.id})
 
     def highlight(self):
         return highlight(self.code,
