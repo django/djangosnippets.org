@@ -524,3 +524,4 @@ class TemplatetagTestCase(BaseCabTestCase):
 class MarkupTests(SimpleTestCase):
     def test_safe_markdown(self):
         self.assertEqual(safe_markdown('<p>foo</p>'), '<p>foo</p>')
+        self.assertEqual(safe_markdown('<pre>foo</pre>'), '<pre>foo</pre>')

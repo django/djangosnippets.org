@@ -24,7 +24,7 @@ def safe_markdown(value):
             markdown_func(value),
             tags=[
                 'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i',
-                'li', 'ol', 'p', 'strong', 'ul',
+                'li', 'ol', 'p', 'pre', 'strong', 'ul',
             ],
         )
     )
