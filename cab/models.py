@@ -5,12 +5,12 @@ from django.db import models
 from django.db.models import Count
 from django.urls import reverse
 from django_comments.moderation import moderator
-from markdown import markdown
 from pygments import formatters, highlight, lexers
 from ratings.models import Ratings
 from taggit.managers import TaggableManager
 
 from .listeners import start_listening
+from .utils import sanitize_markdown
 
 VERSIONS = getattr(settings, 'CAB_VERSIONS', ())
 
@@ -90,7 +90,7 @@ class Snippet(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.description_html = markdown(self.description, safe_mode="escape")
+        self.description_html = sanitize_markdown(self.description)
         self.highlighted_code = self.highlight()
         super(Snippet, self).save(*args, **kwargs)
 

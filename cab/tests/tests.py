@@ -144,9 +144,10 @@ class ModelTestCase(BaseCabTestCase):
     def test_snippet_escaping(self):
         self.snippet1.description = '<script>alert("hacked");</script>'
         self.snippet1.save()
-        self.assertEqual(self.snippet1.description_html,
-                         '<p>&lt;script&gt;'
-                         'alert("hacked");&lt;/script&gt;</p>')
+        self.assertEqual(
+            self.snippet1.description_html,
+            '&lt;script&gt;alert("hacked");&lt;/script&gt;'
+        )
 
     def test_ratings_hooks(self):
         # setUp() will actually fire off most of these hooks

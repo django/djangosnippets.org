@@ -1,9 +1,12 @@
 import datetime
 
+import bleach
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404, HttpResponse
 from django.template import loader
+from django.utils.safestring import mark_safe
+from markdown import markdown as markdown_func
 
 
 def object_list(request, queryset, paginate_by=None, page=None,
@@ -190,4 +193,17 @@ def month_object_list(request, queryset, *args, **kwargs):
         queryset,
         *args,
         **kwargs
+    )
+
+
+def sanitize_markdown(value):
+    return mark_safe(
+        bleach.clean(
+            markdown_func(value),
+            tags=[
+                'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                'i', 'li', 'ol', 'p', 'pre', 'strong', 'ul',
+            ],
+        )
     )
