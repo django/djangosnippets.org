@@ -2,7 +2,7 @@
 certifi==2017.4.17
 django-redis-cache==1.7.1
 elasticsearch==2.4.0
-gevent==1.2.1
+gevent==1.2.2
 greenlet==0.4.12
 pyelasticsearch==1.4
 raven==6.1.0
