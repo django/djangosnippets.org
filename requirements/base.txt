@@ -14,5 +14,5 @@ Pygments==2.2.0
 python-akismet==0.3.0
 requests==2.18.1
 six==1.10.0
-urllib3==1.21.1
+urllib3==1.22
 whitenoise==3.3.1
