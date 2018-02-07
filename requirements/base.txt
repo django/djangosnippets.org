@@ -13,6 +13,6 @@ Pillow==5.0.0
 Pygments==2.2.0
 python-akismet==0.3.0
 requests==2.18.4
-six==1.10.0
+six==1.11.0
 urllib3==1.22
 whitenoise==3.3.1
