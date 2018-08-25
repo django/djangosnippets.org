@@ -9,7 +9,7 @@ django-ratelimit-backend==1.2
 django-recaptcha==1.4.0
 django-taggit==0.23.0
 Markdown==2.6.11
-Pillow==5.0.0
+Pillow==5.2.0
 Pygments==2.2.0
 python-akismet==0.3.0
 requests==2.18.4
