@@ -1,7 +1,7 @@
 bleach==2.1.4
 Django==1.11.11
 dj-database-url==0.4.2
-django-allauth==0.35.0
+django-allauth==0.36.0
 django-contrib-comments==1.8.0
 django-generic-aggregation==0.4.0
 django-haystack==2.6.1
