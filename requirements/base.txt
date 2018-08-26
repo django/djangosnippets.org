@@ -11,7 +11,7 @@ django-taggit==0.23.0
 Markdown==2.6.11
 Pillow==5.2.0
 Pygments==2.2.0
-python-akismet==0.3.0
+python-akismet==0.4.1
 requests==2.19.1
 six==1.11.0
 urllib3==1.23
