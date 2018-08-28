@@ -1,5 +1,5 @@
 {% extends "cab/snippet_list.html" %}
-{% load static from staticfiles %}
+{% load static %}
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_tag' slug=tag.slug %}" type="application/atom+xml" title="Feed of snippets tagged with '{{ tag.name }}'" />{% endblock %}
 

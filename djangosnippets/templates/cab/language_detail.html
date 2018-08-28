@@ -1,5 +1,5 @@
 {% extends "cab/snippet_list.html" %}
-{% load static from staticfiles %}
+{% load static %}
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_language' slug=language.slug %}" type="application/atom+xml" title="Feed of snippets written in {{ language.name }}" />{% endblock %}
 

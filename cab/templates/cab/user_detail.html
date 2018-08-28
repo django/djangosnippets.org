@@ -1,6 +1,5 @@
 {% extends "base_user.html" %}
-{% load cache core_tags %}
-{% load static from staticfiles %}
+{% load cache core_tags static %}
 
 {% block feeds %}<link rel="alternate" href="{% url 'cab_feed_author' username=author.username %}" type="application/atom+xml" title="Feed of snippets by {{ author.username }}" />{% endblock %}
 
