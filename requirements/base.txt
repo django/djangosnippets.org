@@ -1,4 +1,4 @@
-bleach==3.0.0
+bleach==3.0.2
 Django==2.1.2
 dj-database-url==0.5.0
 django-allauth==0.37.1
