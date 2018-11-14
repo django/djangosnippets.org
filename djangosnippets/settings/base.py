@@ -121,6 +121,9 @@ COMMENTS_APP = 'cab'
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 CAB_VERSIONS = (
+    ('2.1', '2.1'),
+    ('2.0', '2.0'),
+    ('1.11', '1.11'),
     ('1.10', '1.10'),
     ('1.9', '1.9'),
     ('1.8', '1.8'),
