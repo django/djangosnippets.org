@@ -1,13 +1,13 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 
 urlpatterns = [
-    url(r'^bookmarks/', include('cab.urls.bookmarks')),
-    url(r'^comments/', include('django_comments.urls')),
-    url(r'^feeds/', include('cab.urls.feeds')),
-    url(r'^languages/', include('cab.urls.languages')),
-    url(r'^popular/', include('cab.urls.popular')),
-    url(r'^search/', include('cab.urls.search')),
-    url(r'^snippets/', include('cab.urls.snippets')),
-    url(r'^tags/', include('cab.urls.tags')),
-    url(r'^users/', include('cab.urls.users')),
+    path('bookmarks/', include('cab.urls.bookmarks')),
+    path('comments/', include('django_comments.urls')),
+    path('feeds/', include('cab.urls.feeds')),
+    path('languages/', include('cab.urls.languages')),
+    path('popular/', include('cab.urls.popular')),
+    path('search/', include('cab.urls.search')),
+    path('snippets/', include('cab.urls.snippets')),
+    path('tags/', include('cab.urls.tags')),
+    path('users/', include('cab.urls.users')),
 ]

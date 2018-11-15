@@ -1,15 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from ..views import bookmarks
 
 urlpatterns = [
-    url(r'^$',
-        bookmarks.user_bookmarks,
-        name='cab_user_bookmarks'),
-    url(r'^add/(?P<snippet_id>\d+)/$',
-        bookmarks.add_bookmark,
-        name='cab_bookmark_add'),
-    url(r'^delete/(?P<snippet_id>\d+)/$',
-        bookmarks.delete_bookmark,
-        name='cab_bookmark_delete'),
+    path('', bookmarks.user_bookmarks, name='cab_user_bookmarks'),
+    path('add/<int:snippet_id>/', bookmarks.add_bookmark, name='cab_bookmark_add'),
+    path('delete/<int:snippet_id>/', bookmarks.delete_bookmark, name='cab_bookmark_delete'),
 ]

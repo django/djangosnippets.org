@@ -1,20 +1,20 @@
-from django.conf.urls import include, url
 from django.contrib import admin
 from django.shortcuts import render
+from django.urls import include, path
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^manage/', admin.site.urls),
-    url(r'^bookmarks/', include('cab.urls.bookmarks')),
-    url(r'^comments/', include('django_comments.urls')),
-    url(r'^feeds/', include('cab.urls.feeds')),
-    url(r'^languages/', include('cab.urls.languages')),
-    url(r'^popular/', include('cab.urls.popular')),
-    url(r'^search/', include('cab.urls.search')),
-    url(r'^snippets/', include('cab.urls.snippets')),
-    url(r'^tags/', include('cab.urls.tags')),
-    url(r'^users/', include('cab.urls.users')),
-    url(r'^$', lambda request: render(request, 'homepage.html'), name='home'),
+    path('accounts/', include('allauth.urls')),
+    path('manage/', admin.site.urls),
+    path('bookmarks/', include('cab.urls.bookmarks')),
+    path('comments/', include('django_comments.urls')),
+    path('feeds/', include('cab.urls.feeds')),
+    path('languages/', include('cab.urls.languages')),
+    path('popular/', include('cab.urls.popular')),
+    path('search/', include('cab.urls.search')),
+    path('snippets/', include('cab.urls.snippets')),
+    path('tags/', include('cab.urls.tags')),
+    path('users/', include('cab.urls.users')),
+    path('', lambda request: render(request, 'homepage.html'), name='home'),
 ]

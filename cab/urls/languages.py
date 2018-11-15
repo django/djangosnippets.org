@@ -1,12 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 
 from ..views import languages
 
 urlpatterns = [
-    url(r'^$',
-        languages.language_list,
-        name='cab_language_list'),
-    url(r'^(?P<slug>[-\w]+)/$',
-        languages.language_detail,
-        name='cab_language_detail'),
+    path('', languages.language_list, name='cab_language_list'),
+    path('<slug:slug>/', languages.language_detail, name='cab_language_detail'),
 ]

@@ -1,33 +1,15 @@
-from django.conf.urls import url
+from django.urls import path
 
 from ..views import snippets
 
 urlpatterns = [
-    url(r'^$',
-        snippets.snippet_list,
-        name='cab_snippet_list'),
-    url(r'^(?P<snippet_id>\d+)/$',
-        snippets.snippet_detail,
-        name='cab_snippet_detail'),
-    url(r'^(?P<snippet_id>\d+)/rate/$',
-        snippets.rate_snippet,
-        name='cab_snippet_rate'),
-    url(r'^(?P<snippet_id>\d+)/download/$',
-        snippets.download_snippet,
-        name='cab_snippet_download'),
-    url(r'^(?P<snippet_id>\d+)/raw/$',
-        snippets.raw_snippet,
-        name='cab_snippet_raw'),
-    url(r'^(?P<snippet_id>\d+)/edit/$',
-        snippets.edit_snippet,
-        name='cab_snippet_edit'),
-    url(r'^(?P<snippet_id>\d+)/flag/$',
-        snippets.flag_snippet,
-        name='cab_snippet_flag'),
-    url(r'^add/$',
-        snippets.edit_snippet,
-        name='cab_snippet_add'),
-    url(r'^tag-hint/$',
-        snippets.tag_hint,
-        name='cab_snippet_tag_hint'),
+    path('', snippets.snippet_list, name='cab_snippet_list'),
+    path('<int:snippet_id>/', snippets.snippet_detail, name='cab_snippet_detail'),
+    path('<int:snippet_id>/rate/', snippets.rate_snippet, name='cab_snippet_rate'),
+    path('<int:snippet_id>/download/', snippets.download_snippet, name='cab_snippet_download'),
+    path('<int:snippet_id>/raw/', snippets.raw_snippet, name='cab_snippet_raw'),
+    path('<int:snippet_id>/edit/', snippets.edit_snippet, name='cab_snippet_edit'),
+    path('<int:snippet_id>/flag/', snippets.flag_snippet, name='cab_snippet_flag'),
+    path('add/', snippets.edit_snippet, name='cab_snippet_add'),
+    path('tag-hint/', snippets.tag_hint, name='cab_snippet_tag_hint'),
 ]

@@ -37,7 +37,6 @@ def rate_object(request, ct, pk, score=1, add=True):
     ratings_descriptor = getattr(obj, obj._ratings_field)
 
     if add:
-        score = '.' in score and float(score) or int(score)
         ratings_descriptor.rate(request.user, score)
     else:
         ratings_descriptor.unrate(request.user)
