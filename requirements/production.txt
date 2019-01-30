@@ -1,5 +1,5 @@
 -r base.txt
-certifi==2018.10.15
+certifi==2018.11.29
 django-redis-cache==1.8.1
 elasticsearch==2.4.0
 gevent==1.3.7
