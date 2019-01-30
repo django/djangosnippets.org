@@ -9,4 +9,4 @@ raven==6.10.0
 redis==2.10.6
 gunicorn==19.9.0
 hiredis==0.2.0
-psycopg2-binary==2.7.6.1
+psycopg2-binary==2.7.7
