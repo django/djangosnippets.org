@@ -9,7 +9,7 @@ def get_form():
             label='Your Name', required=False,
             widget=forms.TextInput(attrs={'autocomplete': 'off'}),
         )
-        captcha = ReCaptchaField(attrs={'theme': 'clean'})
+        captcha = ReCaptchaField()
 
         def clean(self):
             if self.cleaned_data.get('your_name'):
