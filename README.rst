@@ -7,7 +7,7 @@ This code is used to power the snippet sharing site, djangosnippets.org
 Development setup
 -----------------
 
-In a Python 3.6 virtual environment::
+In a Python 3.7 virtual environment::
 
     $ cd requirements
     $ pip install -r development.txt
