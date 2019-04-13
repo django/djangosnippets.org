@@ -14,7 +14,7 @@ In a Python 3.7 virtual environment::
     $ cd ..
     $ python manage.py migrate
 
-Now you can start the develoment server::
+Now you can start the development server::
 
     $ python manage.py runserver
 
