@@ -1,6 +1,6 @@
 -r base.txt
 certifi==2018.11.29
-django-redis-cache==1.8.1
+django-redis-cache==2.1.0
 elasticsearch==2.4.0
 gevent==1.4.0
 greenlet==0.4.15
