@@ -27,6 +27,7 @@ HAYSTACK_CONNECTIONS = {
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.messages',
     'django_comments',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -54,6 +55,7 @@ TEMPLATES = [{
     'OPTIONS': {
         'context_processors': [
             'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
         ],
     },
 }]
