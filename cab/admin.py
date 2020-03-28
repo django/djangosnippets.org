@@ -13,6 +13,21 @@ class SnippetAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
     search_fields = ('author__username', 'title', 'description', 'code',)
     raw_id_fields = ('author',)
+    actions = ['mark_as_inappropiate', 'mark_as_spam']
+
+    def mark_as_inappropiate(self, request, queryset):
+        for obj in queryset:
+            if not obj.flags.all():
+                obj.mark_as_inappropiate()
+        self.message_user(request, 'Snippets marked as inappropiate successfully')
+    mark_as_inappropiate.short_description = 'Mark snippets as inappropiate'
+
+    def mark_as_spam(self, request, queryset):
+        for obj in queryset:
+            if not obj.flags.all():
+                obj.mark_as_spam()
+        self.message_user(request, 'Snippets marked as spam successfully')
+    mark_as_spam.short_description = 'Mark snippets as spam'
 
 
 class SnippetFlagAdmin(admin.ModelAdmin):

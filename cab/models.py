@@ -116,6 +116,16 @@ class Snippet(models.Model):
         self.bookmark_count = self.bookmarks.count() or 0
         self.save()
 
+    def mark_as_inappropiate(self):
+        snippet_flag = SnippetFlag(
+            snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE)
+        snippet_flag.save()
+
+    def mark_as_spam(self):
+        snippet_flag = SnippetFlag(
+            snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM)
+        snippet_flag.save()
+
 
 class SnippetFlag(models.Model):
     FLAG_SPAM = 1
