@@ -8,5 +8,5 @@ pyelasticsearch==1.4
 raven==6.10.0
 redis==3.4.1
 gunicorn==19.9.0
-hiredis==0.2.0
+hiredis==1.0.1
 psycopg2-binary==2.8.4
