@@ -11,3 +11,6 @@ dist
 whoosh_index
 .sass-cache
 bower_components
+
+/venv/
+settings.json
