@@ -6,6 +6,8 @@ from urllib import parse
 import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
 
+DEBUG=os.environ.get('DEBUG',False)
+
 # Use the cached template loader.
 del TEMPLATES[0]['APP_DIRS']
 TEMPLATES[0]['OPTIONS']['loaders'] = (
@@ -15,19 +17,19 @@ TEMPLATES[0]['OPTIONS']['loaders'] = (
     )),
 )
 
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-AWS_S3_CUSTOM_DOMAIN = os.environ['AWS_S3_CUSTOM_DOMAIN']
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID','')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY','')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME','')
+AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN','')
 AWS_PRELOAD_METADATA = True
 # AWS_IS_GZIPPED = True
 AWS_S3_USE_SSL = True
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_URL_PROTOCOL = '//:'
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT',False)
 SECURE_HSTS_SECONDS = 600
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
@@ -37,10 +39,9 @@ SESSION_COOKIE_HTTPONLY = True
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-ALLOWED_HOSTS = [
-    'djangosnippets.org',
-    'www.djangosnippets.org',
-]
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','djangosnippets.org,www.djangosnippets.org').split(',')
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -50,6 +51,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Grab database info
 DATABASES = {'default': dj_database_url.config()}
+
 
 # Make sure urlparse understands custom config schemes.
 parse.uses_netloc.append('redis')
@@ -137,8 +139,8 @@ LOGGING = {
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-AKISMET_SECRET_API_KEY = os.environ['AKISMET_KEY']
+AKISMET_SECRET_API_KEY = os.environ.get('AKISMET_KEY','')
 
-RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
-RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY','')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY','')
 RECAPTCHA_USE_SSL = True

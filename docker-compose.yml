@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_DB=djangosnippets
+  web:
+    build: .
+    environment:
+      - REDISTOGO_URL=redis://redis:6379/0
+      - SECRET_KEY=p_o3vp1rg5)t^lxm9-43%0)s-=1qpeq%o7gfq+e4#*!t+_ev82
+      - DEBUG=1
+      - ALLOWED_HOSTS=0.0.0.0
+      - DATABASE_URL=postgres://postgres:postgres@db/djangosnippets
+      - DJANGO_SETTINGS_MODULE=djangosnippets.settings.production
+
+   
+
+ 
+
+
+    command: python manage.py runserver 0.0.0.0:8000 --settings=djangosnippets.settings.production
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  redisdata:
