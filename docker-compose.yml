@@ -4,8 +4,10 @@ services:
   db:
     image: postgres:10
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=djangosnippets
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
   web:
     build: .
     environment:
@@ -15,11 +17,8 @@ services:
       - ALLOWED_HOSTS=0.0.0.0
       - DATABASE_URL=postgres://postgres:postgres@db/djangosnippets
       - DJANGO_SETTINGS_MODULE=djangosnippets.settings.production
-
-   
-
- 
-
+      - SEARCHBOX_SSL_URL=http://elasticsearch:9200/
+      - SESSION_COOKIE_SECURE=0
 
     command: python manage.py runserver 0.0.0.0:8000 --settings=djangosnippets.settings.production
     volumes:
@@ -36,6 +35,22 @@ services:
       - "6379:6379"
     volumes:
       - redisdata:/data
-
+  
+  elasticsearch:
+    image: elasticsearch:2.4.6-alpine
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
 volumes:
   redisdata:
+  postgresdata:
+  esdata:
+    driver: local
+  

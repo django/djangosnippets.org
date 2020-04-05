@@ -1,7 +1,7 @@
 -r base.txt
 certifi==2019.11.28
 django-redis-cache==2.1.0
-elasticsearch==7.6.0
+elasticsearch==2.4.1
 gevent==1.4.0
 greenlet==0.4.15
 raven==6.10.0
