@@ -30,14 +30,12 @@ on port 8000.
 Docker 
 ------
 
-You may wish to use docker locally for prouction dependncy testing and development, here are the setup instructions
-
-    $ python manage.py loaddata fixtures/languages.json
+You may wish to use docker locally for prouction dependncy testing and development, here are the setup instructions::
 
     $ docker-compose -f docker-compose.yml build
     $ docker-compose -f docker-compose.yml up -d 
 
--d denotes running docker in a detached state
+-d denotes running docker in a detached state::
 
     $ docker-compose -f docker-compose.yml run web python manage.py migrate
     $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/languages.json
