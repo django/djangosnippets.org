@@ -32,6 +32,7 @@ Docker
 
 You may wish to use docker locally for prouction dependncy testing and development, here are the setup instructions
 
+    $ python manage.py loaddata fixtures/languages.json
 
     $ docker-compose -f docker-compose.yml build
     $ docker-compose -f docker-compose.yml up -d 
