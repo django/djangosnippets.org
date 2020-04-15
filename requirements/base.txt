@@ -8,11 +8,11 @@ django-haystack==2.8.1
 django-ratelimit-backend==2.0
 django-recaptcha==2.0.6
 django-taggit==1.2.0
-Markdown==3.2.1
+Markdown==3.0.1
 Pillow==7.0.0
-Pygments==2.6.1
+Pygments==2.5.2
 python-akismet==0.4.1
 requests==2.23.0
-six==1.14.0
-urllib3==1.25.8
+six==1.11.0
+urllib3==1.24.2
 whitenoise==5.0.1

@@ -2,5 +2,3 @@
 flake8
 isort
 Whoosh==2.7.4
-django-extensions==2.2.9
-
