@@ -53,8 +53,3 @@ volumes:
   postgresdata:
   esdata:
     driver: local
-
-
-    
-
-    
