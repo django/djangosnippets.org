@@ -27,6 +27,22 @@ are included in the fixtures folder::
 Now you should be able to use the development version of djangosnippets
 on port 8000.
 
+Docker 
+------
+
+You may wish to use docker locally for prouction dependncy testing and development, here are the setup instructions::
+
+    $ docker-compose -f docker-compose.yml build
+    $ docker-compose -f docker-compose.yml up -d 
+
+-d denotes running docker in a detached state::
+
+    $ docker-compose -f docker-compose.yml run web python manage.py migrate
+    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/languages.json
+    $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
+
+
+
 
 Styling contributor?
 --------------------
@@ -59,3 +75,5 @@ the djangosnippets.settings.production module and the requirements.txt.
 .. _bower: http://bower.io/
 .. _compass: http://compass-style.org/install/
 .. _foundation: http://foundation.zurb.com/
+
+
