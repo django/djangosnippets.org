@@ -10,7 +10,7 @@ django-recaptcha==2.0.6
 django-taggit==1.2.0
 Markdown==3.0.1
 Pillow==7.0.0
-Pygments==2.5.2
+Pygments==2.6.1
 python-akismet==0.4.1
 requests==2.23.0
 six==1.11.0
