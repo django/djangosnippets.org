@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'ratings',
     'taggit',
     'captcha',
+    'django_extensions',
 )
 
 MIDDLEWARE = (
