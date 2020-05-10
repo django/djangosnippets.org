@@ -9,8 +9,9 @@ ENV PYTHONUNBUFFERED 1
 
 # Install dependencies
 COPY ./requirements /requirements
-RUN pip install --no-cache-dir -r /requirements/production.txt \
+RUN pip install --no-cache-dir -r /requirements/development.txt \
     && rm -rf /requirements
+
 
 # Set work directory
 WORKDIR /code
