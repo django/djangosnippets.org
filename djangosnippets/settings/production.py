@@ -3,7 +3,6 @@ from __future__ import absolute_import
 import os
 from urllib import parse
 
-import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
 
 DEBUG = os.environ.get('DEBUG', False)
@@ -48,10 +47,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
 # but we're not and it's just as well -- I like doing this by hand.
-
-# Grab database info
-DATABASES = {'default': dj_database_url.config()}
-
 
 # Make sure urlparse understands custom config schemes.
 parse.uses_netloc.append('redis')

@@ -1,7 +1,10 @@
 import os
-
 from django.contrib import messages
 from django.urls import reverse
+
+import dj_database_url
+
+
 
 
 def user_url(user):
@@ -103,6 +106,11 @@ STATICFILES_DIRS = (
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
+DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+
 
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True

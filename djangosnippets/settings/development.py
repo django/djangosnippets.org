@@ -4,12 +4,12 @@ DEBUG = True
 
 SECRET_KEY = 'abcdefghijklmnopqrstuvwxyz0123456789'
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(PROJECT_ROOT, "snippets.db"),
-    },
-}
+import dj_database_url
+
+
+DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
