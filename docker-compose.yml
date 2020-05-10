@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=djangosnippets
     volumes:
       - postgresdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
   web:
     build: .
     environment:
@@ -16,11 +18,11 @@ services:
       - DEBUG=1
       - ALLOWED_HOSTS=0.0.0.0
       - DATABASE_URL=postgres://postgres:postgres@db/djangosnippets
-      - DJANGO_SETTINGS_MODULE=djangosnippets.settings.production
+      - DJANGO_SETTINGS_MODULE=djangosnippets.settings.development
       - SEARCHBOX_SSL_URL=http://elasticsearch:9200/
       - SESSION_COOKIE_SECURE=0
 
-    command: python manage.py runserver 0.0.0.0:8000 --settings=djangosnippets.settings.production
+    command: python manage.py runserver 0.0.0.0:8000 --settings=djangosnippets.settings.development
     volumes:
       - .:/code
     ports:
