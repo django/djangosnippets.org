@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.postgres.search import SearchVector 
 from haystack.forms import SearchForm
 
 from .models import VERSIONS, Language, Snippet, SnippetFlag
@@ -35,7 +36,7 @@ class SnippetFlagForm(forms.ModelForm):
         fields = ('flag',)
 
 
-class AdvancedSearchForm(SearchForm):
+class AdvancedSearchForm(forms.Form):
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(), required=False)
     version = forms.MultipleChoiceField(choices=VERSIONS, required=False)
@@ -46,13 +47,15 @@ class AdvancedSearchForm(SearchForm):
 
     def search(self):
         # First, store the SearchQuerySet received from other processing.
-        sqs = super(AdvancedSearchForm, self).search()
+        sqs = Snippet.objects.annotate(search=SearchVector('title','language__name',\
+                                                            'version','pub_date',\
+                                                            'bookmark_count','rating_score'))
 
         if not self.is_valid():
             return sqs
 
         if self.cleaned_data['language']:
-            sqs = sqs.filter(language=self.cleaned_data['language'].name)
+            sqs = sqs.filter(language__name=self.cleaned_data['language'].name)
 
         if self.cleaned_data['version']:
             sqs = sqs.filter(
