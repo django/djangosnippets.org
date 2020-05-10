@@ -3,12 +3,12 @@ import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.postgres.search import SearchVector
 from django.core.mail import mail_admins
 from django.db.models import Count, Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from haystack.query import SearchQuerySet
 from taggit.models import Tag
 
 from ..forms import SnippetFlagForm, SnippetForm
@@ -168,16 +168,17 @@ def search(request):
 
 
 def autocomplete(request):
+
     q = request.GET.get('q', '')
     results = []
     if len(q) > 2:
-        sqs = SearchQuerySet()
-        result_set = sqs.filter(title=q)[:10]
+        result_set = Snippet.objects.annotate(search=SearchVector('title')).filter(search=q)[:10]
         for obj in result_set:
+            url = obj.get_absolute_url()
             results.append({
                 'title': obj.title,
-                'author': obj.author,
-                'url': obj.url
+                'author': obj.author.username,
+                'url': url
             })
     return HttpResponse(json.dumps(results), content_type='application/json')
 
