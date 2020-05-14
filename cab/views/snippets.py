@@ -9,9 +9,11 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views.generic import ListView
+from django.views.generic.edit import FormMixin
 from taggit.models import Tag
 
-from ..forms import SnippetFlagForm, SnippetForm
+from ..forms import SnippetFlagForm, SnippetForm,AdvancedSearchForm
 from ..models import Language, Snippet, SnippetFlag
 from ..utils import month_object_list, object_detail
 
@@ -197,3 +199,10 @@ def tag_hint(request):
             })
 
     return HttpResponse(json.dumps(results), content_type='application/json')
+
+@login_required
+def advanced_search(request):
+    form = AdvancedSearchForm(request.GET)
+    
+    return render(request, 'search/advanced_search.html', {'form':form})
+

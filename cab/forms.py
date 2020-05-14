@@ -37,6 +37,8 @@ class SnippetFlagForm(forms.ModelForm):
 
 
 class AdvancedSearchForm(forms.Form):
+    q = forms.CharField(required=False, label='Search',
+                        widget=forms.TextInput(attrs={'type': 'search'}))
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(), required=False)
     version = forms.MultipleChoiceField(choices=VERSIONS, required=False)
