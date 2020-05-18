@@ -15,7 +15,7 @@ from taggit.models import Tag
 
 from ..forms import SnippetFlagForm, SnippetForm,AdvancedSearchForm
 from ..models import Language, Snippet, SnippetFlag
-from ..utils import month_object_list, object_detail
+from ..utils import month_object_list, object_detail,object_list
 
 
 def snippet_list(request, queryset=None, **kwargs):
@@ -152,20 +152,16 @@ def matches_tag(request, slug):
 
 
 def search(request):
-    query = request.GET.get('q')
-    snippet_qs = Snippet.objects.none()
-    if query:
-        snippet_qs = Snippet.objects.filter(
-            Q(title__icontains=query) |
-            Q(tags__in=[query]) |
-            Q(author__username__iexact=query)
-        ).distinct().order_by('-rating_score', '-pub_date')
+    q = request.GET.get('q')
+    snippet_qs = Snippet.objects.all()
+    form = AdvancedSearchForm(request.GET)
+
 
     return snippet_list(
-        request,
+        request,    
         queryset=snippet_qs,
         template_name='search/search.html',
-        extra_context={'query': query},
+        extra_context={'query': q,'form': form },
     )
 
 
@@ -200,9 +196,26 @@ def tag_hint(request):
 
     return HttpResponse(json.dumps(results), content_type='application/json')
 
-@login_required
+
 def advanced_search(request):
-    form = AdvancedSearchForm(request.GET)
     
-    return render(request, 'search/advanced_search.html', {'form':form})
+    q = request.GET.get('q', '')
+    sqs = Snippet.objects.annotate(search=SearchVector('title','language__name',\
+                                                            'version','pub_date',\
+                                                            'bookmark_count','rating_score'))
+
+    sqs = Snippet.objects.all()                                                    
+    form = AdvancedSearchForm(request.GET)
+    if form.is_valid():
+        sqs = sqs
+
+
+    return snippet_list(
+        request,
+        queryset=sqs,
+        template_name='search/advanced_search.html',
+        extra_context={'form': form},
+    )
+    
+   
 

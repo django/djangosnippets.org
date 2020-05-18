@@ -47,32 +47,4 @@ class AdvancedSearchForm(forms.Form):
     minimum_bookmark_count = forms.IntegerField(required=False)
     minimum_rating_score = forms.IntegerField(required=False)
 
-    def search(self):
-        # First, store the SearchQuerySet received from other processing.
-        sqs = Snippet.objects.annotate(search=SearchVector('title','language__name',\
-                                                            'version','pub_date',\
-                                                            'bookmark_count','rating_score'))
-
-        if not self.is_valid():
-            return sqs
-
-        if self.cleaned_data['language']:
-            sqs = sqs.filter(language__name=self.cleaned_data['language'].name)
-
-        if self.cleaned_data['version']:
-            sqs = sqs.filter(
-                version__in=self.cleaned_data['version'])
-
-        if self.cleaned_data['minimum_pub_date']:
-            sqs = sqs.filter(
-                pub_date__gte=self.cleaned_data['minimum_pub_date'])
-
-        if self.cleaned_data['minimum_bookmark_count']:
-            sqs = sqs.filter(
-                bookmark_count__gte=self.cleaned_data['minimum_bookmark_count'])
-
-        if self.cleaned_data['minimum_rating_score']:
-            sqs = sqs.filter(
-                rating_score__gte=self.cleaned_data['minimum_rating_score'])
-
-        return sqs
+    
