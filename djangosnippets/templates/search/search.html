@@ -43,12 +43,12 @@
 {% block sidebar %}
   <form method="GET" class="fullsize">
     <div class="field">
-      <label for="id_q">:</label>
+      <label for="id_q"></label>
       {{ form.q }}
     </div>
     <div class="button-group">
       <button type="submit">Go</button>
-      <a href="{% url 'cab_search_advanced' %}">Advanced searchy</a>
+      <a href="{% url 'cab_search_advanced' %}">Advanced search</a>
     </div>
   </form>
 {% endblock %}
