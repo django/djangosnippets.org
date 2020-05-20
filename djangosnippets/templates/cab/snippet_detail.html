@@ -49,19 +49,7 @@
   </ul>
   <div id="description">{{ object.description_html|safe }}</div>
   {{ object.highlighted_code|safe }}
-  <section id="more">
-    <h2>More like this</h2>
-    {% cache 600 mlt object.pk %}
-      <ol>
-      {% for related in object|more_like_this:5 %}
-      <li><a href="{{ related.object.get_absolute_url }}">{{ related.object.title }}</a> by <a href="{{ related.object.author.get_absolute_url }}">{{ related.object.author.username }}</a>
-        {{ related.object.pub_date|timesince }} ago
-      </li>
-      {% endfor %}
-      </ol>
-    {% endcache %}
-  </section>
-  <section id="comments">
+   <section id="comments">
     <h2>Comments</h2>
     {% load comments %}
     {% get_comment_list for object as comment_list %}

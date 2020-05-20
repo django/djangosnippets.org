@@ -1,6 +1,6 @@
 from cab.models import Bookmark, SnippetFlag
 from django import template
-from haystack.query import SearchQuerySet
+
 
 register = template.Library()
 
@@ -26,12 +26,4 @@ def has_flagged(user, snippet):
     return SnippetFlag.objects.filter(snippet=snippet, user=user).exists()
 
 
-@register.filter
-def more_like_this(snippet, limit=None):
-    try:
-        sqs = SearchQuerySet().more_like_this(snippet)
-        if limit is not None:
-            sqs = sqs[:limit]
-    except AttributeError:
-        sqs = []
-    return sqs
+

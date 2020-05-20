@@ -151,11 +151,13 @@ def matches_tag(request, slug):
     )
 
 
-def search(request):
+def basic_search(request):
     q = request.GET.get('q')
-    snippet_qs = Snippet.objects.all()
+    snippet_qs = Snippet.objects.annotate(search=SearchVector('title','description'))
     form = AdvancedSearchForm(request.GET)
 
+    if form.is_valid():
+        snippet_qs = form.search(snippet_qs)
 
     return snippet_list(
         request,    

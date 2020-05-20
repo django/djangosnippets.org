@@ -23,7 +23,7 @@
         <tbody>
       {% for result in page_obj.object_list %}
         <tr>
-          <td><a href="{{ result.get_absolute_url }}">{% if not result.object.title|strip %}Untitled{% else %}{{ result.title }}{% endif %}</a></td>
+          <td><a href="{{ result.get_absolute_url }}">{% if not result.title|strip %}Untitled{% else %}{{ result.title }}{% endif %}</a></td>
           <td><a href="{{ result.author.get_absolute_url }}">{% user_display result.author %}</a></td>
           <td>{% for tag in result.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</td>
           <td>{{ result.pub_date }}</td>

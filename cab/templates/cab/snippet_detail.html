@@ -8,21 +8,7 @@
 
 {% block content_header %}{{ object.title }}{% endblock %}
 
-{% block content %}
-  {{ object.highlighted_code|safe }}
-  <div>
-    <h3>More like this</h3>
-    {% cache 600 mlt object.pk %}
-      <ol>
-      {% for related in object|more_like_this:5 %}
-      <li><a href="{{ related.object.get_absolute_url }}">{{ related.object.title }}</a> by <a href="{{ related.object.author.get_absolute_url }}">{{ related.object.author.username }}</a>
-        {{ related.object.pub_date|timesince }} ago
-      </li>
-      {% endfor %}
-      </ol>
-    {% endcache %}
-  </div>
-{% endblock %}
+
 
 {% block sidebar %}
   {{ object.description_html|safe }}
