@@ -361,6 +361,8 @@ class ViewTestCase(BaseCabTestCase):
         resp = self.client.get('/feeds/language/java/')
         self.assertEqual(resp.status_code, 404)
 
+    
+
 
 class SnippetViewsTestCase(BaseCabTestCase):
     def test_index(self):
@@ -489,6 +491,8 @@ class SnippetViewsTestCase(BaseCabTestCase):
                          ['world', 'hi'])
         self.assertRedirects(resp, '/snippets/%d/' % new_snippet.pk)
 
+        
+
 
 class TemplatetagTestCase(BaseCabTestCase):
     def test_cab_tags(self):
@@ -526,3 +530,15 @@ class MarkupTests(SimpleTestCase):
     def test_safe_markdown(self):
         self.assertEqual(safe_markdown('<p>foo</p>'), '<p>foo</p>')
         self.assertEqual(safe_markdown('<pre>foo</pre>'), '<pre>foo</pre>')
+
+
+class SearchViewsTestCase(BaseCabTestCase):
+    
+    def test_index(self):
+        search_index = reverse('cab_search')
+        self.assertEqual(search_index, '/search/')
+
+        resp = self.client.get(search_index)
+        self.assertEqual(resp.status_code, 200)
+        self.assertCountEqual(resp.context['object_list'], [])
+

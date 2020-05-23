@@ -1,6 +1,7 @@
 from django.urls import include, path
 
 urlpatterns = [
+    path('accounts/', include('allauth.urls')),
     path('bookmarks/', include('cab.urls.bookmarks')),
     path('comments/', include('django_comments.urls')),
     path('feeds/', include('cab.urls.feeds')),
