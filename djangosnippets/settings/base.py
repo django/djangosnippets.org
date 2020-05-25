@@ -5,8 +5,6 @@ from django.urls import reverse
 import dj_database_url
 
 
-
-
 def user_url(user):
     return reverse('cab_author_snippets', kwargs={'username': user.username})
 

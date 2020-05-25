@@ -73,8 +73,6 @@ if 'SENTRY_DSN' in os.environ:
         'dsn': os.environ.get('SENTRY_DSN'),
     }
 
-
-
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
