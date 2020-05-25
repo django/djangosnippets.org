@@ -200,16 +200,16 @@ def tag_hint(request):
 
 def advanced_search(request):
 
-    sqs = Snippet.objects.annotate(search=SearchVector('title', 'language__name',
+    snippet_qs = Snippet.objects.annotate(search=SearchVector('title', 'language__name',
                                                        'version', 'pub_date',
                                                        'bookmark_count', 'rating_score'))
     form = AdvancedSearchForm(request.GET)
     if form.is_valid():
-        sqs = sqs
+        snippet_qs = form.search(snippet_qs)
 
     return snippet_list(
         request,
-        queryset=sqs,
+        queryset=snippet_qs,
         template_name='search/advanced_search.html',
         extra_context={'form': form},
     )
