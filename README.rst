@@ -7,6 +7,9 @@ This code is used to power the snippet sharing site, djangosnippets.org
 Development setup
 -----------------
 
+This project is making use of postgres full text search so this will need to be installed locally :)
+By default the project will use a database named djangosnippets.
+
 In a Python 3.7 virtual environment::
 
     $ cd requirements
