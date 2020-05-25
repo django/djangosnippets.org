@@ -361,8 +361,6 @@ class ViewTestCase(BaseCabTestCase):
         resp = self.client.get('/feeds/language/java/')
         self.assertEqual(resp.status_code, 404)
 
-    
-
 
 class SnippetViewsTestCase(BaseCabTestCase):
     def test_index(self):
@@ -491,8 +489,6 @@ class SnippetViewsTestCase(BaseCabTestCase):
                          ['world', 'hi'])
         self.assertRedirects(resp, '/snippets/%d/' % new_snippet.pk)
 
-        
-
 
 class TemplatetagTestCase(BaseCabTestCase):
     def test_cab_tags(self):
@@ -533,7 +529,7 @@ class MarkupTests(SimpleTestCase):
 
 
 class SearchViewsTestCase(BaseCabTestCase):
-    
+
     def test_index(self):
         search_index = reverse('cab_search')
         self.assertEqual(search_index, '/search/')
@@ -542,14 +538,9 @@ class SearchViewsTestCase(BaseCabTestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
 
-
     def test_q_search(self):
-         search_index = reverse('cab_search')
-         resp = self.client.get(search_index + '?q=greeting')
-         self.assertCountEqual(resp.context['object_list'], [self.snippet1])
-         resp = self.client.get(search_index + '?q=doesnotexistforsure')
-         self.assertCountEqual(resp.context['object_list'], [])
-         
-        
-
-
+        search_index = reverse('cab_search')
+        resp = self.client.get(search_index + '?q=greeting')
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1])
+        resp = self.client.get(search_index + '?q=doesnotexistforsure')
+        self.assertCountEqual(resp.context['object_list'], [])

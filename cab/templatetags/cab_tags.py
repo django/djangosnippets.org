@@ -24,6 +24,3 @@ def has_flagged(user, snippet):
     if not user.is_authenticated:
         return False
     return SnippetFlag.objects.filter(snippet=snippet, user=user).exists()
-
-
-

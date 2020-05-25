@@ -5,17 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import mail_admins
-from django.db.models import Count, Q
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.views.generic import ListView
-from django.views.generic.edit import FormMixin
 from taggit.models import Tag
 
-from ..forms import SnippetFlagForm, SnippetForm,AdvancedSearchForm
+from ..forms import SnippetFlagForm, SnippetForm, AdvancedSearchForm
 from ..models import Language, Snippet, SnippetFlag
-from ..utils import month_object_list, object_detail,object_list
+from ..utils import month_object_list, object_detail
 
 
 def snippet_list(request, queryset=None, **kwargs):
@@ -153,18 +151,19 @@ def matches_tag(request, slug):
 
 def basic_search(request):
     q = request.GET.get('q')
-    snippet_qs = Snippet.objects.annotate(search=SearchVector('title','description'))
+    snippet_qs = Snippet.objects.annotate(search=SearchVector('title', 'description'))
     form = AdvancedSearchForm(request.GET)
 
     if form.is_valid():
         snippet_qs = form.search(snippet_qs)
 
     return snippet_list(
-        request,    
+        request,
         queryset=snippet_qs,
         template_name='search/search.html',
-        extra_context={'query': q,'form': form },
-    )
+        extra_context={
+            'query': q, 'form': form
+        },)
 
 
 def autocomplete(request):
@@ -200,17 +199,13 @@ def tag_hint(request):
 
 
 def advanced_search(request):
-    
-    q = request.GET.get('q', '')
-    sqs = Snippet.objects.annotate(search=SearchVector('title','language__name',\
-                                                            'version','pub_date',\
-                                                            'bookmark_count','rating_score'))
 
-    sqs = Snippet.objects.all()                                                    
+    sqs = Snippet.objects.annotate(search=SearchVector('title', 'language__name',
+                                                       'version', 'pub_date',
+                                                       'bookmark_count', 'rating_score'))
     form = AdvancedSearchForm(request.GET)
     if form.is_valid():
         sqs = sqs
-
 
     return snippet_list(
         request,
@@ -218,6 +213,3 @@ def advanced_search(request):
         template_name='search/advanced_search.html',
         extra_context={'form': form},
     )
-    
-   
-

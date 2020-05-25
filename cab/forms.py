@@ -1,8 +1,5 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.postgres.search import SearchVector 
-
-
 from .models import VERSIONS, Language, Snippet, SnippetFlag
 
 
@@ -47,10 +44,8 @@ class AdvancedSearchForm(forms.Form):
     minimum_bookmark_count = forms.IntegerField(required=False)
     minimum_rating_score = forms.IntegerField(required=False)
 
-    
     def search(self, sqs):
         # First, store the SearchQuerySet received from other processing.
-       
         if self.cleaned_data['q']:
             sqs = sqs.filter(search=self.cleaned_data['q'])
 
