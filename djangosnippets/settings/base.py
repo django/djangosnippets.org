@@ -12,6 +12,8 @@ def user_url(user):
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             os.pardir)
 
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1']
+
 SITE_ID = 1
 SITE_NAME = 'djangosnippets.org'
 
