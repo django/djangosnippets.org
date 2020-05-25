@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from taggit.models import Tag
 
-from ..forms import SnippetFlagForm, SnippetForm, AdvancedSearchForm
+from ..forms import AdvancedSearchForm, SnippetFlagForm, SnippetForm
 from ..models import Language, Snippet, SnippetFlag
 from ..utils import month_object_list, object_detail
 

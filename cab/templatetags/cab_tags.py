@@ -1,7 +1,6 @@
 from cab.models import Bookmark, SnippetFlag
 from django import template
 
-
 register = template.Library()
 
 
