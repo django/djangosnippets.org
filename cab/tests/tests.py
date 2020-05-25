@@ -540,5 +540,16 @@ class SearchViewsTestCase(BaseCabTestCase):
 
         resp = self.client.get(search_index)
         self.assertEqual(resp.status_code, 200)
-        self.assertCountEqual(resp.context['object_list'], [])
+        self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])
+
+
+    def test_q_search(self):
+         search_index = reverse('cab_search')
+         resp = self.client.get(search_index + '?q=greeting')
+         self.assertCountEqual(resp.context['object_list'], [self.snippet1])
+         resp = self.client.get(search_index + '?q=doesnotexistforsure')
+         self.assertCountEqual(resp.context['object_list'], [])
+         
+        
+
 

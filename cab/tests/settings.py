@@ -1,15 +1,9 @@
 import os
 import dj_database_url
 
-#DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
-#DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
-    }
-}
 
 
 SITE_ID = 1
