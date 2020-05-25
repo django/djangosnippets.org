@@ -201,8 +201,8 @@ def tag_hint(request):
 def advanced_search(request):
 
     snippet_qs = Snippet.objects.annotate(search=SearchVector('title', 'language__name',
-                                                       'version', 'pub_date',
-                                                       'bookmark_count', 'rating_score'))
+                                                              'version', 'pub_date',
+                                                              'bookmark_count', 'rating_score'))
     form = AdvancedSearchForm(request.GET)
     if form.is_valid():
         snippet_qs = form.search(snippet_qs)
