@@ -4,7 +4,7 @@ django-redis-cache==2.1.0
 elasticsearch==2.4.0
 gevent==20.6.1
 greenlet==0.4.15
-pyelasticsearch==1.4
+pyelasticsearch==1.4.1
 raven==6.10.0
 redis==3.5.2
 gunicorn==20.0.4
