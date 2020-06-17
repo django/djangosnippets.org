@@ -13,7 +13,7 @@ ipython==7.15.0
 Markdown==3.2.1
 Pillow==7.1.2
 Pygments==2.6.1
-python-akismet==0.4.1
+python-akismet==0.4.2
 requests==2.23.0
 six==1.14.0
 urllib3==1.25.9
