@@ -3,7 +3,7 @@ certifi==2020.4.5.1
 django-redis-cache==2.1.1
 elasticsearch==2.4.0
 gevent==20.6.2
-greenlet==0.4.15
+greenlet==0.4.16
 pyelasticsearch==1.4
 raven==6.10.0
 redis==3.5.2
