@@ -1,4 +1,3 @@
-from comments_spamfighter.moderation import SpamFighterModerator
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -6,8 +5,10 @@ from django.db.models import Count
 from django.urls import reverse
 from django_comments.moderation import moderator
 from pygments import formatters, highlight, lexers
-from ratings.models import Ratings
 from taggit.managers import TaggableManager
+
+from comments_spamfighter.moderation import SpamFighterModerator
+from ratings.models import Ratings
 
 from .listeners import start_listening
 from .utils import sanitize_markdown
