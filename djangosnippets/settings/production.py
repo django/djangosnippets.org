@@ -4,7 +4,6 @@ import os
 from urllib import parse
 
 import dj_database_url
-
 from djangosnippets.settings.base import *  # noqa: F403
 
 

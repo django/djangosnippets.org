@@ -1,7 +1,6 @@
+from cab.models import Bookmark, SnippetFlag
 from django import template
 from haystack.query import SearchQuerySet
-
-from cab.models import Bookmark, SnippetFlag
 
 register = template.Library()
 
