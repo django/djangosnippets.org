@@ -1,4 +1,4 @@
 -r base.txt
-flake8
-isort
+flake8==3.7.9
+isort<5
 Whoosh==2.7.4
