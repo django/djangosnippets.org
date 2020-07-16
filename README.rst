@@ -30,7 +30,7 @@ on port 8000.
 Docker 
 ------
 
-You may wish to use docker locally for prouction dependncy testing and development, here are the setup instructions::
+You may wish to use docker locally for production dependency testing and development, here are the setup instructions::
 
     $ docker-compose -f docker-compose.yml build
     $ docker-compose -f docker-compose.yml up -d 
@@ -40,9 +40,18 @@ You may wish to use docker locally for prouction dependncy testing and developme
     $ docker-compose -f docker-compose.yml run web python manage.py migrate
     $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/languages.json
     $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
+    $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
 
+The docker setup is running as close as possible to the production setup in heroku:
 
+Postgres 9.5
+Gunicorn
+Redis
+Elastic Search
 
+To run our tests with docker run the following:
+
+    $ docker-compose -f docker-compose.yml run web python manage.py test --settings=cab.tests.settings
 
 Styling contributor?
 --------------------
