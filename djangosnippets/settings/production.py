@@ -6,7 +6,22 @@ from urllib import parse
 import dj_database_url
 from djangosnippets.settings.base import *  # noqa: F403
 
-DEBUG = os.environ.get('DEBUG', False)
+
+def env_to_bool(input):
+    """
+        Must change String from environment variable into Boolean
+        defaults to True
+    """
+    if isinstance(input, str):
+        if input in ('False', 'false'):
+            return False
+        else:
+            return True
+    else:
+        return input
+
+
+DEBUG = env_to_bool(os.environ.get('DEBUG', False))
 
 # Use the cached template loader.
 del TEMPLATES[0]['APP_DIRS']
@@ -33,7 +48,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', True)
+SESSION_COOKIE_SECURE = env_to_bool(os.environ.get('SESSION_COOKIE_SECURE', True))
 SESSION_COOKIE_HTTPONLY = True
 
 # The header Heroku uses to indicate SSL:
