@@ -3,6 +3,8 @@ import os
 from django.contrib import messages
 from django.urls import reverse
 
+import dj_database_url
+
 
 def user_url(user):
     return reverse('cab_author_snippets', kwargs={'username': user.username})
@@ -161,3 +163,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'alert',
 }
+
+
+DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
