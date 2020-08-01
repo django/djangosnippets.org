@@ -226,7 +226,7 @@ def basic_search_full_text(request):
     return snippet_list(
         request,
         queryset=snippet_qs,
-        template_name='search/search.html',
+        template_name='search/search_full_text.html',
         extra_context={
             'query': q, 'form': form
         },)
