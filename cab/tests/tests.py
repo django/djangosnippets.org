@@ -527,13 +527,11 @@ class MarkupTests(SimpleTestCase):
         self.assertEqual(safe_markdown('<pre>foo</pre>'), '<pre>foo</pre>')
 
 
-
 class SearchViewsTestCase(BaseCabTestCase):
 
     def test_index(self):
         search_index = reverse('cab_search_full_text')
         self.assertEqual(search_index, '/searchfulltext/')
-
         resp = self.client.get(search_index)
         self.assertEqual(resp.status_code, 200)
         self.assertCountEqual(resp.context['object_list'], [self.snippet1, self.snippet2, self.snippet3])

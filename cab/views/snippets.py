@@ -12,7 +12,7 @@ from django.urls import reverse
 from haystack.query import SearchQuerySet
 from taggit.models import Tag
 
-from ..forms import AdvancedSearchForm, AdvancedSearchFormFullText, SnippetFlagForm, SnippetForm
+from ..forms import AdvancedSearchFormFullText, SnippetFlagForm, SnippetForm
 from ..models import Language, Snippet, SnippetFlag
 from ..utils import month_object_list, object_detail
 
@@ -182,6 +182,7 @@ def autocomplete(request):
             })
     return HttpResponse(json.dumps(results), content_type='application/json')
 
+
 def autocomplete_full_text(request):
 
     q = request.GET.get('q', '')
@@ -196,7 +197,6 @@ def autocomplete_full_text(request):
                 'url': url
             })
     return HttpResponse(json.dumps(results), content_type='application/json')
-
 
 
 def tag_hint(request):
