@@ -1,9 +1,8 @@
 import os
 
+import dj_database_url
 from django.contrib import messages
 from django.urls import reverse
-
-import dj_database_url
 
 
 def user_url(user):
