@@ -17,15 +17,13 @@ class SnippetAdmin(admin.ModelAdmin):
 
     def mark_as_inappropiate(self, request, queryset):
         for obj in queryset:
-            if not obj.flags.all():
-                obj.mark_as_inappropiate()
+            obj.mark_as_inappropiate()
         self.message_user(request, 'Snippets marked as inappropiate successfully')
     mark_as_inappropiate.short_description = 'Mark snippets as inappropiate'
 
     def mark_as_spam(self, request, queryset):
         for obj in queryset:
-            if not obj.flags.all():
-                obj.mark_as_spam()
+            obj.mark_as_spam()
         self.message_user(request, 'Snippets marked as spam successfully')
     mark_as_spam.short_description = 'Mark snippets as spam'
 
