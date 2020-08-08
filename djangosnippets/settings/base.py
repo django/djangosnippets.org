@@ -1,5 +1,6 @@
 import os
 
+import dj_database_url
 from django.contrib import messages
 from django.urls import reverse
 
@@ -161,3 +162,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'alert',
 }
+
+
+DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+DATABASES['default']['ATOMIC_REQUESTS'] = True

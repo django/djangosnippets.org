@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load core_tags %}
+{% load account %}
+
+{% block bodyclass %}search{% endblock %}
+{% block head_title %}Search{% endblock %}
+
+{% block content_header %}Search{% endblock %}
+
+{% block content %}
+  {% if form.q.value or form.version.value or form.language.value %}
+    {% if page_obj.object_list %}
+      <table class="snippet_list">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Tags</th>
+            <th>Publication date</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+      {% for result in page_obj.object_list %}
+        <tr>
+          <td><a href="{{ result.get_absolute_url }}">{% if not result.title|strip %}Untitled{% else %}{{ result.title }}{% endif %}</a></td>
+          <td><a href="{{ result.author.get_absolute_url }}">{% user_display result.author %}</a></td>
+          <td>{% for tag in result.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</td>
+          <td>{{ result.pub_date }}</td>
+          <td><span class="rating-{% if result.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if result.rating_score >= 0 %}+{% endif %}{{ result.rating_score }}</span></td>
+        </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">No matching snippets found.</p>
+    {% endif %}
+  {% else %}
+    <p>Please use the searchbox.</p>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  <form method="GET" class="fullsize">
+    <div class="field">
+      <label for="id_q"></label>
+      {{ form.q }}
+    </div>
+    <div class="button-group">
+      <button type="submit">Go</button>
+      <a href="{% url 'cab_search_advanced_full_text' %}">Advanced search full text</a>
+    </div>
+  </form>
+{% endblock %}

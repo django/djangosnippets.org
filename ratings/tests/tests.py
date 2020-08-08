@@ -266,7 +266,8 @@ class RatingsTestCase(TestCase):
         self.assertEqual(list(rated_qs), [self.item3, self.item1])
 
         # check that the model method results are what we expect
-        self.assertQuerysetEqual(rated_qs, self.rated_model.ratings.order_by_rating(queryset=item13_qs))
+        self.assertQuerysetEqual(rated_qs, self.rated_model.ratings.order_by_rating
+                                 (queryset=item13_qs), transform=lambda x: x)
 
         # check that the scores are correct
         self.assertEqual(rated_qs[0].score, None)
