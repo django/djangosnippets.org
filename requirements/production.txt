@@ -8,4 +8,4 @@ pyelasticsearch==1.4
 raven==6.10.0
 redis==3.5.3
 gunicorn==20.0.4
-hiredis==1.0.1
+hiredis==1.1.0
