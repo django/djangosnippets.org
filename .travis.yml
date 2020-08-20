@@ -1,8 +1,25 @@
 dist: xenial
-services:
-  - postgresql
+
+addons:
+  postgresql: "12"
+  apt:
+    packages:
+      - postgresql-12
+      - postgresql-client-12
+env:
+  global:
+  - PGPORT: "5433"
+  
+
+before_install:
+  - sudo ls /etc/postgresql
+  - sudo cp /etc/postgresql/{9.6,12}/main/pg_hba.conf
+  - sudo pg_ctlcluster 12 main restart
+
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
+
+
 language: python
 python:
   - 3.7

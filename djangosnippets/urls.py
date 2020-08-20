@@ -13,7 +13,6 @@ urlpatterns = [
     path('languages/', include('cab.urls.languages')),
     path('popular/', include('cab.urls.popular')),
     path('search/', include('cab.urls.search')),
-    path('searchfulltext/', include('cab.urls.searchfulltext')),
     path('snippets/', include('cab.urls.snippets')),
     path('tags/', include('cab.urls.tags')),
     path('users/', include('cab.urls.users')),
