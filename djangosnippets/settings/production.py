@@ -4,7 +4,9 @@ import os
 from urllib import parse
 
 import dj_database_url
+import sentry_sdk
 from djangosnippets.settings.base import *  # noqa: F403
+from sentry_sdk.integrations.django import DjangoIntegration
 
 
 def env_to_bool(input):
@@ -88,10 +90,11 @@ CACHES = {
 
 # Use Sentry for debugging if available.
 if 'SENTRY_DSN' in os.environ:
-    INSTALLED_APPS += ("raven.contrib.django.raven_compat",)
-    RAVEN_CONFIG = {
-        'dsn': os.environ.get('SENTRY_DSN'),
-    }
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        integrations=[DjangoIntegration()],
+        send_default_pii=True
+    )
 
 HAYSTACK_CONNECTIONS = {
     'default': {
