@@ -4,7 +4,14 @@ from django.urls import include, path
 
 admin.autodiscover()
 
+
+def trigger_sentry_error(request):
+    division_by_zero = 1 / 0
+    return division_by_zero
+
+
 urlpatterns = [
+    path('sentry-debug/', trigger_sentry_error),
     path('accounts/', include('allauth.urls')),
     path('manage/', admin.site.urls),
     path('bookmarks/', include('cab.urls.bookmarks')),
