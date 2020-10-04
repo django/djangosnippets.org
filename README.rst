@@ -20,9 +20,9 @@ Now you can start the development server::
 
 Before you can actually use the site now you have to define at least one
 language. If you just want to use the ones from djangosnippets.org, they
-are included in the fixtures folder::
+are included in the fixtures folder. Also included are 5 snippets to get you started::
 
-    $ python manage.py loaddata fixtures/languages.json
+    $ python manage.py loaddata fixtures/cab.json
 
 Now you should be able to use the development version of djangosnippets
 on port 8000.
@@ -38,16 +38,15 @@ You may wish to use docker locally for production dependency testing and develop
 -d denotes running docker in a detached state::
 
     $ docker-compose -f docker-compose.yml run web python manage.py migrate
-    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/languages.json
+    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
     $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
     $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
 
 The docker setup is running as close as possible to the production setup in heroku:
 
-Postgres 9.5
+Postgres 12.3
 Gunicorn
 Redis
-Elastic Search
 
 To run our tests with docker run the following:
 

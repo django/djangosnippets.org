@@ -1,6 +1,6 @@
-from cab.models import Bookmark, SnippetFlag
+from cab.models import Bookmark, Snippet, SnippetFlag
 from django import template
-from haystack.query import SearchQuerySet
+from django.contrib.postgres.search import SearchVector
 
 register = template.Library()
 
@@ -29,7 +29,8 @@ def has_flagged(user, snippet):
 @register.filter
 def more_like_this(snippet, limit=None):
     try:
-        sqs = SearchQuerySet().more_like_this(snippet)
+        sqs = Snippet.objects.annotate(search=SearchVector('language__name',))
+        sqs = sqs.filter(language__name=snippet.language)
         if limit is not None:
             sqs = sqs[:limit]
     except AttributeError:

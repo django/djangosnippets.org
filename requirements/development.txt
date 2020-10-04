@@ -1,4 +1,3 @@
 -r base.txt
 flake8==3.8.3
 isort<5
-Whoosh==2.7.4

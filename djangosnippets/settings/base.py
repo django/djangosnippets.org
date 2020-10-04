@@ -59,7 +59,6 @@ INSTALLED_APPS = (
 
     'cab',
     'comments_spamfighter',
-    'haystack',
     'ratings',
     'taggit',
     'captcha',
@@ -119,8 +118,6 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 COMMENTS_APP = 'cab'
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 CAB_VERSIONS = (
     ('2.1', '2.1'),

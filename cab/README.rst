@@ -24,7 +24,7 @@ Cab has a couple of external dependencies:
 
 * `django-taggit`_ for tagging
 
-* `django-haystack`_ for search
+* `django.contrib.postgres`_ for search
 
 * ``django_comments`` to enable commenting.
 
@@ -51,22 +51,6 @@ them with Django's ``ABSOLUTE_URL_OVERRIDES`` setting.
 .. _python-markdown: http://www.freewisdom.org/projects/python-markdown/
 .. _django-simple-ratings: http://github.com/coleifer/django-simple-ratings/
 .. _django-taggit: http://github.com/alex/django-taggit/
-.. _django-haystack: http://github.com/toastdriven/django-haystack/
-
-For search support you need to set up a search engine and configure haystack::
-
-  # Place where search indexes are stored for snippets - should be non web accessible
-  HAYSTACK_CONNECTIONS = {
-      'default': {
-          'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-          'PATH': '/some-path/search-index',
-          'STORAGE': 'file',
-          'POST_LIMIT': 128 * 1024 * 1024,
-          'INCLUDE_SPELLING': True,
-          'BATCH_SIZE': 100,
-      },
-  }
-  HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
 Templates

@@ -3,6 +3,7 @@ import os
 import dj_database_url
 
 DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 SITE_ID = 1
@@ -14,12 +15,6 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-    },
-}
 
 
 INSTALLED_APPS = (
