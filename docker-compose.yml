@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: postgres:9.5
+    image: postgres:12.3
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=djangosnippets
@@ -22,7 +22,7 @@ services:
       - SESSION_COOKIE_SECURE=False
      
 
-    command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level=debug -k gevent -w 2 
+    command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level debug -k gevent -w 2 
     
     volumes:
       - .:/code
@@ -31,7 +31,7 @@ services:
     depends_on:
       - db
       - redis
-      - elasticsearch
+    
 
   redis:
     restart: always
@@ -41,20 +41,7 @@ services:
     volumes:
       - redisdata:/data
   
-  elasticsearch:
-    image: elasticsearch:2.4.6-alpine
-    container_name: elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=false
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
 volumes:
   redisdata:
   postgresdata:
-  esdata:
-    driver: local
+  

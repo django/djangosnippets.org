@@ -4,7 +4,9 @@ import os
 from urllib import parse
 
 import dj_database_url
+import sentry_sdk
 from djangosnippets.settings.base import *  # noqa: F403
+from sentry_sdk.integrations.django import DjangoIntegration
 
 
 def env_to_bool(input):
@@ -88,21 +90,12 @@ CACHES = {
 
 # Use Sentry for debugging if available.
 if 'SENTRY_DSN' in os.environ:
-    INSTALLED_APPS += ("raven.contrib.django.raven_compat",)
-    RAVEN_CONFIG = {
-        'dsn': os.environ.get('SENTRY_DSN'),
-    }
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        integrations=[DjangoIntegration()],
+        send_default_pii=True
+    )
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': os.environ.get('SEARCHBOX_SSL_URL') or 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'djangosnippets-prod',
-        'TIMEOUT': 60 * 5,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
-    },
-}
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
