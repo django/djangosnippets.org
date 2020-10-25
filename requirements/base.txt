@@ -17,5 +17,5 @@ requests==2.24.0
 six==1.15.0
 urllib3==1.25.10
 whitenoise==5.2.0
-psycopg2-binary==2.8.5
+psycopg2-binary==2.8.6
 
