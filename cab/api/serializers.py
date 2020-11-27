@@ -1,12 +1,10 @@
-from cab.models import Language, Snippet
-from django.contrib.auth.models import User
+from cab.models import Snippet
 from rest_framework import serializers
 
 
 class SnippetSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
     language = serializers.StringRelatedField()
-
 
     class Meta:
         model = Snippet
@@ -24,4 +22,3 @@ class SnippetSerializer(serializers.ModelSerializer):
             "bookmark_count",
             "rating_score",
         ]
-

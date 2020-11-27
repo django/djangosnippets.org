@@ -11,4 +11,5 @@ urlpatterns = [
     path('snippets/', include('cab.urls.snippets')),
     path('tags/', include('cab.urls.tags')),
     path('users/', include('cab.urls.users')),
+    path('api/', include('cab.api.urls')),
 ]

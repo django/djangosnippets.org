@@ -2,7 +2,9 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
+from rest_framework import status
 
+from ..api.serializers import SnippetSerializer
 from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
 
@@ -542,3 +544,79 @@ class SearchViewsTestCase(BaseCabTestCase):
         self.assertCountEqual(resp.context['object_list'], [self.snippet1])
         resp = self.client.get(search_index + '?q=doesnotexistforsure')
         self.assertCountEqual(resp.context['object_list'], [])
+
+
+class ApiTestCase(TestCase):
+
+    def setUp(self):
+        """
+        Because tags and ratings use GFKs which require content-type-ids, and
+        as I am running 1.1.X at the moment, do all this stuff in the setUp()
+        """
+        self.user_a = User.objects.create_user('a', 'a', 'a')
+        self.user_b = User.objects.create_user('b', 'b', 'b')
+
+        self.python = Language.objects.create(
+            name='Python',
+            slug='python',
+            language_code='python',
+            mime_type='text/x-python',
+            file_extension='py')
+
+        self.sql = Language.objects.create(
+            name='SQL',
+            slug='sql',
+            language_code='sql',
+            mime_type='text/x-sql',
+            file_extension='sql')
+
+        self.snippet1 = Snippet.objects.create(
+            title='Hello world',
+            language=self.python,
+            author=self.user_a,
+            description='A greeting\n==========',
+            code='print "Hello, world"')
+        self.snippet1.tags.add('hello', 'world')
+
+        self.snippet2 = Snippet.objects.create(
+            title='Goodbye world',
+            language=self.python,
+            author=self.user_b,
+            description='A farewell\n==========',
+            code='print "Goodbye, world"')
+        self.snippet2.tags.add('goodbye', 'world')
+
+        self.snippet3 = Snippet.objects.create(
+            title='One of these things is not like the others',
+            language=self.sql,
+            author=self.user_a,
+            description='Haxor some1z db',
+            code='DROP TABLE accounts;')
+        self.snippet3.tags.add('haxor')
+
+        self.bookmark1 = Bookmark.objects.create(snippet=self.snippet1,
+                                                 user=self.user_a)
+        self.bookmark2 = Bookmark.objects.create(snippet=self.snippet1,
+                                                 user=self.user_b)
+        self.bookmark3 = Bookmark.objects.create(snippet=self.snippet3,
+                                                 user=self.user_a)
+
+        self.snippet1.ratings.rate(self.user_a, 1)
+        self.snippet1.ratings.rate(self.user_b, 1)
+        self.snippet2.ratings.rate(self.user_a, -1)
+        self.snippet2.ratings.rate(self.user_b, -1)
+        self.snippet3.ratings.rate(self.user_a, 1)
+        self.snippet3.ratings.rate(self.user_b, -1)
+
+        self.snippet1 = Snippet.objects.get(pk=self.snippet1.pk)
+        self.snippet2 = Snippet.objects.get(pk=self.snippet2.pk)
+        self.snippet3 = Snippet.objects.get(pk=self.snippet3.pk)
+
+    def test_get_all_snippets(self):
+        # get API response
+        response = self.client.get(reverse('api_snippet_list'))
+        # get data from db
+        snippets = Snippet.objects.all()
+        serializer = SnippetSerializer(snippets, many=True)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
