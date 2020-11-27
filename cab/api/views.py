@@ -1,6 +1,6 @@
 
-from cab.models import Snippet
 from cab.api.serializers import SnippetSerializer
+from cab.models import Snippet
 from rest_framework import generics
 
 
