@@ -7,4 +7,4 @@ raven==6.10.0
 redis==3.5.3
 gunicorn==20.0.4
 hiredis==1.1.0
-sentry-sdk==0.19.4
+sentry-sdk==0.19.5
