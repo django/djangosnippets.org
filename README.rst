@@ -38,8 +38,8 @@ You may wish to use docker locally for production dependency testing and develop
 -d denotes running docker in a detached state::
 
     $ docker-compose -f docker-compose.yml run web python manage.py migrate
-    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
     $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
+    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
     $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
 
 The docker setup is running as close as possible to the production setup in heroku:
