@@ -1,7 +1,7 @@
-
-from cab.api.serializers import SnippetSerializer
-from cab.models import Snippet
 from rest_framework import generics
+
+from ..models import Snippet
+from .serializers import SnippetSerializer
 
 
 class SnippetList(generics.ListCreateAPIView):
