@@ -5,8 +5,9 @@ from urllib import parse
 
 import dj_database_url
 import sentry_sdk
-from djangosnippets.settings.base import *  # noqa: F403
 from sentry_sdk.integrations.django import DjangoIntegration
+
+from .base import *  # noqa: F403
 
 
 def env_to_bool(input):

@@ -1,6 +1,7 @@
-from cab.models import Bookmark, Snippet, SnippetFlag
 from django import template
 from django.contrib.postgres.search import SearchVector
+
+from ..models import Bookmark, Snippet, SnippetFlag
 
 register = template.Library()
 
