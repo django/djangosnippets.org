@@ -1,0 +1,41 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: elasticsearch
+    versions:
+    - ">= 7.a, < 8"
+  - dependency-name: gevent
+    versions:
+    - ">= 21.a, < 22"
+  - dependency-name: greenlet
+    versions:
+    - 1.0.0
+  - dependency-name: django
+    versions:
+    - 2.2.18
+    - 2.2.19
+  - dependency-name: pygments
+    versions:
+    - 2.7.4
+    - 2.8.0
+  - dependency-name: bleach
+    versions:
+    - 3.2.3
+  - dependency-name: urllib3
+    versions:
+    - 1.26.3
+  - dependency-name: pillow
+    versions:
+    - 8.1.0
+  - dependency-name: gevent
+    versions:
+    - 20.12.1
+  - dependency-name: django-contrib-comments
+    versions:
+    - 2.0.0
