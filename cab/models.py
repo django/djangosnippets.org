@@ -78,6 +78,7 @@ class Snippet(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0)  # denormalized count
     rating_score = models.IntegerField(default=0)  # denormalized score
+    image = models.ImageField(null=True, blank=True)
 
     ratings = Ratings()
     tags = TaggableManager()
@@ -93,10 +94,18 @@ class Snippet(models.Model):
     def save(self, *args, **kwargs):
         self.description_html = sanitize_markdown(self.description)
         self.highlighted_code = self.highlight()
+        self.image = self.generate_code_image()
         super(Snippet, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('cab_snippet_detail', kwargs={'snippet_id': self.id})
+
+    def generate_code_image(self):
+        with open("highlighted.png", "wb") as f:
+            x = highlight(self.code,
+                          self.language.get_lexer(),
+                          formatters.ImageFormatter(linenos=True), f)
+        return x
 
     def highlight(self):
         return highlight(self.code,
