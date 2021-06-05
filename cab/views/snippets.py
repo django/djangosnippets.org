@@ -239,5 +239,9 @@ def advanced_search(request):
 def twitter_img(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(content_type='image/png')
-    response.content = highlight(snippet.code, PythonLexer(), ImageFormatter(linenos=True))
+    response.content = highlight(
+        snippet.code,
+        snippet.language.get_lexer(),
+        ImageFormatter(linenos=True)
+    )
     return response
