@@ -175,3 +175,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
