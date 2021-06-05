@@ -11,3 +11,11 @@ dist
 whoosh_index
 .sass-cache
 bower_components
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
