@@ -13,7 +13,3 @@ whoosh_index
 bower_components
 .env
 assets/
-venv/
-
-# IDE
-/.idea/
