@@ -9,6 +9,9 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import ImageFormatter
 from taggit.models import Tag
 
 from ..forms import AdvancedSearchForm, SnippetFlagForm, SnippetForm
@@ -231,3 +234,9 @@ def advanced_search(request):
         template_name='search/advanced_search.html',
         extra_context={'form': form},
     )
+
+
+def twitter_img(request):
+    response = HttpResponse(content_type='image/png')
+    response.content = highlight('print("Hello world")', PythonLexer(), ImageFormatter(linenos=True))
+    return response

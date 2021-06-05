@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import include, path
 
+from cab.views.snippets import twitter_img
+
 admin.autodiscover()
 
 
@@ -26,4 +28,5 @@ urlpatterns = [
     path('api/', include('cab.api.urls')),
 
     path('', lambda request: render(request, 'homepage.html'), name='home'),
+    path("test-image", twitter_img, name="twitter_img")
 ]
