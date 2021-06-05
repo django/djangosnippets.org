@@ -8,6 +8,15 @@
 {% block bodyclass %}snippet-details{% endblock %}
 {% block head_title %}{{ object.title }}{% endblock %}
 
+{% block twitter_card %}
+  <meta property="twitter:site" content="djangosnippets.org">
+  <meta property="twitter:creator" content="djangosnippets">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="{{ object.title }}">
+  <meta property="twitter:description" content="{{ object.description|truncatechars:200 }} }}">
+  <meta property="twitter:image:src" content="https://djangosnippets.org{% url "cab_twitter_img" object.id %}">
+{% endblock %}
+
 {% block content_header %}{{ object.title }}{% endblock %}
 
 {% block content %}<div class="columns large-12">
