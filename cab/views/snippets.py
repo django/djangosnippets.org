@@ -236,7 +236,7 @@ def advanced_search(request):
     )
 
 
-def twitter_img(request):
+def twitter_img(request, snippet_id):
     response = HttpResponse(content_type='image/png')
     response.content = highlight('print("Hello world")', PythonLexer(), ImageFormatter(linenos=True))
     return response
