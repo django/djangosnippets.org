@@ -84,7 +84,7 @@ class Snippet(models.Model):
     rating_score = models.IntegerField(default=0)  # denormalized score
 
     ratings = Ratings()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     objects = SnippetManager()
 
