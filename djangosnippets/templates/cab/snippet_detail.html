@@ -14,7 +14,7 @@
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:title" content="{{ object.title }}">
   <meta property="twitter:description" content="{{ object.description|truncatechars:200 }} }}">
-  <meta property="twitter:image:src" content="https://djangosnippets.org{% url "cab_twitter_img" object.id %}">
+  <meta property="twitter:image:src" content="{{ request.scheme }}://{{ request.get_host }}{% url "cab_twitter_img" object.id %}">
 {% endblock %}
 
 {% block content_header %}{{ object.title }}{% endblock %}
