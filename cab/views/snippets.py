@@ -10,7 +10,6 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from pygments import highlight
-from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
 from taggit.models import Tag
 
