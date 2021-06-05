@@ -12,7 +12,3 @@ whoosh_index
 .sass-cache
 bower_components
 assets/
-venv/
-
-# IDE
-/.idea/
