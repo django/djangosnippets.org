@@ -27,13 +27,15 @@ are included in the fixtures folder. Also included are 5 snippets to get you sta
 Now you should be able to use the development version of djangosnippets
 on port 8000.
 
-Docker 
+Docker
 ------
+You need to copy .env.example to .env and configure with your needs. The example is fine to start with development
+environment.
 
 You may wish to use docker locally for production dependency testing and development, here are the setup instructions::
 
     $ docker-compose -f docker-compose.yml build
-    $ docker-compose -f docker-compose.yml up -d 
+    $ docker-compose -f docker-compose.yml up -d
 
 -d denotes running docker in a detached state::
 
@@ -41,6 +43,7 @@ You may wish to use docker locally for production dependency testing and develop
     $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
     $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
     $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
+
 
 The docker setup is running as close as possible to the production setup in heroku:
 
