@@ -48,12 +48,12 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
 
-SNIPPETS_TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                      os.pardir, os.pardir, 'djangosnippets', 'templates')
+# SNIPPETS_TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+#                                       os.pardir, os.pardir, 'djangosnippets', 'templates')
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [os.path.join(os.path.dirname(__file__), 'templates'), SNIPPETS_TEMPLATES_DIR],
+    'DIRS': [os.path.join(os.path.dirname(__file__), 'templates')],
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [

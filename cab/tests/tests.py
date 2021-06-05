@@ -380,6 +380,18 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.context['object'], self.snippet1)
 
+    def test_snippet_detail__twitter_meta_tag(self):
+        snippet_detail = reverse('cab_snippet_detail', args=[self.snippet1.pk])
+        self.assertEqual(snippet_detail, '/snippets/%d/' % self.snippet1.pk)
+
+        resp = self.client.get(snippet_detail)
+        self.assertEqual(resp.status_code, 200)
+        import pdb; pdb.set_trace()
+        self.assertContains(
+            resp.content.decode(),
+            '<meta property="twitter:image:src" content="https://djangosnippets.org/snippets/4/twitter-img/">'
+        )
+
     def test_snippet_download(self):
         snippet_download = reverse('cab_snippet_download',
                                    args=[self.snippet1.pk])
