@@ -238,8 +238,9 @@ def advanced_search(request):
 def twitter_img(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(content_type='image/png')
+    code_lines = snippet.code.splitlines()
     response.content = highlight(
-        snippet.code,
+        "\n".join(code_lines[:10]),
         snippet.language.get_lexer(),
         ImageFormatter(linenos=True)
     )
