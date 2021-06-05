@@ -118,7 +118,7 @@ def flag_snippet(request, snippet_id, template_name="cab/flag_snippet.html"):
                 messages.error(request, "Invalid form submission")
     else:
         form = SnippetFlagForm(instance=snippet_flag)
-    return render(request, template_name, {"form": form, "snippet": snippet,})
+    return render(request, template_name, {"form": form, "snippet": snippet})
 
 
 def author_snippets(request, username):
@@ -189,9 +189,7 @@ def tag_hint(request):
         annotated_qs = tag_qs.annotate(count=Count("taggit_taggeditem_items__id"))
 
         for obj in annotated_qs.order_by("-count", "slug")[:10]:
-            results.append(
-                {"tag": obj.slug, "count": obj.count,}
-            )
+            results.append({"tag": obj.slug, "count": obj.count})
 
     return HttpResponse(json.dumps(results), content_type="application/json")
 
@@ -238,4 +236,3 @@ def advanced_search(request):
         template_name="search/advanced_search.html",
         extra_context={"form": form},
     )
-
