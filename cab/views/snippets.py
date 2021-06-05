@@ -240,7 +240,7 @@ def twitter_img(request, snippet_id):
     response = HttpResponse(content_type='image/png')
     code_lines = snippet.code.splitlines()
     response.content = highlight(
-        "\n".join(code_lines[:10]),
+        "\n".join(code_lines[:20]),
         snippet.language.get_lexer(),
         ImageFormatter(linenos=True)
     )
