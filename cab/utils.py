@@ -162,6 +162,7 @@ def object_detail(request, queryset, object_id=None, slug=None,
             c[key] = value()
         else:
             c[key] = value
+
     response = HttpResponse(t.render(c, request=request), content_type=content_type)
     return response
 
