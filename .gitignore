@@ -15,3 +15,5 @@ whoosh_index
 .sass-cache
 bower_components
 .env
+assets/
+
