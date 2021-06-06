@@ -6,24 +6,24 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=djangosnippets
-      
+
     volumes:
       - postgresdata:/var/lib/postgresql/data
   web:
     build: .
     environment:
-      - REDISTOGO_URL=redis://redis:6379/0
-      - SECRET_KEY=p_o3vp1rg5)t^lxm9-43%0)s-=1qpeq%o7gfq+e4#*!t+_ev82
-      - DEBUG=False
-      - ALLOWED_HOSTS=0.0.0.0,127.0.0.1
-      - DATABASE_URL=postgres://postgres:postgres@db/djangosnippets
-      - DJANGO_SETTINGS_MODULE=djangosnippets.settings.production
-      - SEARCHBOX_SSL_URL=http://elasticsearch:9200/
-      - SESSION_COOKIE_SECURE=False
-     
+      - REDISTOGO_URL=${REDISTOGO_URL}
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DATABASE_URL=${DATABASE_URL}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - SEARCHBOX_SSL_URL=${SEARCHBOX_SSL_URL}
+      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
 
-    command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level debug -k gevent -w 2 
-    
+
+    command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level debug -k gevent -w 2
+
     volumes:
       - .:/code
     ports:
@@ -31,7 +31,7 @@ services:
     depends_on:
       - db
       - redis
-    
+
 
   redis:
     restart: always
@@ -40,8 +40,7 @@ services:
       - "6379:6379"
     volumes:
       - redisdata:/data
-  
+
 volumes:
   redisdata:
   postgresdata:
-  

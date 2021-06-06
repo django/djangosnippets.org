@@ -13,12 +13,12 @@ from ratings.models import Ratings
 from .listeners import start_listening
 from .utils import sanitize_markdown
 
-VERSIONS = getattr(settings, 'CAB_VERSIONS', ())
+VERSIONS = getattr(settings, "CAB_VERSIONS", ())
 
 
 class LanguageManager(models.Manager):
     def top_languages(self):
-        return self.annotate(score=Count('snippet')).order_by('-score')
+        return self.annotate(score=Count("snippet")).order_by("-score")
 
 
 class Language(models.Model):
@@ -31,13 +31,13 @@ class Language(models.Model):
     objects = LanguageManager()
 
     class Meta:
-        ordering = ('name',)
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('cab_language_detail', kwargs={'slug': self.slug})
+        return reverse("cab_language_detail", kwargs={"slug": self.slug})
 
     def get_lexer(self):
         return lexers.get_lexer_by_name(self.language_code)
@@ -45,24 +45,28 @@ class Language(models.Model):
 
 class SnippetManager(models.Manager):
     def top_authors(self):
-        return User.objects.annotate(
-            score=Count('snippet')).order_by('-score', 'username')
+        return User.objects.annotate(score=Count("snippet")).order_by(
+            "-score", "username"
+        )
 
     def top_tags(self):
-        return self.model.tags.most_common().order_by('-num_times', 'name')
+        return self.model.tags.most_common().order_by("-num_times", "name")
 
     def top_rated(self):
         # this is slow
         # return self.annotate(score=Sum('ratings__score')).order_by('-score')
-        return self.all().order_by('-rating_score', '-pub_date')
+        return self.all().order_by("-rating_score", "-pub_date")
 
     def most_bookmarked(self):
         # this is slow
         # self.annotate(score=Count('bookmarks')).order_by('-score')
-        return self.all().order_by('-bookmark_count', '-pub_date')
+        return self.all().order_by("-bookmark_count", "-pub_date")
 
     def matches_tag(self, tag):
         return self.filter(tags__in=[tag])
+
+    def active_snippet(self):
+        return self.exclude(flags__flag=SnippetFlag.FLAG_SPAM)
 
 
 class Snippet(models.Model):
@@ -73,19 +77,19 @@ class Snippet(models.Model):
     description_html = models.TextField(editable=False)
     code = models.TextField()
     highlighted_code = models.TextField(editable=False)
-    version = models.CharField(max_length=5, choices=VERSIONS, default='0.0')
+    version = models.CharField(max_length=5, choices=VERSIONS, default="0.0")
     pub_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0)  # denormalized count
     rating_score = models.IntegerField(default=0)  # denormalized score
 
     ratings = Ratings()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     objects = SnippetManager()
 
     class Meta:
-        ordering = ('-pub_date',)
+        ordering = ("-pub_date",)
 
     def __str__(self):
         return self.title
@@ -96,15 +100,15 @@ class Snippet(models.Model):
         super(Snippet, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('cab_snippet_detail', kwargs={'snippet_id': self.id})
+        return reverse("cab_snippet_detail", kwargs={"snippet_id": self.id})
 
     def highlight(self):
-        return highlight(self.code,
-                         self.language.get_lexer(),
-                         formatters.HtmlFormatter(linenos=True))
+        return highlight(
+            self.code, self.language.get_lexer(), formatters.HtmlFormatter(linenos=True)
+        )
 
     def get_tagstring(self):
-        return ", ".join([t.name for t in self.tags.order_by('name').all()])
+        return ", ".join([t.name for t in self.tags.order_by("name").all()])
 
     def get_version(self):
         return dict(VERSIONS)[self.version]
@@ -119,12 +123,14 @@ class Snippet(models.Model):
 
     def mark_as_inappropiate(self):
         snippet_flag = SnippetFlag(
-            snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE)
+            snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE
+        )
         snippet_flag.save()
 
     def mark_as_spam(self):
         snippet_flag = SnippetFlag(
-            snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM)
+            snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM
+        )
         snippet_flag.save()
 
 
@@ -132,15 +138,15 @@ class SnippetFlag(models.Model):
     FLAG_SPAM = 1
     FLAG_INAPPROPRIATE = 2
     FLAG_CHOICES = (
-        (FLAG_SPAM, 'Spam'),
-        (FLAG_INAPPROPRIATE, 'Inappropriate'),
+        (FLAG_SPAM, "Spam"),
+        (FLAG_INAPPROPRIATE, "Inappropriate"),
     )
-    snippet = models.ForeignKey(Snippet, related_name='flags', on_delete=models.CASCADE)
+    snippet = models.ForeignKey(Snippet, related_name="flags", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     flag = models.IntegerField(choices=FLAG_CHOICES)
 
     def __str__(self):
-        return '%s flagged as %s by %s' % (
+        return "%s flagged as %s by %s" % (
             self.snippet.title,
             self.get_flag_display(),
             self.user.username,
@@ -155,12 +161,16 @@ class SnippetFlag(models.Model):
 
 
 class Bookmark(models.Model):
-    snippet = models.ForeignKey(Snippet, related_name='bookmarks', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='cab_bookmarks', on_delete=models.CASCADE)
+    snippet = models.ForeignKey(
+        Snippet, related_name="bookmarks", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        User, related_name="cab_bookmarks", on_delete=models.CASCADE
+    )
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-date',)
+        ordering = ("-date",)
 
     def __str__(self):
         return "%s bookmarked by %s" % (self.snippet, self.user)
