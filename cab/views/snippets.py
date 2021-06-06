@@ -239,9 +239,12 @@ def twitter_img(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(content_type='image/png')
     code_lines = snippet.code.splitlines()
+    code_length = len(code_lines)
+    #if code_length < 20:
+    #    code_lines = code_lines+["#" for _ in range(20 - code_length)]
     response.content = highlight(
         "\n".join(code_lines[:20]),
         snippet.language.get_lexer(),
-        ImageFormatter(linenos=True)
+        ImageFormatter(linenos=True,image_pad=5,line_numbers=False)
     )
     return response
