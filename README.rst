@@ -53,7 +53,7 @@ Redis
 
 To run our tests with docker run the following:
 
-    $ docker-compose -f docker-compose.yml run web python manage.py test --settings=cab.tests.settings
+    $ docker-compose -f docker-compose.yml run web python manage.py test --settings=djangosnippets.settings.testing
 
 Styling contributor?
 --------------------
