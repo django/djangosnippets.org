@@ -1,10 +1,4 @@
-import os
-
-import dj_database_url
-
-DATABASES = {'default': dj_database_url.config(default='postgres:///djangosnippets')}
-
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+from djangosnippets.settings.base import *
 
 SITE_ID = 1
 ROOT_URLCONF = 'cab.tests.urls'
@@ -53,7 +47,7 @@ SNIPPETS_TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [os.path.join(os.path.dirname(__file__), 'templates'), SNIPPETS_TEMPLATES_DIR],
+    'DIRS': [os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'cab', 'tests', 'templates'), SNIPPETS_TEMPLATES_DIR],
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [
