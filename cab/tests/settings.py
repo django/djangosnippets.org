@@ -68,3 +68,5 @@ CAB_VERSIONS = (
     ('0.0', '0.0'),
     ('1.1', '1.1'),
 )
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
