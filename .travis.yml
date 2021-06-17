@@ -29,4 +29,4 @@ script:
   - export PYTHONPATH=.
   - flake8
   - isort --check-only --diff cab comments_spamfighter djangosnippets ratings
-  - python manage.py test --settings=cab.tests.settings
+  - python manage.py test --settings=djangosnippets.settings.testing
