@@ -73,7 +73,9 @@ If you don't have either of these two installed, you can find detailed
 instructions on their respective websites.
 
 Please make sure, that you commit only a compressed version of the CSS file
-as this is what will be deployed.
+as this is what will be deployed. (In order to do that the default
+configuration inside `djangosnippets/static/config.rb` is
+`output_style = :compressed`)
 
 
 Production setup
