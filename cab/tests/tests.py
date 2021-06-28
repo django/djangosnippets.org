@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
-from django.test import SimpleTestCase, TestCase, override_settings
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from rest_framework import status
 
@@ -9,7 +9,8 @@ from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
 
 
-@override_settings(ROOT_URLCONF='cab.tests.urls')
+# @skip("These tests don't test production code.")
+# @override_settings(ROOT_URLCONF='cab.tests.urls')
 class BaseCabTestCase(TestCase):
 
     def setUp(self):
