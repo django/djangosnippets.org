@@ -1,4 +1,4 @@
-from djangosnippets.settings.base import *
+from djangosnippets.settings.base import *  # noqa F403
 
 SITE_ID = 1
 ROOT_URLCONF = 'cab.tests.urls'
