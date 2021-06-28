@@ -9,7 +9,8 @@ from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
 
 
-@override_settings(ROOT_URLCONF='cab.tests.urls')
+#@skip("These tests don't test production code.")
+#@override_settings(ROOT_URLCONF='cab.tests.urls')
 class BaseCabTestCase(TestCase):
 
     def setUp(self):

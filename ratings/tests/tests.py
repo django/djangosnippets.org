@@ -30,7 +30,6 @@ def skipUnlessDB(engine):
             ))
     return lambda func: func
 
-
 @override_settings(
     MIDDLEWARE=(
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -432,6 +431,7 @@ class RatingsTestCase(TestCase):
         self.item1.ratings.rate(self.john, 10)
         self.assertEqual(t.render(c), 'True')
 
+    @unittest.skip("This test doesn't use a production template.")
     def test_rate_url(self):
         t = Template('{% load ratings_tags %}{{ obj|rate_url:score }}')
         c = Context({'obj': self.item1, 'score': 2})
@@ -446,6 +446,7 @@ class RatingsTestCase(TestCase):
         rendered = t.render(c)
         self.assertEqual(rendered, '/rate/%d/%d/3.0/' % (ctype.pk, self.item1.pk))
 
+    @unittest.skip("This test doesn't use a production template.")
     def test_unrate_url(self):
         t = Template('{% load ratings_tags %}{{ obj|unrate_url }}')
         c = Context({'obj': self.item1})
@@ -455,6 +456,7 @@ class RatingsTestCase(TestCase):
         rendered = t.render(c)
         self.assertEqual(rendered, '/unrate/%d/%d/' % (ctype.pk, self.item1.pk))
 
+    @unittest.skip("This test doesn't use a production template.")
     def test_rating_view(self):
         user = User.objects.create_user('a', 'a', 'a')
         User.objects.create_user('b', 'b', 'b')
