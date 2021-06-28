@@ -47,7 +47,12 @@ SNIPPETS_TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'cab', 'tests', 'templates'), SNIPPETS_TEMPLATES_DIR],
+    'DIRS': [
+        os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, 'cab', 'tests', 'templates'
+        ),
+        SNIPPETS_TEMPLATES_DIR
+    ],
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [

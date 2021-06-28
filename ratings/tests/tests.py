@@ -30,6 +30,7 @@ def skipUnlessDB(engine):
             ))
     return lambda func: func
 
+
 @override_settings(
     MIDDLEWARE=(
         'django.contrib.sessions.middleware.SessionMiddleware',
