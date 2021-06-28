@@ -48,4 +48,4 @@ jobs:
       - name: Collect static files
         run: python manage.py collectstatic --no-input
       - name: Run Tests
-        run: python manage.py test --settings=cab.tests.settings
+        run: python manage.py test --settings=djangosnippets.settings.testing
