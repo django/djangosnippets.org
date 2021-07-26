@@ -18,5 +18,5 @@ six==1.15.0
 urllib3==1.26.4
 whitenoise==5.2.0
 psycopg2-binary==2.8.6
-djangorestframework==3.12.2
+djangorestframework==3.12.4
 
