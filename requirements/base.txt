@@ -13,7 +13,7 @@ Markdown==3.3.4
 Pillow==8.1.2
 Pygments==2.8.1
 python-akismet==0.4.2
-requests==2.25.1
+requests==2.26.0
 six==1.15.0
 urllib3==1.26.6
 whitenoise==5.2.0
