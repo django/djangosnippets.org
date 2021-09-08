@@ -24,6 +24,10 @@ are included in the fixtures folder. Also included are 5 snippets to get you sta
 
     $ python manage.py loaddata fixtures/cab.json
 
+ You will need to build the site.css with tailwindcss
+
+     $ npm run build
+
 Now you should be able to use the development version of djangosnippets
 on port 8000.
 
@@ -42,6 +46,7 @@ You may wish to use docker locally for production dependency testing and develop
     $ docker-compose -f docker-compose.yml run web python manage.py migrate
     $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
     $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
+    $ npm run build
     $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
 
 

@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
+  <link href="{% static "css/site.css" %}" rel="stylesheet">
+  
   {% block feeds %}{% endblock %}
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
@@ -80,6 +82,9 @@
   <script src="{% static 'js/foundation.min.js' %}"></script>
   <script src="{% static 'js/snippets.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.3.2/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
+
   <script>
     $(document).foundation();
   </script>
