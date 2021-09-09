@@ -1,0 +1,22 @@
+{
+  "name": "djangosnippets.org",
+  "version": "1.0.0",
+  "description": "djangosnippets.org ==================",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss build djangosnippets/static/tailwind/site.css -c tailwind.config.js -o djangosnippets/static/css/site.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/django/djangosnippets.org.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/django/djangosnippets.org/issues"
+  },
+  "homepage": "https://github.com/django/djangosnippets.org#readme",
+  "dependencies": {
+    "tailwindcss": "^2.2.14"
+  }
+}

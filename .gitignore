@@ -16,4 +16,6 @@ whoosh_index
 bower_components
 .env
 assets/
+node_modules
 
+djangosnippets/static/css/site.css
