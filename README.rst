@@ -8,30 +8,39 @@ Database Setup Using Windows
 
 Download the latest version of PostgreSQL_. Click on the executable to start the installation setup wizard.
 
-Click ``Next``, keeping all the defaults, ensuring that all components are ticked (including pgAdmin 4). Make a note
-of the password you choose for the database superuser (postgres). Select the default port 5432 and the default locale.
-After it’s finished installing, you do not need to launch Stack Builder. Un-tick that box if you are asked, and
-click ``Finish``.
+Click ``Next``, keeping all the defaults as you work through the wizard. Make a note
+of the password you choose for the database superuser (postgres). Select the default port 5432 and the default
+locale. After it’s finished installing, you do not need to launch Stack Builder. Un-tick that box if you are asked,
+and click ``Finish``.
 
-Open the pgAdmin 4 app. Type in the password you made a note of earlier. The following steps can also be taken using
-your windows CLI: Click on ``Servers`` in the Browser pane on the left. Right click on ``PostgreSQL`` and then click
-on ``Create``, then ``Database``. In the Database field which you should now see, type 'djangosnippets', then click
-``Save``. You should now have two databases in the Browser pane on the left, one being an empty database called
-djangosnippets.
+Open SQL Shell (psql). In the shell, select the default values for Server, Database, Port and Username
+(basically, press Enter four times).
 
-Add the below to the bottom of djangosnippets/settings/development.py and djangosnippets/settings/testing.py files::
+Type in the password you noted earlier and press enter. Run the command below, taking care to include the
+semi-colon. ::
 
-  DATABASES = {
-    'default': {
-        'NAME': 'djangosnippets',
-        'USER': 'postgres',
-        'PASSWORD': 'your_password',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    }
-  }
+    $ CREATE DATABASE djangosnippets;
 
-Please do **not** commit the two file changes above. You have now installed and configured your PostgreSQL database
-for development.
+Close SQL Shell (psql).
+
+You need to copy .env.example to env.bat and configure to your needs. Use the template below, taking care to
+include ``set`` at the start of each line, and to substitute the password you noted earlier into DATABASE_URL.
+For development, DEBUG is set to True. ::
+
+    set REDISTOGO_URL=redis://redis:6379/0
+    set SECRET_KEY=p_o3vp1rg5)t^lxm9-43%0)s-=1qpeq%o7gfq+e4#*!t+_ev82
+    set DEBUG=True
+    set ALLOWED_HOSTS=0.0.0.0,127.0.0.1
+    set DATABASE_URL=postgres://postgres:your_password@:5432/djangosnippets
+    set DJANGO_SETTINGS_MODULE=djangosnippets.settings.development
+    set SEARCHBOX_SSL_URL=http://elasticsearch:9200/
+    set SESSION_COOKIE_SECURE=False
+  
+Go back to your terminal. You will need to run the command below whenever you open a new terminal. ::
+
+    $ env.bat
+
+Your environment variables are now set and you can proceed with the instructions below. 
 
 Development Setup
 -----------------
@@ -43,7 +52,7 @@ In a Python 3.7 virtual environment::
     $ cd ..
     $ python manage.py migrate
 
-Now you can start the development server (you may need to set the ALLOWED_HOSTS environment variable first)::
+Now you can start the development server::
 
     $ python manage.py runserver
 
