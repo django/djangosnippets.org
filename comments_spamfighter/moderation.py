@@ -33,7 +33,7 @@ class SpamFighterModerator(CommentModerator):
         for keyword in Keyword.objects.filter(active=True):
 
             # Iterate over all fields
-            for field_name in keyword.fields.split(','):
+            for field_name in keyword.fields.split(","):
 
                 # Check that the given field is in the comments class. If
                 # settings.DEBUG is False, fail silently.
@@ -61,17 +61,17 @@ class SpamFighterModerator(CommentModerator):
         """
         # Check if the akismet api key is set, fail silently if
         # settings.DEBUG is False and return False (not moderated)
-        AKISMET_API_KEY = getattr(settings, 'AKISMET_SECRET_API_KEY', False)
+        AKISMET_API_KEY = getattr(settings, "AKISMET_SECRET_API_KEY", False)
         if not AKISMET_API_KEY:
-            raise ImproperlyConfigured('You must set AKISMET_SECRET_API_KEY with your api key in your settings file.')
+            raise ImproperlyConfigured("You must set AKISMET_SECRET_API_KEY with your api key in your settings file.")
 
         akismet_api = Akismet(
             AKISMET_API_KEY,
-            blog='%s://%s/' % (request.scheme, Site.objects.get_current().domain),
+            blog="%s://%s/" % (request.scheme, Site.objects.get_current().domain),
         )
         return akismet_api.check(
             comment.ip_address,
-            request.META['HTTP_USER_AGENT'],
+            request.META["HTTP_USER_AGENT"],
             comment_content=comment.comment,
         )
 
@@ -89,16 +89,22 @@ class SpamFighterModerator(CommentModerator):
             return False
 
         # Keyword check
-        if self.keyword_check and not self.keyword_check_moderate:
+        if (
+            self.keyword_check
+            and not self.keyword_check_moderate
+            and self._keyword_check(comment, content_object, request)
+        ):
             # Return False if a keyword matches
-            if self._keyword_check(comment, content_object, request):
-                return False
+            return False
 
         # Akismet check
-        if self.akismet_check and not self.akismet_check_moderate:
+        if (
+            self.akismet_check
+            and not self.akismet_check_moderate
+            and self._akismet_check(comment, content_object, request)
+        ):
             # Return False if akismet marks this comment as spam.
-            if self._akismet_check(comment, content_object, request):
-                return False
+            return False
 
         return True
 
@@ -116,15 +122,21 @@ class SpamFighterModerator(CommentModerator):
             return True
 
         # Keyword check
-        if self.keyword_check and self.keyword_check_moderate:
+        if (
+            self.keyword_check
+            and self.keyword_check_moderate
+            and self._keyword_check(comment, content_object, request)
+        ):
             # Return True if a keyword matches and we want to moderate it
-            if self._keyword_check(comment, content_object, request):
-                return True
+            return True
 
         # Akismet check
-        if self.akismet_check and self.akismet_check_moderate:
+        if (
+            self.akismet_check
+            and self.akismet_check_moderate
+            and self._akismet_check(comment, content_object, request)
+        ):
             # Return True if akismet marks this comment as spam and we want to moderate it.
-            if self._akismet_check(comment, content_object, request):
-                return True
+            return True
 
         return False

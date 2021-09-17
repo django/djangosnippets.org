@@ -10,7 +10,7 @@ register = template.Library()
 def latest(model_or_obj, num=5):
     # load up the model if we were given a string
     if isinstance(model_or_obj, str):
-        model_or_obj = apps.get_model(*model_or_obj.split('.'))
+        model_or_obj = apps.get_model(*model_or_obj.split("."))
 
     # figure out the manager to query
     if isinstance(model_or_obj, QuerySet):
@@ -25,14 +25,14 @@ def latest(model_or_obj, num=5):
         if isinstance(field, (DateTimeField, DateField)):
             field_name = field.name
             break
-    return manager.all().order_by('-%s' % field_name)[:num]
+    return manager.all().order_by("-%s" % field_name)[:num]
 
 
 @register.filter
 def call_manager(model_or_obj, method):
     # load up the model if we were given a string
     if isinstance(model_or_obj, str):
-        model_or_obj = apps.get_model(*model_or_obj.split('.'))
+        model_or_obj = apps.get_model(*model_or_obj.split("."))
 
     # figure out the manager to query
     if isinstance(model_or_obj, QuerySet):

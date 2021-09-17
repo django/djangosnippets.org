@@ -17,4 +17,3 @@ WORKDIR /code
 
 # Copy project
 COPY . /code/
-

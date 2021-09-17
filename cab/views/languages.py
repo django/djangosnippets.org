@@ -18,6 +18,6 @@ def language_detail(request, slug):
         request,
         queryset=language.snippet_set.all(),
         paginate_by=20,
-        template_name='cab/language_detail.html',
-        extra_context={'language': language},
+        template_name="cab/language_detail.html",
+        extra_context={"language": language},
     )

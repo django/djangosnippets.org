@@ -86,5 +86,3 @@ the djangosnippets.settings.production module and the requirements.txt.
 .. _bower: http://bower.io/
 .. _compass: http://compass-style.org/install/
 .. _foundation: http://foundation.zurb.com/
-
-

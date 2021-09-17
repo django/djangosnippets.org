@@ -10,7 +10,7 @@ def rating_score(obj, user):
     """
     Returns the score a user has given an object
     """
-    if not user.is_authenticated or not hasattr(obj, '_ratings_field'):
+    if not user.is_authenticated or not hasattr(obj, "_ratings_field"):
         return False
 
     ratings_descriptor = getattr(obj, obj._ratings_field)
@@ -36,11 +36,14 @@ def rate_url(obj, score=1):
     Generates a link to "rate" the given object with the provided score - this
     can be used as a form target or for POSTing via Ajax.
     """
-    return reverse('ratings_rate_object', args=(
-        ContentType.objects.get_for_model(obj).pk,
-        obj.pk,
-        score,
-    ))
+    return reverse(
+        "ratings_rate_object",
+        args=(
+            ContentType.objects.get_for_model(obj).pk,
+            obj.pk,
+            score,
+        ),
+    )
 
 
 @register.filter
@@ -49,7 +52,10 @@ def unrate_url(obj):
     Generates a link to "un-rate" the given object - this
     can be used as a form target or for POSTing via Ajax.
     """
-    return reverse('ratings_unrate_object', args=(
-        ContentType.objects.get_for_model(obj).pk,
-        obj.pk,
-    ))
+    return reverse(
+        "ratings_unrate_object",
+        args=(
+            ContentType.objects.get_for_model(obj).pk,
+            obj.pk,
+        ),
+    )

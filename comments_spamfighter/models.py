@@ -10,25 +10,25 @@ class Keyword(models.Model):
     # COMMENTS_CHECK_FIELDS_CHOICES
 
     FIELD_CHOICES = (
-        ('user_name', _('Username')),
-        ('user_email', _('User Email')),
-        ('user_url', _('User URL')),
-        ('comment', _('Comment text')),
-        ('ip_address', _('IP Address')),
+        ("user_name", _("Username")),
+        ("user_email", _("User Email")),
+        ("user_url", _("User URL")),
+        ("comment", _("Comment text")),
+        ("ip_address", _("IP Address")),
     )
-    FIELD_CHOICES = getattr(settings, 'COMMENTS_CHECK_FIELDS_CHOICES', FIELD_CHOICES)
+    FIELD_CHOICES = getattr(settings, "COMMENTS_CHECK_FIELDS_CHOICES", FIELD_CHOICES)
 
-    active = models.BooleanField(_('Active'), default=True)
-    keyword = models.TextField(_('Keyword'))
-    is_regex = models.BooleanField(_('Is a regular expression'), default=False)
-    fields = models.TextField(_('Fields to check'), max_length=255)
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    modified = models.DateTimeField(_('Modified'), auto_now=True)
+    active = models.BooleanField(_("Active"), default=True)
+    keyword = models.TextField(_("Keyword"))
+    is_regex = models.BooleanField(_("Is a regular expression"), default=False)
+    fields = models.TextField(_("Fields to check"), max_length=255)
+    created = models.DateTimeField(_("Created"), auto_now_add=True)
+    modified = models.DateTimeField(_("Modified"), auto_now=True)
 
     class Meta:
-        ordering = ('keyword', 'created')
-        verbose_name = _('Keyword')
-        verbose_name_plural = _('Keywords')
+        ordering = ("keyword", "created")
+        verbose_name = _("Keyword")
+        verbose_name_plural = _("Keywords")
 
     def __str__(self):
         return self.keyword

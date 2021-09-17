@@ -19,7 +19,7 @@
       {{ form.flag }}
       {% if form.flag.errors %}<small class="error">{{ form.flag.errors|join:", " }}</small>{% endif %}
     </div>
-    
+
     <div class="button-group"><button type="submit">Go</button> <a href="{% url 'cab_snippet_detail' snippet_id=snippet.id %}">Cancel</a></div>
   </form>
   {% if snippet.description_html %}

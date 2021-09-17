@@ -15,32 +15,40 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Beverage',
+            name="Beverage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Food',
+            name="Food",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='BeverageRating',
+            name="BeverageRating",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('score', models.FloatField(db_index=True, default=0)),
-                ('hashed', models.CharField(db_index=True, editable=False, max_length=40)),
-                ('content_object', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                                     to='tests.Beverage')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                           related_name='beverageratings', to=settings.AUTH_USER_MODEL)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("score", models.FloatField(db_index=True, default=0)),
+                ("hashed", models.CharField(db_index=True, editable=False, max_length=40)),
+                (
+                    "content_object",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="tests.Beverage"),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="beverageratings",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

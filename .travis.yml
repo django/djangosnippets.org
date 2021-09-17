@@ -9,7 +9,7 @@ addons:
 env:
   global:
   - PGPORT: "5433"
-  
+
 
 before_install:
   - sudo ls /etc/postgresql

@@ -10,49 +10,52 @@ from .models import Keyword
 class KeywordAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(KeywordAdminForm, self).__init__(*args, **kwargs)
-        self.initial['fields'] = self.instance.fields.split(',')
+        self.initial["fields"] = self.instance.fields.split(",")
 
     keyword = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                'style': 'height: 1.5em; line-height: 1.5em; width: 40em;',
-                'class': 'vLargeTextField',
+                "style": "height: 1.5em; line-height: 1.5em; width: 40em;",
+                "class": "vLargeTextField",
             }
         )
     )
-    fields = forms.MultipleChoiceField(label=_('Fields to check'), choices=Keyword.FIELD_CHOICES)
+    fields = forms.MultipleChoiceField(label=_("Fields to check"), choices=Keyword.FIELD_CHOICES)
 
     def clean_fields(self):
-        return ','.join(self.cleaned_data['fields'])
+        return ",".join(self.cleaned_data["fields"])
 
     def clean(self):
         # Do a test match like the moderator does to ensure that the regular
         # expression is valid.
-        if self.cleaned_data['is_regex']:
+        if self.cleaned_data["is_regex"]:
             try:
-                re.match(self.cleaned_data['keyword'], '', re.MULTILINE)
+                re.match(self.cleaned_data["keyword"], "", re.MULTILINE)
             except Exception as e:
                 raise forms.ValidationError(_('This regular expression is not valid. Error message was: "%s"' % e))
         return self.cleaned_data
 
     class Meta:
-        fields = '__all__'
+        fields = "__all__"
         model = Keyword
 
 
 class KeywordAdmin(admin.ModelAdmin):
     form = KeywordAdminForm
-    list_display = ('active', 'keyword', 'fields')
-    list_display_links = ('keyword',)
-    list_filter = ('active',)
+    list_display = ("active", "keyword", "fields")
+    list_display_links = ("keyword",)
+    list_filter = ("active",)
     fieldsets = (
-        (None, {
-            'fields': (
-                'active',
-                ('keyword', 'is_regex'),
-                'fields',
-            )
-        },),
+        (
+            None,
+            {
+                "fields": (
+                    "active",
+                    ("keyword", "is_regex"),
+                    "fields",
+                )
+            },
+        ),
     )
 
 
