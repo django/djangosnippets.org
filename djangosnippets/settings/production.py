@@ -57,10 +57,6 @@ SESSION_COOKIE_HTTPONLY = True
 # The header Heroku uses to indicate SSL:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "djangosnippets.org,www.djangosnippets.org").split(",")
-
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Pull the various config info from Heroku.

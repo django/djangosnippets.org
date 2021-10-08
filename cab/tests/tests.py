@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
-from django.test import SimpleTestCase, TestCase, override_settings
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from rest_framework import status
 
@@ -9,7 +9,8 @@ from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
 
 
-@override_settings(ROOT_URLCONF="cab.tests.urls")
+# @skip("These tests don't test production code.")
+# @override_settings(ROOT_URLCONF='cab.tests.urls')
 class BaseCabTestCase(TestCase):
     def setUp(self):
         """
@@ -455,6 +456,40 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet1.description_html, "<h1>wazzah</h1>")
         self.assertEqual(snippet1.code, 'print "Hi"')
         self.assertEqual([t.name for t in snippet1.tags.all()], ["world", "hi"])
+        self.assertRedirects(resp, "/snippets/%d/" % snippet1.pk)
+
+    def test_snippet_edit_no_tags(self):
+        """
+        The user should be able to create/edit a snippet and remove all tags or create it without any.
+        """
+        snippet_edit = reverse("cab_snippet_edit", args=[self.snippet1.pk])
+        self.assertEqual(snippet_edit, "/snippets/%d/edit/" % self.snippet1.pk)
+
+        resp = self.client.get(snippet_edit)
+        self.assertEqual(resp.status_code, 302)
+        self.assertTrue("accounts/login" in resp["location"])
+
+        self.client.login(username="a", password="a")
+
+        resp = self.client.get(snippet_edit)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context["form"].instance, self.snippet1)
+
+        payload = {
+            "title": "Hi",
+            "version": "1.1",
+            "language": str(self.python.pk),
+            "description": "wazzah\n======",
+            "code": 'print "Hi"',
+        }
+
+        resp = self.client.post(snippet_edit, payload)
+
+        snippet1 = Snippet.objects.get(pk=self.snippet1.pk)
+        self.assertEqual(snippet1.title, "Hi")
+        self.assertEqual(snippet1.description_html, "<h1>wazzah</h1>")
+        self.assertEqual(snippet1.code, 'print "Hi"')
+        self.assertEqual(0, snippet1.tags.count())
         self.assertRedirects(resp, "/snippets/%d/" % snippet1.pk)
 
     def test_snippet_add(self):

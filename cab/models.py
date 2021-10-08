@@ -63,6 +63,9 @@ class SnippetManager(models.Manager):
     def matches_tag(self, tag):
         return self.filter(tags__in=[tag])
 
+    def active_snippet(self):
+        return self.exclude(flags__flag=SnippetFlag.FLAG_SPAM)
+
 
 class Snippet(models.Model):
     title = models.CharField(max_length=255)
@@ -79,7 +82,7 @@ class Snippet(models.Model):
     rating_score = models.IntegerField(default=0)  # denormalized score
 
     ratings = Ratings()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     objects = SnippetManager()
 

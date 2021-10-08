@@ -14,6 +14,8 @@ PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardi
 SITE_ID = 1
 SITE_NAME = "djangosnippets.org"
 
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "djangosnippets.org,www.djangosnippets.org").split(",")
+
 DEBUG = False
 
 TIME_ZONE = "America/Chicago"

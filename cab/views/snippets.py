@@ -18,7 +18,7 @@ from ..utils import month_object_list, object_detail
 
 def snippet_list(request, queryset=None, **kwargs):
     if queryset is None:
-        queryset = Snippet.objects.all()
+        queryset = Snippet.objects.active_snippet()
 
     return month_object_list(request, queryset=queryset, paginate_by=20, **kwargs)
 
@@ -35,7 +35,10 @@ def snippet_detail(request, snippet_id):
 def download_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(snippet.code, content_type="text/plain")
-    response["Content-Disposition"] = "attachment; filename=%s.%s" % (snippet.id, snippet.language.file_extension)
+    response["Content-Disposition"] = "attachment; filename=%s.%s" % (
+        snippet.id,
+        snippet.language.file_extension,
+    )
     response["Content-Type"] = snippet.language.mime_type
     return response
 
@@ -111,14 +114,7 @@ def flag_snippet(request, snippet_id, template_name="cab/flag_snippet.html"):
                 messages.error(request, "Invalid form submission")
     else:
         form = SnippetFlagForm(instance=snippet_flag)
-    return render(
-        request,
-        template_name,
-        {
-            "form": form,
-            "snippet": snippet,
-        },
-    )
+    return render(request, template_name, {"form": form, "snippet": snippet})
 
 
 def author_snippets(request, username):
@@ -181,12 +177,7 @@ def tag_hint(request):
         annotated_qs = tag_qs.annotate(count=Count("taggit_taggeditem_items__id"))
 
         for obj in annotated_qs.order_by("-count", "slug")[:10]:
-            results.append(
-                {
-                    "tag": obj.slug,
-                    "count": obj.count,
-                }
-            )
+            results.append({"tag": obj.slug, "count": obj.count})
 
     return HttpResponse(json.dumps(results), content_type="application/json")
 
