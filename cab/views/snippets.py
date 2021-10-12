@@ -73,9 +73,7 @@ def edit_snippet(request, snippet_id=None, template_name="cab/edit_snippet.html"
             return HttpResponseForbidden()
     else:
         template_name = "cab/add_snippet.html"
-        snippet = Snippet(
-            author=request.user, language=Language.objects.get(name="Python")
-        )
+        snippet = Snippet(author=request.user, language=Language.objects.get(name="Python"))
 
     if request.method == "POST":
         form = SnippetForm(instance=snippet, data=request.POST)
@@ -100,9 +98,7 @@ def flag_snippet(request, snippet_id, template_name="cab/flag_snippet.html"):
         if form.is_valid():
             snippet_flag = form.save()
 
-            admin_link = request.build_absolute_uri(
-                reverse("admin:cab_snippetflag_changelist")
-            )
+            admin_link = request.build_absolute_uri(reverse("admin:cab_snippetflag_changelist"))
 
             mail_admins(
                 'Snippet flagged: "%s"' % (snippet.title),
@@ -148,11 +144,7 @@ def search(request):
     snippet_qs = Snippet.objects.none()
     if query:
         snippet_qs = (
-            Snippet.objects.filter(
-                Q(title__icontains=query)
-                | Q(tags__in=[query])
-                | Q(author__username__iexact=query)
-            )
+            Snippet.objects.filter(Q(title__icontains=query) | Q(tags__in=[query]) | Q(author__username__iexact=query))
             .distinct()
             .order_by("-rating_score", "-pub_date")
         )
@@ -170,14 +162,10 @@ def autocomplete(request):
     q = request.GET.get("q", "")
     results = []
     if len(q) > 2:
-        result_set = Snippet.objects.annotate(search=SearchVector("title")).filter(
-            search=q
-        )[:10]
+        result_set = Snippet.objects.annotate(search=SearchVector("title")).filter(search=q)[:10]
         for obj in result_set:
             url = obj.get_absolute_url()
-            results.append(
-                {"title": obj.title, "author": obj.author.username, "url": url}
-            )
+            results.append({"title": obj.title, "author": obj.author.username, "url": url})
     return HttpResponse(json.dumps(results), content_type="application/json")
 
 
@@ -196,9 +184,7 @@ def tag_hint(request):
 
 def basic_search(request):
     q = request.GET.get("q")
-    snippet_qs = Snippet.objects.annotate(
-        search=SearchVector("title", "description", "author__username")
-    )
+    snippet_qs = Snippet.objects.annotate(search=SearchVector("title", "description", "author__username"))
     form = AdvancedSearchForm(request.GET)
 
     if form.is_valid():

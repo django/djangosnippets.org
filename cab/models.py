@@ -45,9 +45,7 @@ class Language(models.Model):
 
 class SnippetManager(models.Manager):
     def top_authors(self):
-        return User.objects.annotate(score=Count("snippet")).order_by(
-            "-score", "username"
-        )
+        return User.objects.annotate(score=Count("snippet")).order_by("-score", "username")
 
     def top_tags(self):
         return self.model.tags.most_common().order_by("-num_times", "name")
@@ -103,9 +101,7 @@ class Snippet(models.Model):
         return reverse("cab_snippet_detail", kwargs={"snippet_id": self.id})
 
     def highlight(self):
-        return highlight(
-            self.code, self.language.get_lexer(), formatters.HtmlFormatter(linenos=True)
-        )
+        return highlight(self.code, self.language.get_lexer(), formatters.HtmlFormatter(linenos=True))
 
     def get_tagstring(self):
         return ", ".join([t.name for t in self.tags.order_by("name").all()])
@@ -122,15 +118,11 @@ class Snippet(models.Model):
         self.save()
 
     def mark_as_inappropiate(self):
-        snippet_flag = SnippetFlag(
-            snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE
-        )
+        snippet_flag = SnippetFlag(snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE)
         snippet_flag.save()
 
     def mark_as_spam(self):
-        snippet_flag = SnippetFlag(
-            snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM
-        )
+        snippet_flag = SnippetFlag(snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM)
         snippet_flag.save()
 
 
@@ -161,12 +153,8 @@ class SnippetFlag(models.Model):
 
 
 class Bookmark(models.Model):
-    snippet = models.ForeignKey(
-        Snippet, related_name="bookmarks", on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(
-        User, related_name="cab_bookmarks", on_delete=models.CASCADE
-    )
+    snippet = models.ForeignKey(Snippet, related_name="bookmarks", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="cab_bookmarks", on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

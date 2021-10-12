@@ -1,0 +1,7 @@
+[tool.black]
+line-length = 119
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 119

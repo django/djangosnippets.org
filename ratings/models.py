@@ -12,7 +12,7 @@ from .utils import is_gfk, recommended_items
 
 class RatedItemBase(models.Model):
     score = models.FloatField(default=0, db_index=True)
-    user = models.ForeignKey(User, related_name='%(class)ss', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="%(class)ss", on_delete=models.CASCADE)
     hashed = models.CharField(max_length=40, editable=False, db_index=True)
 
     class Meta:
@@ -26,14 +26,14 @@ class RatedItemBase(models.Model):
         super(RatedItemBase, self).save(*args, **kwargs)
 
     def generate_hash(self):
-        content_field = self._meta.get_field('content_object')
+        content_field = self._meta.get_field("content_object")
         related_object = getattr(self, content_field.name)
-        uniq = '%s.%s' % (related_object._meta, related_object.pk)
-        return hashlib.sha1(uniq.encode('ascii')).hexdigest()
+        uniq = "%s.%s" % (related_object._meta, related_object.pk)
+        return hashlib.sha1(uniq.encode("ascii")).hexdigest()
 
     @classmethod
     def lookup_kwargs(cls, instance):
-        return {'content_object': instance}
+        return {"content_object": instance}
 
     @classmethod
     def base_kwargs(cls, model_class):
@@ -44,32 +44,29 @@ class RatedItem(RatedItemBase):
     object_id = models.IntegerField()
     content_type = models.ForeignKey(
         ContentType,
-        related_name='rated_items',
+        related_name="rated_items",
         on_delete=models.CASCADE,
     )
     content_object = GenericForeignKey()
 
     @classmethod
     def lookup_kwargs(cls, instance):
-        return {
-            'object_id': instance.pk,
-            'content_type': ContentType.objects.get_for_model(instance)
-        }
+        return {"object_id": instance.pk, "content_type": ContentType.objects.get_for_model(instance)}
 
     @classmethod
     def base_kwargs(cls, model_class):
-        return {'content_type': ContentType.objects.get_for_model(model_class)}
+        return {"content_type": ContentType.objects.get_for_model(model_class)}
 
 
 # this goes on your model
-class Ratings(object):
+class Ratings:
     def __init__(self, rating_model=None):
         self.rating_model = rating_model or RatedItem
 
     def contribute_to_class(self, cls, name):
         # set up the ForeignRelatedObjectsDescriptor right hyah
         setattr(cls, name, _RatingsDescriptor(cls, self.rating_model, name))
-        setattr(cls, '_ratings_field', name)
+        setattr(cls, "_ratings_field", name)
 
 
 class RatingsQuerySet(QuerySet):
@@ -82,35 +79,24 @@ class RatingsQuerySet(QuerySet):
         instance.rated_model = self.rated_model
         return instance
 
-    def order_by_rating(self, aggregator=models.Sum, descending=True,
-                        queryset=None, alias='score'):
-        related_field = self.model._meta.get_field('content_object')
+    def order_by_rating(self, aggregator=models.Sum, descending=True, queryset=None, alias="score"):
+        related_field = self.model._meta.get_field("content_object")
 
         if queryset is None:
             queryset = self.rated_model._default_manager.all()
 
-        ordering = descending and '-%s' % alias or alias
+        ordering = descending and "-%s" % alias or alias
 
         if not is_gfk(related_field):
             query_name = related_field.related_query_name()
 
             if len(self.query.where.children):
-                queryset = queryset.filter(**{
-                    '%s__pk__in' % query_name: self.values_list('pk')
-                })
+                queryset = queryset.filter(**{"%s__pk__in" % query_name: self.values_list("pk")})
 
-            return queryset.annotate(**{
-                alias: aggregator('%s__score' % query_name)
-            }).order_by(ordering)
+            return queryset.annotate(**{alias: aggregator("%s__score" % query_name)}).order_by(ordering)
 
         else:
-            return generic_annotate(
-                queryset,
-                self,
-                aggregator('score'),
-                related_field,
-                alias=alias
-            ).order_by(ordering)
+            return generic_annotate(queryset, self, aggregator("score"), related_field, alias=alias).order_by(ordering)
 
 
 class _RatingsDescriptor(models.Manager):
@@ -143,8 +129,7 @@ class _RatingsDescriptor(models.Manager):
         than the default manager, as returned by __get__). Used by
         Model.delete().
         """
-        return self.create_manager(instance,
-                                   self.rating_model._base_manager.__class__)
+        return self.create_manager(instance, self.rating_model._base_manager.__class__)
 
     def create_manager(self, instance, superclass):
         """
@@ -166,30 +151,34 @@ class _RatingsDescriptor(models.Manager):
                     for (k, v) in lookup_kwargs.items():
                         setattr(obj, k, v)
                     obj.save()
+
             add.alters_data = True
 
             def create(self, **kwargs):
                 kwargs.update(rel_model.lookup_kwargs(instance))
                 return super(RelatedManager, self).create(**kwargs)
+
             create.alters_data = True
 
             def get_or_create(self, **kwargs):
                 kwargs.update(rel_model.lookup_kwargs(instance))
                 return super(RelatedManager, self).get_or_create(**kwargs)
+
             get_or_create.alters_data = True
 
             def remove(self, *objs):
                 for obj in objs:
                     # Is obj actually part of this descriptor set?
-                    if obj in self.all():
-                        obj.delete()
-                    else:
-                        raise rel_model.DoesNotExist(
-                            "%r is not related to %r." % (obj, instance))
+                    if obj not in self.all():
+                        raise rel_model.DoesNotExist("%r is not related to %r." % (obj, instance))
+
+                    obj.delete()
+
             remove.alters_data = True
 
             def clear(self):
                 self.all().delete()
+
             clear.alters_data = True
 
             def rate(self, user, score):
@@ -203,8 +192,8 @@ class _RatingsDescriptor(models.Manager):
                 return self.filter(user=user, **rel_model.lookup_kwargs(instance)).delete()
 
             def perform_aggregation(self, aggregator):
-                score = self.all().aggregate(agg=aggregator('score'))
-                return score['agg']
+                score = self.all().aggregate(agg=aggregator("score"))
+                return score["agg"]
 
             def cumulative_score(self):
                 # simply the sum of all scores, useful for +1/-1
@@ -233,6 +222,7 @@ class _RatingsDescriptor(models.Manager):
 
     def update_similar_items(self):
         from ratings.utils import calculate_similar_items
+
         calculate_similar_items(self.all())
 
     def similar_items(self, item):
@@ -241,40 +231,37 @@ class _RatingsDescriptor(models.Manager):
     def recommended_items(self, user):
         return recommended_items(self.all(), user)
 
-    def order_by_rating(self, aggregator=models.Sum, descending=True,
-                        queryset=None, alias='score'):
-        return self.all().order_by_rating(
-            aggregator, descending, queryset, alias
-        )
+    def order_by_rating(self, aggregator=models.Sum, descending=True, queryset=None, alias="score"):
+        return self.all().order_by_rating(aggregator, descending, queryset, alias)
 
 
 class SimilarItemManager(models.Manager):
     def get_for_item(self, instance):
         ctype = ContentType.objects.get_for_model(instance)
         qs = self.filter(content_type=ctype, object_id=instance.pk)
-        return qs.order_by('-score')
+        return qs.order_by("-score")
 
 
 class SimilarItem(models.Model):
     content_type = models.ForeignKey(
         ContentType,
-        related_name='similar_items',
+        related_name="similar_items",
         on_delete=models.CASCADE,
     )
     object_id = models.IntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey("content_type", "object_id")
 
     similar_content_type = models.ForeignKey(
         ContentType,
-        related_name='similar_items_set',
+        related_name="similar_items_set",
         on_delete=models.CASCADE,
     )
     similar_object_id = models.IntegerField()
-    similar_object = GenericForeignKey('similar_content_type', 'similar_object_id')
+    similar_object = GenericForeignKey("similar_content_type", "similar_object_id")
 
     score = models.FloatField(default=0)
 
     objects = SimilarItemManager()
 
     def __str__(self):
-        return '%s (%s)' % (self.similar_object, self.score)
+        return "%s (%s)" % (self.similar_object, self.score)

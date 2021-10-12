@@ -35,12 +35,12 @@ For development, DEBUG is set to True. ::
     set DJANGO_SETTINGS_MODULE=djangosnippets.settings.development
     set SEARCHBOX_SSL_URL=http://elasticsearch:9200/
     set SESSION_COOKIE_SECURE=False
-  
+
 Go back to your terminal. You will need to run the command below whenever you open a new terminal. ::
 
     $ env.bat
 
-Your environment variables are now set and you can proceed with the instructions below. 
+Your environment variables are now set and you can proceed with the instructions below.
 
 Development Setup
 -----------------
@@ -135,4 +135,3 @@ the djangosnippets.settings.production module and the requirements.txt file.
 .. _compass: http://compass-style.org/install/
 .. _foundation: http://foundation.zurb.com/
 .. _PostgreSQL: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-

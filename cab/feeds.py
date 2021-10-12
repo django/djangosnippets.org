@@ -8,17 +8,18 @@ from taggit.models import Tag
 
 from .models import Language, Snippet
 
-SITE_NAME = getattr(settings, 'SITE_NAME', None)
+SITE_NAME = getattr(settings, "SITE_NAME", None)
 
 
 class LatestSnippetsFeed(Feed):
     """
     Feed of the most recently published Snippets.
     """
+
     feed_type = Atom1Feed
-    title_template = 'cab/feeds/title.html'
-    description_template = 'cab/feeds/description.html'
-    item_copyright = 'Freely redistributable'
+    title_template = "cab/feeds/title.html"
+    description_template = "cab/feeds/description.html"
+    item_copyright = "Freely redistributable"
     link = "/snippets/"
     description = "Latest snippets"
     author = "Snippets submitters"
@@ -46,10 +47,11 @@ class SnippetsByAuthorFeed(Feed):
     """
     Feed of the most recent Snippets by a given author.
     """
+
     feed_type = Atom1Feed
-    title_template = 'cab/feeds/title.html'
-    description_template = 'cab/feeds/description.html'
-    item_copyright = 'Freely redistributable'
+    title_template = "cab/feeds/title.html"
+    description_template = "cab/feeds/description.html"
+    item_copyright = "Freely redistributable"
 
     def author_name(self, obj):
         return obj.username
@@ -65,8 +67,7 @@ class SnippetsByAuthorFeed(Feed):
 
     def title(self, obj):
         if SITE_NAME:
-            return ("%s: Latest snippets posted by %s" %
-                    (SITE_NAME, obj.username))
+            return "%s: Latest snippets posted by %s" % (SITE_NAME, obj.username)
         else:
             return "Latest snippets posted by %s" % obj.username
 
@@ -84,10 +85,11 @@ class SnippetsByLanguageFeed(Feed):
     """
     Feed of the most recent Snippets in a given language.
     """
+
     feed_type = Atom1Feed
-    title_template = 'cab/feeds/title.html'
-    description_template = 'cab/feeds/description.html'
-    item_copyright = 'Freely redistributable'
+    title_template = "cab/feeds/title.html"
+    description_template = "cab/feeds/description.html"
+    item_copyright = "Freely redistributable"
 
     def get_object(self, request, slug=None):
         return get_object_or_404(Language, slug__exact=slug)
@@ -100,8 +102,7 @@ class SnippetsByLanguageFeed(Feed):
 
     def title(self, obj):
         if SITE_NAME:
-            return ("%s: Latest snippets written in %s" %
-                    (SITE_NAME, obj.name))
+            return "%s: Latest snippets written in %s" % (SITE_NAME, obj.name)
         else:
             return "Latest snippets written in %s" % obj.name
 
@@ -120,10 +121,11 @@ class SnippetsByTagFeed(Feed):
     Feed of the most recent Snippets with a given tag.
 
     """
+
     feed_type = Atom1Feed
-    title_template = 'cab/feeds/title.html'
-    description_template = 'cab/feeds/description.html'
-    item_copyright = 'Freely redistributable'
+    title_template = "cab/feeds/title.html"
+    description_template = "cab/feeds/description.html"
+    item_copyright = "Freely redistributable"
 
     def get_object(self, request, slug=None):
         return get_object_or_404(Tag, slug__exact=slug)
@@ -132,12 +134,11 @@ class SnippetsByTagFeed(Feed):
         return Snippet.objects.matches_tag(obj)[:15]
 
     def link(self, obj):
-        return reverse('cab_snippet_matches_tag', args=[obj.slug])
+        return reverse("cab_snippet_matches_tag", args=[obj.slug])
 
     def title(self, obj):
         if SITE_NAME:
-            return ("%s: Latest snippets tagged with '%s'" %
-                    (SITE_NAME, obj.name))
+            return "%s: Latest snippets tagged with '%s'" % (SITE_NAME, obj.name)
         else:
             return "Latest snippets tagged with '%s'" % obj.name
 

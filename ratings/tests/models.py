@@ -13,7 +13,7 @@ class Food(models.Model):
 
 
 class BeverageRating(RatedItemBase):
-    content_object = models.ForeignKey('Beverage', on_delete=models.CASCADE)
+    content_object = models.ForeignKey("Beverage", on_delete=models.CASCADE)
 
 
 class Beverage(models.Model):
