@@ -35,7 +35,7 @@ def more_like_this(snippet, limit=None):
                 "language__name",
             )
         )
-        sqs = sqs.filter(language__name=snippet.language)
+        sqs = sqs.filter(language__name=snippet.language).exclude(pk=snippet.pk)
         if limit is not None:
             sqs = sqs[:limit]
     except AttributeError:
