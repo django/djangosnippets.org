@@ -7,6 +7,10 @@ from rest_framework import status
 from ..api.serializers import SnippetSerializer
 from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
+from django.test import RequestFactory
+from cab.views.popular import top_authors, top_tags, top_rated
+from cab.views.languages import language_list
+import pdb
 
 
 # @skip("These tests don't test production code.")
@@ -636,3 +640,26 @@ class ApiTestCase(TestCase):
         serializer = SnippetSerializer(snippets, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class HomePageHtmxTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_users(self):
+        request = self.factory.get("/users")
+        request.htmx = {}
+        response = top_authors(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_languages(self):
+        request = self.factory.get("/languages")
+        request.htmx = {}
+        response = language_list(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_tags(self):
+        request = self.factory.get("/tags")
+        request.htmx = {}
+        response = top_tags(request)
+        self.assertEqual(response.status_code, 200)
