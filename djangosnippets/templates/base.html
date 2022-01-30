@@ -41,7 +41,7 @@
     <nav id="subnav">
       <ul>
         <li><a id="top-authors-tab" hx-get="{% url 'cab_top_authors' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">By author</a></li>
-        <li><a href="{% url 'cab_language_list' %}">By language</a></li>
+        <li><a id="top-languages-tab" hx-get="{% url 'cab_language_list' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" >By language</a></li>
         <li><a href="{% url 'cab_top_tags' %}">By tag</a></li>
         <li><a href="{% url 'cab_top_rated' %}">Highest rated</a></li>
         <li><a href="{% url 'cab_top_bookmarked' %}">Most bookmarked</a></li>
