@@ -40,7 +40,7 @@
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
-        <li><a href="{% url 'cab_top_authors' %}">By author</a></li>
+        <li><a id="top-authors-tab" hx-get="{% url 'cab_top_authors' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">By author</a></li>
         <li><a href="{% url 'cab_language_list' %}">By language</a></li>
         <li><a href="{% url 'cab_top_tags' %}">By tag</a></li>
         <li><a href="{% url 'cab_top_rated' %}">Highest rated</a></li>
@@ -58,6 +58,7 @@
     {% endfor %}
   {% endif %}
 
+  <div id="base-container">
   <h1>{% block content_header %}{% endblock %}</h1>
   <div id="content">
       {% block content %}
@@ -70,7 +71,7 @@
   {% block extra_content %}
   {% endblock %}
   </div>
-
+</div>
   <footer>
     <p id="copyright">Written by <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">various people</a>. Hosted by <a href="https://www.heroku.com" class="heroku">Heroku</a>, powered by <a href="http://www.djangoproject.com/">Django</a></p>
     <p class="legal"><a href="/about/">About</a> | <a href="/about/faq/">FAQ</a> | <a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>

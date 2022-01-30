@@ -3,6 +3,15 @@ from ..utils import month_object_list, object_list
 
 
 def top_authors(request):
+    if request.htmx:
+        if request.htmx.trigger == "top-authors-tab":
+            return object_list(
+                request,
+                queryset=Snippet.objects.top_authors(),
+                template_name="cab/partials/top_authors.html",
+                paginate_by=20,
+            )
+
     return object_list(
         request, queryset=Snippet.objects.top_authors(), template_name="cab/top_authors.html", paginate_by=20
     )
