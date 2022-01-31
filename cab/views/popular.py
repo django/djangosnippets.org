@@ -23,6 +23,14 @@ def top_languages(request):
 
 
 def top_tags(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Snippet.objects.top_authors(),
+            template_name="cab/partials/tag_list.html",
+            paginate_by=20,
+        )
+
     return object_list(
         request,
         queryset=Snippet.objects.top_tags(),
@@ -42,6 +50,13 @@ def top_bookmarked(request):
 
 
 def top_rated(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Snippet.objects.top_rated(),
+            template_name="cab/partials/top_rated.html",
+            paginate_by=20,
+        )
     queryset = Snippet.objects.top_rated()
     return month_object_list(
         request,

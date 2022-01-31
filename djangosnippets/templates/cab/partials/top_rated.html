@@ -1,0 +1,58 @@
+
+{% load static %}
+{% load core_tags %}
+
+
+
+{% if object_list %}
+  <table class="snippet_list">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Tags</th>
+        <th>Publication date</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for snippet in object_list %}
+    <tr>
+      <td><a href="{{ snippet.get_absolute_url }}">{% if not snippet.title|strip %}Untitled{% else %}{{ snippet.title }}{% endif %}</a></td>
+      <td><a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a></td>
+      <td>{% for tag in snippet.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</td>
+      <td>{{ snippet.pub_date }}</td>
+      <td><span class="rating-{% if snippet.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if snippet.rating_score >= 0 %}+{% endif %}{{ snippet.rating_score }}</span></td>
+    </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+  <p class="pagination">
+    {% if has_previous %}
+      <a href="?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
+    {% endif %}
+    &nbsp;&nbsp;
+    {% if has_next %}
+      <a href="?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
+    {% endif %}
+  </p>
+  <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
+{% else %}
+  <p class="empty">No snippets posted yet.</p>
+{% endif %}
+
+
+<p>You're looking at the top-rated snippets currently on the site; {% if user.is_authenticated %}if you'd like to contribute, just click the ratings link in the sidebar of a particular snippet's page; you can rate any snippet "useful" or "not useful"{% else %}if you'd like to contribute, <a href="{% url 'account_login' %}">sign up for an account</a> and you'll be able to rate any snippet you see{% endif %}.</p>
+
+<nav class="filter">
+  <h3>Filter by date</h3>
+  <ul>
+    <li{% if not months %} class="active"{% endif %}><a href="{{ request.path }}">Any time</a></li>
+    <li{% if months == 3 %} class="active"{% endif %}><a href="{{ request.path }}?months=3">3 months</a></li>
+    <li{% if months == 6 %} class="active"{% endif %}><a href="{{ request.path }}?months=6">6 months</a></li>
+    <li{% if months == 12 %} class="active"{% endif %}><a href="{{ request.path }}?months=12">1 year</a></li>
+  </ul>
+</nav>
+
+<p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i>Feed of latest snippets</a></p>
+
