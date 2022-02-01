@@ -1,15 +1,15 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
-from django.test import SimpleTestCase, TestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase
 from django.urls import reverse
 from rest_framework import status
+
+from cab.views.languages import language_list
+from cab.views.popular import top_authors, top_tags
 
 from ..api.serializers import SnippetSerializer
 from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
-from django.test import RequestFactory
-from cab.views.popular import top_authors, top_tags
-from cab.views.languages import language_list
 
 
 # @skip("These tests don't test production code.")
