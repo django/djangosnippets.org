@@ -8,9 +8,8 @@ from ..api.serializers import SnippetSerializer
 from ..models import Bookmark, Language, Snippet
 from ..templatetags.markup import safe_markdown
 from django.test import RequestFactory
-from cab.views.popular import top_authors, top_tags, top_rated
+from cab.views.popular import top_authors, top_tags
 from cab.views.languages import language_list
-import pdb
 
 
 # @skip("These tests don't test production code.")
