@@ -648,18 +648,18 @@ class HomePageHtmxTestCase(TestCase):
 
     def test_users(self):
         request = self.factory.get("/users")
-        request.htmx = {}
+        request.htmx = True
         response = top_authors(request)
         self.assertEqual(response.status_code, 200)
 
     def test_languages(self):
         request = self.factory.get("/languages")
-        request.htmx = {}
+        request.htmx = True
         response = language_list(request)
         self.assertEqual(response.status_code, 200)
 
     def test_tags(self):
         request = self.factory.get("/tags")
-        request.htmx = {}
+        request.htmx = True
         response = top_tags(request)
         self.assertEqual(response.status_code, 200)

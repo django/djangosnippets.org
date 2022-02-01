@@ -3,7 +3,8 @@
 {% load core_tags %}
 
 
-
+<h1>Top-rated snippets{% if months %} last {{ months }} months{% endif %}</h1>
+<div id="content">
 {% if object_list %}
   <table class="snippet_list">
     <thead>
@@ -40,8 +41,9 @@
 {% else %}
   <p class="empty">No snippets posted yet.</p>
 {% endif %}
+</div>
 
-
+<div id="sidebar">
 <p>You're looking at the top-rated snippets currently on the site; {% if user.is_authenticated %}if you'd like to contribute, just click the ratings link in the sidebar of a particular snippet's page; you can rate any snippet "useful" or "not useful"{% else %}if you'd like to contribute, <a href="{% url 'account_login' %}">sign up for an account</a> and you'll be able to rate any snippet you see{% endif %}.</p>
 
 <nav class="filter">
@@ -56,3 +58,4 @@
 
 <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i>Feed of latest snippets</a></p>
 
+</div>
