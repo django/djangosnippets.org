@@ -3,6 +3,14 @@ from ..utils import month_object_list, object_list
 
 
 def top_authors(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Snippet.objects.top_authors(),
+            template_name="cab/partials/top_authors.html",
+            paginate_by=20,
+        )
+
     return object_list(
         request, queryset=Snippet.objects.top_authors(), template_name="cab/top_authors.html", paginate_by=20
     )
@@ -15,6 +23,14 @@ def top_languages(request):
 
 
 def top_tags(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Snippet.objects.top_tags(),
+            template_name="cab/partials/tag_list.html",
+            paginate_by=20,
+        )
+
     return object_list(
         request,
         queryset=Snippet.objects.top_tags(),
@@ -25,6 +41,13 @@ def top_tags(request):
 
 def top_bookmarked(request):
     queryset = Snippet.objects.most_bookmarked()
+    if request.htmx:
+        return month_object_list(
+            request,
+            queryset=queryset,
+            template_name="cab/partials/most_bookmarked.html",
+            paginate_by=20,
+        )
     return month_object_list(
         request,
         queryset=queryset,
@@ -34,6 +57,13 @@ def top_bookmarked(request):
 
 
 def top_rated(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Snippet.objects.top_rated(),
+            template_name="cab/partials/top_rated.html",
+            paginate_by=20,
+        )
     queryset = Snippet.objects.top_rated()
     return month_object_list(
         request,

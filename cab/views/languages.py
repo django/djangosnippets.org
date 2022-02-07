@@ -5,6 +5,13 @@ from ..utils import month_object_list, object_list
 
 
 def language_list(request):
+    if request.htmx:
+        return object_list(
+            request,
+            queryset=Language.objects.all(),
+            template_name="cab/partials/language_list.html",
+            paginate_by=20,
+        )
     return object_list(
         request,
         queryset=Language.objects.all(),

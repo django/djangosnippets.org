@@ -1,0 +1,21 @@
+{% load static %}
+
+<img class="bars" src="{% static 'img/bars.svg' %}"/>
+<h1>Top authors</h1>
+  <div id="content">
+    <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Number of snippets</th>
+          </tr>
+      </thead>
+      <tbody>
+  {% for author in object_list %}
+    <tr><td><a href="{{ author.get_absolute_url }}">{{ author.username }}</a></td><td>({{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }})</td></tr>
+  {% endfor %}
+      </tbody>
+  </table>
+  </div>
+ 
+ 

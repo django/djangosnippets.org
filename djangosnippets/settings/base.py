@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     "captcha",
     "django_extensions",
     "rest_framework",
+    "django_htmx",
 )
 
 MIDDLEWARE = (
@@ -77,6 +78,7 @@ MIDDLEWARE = (
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
     "ratelimitbackend.middleware.RateLimitMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 )
 
 TEMPLATES = [

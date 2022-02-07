@@ -1,0 +1,27 @@
+
+{% load core_tags %}
+<h1>All tags</h1>
+<div id="content">
+  {% if object_list %}
+    <ul>
+    {% for tag in object_list %}
+      <li><a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">&lt; Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}</p>
+  {% else %}
+    <p>No tags have been used yet.</p>
+  {% endif %}
+
+</div>
+<div id="sidebar">  
+<h2>Most popular tags</h2>
+
+  <ol>
+  {% for tag in "cab.snippet"|call_manager:"top_tags"|slice:":5" %}
+    <li><a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a></li>
+  {% endfor %}
+  </ol>
+</div>
+
