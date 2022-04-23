@@ -32,11 +32,11 @@
     </table>
     <p class="pagination">
       {% if has_previous %}
-        <a href="?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
+        <a href="{% url 'cab_top_bookmarked' %}?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
       {% endif %}
       &nbsp;&nbsp;
       {% if has_next %}
-        <a href="?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
+        <a href="{% url 'cab_top_bookmarked' %}?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
       {% endif %}
     </p>
     <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
