@@ -1,6 +1,6 @@
 -r base.txt
 certifi==2021.10.8
-django-redis-cache==3.0.0
+django-redis-cache==3.0.1
 gevent==20.9.0
 greenlet==0.4.17
 raven==6.10.0
