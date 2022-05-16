@@ -6,7 +6,7 @@ django-contrib-comments==2.1.0
 django-extensions==3.1.5
 django-generic-aggregation==0.4.0
 django-ratelimit-backend==2.0
-django-recaptcha==2.0.6
+django-recaptcha==3.0.0
 django-taggit==3.0.0
 ipython==7.33.0
 Markdown==3.3.4
