@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED 1
 
 # Install dependencies
 COPY ./requirements /requirements
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /requirements/production.txt \
     && rm -rf /requirements
 
