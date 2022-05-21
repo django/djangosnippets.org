@@ -1,0 +1,468 @@
+{% load static %}
+
+
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="relative w-full bg-icybluebg">
+  <div class="">
+    <div class="w-full mx-auto sm:px-6 ">
+      <nav class="relative sm:flex sm:items-center sm:justify-end h-16 sm:h-20" aria-label="Global">
+        <div class="md:absolute md:inset-y-0 md:left-0">
+          <div class="flex items-center justify-between py-2 px-4 ">
+            <!-- Navbar Logo -->
+            <a href="/" class="inline-flex items-center space-x-2 sm:mt-1">
+              <img width="97" height="72" class="fill-current w-auto h-12 sm:h-14" src="{% static 'images/Icon.png' %}" alt="uktherapyguide.com">
+              <span class="ml-2 text-xs md:text-sm text-NavyBlue font-semibold">Therapy Guide</span>
+            </a> <!--navbar brand -->
+
+            <div class="sm:hidden">
+              <button @click="toggle" type="button" class="bg-transparent p-2 inline-flex items-center justify-center " aria-expanded="false">
+                <span class="sr-only" hidden>Open menu</span>
+                <svg class="h-8 w-8 text-NavyBlue hover:text-uktgGreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="hidden sm:flex sm:items-center sm:justify-center">
+
+          <!-- Nav About Button start -->
+          <div x-data="{ open: false }" class="relative rounded-t-2xl py-1" :class="open? 'bg-white' : 'bg-transparent '" @click.away="open = false"  @keydown.escape="open = false;$refs.toggle.focus()">
+            <a>
+              <button x-ref="toggle" @click="toggle" type="button" class="inline-flex items-center hover:text-uktgGreen w-auto px-5 py-2 text-sm text-NavyBlue transition duration-150 border-b-2 border-transparent"  aria-expanded="false">
+                <span>About</span>
+
+                <span class="ml-2">
+
+                  <svg x-show="open" width="15" height="8" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-cloak>
+                    <path d="M1.375 8.48169L8.33817 1.51852L15.3013 8.48169" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+                  <svg x-show="open? false: true" width="15" height="8" viewBox="0 0 17 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.375 1L8.41183 7.96317L1.44866 1" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+
+              </button>
+            </a>
+            <!--
+              'Solutions' flyout menu, show/hide based on flyout menu state.
+
+              Entering: "transition ease-out duration-200"
+                From: "opacity-0 translate-y-1"
+                To: "opacity-100 translate-y-0"
+              Leaving: "transition ease-in duration-150"
+                From: "opacity-100 translate-y-0"
+                To: "opacity-0 translate-y-1"
+            -->
+            <div x-show="open" class="rounded-b-2xl shadow-lg absolute transform z-50 px-2 sm:px-0 lg:ml-0 w-max" x-cloak>
+              <div class="bg-white rounded-b-2xl">
+                <a href="/" class="rounded-b-2xl flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4 border-b">
+                    <p class="text-sm pr-10">
+                      About Us
+                    </p>
+                  </div>
+                </a>
+
+                {% comment %}
+                <a href="##" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4 border-b">
+                    <p class="text-sm pr-10">
+                      Our Team
+                    </p>
+                  </div>
+                </a>
+
+                <a href="##" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4 border-b">
+                    <p class="text-sm">
+                      Online Therapy
+                    </p>
+                  </div>
+                </a>
+
+                <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4">
+                    <p class="text-sm pr-10">
+                      Challenges
+                    </p>
+                  </div>
+                </a>
+
+                {% endcomment %}
+              </div>
+
+            </div>
+          </div>
+          <!-- Nav About Button end-->
+
+          <!-- Nav Your Therapy Button start -->
+          <div x-data="{ open: false }" class="relative rounded-t-2xl py-1" :class="open? 'bg-white' : 'bg-transparent '" @click.away="open = false"  @keydown.escape="open = false;$refs.toggle.focus()">
+            <a>
+              <button x-ref="toggle" @click="toggle" type="button" class="inline-flex items-center hover:text-uktgGreen w-auto px-5 py-2 text-sm text-NavyBlue transition duration-150 border-b-2 border-transparent" aria-expanded="false">
+                <span>Your Therapy</span>
+
+                <!--- up arrow --->
+                <span class="ml-2">
+                  <svg x-show="open" width="15" height="8" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-cloak>
+                    <path d="M1.375 8.48169L8.33817 1.51852L15.3013 8.48169" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+                  <!--- down arrow --->
+                  <svg x-show="open? false: true" width="15" height="8" viewBox="0 0 17 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.375 1L8.41183 7.96317L1.44866 1" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </a>
+            <!--
+              'Solutions' flyout menu, show/hide based on flyout menu state.
+
+              Entering: "transition ease-out duration-200"
+                From: "opacity-0 translate-y-1"
+                To: "opacity-100 translate-y-0"
+              Leaving: "transition ease-in duration-150"
+                From: "opacity-100 translate-y-0"
+                To: "opacity-0 translate-y-1"
+            -->
+          <div x-show="open" class="rounded-b-2xl shadow-lg overflow-hidden absolute transform z-50 px-2 sm:px-0 lg:ml-0 w-max" x-cloak>
+            <div class="bg-white rounded-b-2xl">
+              <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                <div class="w-full mx-8 pr-10 py-4 border-b">
+                  <p class="text-sm pr-10">
+                    Find a Therapist
+                  </p>
+                </div>
+              </a>
+
+              {% comment %}
+              <a href="##" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                <div class="w-full pr-10 mx-8 py-4 border-b">
+                  <p class="text-sm pr-10">
+                    Our Therapists
+                  </p>
+                </div>
+              </a>
+
+              <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                <div class="w-full pr-10 mx-8 py-4 border-b">
+                  <p class="text-sm pr-10">
+                    Therapy Types
+                  </p>
+                </div>
+              </a>
+
+              <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                <div class="w-full pr-10 mx-8 py-4">
+                  <p class="text-sm pr-10">
+                    Session Types
+                  </p>
+                </div>
+              </a>
+              {% endcomment %}
+
+            </div>
+
+          </div>
+        </div>
+          <!-- Nav Your Therapy Button end-->
+
+          <!-- Nav For Therapists Button start -->
+          <div x-data="{ open: false }" class="relative rounded-t-2xl py-1" :class="open? 'bg-white' : 'bg-transparent '" @click.away="open = false"  @keydown.escape="open = false;$refs.toggle.focus()">
+            <a>
+              <button x-ref="toggle" @click="toggle" type="button" class="inline-flex items-center hover:text-uktgGreen w-auto px-5 py-2 text-sm text-NavyBlue transition duration-150 border-b-2 border-transparent" aria-expanded="false">
+                <span>For Therapists</span>
+
+                <span class="ml-2">
+                  <!--- up arrow --->
+                  <svg x-show="open" width="15" height="8" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-cloak>
+                    <path d="M1.375 8.48169L8.33817 1.51852L15.3013 8.48169" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+                  <!--- down arrow --->
+                  <svg x-show="open? false: true" width="15" height="8" viewBox="0 0 17 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.375 1L8.41183 7.96317L1.44866 1" stroke="#16C69F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </a>
+            <!--
+              'Solutions' flyout menu, show/hide based on flyout menu state.
+
+              Entering: "transition ease-out duration-200"
+                From: "opacity-0 translate-y-1"
+                To: "opacity-100 translate-y-0"
+              Leaving: "transition ease-in duration-150"
+                From: "opacity-100 translate-y-0"
+                To: "opacity-0 translate-y-1"
+            -->
+            <div x-show="open" class="rounded-b-2xl shadow-lg overflow-hidden absolute transform z-50 px-2 sm:px-0 lg:ml-0 w-max" x-cloak>
+              <div class="bg-white rounded-b-2xl">
+                <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4 border-b">
+                    <p class="text-sm pr-10">
+                      Join Us
+                    </p>
+                  </div>
+                </a>
+                <a href="#" class="flex items-start hover:bg-blueIce hover:border-b-blueIce hover:font-semibold hover:text-uktgGreen">
+                  <div class="w-full pr-10 mx-8 py-4 border-b">
+                    <p class="text-sm pr-10">
+                      Accreditation
+                    </p>
+                  </div>
+                </a>
+              </div>
+
+            </div>
+          </div>
+          <!-- Nav For Therapists Button end-->
+
+
+          <a href="#" class="inline-flex items-center w-auto px-5 py-2 text-sm font-normal text-NavyBlue hover:text-uktgGreen transition duration-150 border-b-2 border-transparent">
+            Business
+          </a>
+         <a href="#" class="inline-flex items-center w-auto px-5 py-2 text-sm font-normal text-NavyBlue hover:text-uktgGreen transition duration-150 border-b-2 border-transparent">
+            Contact
+          </a>
+        </div>
+        <div x-data="{ open: false}" class="inline-flex items-center space-x-2">
+          {% if user.is_authenticated %}
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-6 py-3 border-2 border-NavyBlue text-sm font-semibold rounded-full text-NavyBlue bg-transparent hover:bg-uktgGreen hover:border-uktgGreen hover:text-white">
+              Logout
+            </a>
+          </button>
+          {% else %}
+            <a href="#" class="hidden cursor-pointer md:inline-flex items-center w-auto pl-5 py-2 text-sm font-semibold text-NavyBlue hover:text-uktgGreen transition duration-150">
+              Login
+            </a>
+            <span class="hidden md:block text-NavyBlue">|</span>
+            <a href="#" class="hidden cursor-pointer md:inline-flex items-center w-auto pr-5 py-2 text-sm font-semibold text-NavyBlue hover:text-uktgGreen transition duration-150">
+              Register
+            </a>
+          {% endif %}
+          {% if user.is_authenticated and user.therapist %}
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-6 py-3 border-2 border-NavyBlue text-sm font-semibold rounded-full text-offwhite bg-NavyBlue hover:bg-transparent hover:text-NavyBlue">
+              My Dashboard
+            </a>
+          </button>
+          {% elif user.is_authenticated and user.client %}
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-6 py-3 border-2 border-NavyBlue text-sm font-semibold rounded-full text-offwhite bg-NavyBlue hover:bg-transparent hover:text-NavyBlue">
+              My Dashboard
+            </a>
+          </button>
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-3 py-3 border-2 border-uktgGreen text-base font-semibold rounded-full text-offwhite bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+          </button>
+          {% elif user.is_authenticated and user.partner %}
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-6 py-3 border-2 border-NavyBlue text-sm font-semibold rounded-full text-offwhite bg-NavyBlue hover:bg-transparent hover:text-NavyBlue">
+              My Dashboard
+            </a>
+          </button>
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-3 py-3 border-2 border-uktgGreen text-base font-semibold rounded-full text-offwhite bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+          </button>
+          {% else %}
+          <button class="hidden md:flex items-center justify-end rounded-md">
+            <a href="#" class="cursor-pointer px-6 py-3 border-2 border-uktgGreen text-sm font-semibold rounded-full text-offwhite bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+          </button>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+
+    <!--
+      Mobile menu, show/hide based on menu open state.
+
+      Entering: "duration-150 ease-out"
+        From: "opacity-0 scale-95"
+        To: "opacity-100 scale-100"
+      Leaving: "duration-100 ease-in"
+        From: "opacity-100 scale-100"
+        To: "opacity-0 scale-95"
+    -->
+    <div x-show="open" class="absolute z-20 inset-x-0 bg-white transition transform origin-top-right md:hidden">
+      <div class="bg-white rounded-b-2xl shadow-lg overflow-y-auto">
+        <div class="mx-8 py-4">
+          <div class="w-full flex items-center justify-center">
+            {% if user.is_authenticated and user.therapist %}
+            {% elif user.is_authenticated and user.client %}
+            <a href="#" class="flex items-center justify-center w-full cursor-pointer rounded-2xl px-8 py-2.5 border-2 border-uktgGreen font-semibold text-lg text-white bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+            {% elif user.is_authenticated and user.partner %}
+            <a href="#" class="flex items-center justify-center w-full cursor-pointer rounded-2xl px-8 py-2.5 border-2 border-uktgGreen font-semibold text-lg text-white bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+            {% else %}
+
+            <a href="#" class="flex items-center justify-center w-full cursor-pointer rounded-2xl px-8 py-2.5 border-2 border-uktgGreen font-semibold text-lg text-white bg-uktgGreen hover:bg-transparent hover:text-uktgGreen">
+              Find a Therapist
+            </a>
+
+            {% endif %}
+          </div>
+        </div>
+
+        {% if user.is_authenticated and 'dashboard' in request.path %}
+          {% include 'dashboard_menu.html' %}
+        {% endif %}
+
+        <div x-data="dropdown" class="space-y-1 border-b border-trueGray-200 ">
+          <button @click="toggle" type="button" class="group bg-transparent text-blueMagenta text-sm font-medium hover:bg-blueIce hover:text-NavyBlue w-full flex items-center px-8 py-4 text-left" aria-controls="sub-menu-1" aria-expanded="false">
+            <span class="flex-1">
+              About
+            </span>
+            <svg class="text-blueMagenta ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-NavyBlue transition-colors ease-in-out duration-150" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L15.9632 11.9632L9 18.9263" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+
+          <!-- Expandable link section, show/hide based on state. -->
+          <div x-show="open" class="space-y-1 px-8" id="sub-menu-1">
+            <a href="#" class="group w-full flex items-center py-4 text-sm font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              About Us
+            </a>
+            {% comment %}
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Our Team
+            </a>
+
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Online Therapy
+            </a>
+
+
+
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce">
+              See all
+            </a>
+            {% endcomment %}
+            <a href="#" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Issues
+            </a>
+            <a href="#" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Session
+            </a>
+          </div>
+        </div>
+        <div x-data="dropdown" class="space-y-1 border-b border-trueGray-200">
+          <button @click="toggle" type="button" class="group bg-transparent text-blueMagenta text-sm font-medium hover:bg-blueIce hover:text-NavyBlue w-full flex items-center px-8 py-4 text-left" aria-controls="sub-menu-1" aria-expanded="false">
+            <span class="flex-1">
+              Your Therapy
+            </span>
+            <svg class="text-blueMagenta ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-NavyBlue transition-colors ease-in-out duration-150" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L15.9632 11.9632L9 18.9263" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <!-- Expandable link section, show/hide based on state. -->
+          <div x-show="open" class="space-y-1 px-8" id="sub-menu-1">
+            <a href="#" class="group w-full flex items-center py-4 text-sm font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce">
+              Find a Therapist
+            </a>
+            {% comment %}
+
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Our Therapists
+            </a>
+
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce">
+              Therapy Type
+            </a>
+
+            <a href="##" class="group w-full flex items-center py-4 text-base font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce">
+              Session Type
+            </a>
+            {% endcomment %}
+          </div>
+        </div>
+        <div x-data="dropdown" class="space-y-1 border-b border-trueGray-200">
+          <button @click="toggle" type="button" class="group bg-transparent text-blueMagenta text-sm font-medium hover:bg-blueIce hover:text-NavyBlue w-full flex items-center px-8 py-4 text-left" aria-controls="sub-menu-1" aria-expanded="false">
+            <span class="flex-1">
+              For Therapists
+            </span>
+            <svg class="text-blueMagenta ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-NavyBlue transition-colors ease-in-out duration-150" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L15.9632 11.9632L9 18.9263" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <!-- Expandable link section, show/hide based on state. -->
+          <div x-show="open" class="space-y-1 px-8" id="sub-menu-1">
+            <a href="#" class="group w-full flex items-center py-4 text-sm font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce border-b border-trueGray-200">
+              Join Us
+            </a>
+            <a href="#" class="group w-full flex items-center py-4 text-sm font-normal text-blueMagenta hover:text-NavyBlue hover:bg-blueIce">
+              Accreditation
+            </a>
+          </div>
+        </div>
+        <div class="space-y-1">
+          <a href="#" class="group bg-transparent text-blueMagenta text-sm font-medium hover:bg-blueIce hover:text-NavyBlue w-full flex items-center px-8 py-4 text-left">
+            Business
+          </a>
+        </div>
+        <div x-data="dropdown" class="space-y-1">
+          {% comment %}
+          <button @click="toggle" type="button" class="group bg-transparent text-blueMagenta text-base font-medium hover:bg-blueIce hover:text-NavyBlue w-full flex items-center px-8 py-4 text-left" aria-controls="sub-menu-4" aria-expanded="false">
+            <span class="flex-1">
+              Contact
+            </span>
+          </button>
+          {% endcomment %}
+        </div>
+        <div class="my-8 mx-8 flex gap-3 justify-between">
+          {% if user.is_authenticated and user.client %}
+          <a href="#" class="flex justify-center items-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-uktgDarkBlue bg-white hover:bg-uktgDarkBlue hover:text-white ">
+            Logout
+          </a>
+          <a href="#" class="flex justify-center text-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-white bg-uktgDarkBlue hover:bg-transparent hover:text-uktgDarkBlue">
+            My Dashboard
+          </a>
+          {% elif user.is_authenticated and user.therapist %}
+          <a href="#" class="flex justify-center items-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-uktgDarkBlue bg-white hover:bg-uktgDarkBlue hover:text-white ">
+            Logout
+          </a>
+          <a href="#" class="flex justify-center text-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-white bg-uktgDarkBlue hover:bg-transparent hover:text-uktgDarkBlue">
+            My Dashboard
+          </a>
+          {% elif user.is_authenticated and user.partner %}
+          <a href="#" class="flex justify-center items-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-uktgDarkBlue bg-white hover:bg-uktgDarkBlue hover:text-white ">
+            Logout
+          </a>
+          <a href="#" class="flex justify-center text-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-white bg-uktgDarkBlue hover:bg-transparent hover:text-uktgDarkBlue">
+            My Dashboard
+          </a>
+          {% else %}
+
+
+          <a href="#" class="flex justify-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-uktgDarkBlue bg-white hover
+          :bg-transparent">
+            Login
+          </a>
+          <a href="#" class="flex justify-center w-full cursor-pointer rounded-2xl px-8 py-3 border-2 border-uktgDarkBlue font-semibold text-base text-white bg-uktgDarkBlue hove
+          r:bg-transparent">
+            Register
+          </a>
+
+
+
+          {% endif %}
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
