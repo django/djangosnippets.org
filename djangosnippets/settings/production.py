@@ -71,16 +71,17 @@ DATABASES = {"default": dj_database_url.config()}
 parse.uses_netloc.append("redis")
 
 # Now do redis and the cache.
-redis_url = parse.urlparse(os.environ["REDISTOGO_URL"])
+redis_url = parse.urlparse(os.environ.get("REDISCLOUD_URL"))
 CACHES = {
     "default": {
         "BACKEND": "redis_cache.RedisCache",
         "LOCATION": "%s:%s" % (redis_url.hostname, redis_url.port),
-        "OPTIONS": {"DB": 0, "PASSWORD": redis_url.password, "PARSER_CLASS": "redis.connection.HiredisParser"},
-        "VERSION": os.environ.get("CACHE_VERSION", 0),
-    },
+        "OPTIONS": {
+            "PASSWORD": redis_url.password,
+            "DB": 0,
+        },
+    }
 }
-
 # Use Sentry for debugging if available.
 if "SENTRY_DSN" in os.environ:
     sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()], send_default_pii=True)
