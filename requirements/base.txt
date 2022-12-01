@@ -19,4 +19,4 @@ urllib3==1.26.6
 whitenoise==6.1.0
 psycopg2-binary==2.9.3
 djangorestframework==3.12.4
-django-htmx==1.11.0
+django-htmx==1.13.0
