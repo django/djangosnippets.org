@@ -1,5 +1,5 @@
 -r base.txt
-certifi==2021.10.8
+certifi==2022.12.7
 django-redis-cache==3.0.1
 gevent==20.9.0
 greenlet==0.4.17
