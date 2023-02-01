@@ -1,4 +1,4 @@
 -r base.txt
 flake8==4.0.1
-isort==5.8.0
+isort==5.11.5
 pre-commit==2.19.0
