@@ -13,7 +13,7 @@ jobs:
     - name: Check Heroku Version
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku --version
+      run: heroku git:remote -a djangosnippets
     - name: Set Container
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
