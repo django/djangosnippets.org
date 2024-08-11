@@ -22,11 +22,11 @@ jobs:
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login 
-    - name: Build and push
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku git:remote -a djangosnippets  
-    - name: Release
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: git push heroku main  
+    # - name: Build and push
+    #   env:
+    #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+    #   run: heroku git:remote -a djangosnippets 
+    - name: Deploy to production
+      run: |
+      git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/djangosnippets.git main 
+   
