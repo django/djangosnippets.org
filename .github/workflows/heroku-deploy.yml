@@ -14,6 +14,10 @@ jobs:
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku --version
+    - name: Set Container
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku stack:set container
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
