@@ -24,7 +24,7 @@ jobs:
       run: heroku container:login 
     - name: Add remote origin
       run: |
-        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/djangosnippets.git
     - name: Deploy to Heroku
       run: |
         git push heroku HEAD:main -f
