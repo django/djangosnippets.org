@@ -17,7 +17,7 @@ jobs:
     - name: Set stack 
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku stack:set heroku-22
+      run: heroku stack:set heroku-22 -app djangosnippets
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
