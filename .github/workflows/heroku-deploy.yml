@@ -25,5 +25,5 @@ jobs:
     - name: Deploy to production
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/djangosnippets.git main 
+      run: git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/djangosnippets.git HEAD:main 
    
