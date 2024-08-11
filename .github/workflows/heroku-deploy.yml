@@ -17,7 +17,7 @@ jobs:
     - name: Set stack 
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: git status
+      run: git remote
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
