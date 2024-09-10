@@ -31,3 +31,5 @@ jobs:
     - name: Deploy to Heroku
       run: |
         git push heroku main
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
