@@ -1,35 +1,27 @@
-name: Push Container to Heroku
-
+name: Deploy # The name of the workflow
 on: 
   push:
     branches:
-      - main
-
+      - main #Launch the action on every push on the branch main
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Setup an environment to run the action
     steps:
-    - uses: actions/checkout@v2
-    - name: Check Heroku Version
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku --version
-    - name: Login to Heroku Container registry
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:login 
-    - name: Add remote origin
-      run: |
-        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/djangosnippets.git
-    - name: Check branches
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: git fetch --all --unshallow
-    - name: Pull
-      run: |
-        git branch
-    - name: Deploy to Heroku
-      run: |
-        git push heroku main
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - uses: actions/checkout@v2 # This actions copy the repository on the environment
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
+          heroku_app_name: "YOUR_HEROKU_APP" #The name of your heroku app - Must be unique in Heroku
+          heroku_email: "wedgemail@gmail.com" #Your heroku yuser name
+
+
+
+
+
+
+
+
+
+
+
+
