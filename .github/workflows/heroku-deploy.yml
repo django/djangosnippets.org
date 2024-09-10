@@ -30,4 +30,4 @@ jobs:
         git branch
     - name: Deploy to Heroku
       run: |
-        git push heroku HEAD:main
+        git push heroku main
