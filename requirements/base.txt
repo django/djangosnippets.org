@@ -19,6 +19,7 @@ urllib3==1.26.6
 whitenoise==6.1.0
 psycopg2-binary==2.9.3
 djangorestframework==3.12.4
-django-htmx==1.11.0
+django-htmx==1.15.0
 gevent==22.10.2  # Updated version of gevent
 greenlet==3.0.3  # Updated version of greenlet
+
