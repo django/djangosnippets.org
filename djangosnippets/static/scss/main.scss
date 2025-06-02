@@ -317,7 +317,7 @@ body.with-sidebar {
             @include grid-column(4);
         }
     }
-    .pagination, .count {
+    .count {
         text-align: center;
     }
 }
@@ -355,6 +355,65 @@ body.simple {
         @media #{$medium-up} {
             @include grid-column(8, $center:true);
         }
+    }
+}
+
+nav.pagination {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    ul {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    li {
+        display: inline-block;
+        a, em, span {
+            padding: 5px 10px;
+            line-height: 20px;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: border-color .2s cubic-bezier(0.3, 0, 0.5, 1);
+            cursor: pointer;
+        }
+        a:hover {
+            border-color: $secondary-color;
+            text-decoration: none;
+        }
+        em {
+            font-style: normal;
+            cursor: default;
+        }
+        .current-page {
+            font-weight: bold;
+            color: white;
+            background-color: $secondary-color;
+        }
+        .disabled {
+            color: gray;
+            cursor: default;
+            border-color: transparent;
+        }
+    }
+
+    .previous-page::before, .next-page::after {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        content: "";
+        background-color: currentColor;
+    }
+
+    .previous-page::before {
+        clip-path: polygon(9.8px 12.8px, 8.7px 12.8px, 4.5px 8.5px, 4.5px 7.5px, 8.7px 3.2px, 9.8px 4.3px, 6.1px 8px, 9.8px 11.7px, 9.8px 12.8px);
+        margin-right: 4px;
+    }
+
+    .next-page::after {
+        clip-path: polygon(6.2px 3.2px, 7.3px 3.2px, 11.5px 7.5px, 11.5px 8.5px, 7.3px 12.8px, 6.2px 11.7px, 9.9px 8px, 6.2px 4.3px, 6.2px 3.2px);
+        margin-left: 4px;
     }
 }
 

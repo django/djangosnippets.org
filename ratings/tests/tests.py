@@ -7,10 +7,11 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
+from base.tests.models import Beverage, BeverageRating, Food
+
 from .. import utils as ratings_utils
 from .. import views as ratings_views
 from ..models import RatedItem
-from ..tests.models import Beverage, BeverageRating, Food
 from ..utils import (
     calculate_similar_items,
     recommendations,

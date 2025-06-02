@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% load core_tags %}
+{% load core_tags components %}
 {% block bodyclass %}bookmarks{% endblock %}
 
 {% block head_title %}Your bookmarks{% endblock %}
@@ -29,7 +29,7 @@
       </tbody>
     </table>
 
-    <p class="pagination">{% if has_previous %}<a href="?page={{ previous }}">Previous {{ results_per_page }}</a>{% endif %}&nbsp;&nbsp;{% if has_next %}<a href="?page={{ next }}">Next {{ results_per_page }} &gt;</a>{% endif %}
+    {% pagination pagination %}
   {% else %}
     <p>You haven't bookmarked any snippets yet.</p>
   {% endif %}
