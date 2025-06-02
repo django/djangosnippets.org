@@ -132,7 +132,7 @@ automatic. The difference between these two setups is configured in
 the `djangosnippets.settings.production <./djangosnippets/settings/production.py>`_ module and the `requirements.txt <./requirements.txt>`_ file.
 
 .. _bower: http://bower.io/
-.. _compass: http://compass-style.org/install/
+.. _compass: http://rubygems.org/gems/compass/
 .. _foundation: http://foundation.zurb.com/
 .. _djangosnippets.org: https://djangosnippets.org/
 .. _PostgreSQL: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
