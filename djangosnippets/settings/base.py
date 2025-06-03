@@ -122,7 +122,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 COMMENTS_APP = "cab"
 
 CAB_VERSIONS = (
-    # ("5.2", "5.2"),
+    ("5.2", "5.2"),
     ("5.1", "5.1"),
     ("5.0", "5.0"),
     ("4.2", "4.2"),
