@@ -301,7 +301,8 @@ body.search,
 body.bookmarks,
 body.user,
 body.snippet-list,
-body.with-sidebar {
+body.with-sidebar,
+body.frontpage {
     #content {
         @media #{$small-up} {
             @include grid-column(12);
@@ -324,7 +325,7 @@ body.with-sidebar {
 }
 
 body.frontpage {
-    #content, #sidebar {
+    #content.main, #sidebar.main {
         @media #{$small-up} {
             @include grid-column(12, $last-column: true);
         }
