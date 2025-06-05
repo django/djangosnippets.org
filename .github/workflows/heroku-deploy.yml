@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest # Setup an environment to run the action
     steps:
       - uses: actions/checkout@v2 # This actions copy the repository on the environment
+      - name: Install Heroku CLI # <- IMPORTANT!!! Make sure the cli is installed before using the action
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh 
       - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
