@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% load cache core_tags %}
+{% load cache core_tags components %}
 {% block bodyclass %}user{% endblock %}
 {% load static %}
 
@@ -35,15 +35,7 @@
     {% cache 600 author_detail_sidebar author.username %}
     <p class="count">{% if request.user.username == author.username %}You've{% else %}{{ author.username }} has{% endif %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
     {% endcache %}
-    <p class="pagination">
-      {% if has_previous %}
-        <a href="?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
-      {% endif %}
-      &nbsp;&nbsp;
-      {% if has_next %}
-        <a href="?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
-      {% endif %}
-    </p>
+    {% pagination pagination %}
   {% else %}
     <p class="empty">No snippets posted yet.</p>
   {% endif %}

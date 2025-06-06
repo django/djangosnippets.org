@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags %}
+{% load core_tags components %}
 {% load static %}
 {% block bodyclass %}snippet-list{% endblock %}
 {% block head_title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
@@ -30,15 +30,7 @@
     {% endfor %}
       </tbody>
     </table>
-    <p class="pagination">
-      {% if has_previous %}
-        <a href="?page={{ previous }}{% if months %}&amp;months={{ months }}{% endif %}">&lt; Previous {{ results_per_page }}</a>
-      {% endif %}
-      &nbsp;&nbsp;
-      {% if has_next %}
-        <a href="?page={{ next }}{% if months %}&amp;months={{ months }}{% endif %}">Next {{ results_per_page }} &gt;</a>
-      {% endif %}
-    </p>
+    {% pagination pagination %}
     <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
   {% else %}
     <p class="empty">No snippets posted yet.</p>

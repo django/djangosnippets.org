@@ -39,11 +39,11 @@
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
-        <li><a hx-get="{% url 'cab_top_authors' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">By author</a></li>
-        <li><a hx-get="{% url 'cab_language_list' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" >By language</a></li>
-        <li><a hx-get="{% url 'cab_top_tags' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">By tag</a></li>
-        <li><a hx-get="{% url 'cab_top_rated' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">Highest rated</a></li>
-        <li><a hx-get="{% url 'cab_top_bookmarked' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click">Most bookmarked</a></li>
+        <li><a hx-get="{% url 'cab_top_authors' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By author</a></li>
+        <li><a hx-get="{% url 'cab_language_list' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By language</a></li>
+        <li><a hx-get="{% url 'cab_top_tags' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By tag</a></li>
+        <li><a hx-get="{% url 'cab_top_rated' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">Highest rated</a></li>
+        <li><a hx-get="{% url 'cab_top_bookmarked' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">Most bookmarked</a></li>
       </ul>
     </nav>
     {% endblock %}

@@ -1,6 +1,11 @@
 from django.db import models
 
-from ..models import RatedItemBase, Ratings
+from ratings.models import RatedItemBase, Ratings
+
+
+class Fish(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.IntegerField()
 
 
 class Food(models.Model):

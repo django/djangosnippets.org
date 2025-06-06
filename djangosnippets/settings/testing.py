@@ -27,11 +27,12 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.bitbucket",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.twitter",
+    "base",
+    "base.tests",
     "comments_spamfighter",
     "cab",
     "ratings",
     "taggit",
-    "ratings.tests",
     "rest_framework",
 )
 

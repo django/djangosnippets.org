@@ -9,7 +9,7 @@
 
 {% block content %}
   {% if form.q.value or form.version.value or form.language.value %}
-    {% if page_obj.object_list %}
+    {% if object_list %}
       <table class="snippet_list">
         <thead>
           <tr>
@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-      {% for result in page_obj.object_list %}
+      {% for result in object_list %}
         <tr>
           <td><a href="{{ result.get_absolute_url }}">{% if not result.title|strip %}Untitled{% else %}{{ result.title }}{% endif %}</a></td>
           <td><a href="{{ result.author.get_absolute_url }}">{% user_display result.author %}</a></td>
