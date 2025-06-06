@@ -197,6 +197,7 @@ header {
         }
     }
 }
+
 h1 {
     @include grid-column(12);
     margin-bottom: 20px;
@@ -322,7 +323,7 @@ body.with-sidebar {
     }
 }
 
-body.frontpage,  {
+body.frontpage {
     #content, #sidebar {
         @media #{$small-up} {
             @include grid-column(12, $last-column: true);
