@@ -45,7 +45,7 @@ Your environment variables are now set and you can proceed with the instructions
 Development Setup
 -----------------
 
-In a Python 3.7 virtual environment::
+In a Python 3.11 virtual environment::
 
     $ cd requirements
     $ pip install -r development.txt
