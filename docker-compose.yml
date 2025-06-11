@@ -6,9 +6,9 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=djangosnippets
-
     volumes:
       - postgresdata:/var/lib/postgresql/data
+
   web:
     build: .
     environment:
@@ -20,10 +20,7 @@ services:
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - SEARCHBOX_SSL_URL=${SEARCHBOX_SSL_URL}
       - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
-
-
     command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level debug -k gevent -w 2
-
     volumes:
       - .:/code
     ports:
@@ -31,7 +28,6 @@ services:
     depends_on:
       - db
       - redis
-
 
   redis:
     restart: always
