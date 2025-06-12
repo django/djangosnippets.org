@@ -1,5 +1,5 @@
 def get_form():
-    from captcha.fields import ReCaptchaField
+    from django_recaptcha.fields import ReCaptchaField
     from django import forms
     from django_comments.forms import CommentForm
 

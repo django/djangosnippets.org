@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.bitbucket",
+    "allauth.socialaccount.providers.bitbucket_oauth2",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.twitter",
     "base",
@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     "comments_spamfighter",
     "ratings",
     "taggit",
-    "captcha",
+    "django_recaptcha",
     "django_extensions",
     "rest_framework",
     "django_htmx",
@@ -80,6 +80,7 @@ MIDDLEWARE = (
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
     "ratelimitbackend.middleware.RateLimitMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 )
 
 TEMPLATES = [
