@@ -516,7 +516,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(new_snippet.title, "Hi")
         self.assertEqual(new_snippet.description_html, "<h1>wazzah</h1>")
         self.assertEqual(new_snippet.code, 'print "Hi"')
-        self.assertEqual([t.name for t in new_snippet.tags.all()], ["world", "hi"])
+        self.assertEqual([t.name for t in new_snippet.tags.all()], ["hi", "world"])
         self.assertRedirects(resp, "/snippets/%d/" % new_snippet.pk)
 
 
