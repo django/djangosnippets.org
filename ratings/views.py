@@ -5,7 +5,6 @@ from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpRespo
 from django.shortcuts import get_object_or_404
 from django.utils.http import url_has_allowed_host_and_scheme
 
-
 # allow GET requests to create ratings -- this goes against the "GET" requests
 # should be idempotent but avoids the necessity of using <form> elements or
 # javascript to create rating links
