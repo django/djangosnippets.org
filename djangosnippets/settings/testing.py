@@ -27,7 +27,6 @@ INSTALLED_APPS = (
     "allauth.socialaccount",
     "allauth.socialaccount.providers.bitbucket_oauth2",
     "allauth.socialaccount.providers.github",
-    "allauth.socialaccount.providers.twitter",
     "base",
     "base.tests",
     "comments_spamfighter",
