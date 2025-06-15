@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/django/djangosnippets.org#readme",
   "dependencies": {
-    "tailwindcss": "^2.2.14"
+    "@tailwindcss/vite": "^4.1.10",
+    "tailwindcss": "^2.2.19"
   }
 }

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 
 # allow GET requests to create ratings -- this goes against the "GET" requests
 # should be idempotent but avoids the necessity of using <form> elements or
@@ -17,7 +17,7 @@ def rate_object(request, ct, pk, score=1, add=True):
         return HttpResponseNotAllowed('Invalid request method: "%s". ' "Must be POST." % request.method)
 
     redirect_url = request.POST.get("next") or request.GET.get("next") or request.META.get("HTTP_REFERER")
-    if redirect_url and not is_safe_url(redirect_url, settings.ALLOWED_HOSTS):
+    if redirect_url and not url_has_allowed_host_and_scheme(redirect_url, settings.ALLOWED_HOSTS):
         return HttpResponseBadRequest("Invalid next URL.")
     if not redirect_url:
         redirect_url = "/"

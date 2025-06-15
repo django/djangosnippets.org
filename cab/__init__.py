@@ -1,7 +1,7 @@
 def get_form():
-    from captcha.fields import ReCaptchaField
     from django import forms
     from django_comments.forms import CommentForm
+    from django_recaptcha.fields import ReCaptchaField
 
     class CabCommentForm(CommentForm):
         your_name = forms.CharField(

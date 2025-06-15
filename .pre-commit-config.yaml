@@ -10,23 +10,16 @@ repos:
     -   id: check-added-large-files
 
 -   repo: https://github.com/pycqa/isort
-    rev: 5.9.3
+    rev: 5.13.2
     hooks:
       - id: isort
 
 -   repo: https://github.com/psf/black
-    rev: 21.7b0
+    rev: 25.1.0
     hooks:
       - id: black
 
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+-   repo: https://github.com/pycqa/flake8
+    rev: '7.2.0'  # pick a git hash / tag to point to
     hooks:
-      - id: flake8
-        additional_dependencies: [
-            "flake8-bugbear",
-            "flake8-comprehensions",
-            "flake8-mutable",
-            "flake8-print",
-            "flake8-simplify",
-        ]
+    -   id: flake8
