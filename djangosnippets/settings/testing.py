@@ -9,6 +9,7 @@ MIDDLEWARE = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 )
 
 
@@ -24,7 +25,7 @@ INSTALLED_APPS = (
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.bitbucket",
+    "allauth.socialaccount.providers.bitbucket_oauth2",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.twitter",
     "base",
