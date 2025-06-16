@@ -12,7 +12,7 @@ services:
   web:
     build: .
     environment:
-      - REDISTOGO_URL=${REDISTOGO_URL}
+      - REDISCLOUD_URL=${REDISCLOUD_URL}
       - SECRET_KEY=${SECRET_KEY}
       - DEBUG=${DEBUG}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
