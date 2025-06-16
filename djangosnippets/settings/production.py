@@ -79,6 +79,11 @@ CACHES = {
         "OPTIONS": {
             "PASSWORD": redis_url.password,
             "DB": 0,
+            "CONNECTION_POOL_CLASS": "redis.BlockingConnectionPool",
+            "CONNECTION_POOL_CLASS_KWARGS": {
+                "max_connections": 20,
+                "timeout": 20,
+            },
         },
     }
 }
