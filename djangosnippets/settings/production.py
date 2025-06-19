@@ -58,7 +58,7 @@ SESSION_COOKIE_HTTPONLY = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
+WHITENOISE_MANIFEST_STRICT = False
 # Pull the various config info from Heroku.
 # Heroku adds some of this automatically if we're using a simple settings.py,
 # but we're not and it's just as well -- I like doing this by hand.
