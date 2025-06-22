@@ -1,5 +1,5 @@
 bleach==6.2.0
-Django==4.2.23
+Django==5.0.14
 dj-database-url==0.5.0
 django-allauth==0.63.6
 django-contrib-comments==2.2.0
@@ -7,7 +7,7 @@ django-extensions==3.2.3
 django-generic-aggregation==0.4.0
 django-ratelimit-backend==2.0
 django-recaptcha==4.1.0
-django-taggit==3.0.0
+django-taggit==5.0.1
 ipython==7.33.0
 Markdown==3.4.4
 Pillow==9.1.0
