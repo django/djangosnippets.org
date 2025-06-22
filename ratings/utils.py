@@ -3,6 +3,7 @@ from math import sqrt
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import FullResultSet
 from django.db import connection
 
 
@@ -11,8 +12,11 @@ def is_gfk(content_field):
 
 
 def query_has_where(query):
-    where, params = query.get_compiler(using="default").compile(query.where)
-    return where == ""
+    try:
+        where, params = query.get_compiler(using="default").compile(query.where)
+        return bool(where)
+    except FullResultSet:
+        return False
 
 
 def query_as_sql(query):
@@ -216,7 +220,7 @@ def _store_top_matches(ratings_queryset, rated_queryset, num, is_gfk):
 
     for item in rated_queryset.iterator():
         matches = top_matches(ratings_queryset, rated_queryset, item, num)
-        for (score, match) in matches:
+        for score, match in matches:
             si, created = SimilarItem.objects.get_or_create(
                 content_type=ctype,
                 object_id=item.pk,
