@@ -726,8 +726,8 @@ class QueryHasWhereTestCase(TestCase):
 
     def test_without_where_clause(self):
         result = ratings_utils.query_has_where(Food.objects.all().query)
-        self.assertTrue(result)
+        self.assertFalse(result)
 
     def test_with_where_clause(self):
         result = ratings_utils.query_has_where(Food.objects.filter(name="test").query)
-        self.assertFalse(result)
+        self.assertTrue(result)
