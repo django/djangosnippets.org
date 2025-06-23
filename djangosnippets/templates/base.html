@@ -1,4 +1,4 @@
-{% load static %}<!DOCTYPE html>
+{% load static tailwind_tags %}<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>djangosnippets: {% block head_title %}Home{% endblock %}</title>
@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
-  <link href="{% static "css/site.css" %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   {% block feeds %}{% endblock %}
+  {% tailwind_css %}
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
   <div id="accountbar"><div class="inner">
