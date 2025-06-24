@@ -11,15 +11,8 @@ services:
 
   web:
     build: .
-    environment:
-      - REDISCLOUD_URL=${REDISCLOUD_URL}
-      - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=${DEBUG}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DATABASE_URL=${DATABASE_URL}
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-      - SEARCHBOX_SSL_URL=${SEARCHBOX_SSL_URL}
-      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
+    env_file:
+      - .env
     command: gunicorn djangosnippets.wsgi:application -b 0.0.0.0:8000 --log-level debug -k gevent -w 2
     volumes:
       - .:/code
