@@ -1,21 +1,21 @@
 {% load components %}
 
 {% if pagination.multi_page %}
-<nav class="pagination" aria-labelledby="pagination">
-    {% if pagination.page.has_previous %}
+<nav class="pagination" aria-label="pagination">
+    <ul>
+    <li>{% if pagination.page.has_previous %}
     <a class="previous-page" href="{{ previous_page_link }}" rel="prev" aria-label="Previous page">Previous</a>
     {% else %}
-    <span class="previous-page disabled" rel="prev" aria-label="Previous page">Previous</span>
-    {% endif %}
-    <ul>
+    <span class="previous-page disabled">Previous</span>
+    {% endif %}</li>
     {% for i in pagination.page_range %}
         <li>{% pagination_number pagination i %}</li>
     {% endfor %}
-    </ul>
-    {% if pagination.page.has_next %}
+    <li>{% if pagination.page.has_next %}
     <a class="next-page" href="{{ next_page_link }}" rel="next" aria-label="Next page">Next</a>
     {% else %}
-    <span class="next-page disabled" rel="next" aria-label="Next page">Next</span>
-    {% endif %}
+    <span class="next-page disabled">Next</span>
+    {% endif %}</li>
+    </ul>
 </nav>
 {% endif %}
