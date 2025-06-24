@@ -61,6 +61,8 @@ INSTALLED_APPS = (
     "comments_spamfighter",
     "ratings",
     "taggit",
+    "tailwind",
+    "theme",
     "django_recaptcha",
     "django_extensions",
     "rest_framework",
@@ -104,6 +106,7 @@ TEMPLATES = [
 STATIC_URL = "/assets/static/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "..", "assets", "static")
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
+TAILWIND_APP_NAME = "theme"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"

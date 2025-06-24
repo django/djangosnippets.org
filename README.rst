@@ -50,6 +50,7 @@ In a Python 3.11 virtual environment::
     $ cd requirements
     $ pip install -r development.txt
     $ cd ..
+    $ python manage.py tailwind install
     $ python manage.py migrate
 
 Now you can start the development server::
@@ -63,9 +64,9 @@ are included in the fixtures folder. Also included are five snippets to get you 
     $ python manage.py createsuperuser
     $ python manage.py loaddata fixtures/cab.json
 
-You will need to build the site.css with tailwindcss::
+To use Tailwind, you need to start the Tailwind server::
 
-    $ npm run build
+    $ python manage.py tailwind start
 
 Now you should be able to use the development version of djangosnippets
 on port 8000.

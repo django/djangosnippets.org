@@ -208,4 +208,4 @@ bower_components
 assets/
 node_modules
 
-djangosnippets/static/css/site.css
+theme/static/css/dist/styles.css
