@@ -3,6 +3,9 @@ import os
 import dj_database_url
 from django.contrib import messages
 from django.urls import reverse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def user_url(user):
@@ -178,9 +181,8 @@ MESSAGE_TAGS = {
 }
 
 
-DATABASES = {"default": dj_database_url.config(default="postgres:///djangosnippets")}
+DATABASES = {"default": dj_database_url.config(conn_max_age=600, conn_health_checks=True)}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
-
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

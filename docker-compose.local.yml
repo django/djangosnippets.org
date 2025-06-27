@@ -1,0 +1,55 @@
+version: "3.7"
+
+x-app: &default-app
+  build:
+    context: .
+    dockerfile: ./compose/local/django/Dockerfile
+  restart: unless-stopped
+  volumes:
+    - .:/app:z
+
+services:
+  web:
+    <<: *default-app
+    container_name: djangosnippets-web-local
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.template.docker
+    depends_on:
+      - db
+
+  tailwind:
+    <<: *default-app
+    container_name: djangosnippets-tailwind-local
+    command: "python manage.py tailwind start"
+    # Without tty, no stdin, and tailwind watcher aborts
+    # https://github.com/tailwindlabs/tailwindcss/issues/5324
+    tty: true
+
+  db:
+    image: postgres:15.13
+    container_name: djangosnippets-db-local
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.template.docker
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:3.2.12
+    container_name: djangosnippets-redis-local
+    restart: always
+    volumes:
+      - redisdata:/data
+    env_file:
+      - ./.env.template.docker
+    ports:
+      - 6379:6379
+
+volumes:
+  web:
+  postgres_data:
+  redisdata:
