@@ -3,6 +3,9 @@ import os
 import dj_database_url
 from django.contrib import messages
 from django.urls import reverse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def user_url(user):

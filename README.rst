@@ -3,80 +3,130 @@ djangosnippets.org
 
 This code is used to power the snippet sharing site, `djangosnippets.org`_
 
-Database Setup Using Windows
------------------------------------
-
-Download the latest version of PostgreSQL_. Click on the executable to start the installation setup wizard.
-
-Click ``Next``, keeping all the defaults as you work through the wizard. Make a note
-of the password you choose for the database superuser (postgres). Select the default port 5432 and the default
-locale. After it’s finished installing, you do not need to launch Stack Builder. Un-tick that box if you are asked,
-and click ``Finish``.
-
-Open SQL Shell (psql). In the shell, select the default values for Server, Database, Port and Username
-(basically, press Enter four times).
-
-Type in the password you noted earlier and press enter. Run the command below, taking care to include the
-semi-colon. ::
-
-    $ CREATE DATABASE djangosnippets;
-
-Close SQL Shell (psql).
-
-You need to copy .env.example to env.bat and configure to your needs. Use the template below, taking care to
-include ``set`` at the start of each line, and to substitute the password you noted earlier into DATABASE_URL.
-For development, DEBUG is set to True. ::
-
-    set REDISTOGO_URL=redis://redis:6379/0
-    set SECRET_KEY=p_o3vp1rg5)t^lxm9-43%0)s-=1qpeq%o7gfq+e4#*!t+_ev82
-    set DEBUG=True
-    set ALLOWED_HOSTS=0.0.0.0,127.0.0.1
-    set DATABASE_URL=postgres://postgres:your_password@:5432/djangosnippets
-    set DJANGO_SETTINGS_MODULE=djangosnippets.settings.development
-    set SEARCHBOX_SSL_URL=http://elasticsearch:9200/
-    set SESSION_COOKIE_SECURE=False
-
-Go back to your terminal. You will need to run the command below whenever you open a new terminal. ::
-
-    $ env.bat
-
-Your environment variables are now set and you can proceed with the instructions below.
-
 Development Setup
------------------
+=================
 
-In a Python 3.11 virtual environment::
+Prerequisites
+-------------
 
-    $ cd requirements
-    $ pip install -r development.txt
-    $ cd ..
-    $ python manage.py tailwind install
-    $ python manage.py migrate
+- Python version 3.11
+- PostgreSQL
 
-Now you can start the development server::
+Installation
+------------
 
-    $ python manage.py runserver
+1. Clone the repo:
 
-Before you can actually use the site, you have to define at least one
-language. If you just want to use the ones from djangosnippets.org, they
-are included in the fixtures folder. Also included are five snippets to get you started::
+   .. code-block:: console
 
-    $ python manage.py createsuperuser
-    $ python manage.py loaddata fixtures/cab.json
+      https://github.com/django/djangosnippets.org.git
 
-To use Tailwind, you need to start the Tailwind server::
+2. Create your virtual environment:
 
-    $ python manage.py tailwind start
+   .. code-block:: console
 
-Now you should be able to use the development version of djangosnippets
-on port 8000.
+      python -m venv venv
 
-To run tests::
+   Activate in Linux:
 
-    $ python manage.py test --settings=djangosnippets.settings.testing
+   .. code-block:: console
+
+      source venv/bin/activate
+
+   Activate in Windows:
+
+   .. code-block:: console
+
+      venv\Scripts\activate
+
+3. Connect to PostgreSQL
+
+   Connect in Linux:
+
+   .. code-block:: console
+
+      psql -U $(whoami) -d postgres
+
+   Connect in Windows:
+
+   .. code-block:: console
+
+      psql -U postgres
+
+4. Create a PostgreSQL database and role:
+
+   .. code-block:: console
+
+      postgres=# CREATE DATABASE djangosnippets;
+      postgres=# CREATE USER djangosnippets WITH SUPERUSER PASSWORD 'djangosnippets';
+      postgres=# GRANT ALL PRIVILEGES ON DATABASE djangosnippets TO djangosnippets;
+
+   Exit psql shell:
+
+   .. code-block:: console
+
+      postgres=# exit
+
+5. Install requirements:
+
+   .. code-block:: console
+
+      pip install -r requirements/development.txt
+
+6. Copy `.env.template.local` file, rename to `.env` and configure variables for your local postgres database.
+
+   Copy in Linux:
+
+   .. code-block:: console
+
+      cp .env.template.local .env
+
+   Copy in Windows:
+
+   .. code-block:: console
+
+      copy .env.template.local .env
+
+7. Run migrations and create superuser:
+
+   Migrate:
+
+   .. code-block:: console
+
+      python manage.py migrate
+
+   Optionally load data first:
+
+   .. code-block:: console
+
+      python manage.py loaddata fixtures/cab.json
+
+   Create superuser:
+
+   .. code-block:: console
+
+      python manage.py createsuperuser
+
+8. Install tailwind (npm is required):
+
+   .. code-block:: console
+
+      python manage.py tailwind install
+
+9. Run server locally:
+
+   .. code-block:: console
+
+      python manage.py runserver_plus
+
+10. Run tailwind in another terminal locally:
+
+    .. code-block:: console
+
+       python manage.py tailwind start
 
 Docker
-------
+======
 You need to copy .env.example to .env and configure to your needs. The example is fine to start with development.
 
 You may wish to use docker locally for production dependency testing and development; here are the setup instructions::
@@ -103,8 +153,14 @@ To run our tests with docker::
 
     $ docker-compose -f docker-compose.yml run web python manage.py test --settings=djangosnippets.settings.testing
 
+Test
+======
+To run tests::
+
+    $ python manage.py test --settings=djangosnippets.settings.testing
+
 Styling Contributor?
---------------------
+====================
 
 DjangoSnippets uses the Foundation_ framework as the core of its visual style. To
 get this working on your local machine you need compass_ and bower_ to compile
@@ -126,7 +182,7 @@ configuration inside `djangosnippets/static/config.rb` is
 
 
 Production Setup
-----------------
+================
 
 The production setup is currently tailored to Heroku and, therefore, mostly
 automatic. The difference between these two setups is configured in
