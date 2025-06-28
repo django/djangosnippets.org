@@ -17,7 +17,7 @@ python-akismet==0.4.2
 python-dotenv==1.1.1
 requests==2.32.4
 six==1.15.0
-urllib3==1.26.6
+urllib3==2.5.0
 whitenoise==6.1.0
 psycopg2-binary==2.9.10
 djangorestframework==3.14.0
