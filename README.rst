@@ -3,94 +3,166 @@ djangosnippets.org
 
 This code is used to power the snippet sharing site, `djangosnippets.org`_
 
-Database Setup Using Windows
------------------------------------
-
-Download the latest version of PostgreSQL_. Click on the executable to start the installation setup wizard.
-
-Click ``Next``, keeping all the defaults as you work through the wizard. Make a note
-of the password you choose for the database superuser (postgres). Select the default port 5432 and the default
-locale. After it’s finished installing, you do not need to launch Stack Builder. Un-tick that box if you are asked,
-and click ``Finish``.
-
-Open SQL Shell (psql). In the shell, select the default values for Server, Database, Port and Username
-(basically, press Enter four times).
-
-Type in the password you noted earlier and press enter. Run the command below, taking care to include the
-semi-colon. ::
-
-    $ CREATE DATABASE djangosnippets;
-
-Close SQL Shell (psql).
-
-You need to copy .env.example to env.bat and configure to your needs. Use the template below, taking care to
-include ``set`` at the start of each line, and to substitute the password you noted earlier into DATABASE_URL.
-For development, DEBUG is set to True. ::
-
-    set REDISTOGO_URL=redis://redis:6379/0
-    set SECRET_KEY=p_o3vp1rg5)t^lxm9-43%0)s-=1qpeq%o7gfq+e4#*!t+_ev82
-    set DEBUG=True
-    set ALLOWED_HOSTS=0.0.0.0,127.0.0.1
-    set DATABASE_URL=postgres://postgres:your_password@:5432/djangosnippets
-    set DJANGO_SETTINGS_MODULE=djangosnippets.settings.development
-    set SEARCHBOX_SSL_URL=http://elasticsearch:9200/
-    set SESSION_COOKIE_SECURE=False
-
-Go back to your terminal. You will need to run the command below whenever you open a new terminal. ::
-
-    $ env.bat
-
-Your environment variables are now set and you can proceed with the instructions below.
-
 Development Setup
------------------
+=================
 
-In a Python 3.11 virtual environment::
+Prerequisites
+-------------
 
-    $ cd requirements
-    $ pip install -r development.txt
-    $ cd ..
-    $ python manage.py tailwind install
-    $ python manage.py migrate
+- Python version 3.11
+- PostgreSQL
 
-Now you can start the development server::
+Installation
+------------
 
-    $ python manage.py runserver
+Basic Installation
+~~~~~~~~~~~~~~~~~~
 
-Before you can actually use the site, you have to define at least one
-language. If you just want to use the ones from djangosnippets.org, they
-are included in the fixtures folder. Also included are five snippets to get you started::
+1. Clone the repo:
 
-    $ python manage.py createsuperuser
-    $ python manage.py loaddata fixtures/cab.json
+   .. code-block:: console
 
-To use Tailwind, you need to start the Tailwind server::
+      https://github.com/django/djangosnippets.org.git
 
-    $ python manage.py tailwind start
+2. Create your virtual environment:
 
-Now you should be able to use the development version of djangosnippets
-on port 8000.
+   .. code-block:: console
 
-To run tests::
+      python -m venv venv
 
-    $ python manage.py test --settings=djangosnippets.settings.testing
+   Activate in Linux:
+
+   .. code-block:: console
+
+      source venv/bin/activate
+
+   Activate in Windows:
+
+   .. code-block:: console
+
+      venv\Scripts\activate
+
+3. Connect to PostgreSQL
+
+   Connect in Linux:
+
+   .. code-block:: console
+
+      psql -U $(whoami) -d postgres
+
+   Connect in Windows:
+
+   .. code-block:: console
+
+      psql -U postgres
+
+4. Create a PostgreSQL database and role:
+
+   .. code-block:: console
+
+      postgres=# CREATE DATABASE djangosnippets;
+      postgres=# CREATE USER djangosnippets WITH SUPERUSER PASSWORD 'djangosnippets';
+      postgres=# GRANT ALL PRIVILEGES ON DATABASE djangosnippets TO djangosnippets;
+
+   Exit psql shell:
+
+   .. code-block:: console
+
+      postgres=# exit
+
+5. Install requirements:
+
+   .. code-block:: console
+
+      pip install -r requirements/development.txt
+
+6. Copy `.env.template.local` file, rename to `.env` and configure variables for your local postgres database.
+
+   Copy in Linux:
+
+   .. code-block:: console
+
+      cp .env.template.local .env
+
+   Copy in Windows:
+
+   .. code-block:: console
+
+      copy .env.template.local .env
+
+7. Run migrations and create superuser:
+
+   Migrate:
+
+   .. code-block:: console
+
+      python manage.py migrate
+
+   Optionally load data first:
+
+   .. code-block:: console
+
+      python manage.py loaddata fixtures/cab.json
+
+   Create superuser:
+
+   .. code-block:: console
+
+      python manage.py createsuperuser
+
+8. Install tailwind (npm is required):
+
+   .. code-block:: console
+
+      python manage.py tailwind install
+
+9. Run server locally:
+
+   .. code-block:: console
+
+      python manage.py runserver_plus
+
+10. Run tailwind in another terminal locally:
+
+    .. code-block:: console
+
+       python manage.py tailwind start
+
+With Docker
+~~~~~~~~~~~~~~~~~~~
+
+Using `Docker <https://www.docker.com/products/docker-desktop/>`_ allows you to set up the development environment more quickly if Docker is installed 🐳
+
+1. Build the Docker images:
+
+   .. code-block:: console
+
+      docker compose -f docker-compose.local.yml build
+
+2. Start the containers:
+
+   .. code-block:: console
+
+      docker compose -f docker-compose.local.yml up -d
+
+3. Go to: http://127.0.0.1:8000/ and enjoy 🙌
 
 Docker
-------
+======
 You need to copy .env.example to .env and configure to your needs. The example is fine to start with development.
 
 You may wish to use docker locally for production dependency testing and development; here are the setup instructions::
 
-    $ docker-compose -f docker-compose.yml build
-    $ docker-compose -f docker-compose.yml up -d
+    $ docker-compose -f docker-compose.production.yml build
+    $ docker-compose -f docker-compose.production.yml up -d
 
 -d denotes running docker in a detached state::
 
-    $ docker-compose -f docker-compose.yml run web python manage.py migrate
-    $ docker-compose -f docker-compose.yml run web python manage.py createsuperuser
-    $ docker-compose -f docker-compose.yml run web python manage.py loaddata fixtures/cab.json
+    $ docker-compose -f docker-compose.production.yml run web python manage.py migrate
+    $ docker-compose -f docker-compose.production.yml run web python manage.py createsuperuser
+    $ docker-compose -f docker-compose.production.yml run web python manage.py loaddata fixtures/cab.json
     $ npm run build
-    $ docker-compose -f docker-compose.yml run web python manage.py collectstatic
+    $ docker-compose -f docker-compose.production.yml run web python manage.py collectstatic
 
 
 The docker setup is running as close as possible to the production setup in Heroku:
@@ -103,8 +175,14 @@ To run our tests with docker::
 
     $ docker-compose -f docker-compose.yml run web python manage.py test --settings=djangosnippets.settings.testing
 
+Test
+======
+To run tests::
+
+    $ python manage.py test --settings=djangosnippets.settings.testing
+
 Styling Contributor?
---------------------
+====================
 
 DjangoSnippets uses the Foundation_ framework as the core of its visual style. To
 get this working on your local machine you need compass_ and bower_ to compile
@@ -126,7 +204,7 @@ configuration inside `djangosnippets/static/config.rb` is
 
 
 Production Setup
-----------------
+================
 
 The production setup is currently tailored to Heroku and, therefore, mostly
 automatic. The difference between these two setups is configured in
