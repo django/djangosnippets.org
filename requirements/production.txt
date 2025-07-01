@@ -4,7 +4,7 @@ django-redis-cache==3.0.1
 gevent==22.10.2  # Ensure this matches the updated version in base.txt
 greenlet==3.0.3  # Ensure this matches the updated version in base.txt
 raven==6.10.0
-redis==3.5.3
+redis==6.2.0
 gunicorn==20.1.0
 hiredis==2.0.0
 sentry-sdk==1.5.12
