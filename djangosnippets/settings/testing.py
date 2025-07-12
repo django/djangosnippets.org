@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.staticfiles",
+    "django_components",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -53,12 +54,19 @@ TEMPLATES = [
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "cab", "tests", "templates"),
             SNIPPETS_TEMPLATES_DIR,
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
+            ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+                "django_components.template_loader.Loader",
+            ],
+            "builtins": [
+                "django_components.templatetags.component_tags",
             ],
         },
     }

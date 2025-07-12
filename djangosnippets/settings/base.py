@@ -104,15 +104,18 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],
-            "loaders": [(
-                "django.template.loaders.cached.Loader", [
-                    "django.template.loaders.filesystem.Loader",
-                    "django.template.loaders.app_directories.Loader",
-                    "django_components.template_loader.Loader",
-                ]
-            )],
-            'builtins': [
-                'django_components.templatetags.component_tags',
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                        "django_components.template_loader.Loader",
+                    ],
+                )
+            ],
+            "builtins": [
+                "django_components.templatetags.component_tags",
             ],
         },
     }

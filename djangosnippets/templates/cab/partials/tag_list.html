@@ -1,5 +1,5 @@
 
-{% load core_tags components %}
+{% load core_tags %}
 <h1>All tags</h1>
 <div id="content">
   {% if object_list %}
@@ -9,7 +9,7 @@
     {% endfor %}
     </ul>
 
-    {% pagination pagination %}
+    {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p>No tags have been used yet.</p>
   {% endif %}

@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 {% block bodyclass %}bookmarks{% endblock %}
 
 {% block head_title %}Your bookmarks{% endblock %}
@@ -29,7 +29,7 @@
       </tbody>
     </table>
 
-    {% pagination pagination %}
+    {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p>You haven't bookmarked any snippets yet.</p>
   {% endif %}

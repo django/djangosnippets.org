@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 {% load static %}
 {% block bodyclass %}snippet-list{% endblock %}
 {% block head_title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
@@ -30,7 +30,7 @@
     {% endfor %}
       </tbody>
     </table>
-    {% pagination pagination %}
+    {% component "pagination" pagination_obj=pagination / %}
     <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
   {% else %}
     <p class="empty">No snippets posted yet.</p>

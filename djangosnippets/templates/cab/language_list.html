@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 
 {% block head_title %}All languages{% endblock %}
 
@@ -12,6 +12,6 @@
   {% endfor %}
   </ul>
 
-  {% pagination pagination %}
+  {% component "pagination" pagination_obj=pagination / %}
 
 {% endblock %}
