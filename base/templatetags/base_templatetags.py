@@ -50,15 +50,11 @@ def querystring(context, *args, **kwargs):
     for d in [*args, kwargs]:
         if not isinstance(d, Mapping):
             raise TemplateSyntaxError(
-                "querystring requires mappings for positional arguments (got "
-                "%r instead)." % d
+                "querystring requires mappings for positional arguments (got " "%r instead)." % d
             )
         for key, value in d.items():
             if not isinstance(key, str):
-                raise TemplateSyntaxError(
-                    "querystring requires strings for mapping keys (got %r "
-                    "instead)." % key
-                )
+                raise TemplateSyntaxError("querystring requires strings for mapping keys (got %r " "instead)." % key)
             if value is None:
                 params.pop(key, None)
             elif isinstance(value, Iterable) and not isinstance(value, str):

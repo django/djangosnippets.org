@@ -1,5 +1,5 @@
 name: Deploy # The name of the workflow
-on: 
+on:
   push:
     branches:
       - main #Launch the action on every push on the branch main
@@ -10,21 +10,9 @@ jobs:
       - uses: actions/checkout@v2 # This actions copy the repository on the environment
       - name: Install Heroku CLI # <- IMPORTANT!!! Make sure the cli is installed before using the action
         run: |
-          curl https://cli-assets.heroku.com/install.sh | sh 
+          curl https://cli-assets.heroku.com/install.sh | sh
       - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
           heroku_app_name: "djangosnippets" #The name of your heroku app - Must be unique in Heroku
           heroku_email: "wedgemail@gmail.com" #Your heroku yuser name
-
-
-
-
-
-
-
-
-
-
-
-

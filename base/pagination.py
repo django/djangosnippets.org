@@ -30,11 +30,7 @@ class Pagination:
         """
         Returns the full range of pages.
         """
-        return (
-            self.paginator.get_elided_page_range(self.page_num)
-            if self.multi_page
-            else []
-        )
+        return self.paginator.get_elided_page_range(self.page_num) if self.multi_page else []
 
     def setup(self):
         paginator = Paginator(self.queryset, self.list_per_page)
