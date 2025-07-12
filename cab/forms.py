@@ -10,7 +10,7 @@ def validate_non_whitespace_only_string(value):
     the string to treat strings with only whitespaces in them as empty.
     """
     if not value or not value.strip():
-        raise forms.ValidationError(u"This field is required", code="required")
+        raise forms.ValidationError("This field is required", code="required")
 
 
 class SnippetForm(forms.ModelForm):

@@ -148,7 +148,7 @@ class _RatingsDescriptor(models.Manager):
                 for obj in objs:
                     if not isinstance(obj, self.model):
                         raise TypeError("'%s' instance expected" % self.model._meta.object_name)
-                    for (k, v) in lookup_kwargs.items():
+                    for k, v in lookup_kwargs.items():
                         setattr(obj, k, v)
                     obj.save()
 
