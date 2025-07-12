@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import dj_database_url
 from django.contrib import messages
@@ -13,6 +14,7 @@ def user_url(user):
 
 
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SITE_ID = 1
 SITE_NAME = "djangosnippets.org"
@@ -68,6 +70,7 @@ INSTALLED_APPS = (
     "theme",
     "django_recaptcha",
     "django_extensions",
+    "django_components",
     "rest_framework",
     "django_htmx",
 )
@@ -92,7 +95,6 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [os.path.join(PROJECT_ROOT, "templates")],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
@@ -102,6 +104,16 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],
+            "loaders": [(
+                "django.template.loaders.cached.Loader", [
+                    "django.template.loaders.filesystem.Loader",
+                    "django.template.loaders.app_directories.Loader",
+                    "django_components.template_loader.Loader",
+                ]
+            )],
+            'builtins': [
+                'django_components.templatetags.component_tags',
+            ],
         },
     }
 ]
@@ -109,6 +121,12 @@ TEMPLATES = [
 STATIC_URL = "/assets/static/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "..", "assets", "static")
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django_components.finders.ComponentsFileSystemFinder",
+]
+
 TAILWIND_APP_NAME = "theme"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
