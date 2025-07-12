@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% load cache core_tags components %}
+{% load cache core_tags %}
 {% block bodyclass %}user{% endblock %}
 {% load static %}
 
@@ -35,7 +35,7 @@
     {% cache 600 author_detail_sidebar author.username %}
     <p class="count">{% if request.user.username == author.username %}You've{% else %}{{ author.username }} has{% endif %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
     {% endcache %}
-    {% pagination pagination %}
+    {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p class="empty">No snippets posted yet.</p>
   {% endif %}

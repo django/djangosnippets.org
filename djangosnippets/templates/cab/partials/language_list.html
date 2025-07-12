@@ -1,4 +1,4 @@
-{% load static components %}
+{% load static %}
 
 
 <img class="bars" src="{% static 'img/bars.svg' %}"/>
@@ -10,5 +10,5 @@
   {% endfor %}
   </ul>
 
-  {% pagination pagination %}
+  {% component "pagination" pagination_obj=pagination / %}
 </div>

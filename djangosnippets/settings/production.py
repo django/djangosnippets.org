@@ -7,7 +7,7 @@ import dj_database_url
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import *  # noqa: F403
+from .base import *  # noqa
 
 
 def env_to_bool(input):
@@ -22,18 +22,6 @@ def env_to_bool(input):
 
 
 DEBUG = env_to_bool(os.environ.get("DEBUG", False))
-
-# Use the cached template loader.
-del TEMPLATES[0]["APP_DIRS"]
-TEMPLATES[0]["OPTIONS"]["loaders"] = (
-    (
-        "django.template.loaders.cached.Loader",
-        (
-            "django.template.loaders.filesystem.Loader",
-            "django.template.loaders.app_directories.Loader",
-        ),
-    ),
-)
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
