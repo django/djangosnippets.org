@@ -1,0 +1,30 @@
+<section class="border-2 border-base-green-400 rounded-sm" aria-labelledby="snippet-list-title">
+    <h2 id="snippet-list-title" class="sr-only">Snippet List</h2>
+    {% for snippet in snippet_list %}
+    <article class="relative flex flex-col px-8 pt-4 pb-1 border-b-2 border-base-green-400 last:border-b-0 lg:flex-row">
+        <div class="flex flex-row justify-start gap-3 text-sm md:text-base lg:my-6 lg:w-1/5 lg:flex-col">
+            <span>{{ snippet.rating_score }} rating</span>
+            <span>{{ snippet.bookmark_count }} bookmark</span>
+        </div>
+        <div class="flex flex-col lg:w-4/5">
+            <h3 class="py-2 my-0 text-lg md:text-2xl">
+                <a href="{{ snippet.get_absolute_url }}" class="text-base-green-400 hover:text-base-green-800 underline underline-offset-8 decoration-3 decoration-base-orange-400 hover:decoration-10 duration-500">{{ snippet.title|truncatechars:"80" }}</a>
+            </h3>
+            <p class="mb-0 py-4 min-h-[4rem] text-xs md:text-sm">{{ snippet.description|truncatechars:"250" }}</p>
+            <footer class="flex flex-col flex-wrap py-2 text-xs md:text-sm">
+                <div class="my-1">
+                    <strong class="text-sm md:text-base mr-2">Tags : </strong>
+                    <ul class="inline-flex gap-2 flex-wrap list-none m-0 text-xs md:text-sm">{% for tag in snippet.tags.all %}<li class="my-2 inline"><a href="{% url 'cab_snippet_matches_tag' tag.slug %}" class="py-1.5 px-2 text-white border-2 bg-base-green-400 border-base-green-400 rounded-lg hover:bg-base-white hover:text-base-green-400 duration-500 transition-colors no-underline">{{ tag.name }}</a></li>{% endfor %}</ul>
+                </div>
+                <p class="text-start">
+                    <strong class="text-sm md:text-base">Author : </strong>
+                    <a href="{{ snippet.author.get_absolute_url }}" class="text-base-green-400 underline underline-offset-4 hover:text-base-green-800">{{ snippet.author.username }}</a>
+                    <span class="mx-2" aria-hidden="true"> | </span>
+                    <strong class="text-sm md:text-base">Updated : </strong>
+                    <time>{{ snippet.updated_date }}</time>
+                </p>
+            </footer>
+        </div>
+    </article>
+    {% endfor %}
+</section>
