@@ -7,6 +7,7 @@ from django.template import loader
 from django.utils.safestring import mark_safe
 from markdown import markdown as markdown_func
 
+from base.main import ObjectList
 from base.pagination import Pagination
 
 
@@ -35,23 +36,29 @@ def object_list(
         hits
             number of objects, total
     """
+    from cab.models import Snippet
+
     if extra_context is None:
         extra_context = {}
     queryset = queryset._clone()
     model = queryset.model
     opts = model._meta
     if paginate_by:
-        pagination = Pagination(request, model, queryset, paginate_by)
-        object_list = pagination.get_objects()
+        if queryset.model == Snippet:
+            object_list = ObjectList(request, queryset.model, queryset, 15)
+            pagination = object_list.pagination
+        else:
+            pagination = Pagination(request, model, queryset, paginate_by)
+            object_list = pagination.get_objects()
 
         context = {
-            "%s_list" % template_object_name: object_list,
+            "object_list": object_list,
             "pagination": pagination,
             "hits": pagination.result_count,
         }
     else:
         context = {
-            "%s_list" % template_object_name: object_list,
+            "object_list": queryset,
         }
         if not allow_empty and len(queryset) == 0:
             raise Http404

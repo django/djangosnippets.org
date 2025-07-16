@@ -7,6 +7,25 @@ from base.pagination import PAGE_VAR, Pagination
 from base.templatetags.base_templatetags import querystring
 
 
+@register("icon")
+class Icon(Component):
+
+    class Kwargs(BaseModel):
+        kind: Literal["heart", "bookmark"]
+        color: str
+        label: str
+
+    template_file = "icon.html"
+
+    def get_template_data(self, args, kwargs, slots, context):
+        return {
+            "kind": kwargs.kind,
+            "label": kwargs.label,
+            "color": kwargs.color,
+            "classes": "w-[18px] h-[18px]",
+        }
+
+
 class PaginationItem(BaseModel):
     kind: Literal["current", "ellipsis", "number"]
     text: Optional[str | int] = None

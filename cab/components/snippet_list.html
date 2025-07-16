@@ -1,0 +1,46 @@
+<section aria-labelledby="snippet-list-title">
+    <h2 id="snippet-list-title" class="sr-only">Snippet List</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-fr gap-8">
+        {% for snippet in snippet_list %}
+        <article class="flex flex-col flex-nowrap shadow transition-all duration-500 font-common hover:-translate-y-2 hover:shadow-xl">
+            <header class="flex flex-auto flex-col p-4 mb-0 bg-transparent">
+                <h3 class="my-2 bg-none truncate"><a class="text-2xl font-title text-base-black no-underline font-bold" href="{{ snippet.get_absolute_url }}" title="{{ snippet.title }}">{{ snippet.title }}</a></h3>
+                <p class="line-clamp-6 my-6 font-text text-base">{{ snippet.description }}</p>
+                <div class="mt-auto">
+                    <ul aria-label="tag list" class="m-0 my-2 inline-flex gap-2 flex-wrap list-none text-sm">
+                    {% for tag in snippet.tags.all %}
+                    <li class="py-1.5 px-2 border-2 text-base-white-400 bg-base-green-400 border-base-green-400 rounded-lg">{{ tag.name }}</li>
+                    {% endfor %}
+                    </ul>
+                    <div class="my-2 flex justify-between">
+                        <time aria-label="updated date">{{ snippet.updated_date|date:'D d M Y' }}</time>
+                        <a class="inline-flex items-center gap-2 cursor-pointer group underline underline-offset-4" href="{{ snippet.get_absolute_url }}">
+                              <span class="transition-colors">Read More</span>
+                              <svg class="w-6 h-6 group-hover:text-base-green-400" viewBox="0 0 24 24" fill="none">
+                                    <line class="stroke-current stroke-2 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" x1="4" y1="12" x2="16" y2="12"/>
+                                    <path class="stroke-current stroke-2 fill-none stroke-linecap-round stroke-linejoin-round group-hover:translate-x-1 transition-transform duration-300" d="M15 8l4 4-4 4"/>
+                              </svg>
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <footer class="p-4 flex items-center justify-between border-t-1 border-gray-300 before:content-none after:content-none">
+                <div>
+                    <strong>Author: </strong>
+                    <a href="{{ snippet.author.get_absolute_url }}" class="underline underline-offset-4 hover:text-base-orange-400">{{ snippet.author.username }}</a>
+                </div>
+                <ul class="flex m-0 gap-4 font-text">
+                    <li class="flex items-center gap-2">
+                        {% component 'icon' kind='heart' label='rating' color='red' / %}
+                        <span>{{ snippet.rating_score }}</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        {% component 'icon' kind='bookmark' label='bookmark' color='#ffd700' / %}
+                        <span>{{ snippet.bookmark_count }}</span>
+                    </li>
+                </ul>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
+</section>
