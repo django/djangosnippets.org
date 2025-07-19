@@ -27,7 +27,7 @@ class PaginationComponent(Component):
         its associated properties in a pagination navigation list.
         """
         if num == pagination.paginator.ELLIPSIS:
-            return PaginationItem(kind="ellipsis", text=pagination.paginator.ELLIPSIS)
+            return PaginationItem(kind="ellipsis", text=str(pagination.paginator.ELLIPSIS))
         elif num == pagination.page_num:
             return PaginationItem(kind="current", text=num)
         else:
