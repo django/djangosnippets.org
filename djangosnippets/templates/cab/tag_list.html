@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 
 {% block head_title %}All tags{% endblock %}
 {% block bodyclass %}tags-list{% endblock %}
@@ -14,7 +14,7 @@
     {% endfor %}
     </ul>
 
-    {% pagination pagination %}
+    {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p>No tags have been used yet.</p>
   {% endif %}

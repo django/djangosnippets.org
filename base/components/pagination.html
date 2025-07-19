@@ -1,0 +1,30 @@
+{% if pagination.multi_page %}
+<nav class="justify-center my-8" aria-labelledby="pagination">
+    <h2 id="pagination" class="sr-only">Pagination {{ pagination.opts.verbose_name_plural }}</h2>
+    <ul class="flex justify-center gap-2 transition-colors duration-200 ease-out ml-0">
+        <li>
+            <a class="py-[5px] px-[10px] mr-2 no-underline rounded-lg border-1 border-transparent text-base hover:border-base-orange-400 {% if previous_page_link == '' %}text-base-gray-400 hover:border-transparent cursor-default{% endif %}" href="{{ previous_page_link }}" rel="prev" aria-label="Previous page">
+                <span class="arrow-left inline-flex items-center">Previous</span>
+            </a>
+        </li>
+        {% with page_link_css="py-[5px] px-[10px] border-1 border-transparent rounded-lg no-underline hover:border-base-orange-400" %}
+        {% for page_item in page_elements %}
+        <li class="inline-block">
+            {% if page_item.kind == 'ellipsis' %}
+            {{ page_item.text }}
+            {% elif page_item.kind == 'current' %}
+            <a href="" class="{{ page_link_css }} bg-base-orange-400 text-base-white-400 cursor-default" aria-current="page">{{ page_item.text }}</a>
+            {% else %}
+            <a {% html_attrs page_item.attrs class=page_link_css %}>{{ page_item.text }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+        {% endwith %}
+        <li>
+            <a class="py-[5px] px-[10px] ml-2 no-underline rounded-lg border-1 border-transparent text-base hover:border-base-orange-400 {% if next_page_link == '' %}text-base-gray-400 hover:border-transparent cursor-default{% endif %}" href="{{ next_page_link }}" rel="next" aria-label="Next page">
+                <span class="arrow-right inline-flex items-center">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
