@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 {% load static %}
 {% block bodyclass %}snippet-list{% endblock %}
 {% block head_title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
@@ -8,29 +8,8 @@
 
 {% block content %}
   {% if object_list %}
-    <table class="snippet_list">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Tags</th>
-          <th>Publication date</th>
-          <th>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-    {% for snippet in object_list %}
-      <tr>
-        <td><a href="{{ snippet.get_absolute_url }}">{% if not snippet.title|strip %}Untitled{% else %}{{ snippet.title }}{% endif %}</a></td>
-        <td><a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a></td>
-        <td>{% for tag in snippet.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</td>
-        <td>{{ snippet.pub_date }}</td>
-        <td><span class="rating-{% if snippet.rating_score >= 0 %}positive{% else %}negative{% endif %}">{% if snippet.rating_score >= 0 %}+{% endif %}{{ snippet.rating_score }}</span></td>
-      </tr>
-    {% endfor %}
-      </tbody>
-    </table>
-    {% pagination pagination %}
+    {% component 'snippet_list' snippet_list=object_list / %}
+    {% component 'pagination' pagination_obj=pagination / %}
     <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
   {% else %}
     <p class="empty">No snippets posted yet.</p>

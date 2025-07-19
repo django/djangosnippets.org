@@ -35,7 +35,7 @@
       </ul>
     </nav>
   </div></header>
-  <div id="main">
+  <div id="main" class="container mb-auto mx-auto w-7/8">
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
@@ -59,14 +59,16 @@
 
   <div id="base-container">
   <h1>{% block content_header %}{% endblock %}</h1>
-  <div id="content">
+  {% with current_url_name=request.resolver_match.url_name %}
+  <div id="content" class="{% if current_url_name == 'home' %}w-1/2{% else %}w-full md:w-3/4{% endif %}">
       {% block content %}
       {% endblock %}
   </div>
-  <div id="sidebar">
+  <div id="sidebar" class="{% if current_url_name == 'home' %}w-1/2{% else %}hidden md:block md:w-1/4{% endif %}">
     {% block sidebar %}
     {% endblock %}
   </div>
+  {% endwith %}
   {% block extra_content %}
   {% endblock %}
   </div>

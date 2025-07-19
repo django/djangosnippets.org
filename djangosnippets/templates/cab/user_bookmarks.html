@@ -1,5 +1,5 @@
 {% extends "base_user.html" %}
-{% load core_tags components %}
+{% load core_tags %}
 {% block bodyclass %}bookmarks{% endblock %}
 
 {% block head_title %}Your bookmarks{% endblock %}
@@ -8,28 +8,8 @@
 
 {% block content %}
   {% if object_list %}
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Language</th>
-          <th>Added</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for bookmark in object_list %}
-        <tr>
-          <td><a href="{{ bookmark.snippet.get_absolute_url }}">{{ bookmark.snippet.title }}</a></td>
-          <td><a href="{% url 'cab_language_detail' slug=bookmark.snippet.language.slug %}">{{ bookmark.snippet.language.name }}</a></td>
-          <td>{{ bookmark.date|timesince }}</td>
-          <td><a href="{% url 'cab_bookmark_delete' snippet_id=bookmark.snippet.id %}">Delete this bookmark</a></td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-
-    {% pagination pagination %}
+    {% component 'snippet_list' snippet_list=object_list / %}
+    {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p>You haven't bookmarked any snippets yet.</p>
   {% endif %}
