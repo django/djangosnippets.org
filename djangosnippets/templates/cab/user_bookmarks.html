@@ -28,7 +28,6 @@
       {% endfor %}
       </tbody>
     </table>
-
     {% component "pagination" pagination_obj=pagination / %}
   {% else %}
     <p>You haven't bookmarked any snippets yet.</p>
@@ -36,12 +35,12 @@
 
 {% endblock %}
 
-{% block sidebar %}
-  <p>To bookmark a snippet, just click the "add this snippet to your bookmarks" link on its page.</p>
-  <p>The snippets other users have bookmarked most often are:</p>
-  <ol>
-  {% for snippet in "cab.snippet"|call_manager:"most_bookmarked"|slice:":5" %}
-    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a></li>
-  {% endfor %}
-  </ol>
-{% endblock %}
+{#{% block sidebar %}#}
+{#  <p>To bookmark a snippet, just click the "add this snippet to your bookmarks" link on its page.</p>#}
+{#  <p>The snippets other users have bookmarked most often are:</p>#}
+{#  <ol>#}
+{#  {% for snippet in "cab.snippet"|call_manager:"most_bookmarked"|slice:":5" %}#}
+{#    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a></li>#}
+{#  {% endfor %}#}
+{#  </ol>#}
+{#{% endblock %}#}

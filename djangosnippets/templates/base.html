@@ -6,6 +6,9 @@
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   {% block feeds %}{% endblock %}
@@ -35,7 +38,7 @@
       </ul>
     </nav>
   </div></header>
-  <div id="main">
+  <div id="main" class="container mb-auto mx-auto w-7/8">
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
@@ -59,14 +62,16 @@
 
   <div id="base-container">
   <h1>{% block content_header %}{% endblock %}</h1>
-  <div id="content">
+  {% with current_url_name=request.resolver_match.url_name %}
+  <div id="content" class="{% if current_url_name == 'home' %}w-1/2{% else %}w-full{% endif %}">
       {% block content %}
       {% endblock %}
   </div>
-  <div id="sidebar">
+  <div id="sidebar" class="{% if current_url_name == 'home' %}w-1/2{% else %}hidden md:block md:w-1/4{% endif %}">
     {% block sidebar %}
     {% endblock %}
   </div>
+  {% endwith %}
   {% block extra_content %}
   {% endblock %}
   </div>
