@@ -1,5 +1,5 @@
 -r base.txt
-certifi==2021.10.8
+certifi==2025.7.14
 django-redis-cache==3.0.1
 gevent==22.10.2  # Ensure this matches the updated version in base.txt
 greenlet==3.0.3  # Ensure this matches the updated version in base.txt
