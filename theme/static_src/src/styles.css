@@ -3,7 +3,13 @@
 @theme {
     --color-base-orange-400: #ffc656;
     --color-base-white-400: #fafafa;
+    --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
+    --color-base-green-400: #256918;
+    --color-base-green-800: #12330c;
+    --font-title: "Playfair Display", sans-serif;
+    --font-text: "Nunito", sans-serif;
+    --font-common: "Raleway", sans-serif;
 }
 
 @layer components {
