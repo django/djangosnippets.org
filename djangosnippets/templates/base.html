@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   {% block feeds %}{% endblock %}
@@ -45,8 +45,6 @@
         <li><a hx-get="{% url 'cab_top_authors' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By author</a></li>
         <li><a hx-get="{% url 'cab_language_list' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By language</a></li>
         <li><a hx-get="{% url 'cab_top_tags' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">By tag</a></li>
-        <li><a hx-get="{% url 'cab_top_rated' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">Highest rated</a></li>
-        <li><a hx-get="{% url 'cab_top_bookmarked' %}" hx-target="#base-container" hx-swap="innerHTML" hx-trigger="click" hx-push-url="true">Most bookmarked</a></li>
       </ul>
     </nav>
     {% endblock %}
@@ -62,6 +60,7 @@
 
   <div id="base-container">
   <h1>{% block content_header %}{% endblock %}</h1>
+  {% block new_content_header %}{% endblock %}
   {% with current_url_name=request.resolver_match.url_name %}
   <div id="content" class="{% if current_url_name == 'home' %}w-1/2{% else %}w-full{% endif %}">
       {% block content %}

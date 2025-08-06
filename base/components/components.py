@@ -3,6 +3,7 @@ from typing import Literal, Optional
 from django_components import Component, register
 from pydantic import BaseModel
 
+from base.main import TAB_VAR, ObjectList
 from base.pagination import PAGE_VAR, Pagination
 from base.templatetags.base_templatetags import querystring
 
@@ -67,4 +68,39 @@ class PaginationComponent(Component):
             "previous_page_link": previous_page_link,
             "next_page_link": next_page_link,
             "page_elements": page_elements,
+        }
+
+
+class TabItem(BaseModel):
+    text: str
+    is_current: bool
+    attrs: Optional[dict]
+
+
+@register("sorting_tabs")
+class SortingTabs(Component):
+    template_file = "sorting_tabs.html"
+
+    class Kwargs(BaseModel):
+        object_list: ObjectList
+        model_config = {"arbitrary_types_allowed": True}
+
+    def create_tab(self, object_list: ObjectList, tab: str) -> TabItem:
+        verbose_text = tab.replace("_", " ").title()
+        is_current = tab == object_list.current_tab
+        link = querystring(None, {**object_list.params, TAB_VAR: tab})
+        attrs = {"href": link}
+        if is_current:
+            attrs["aria-selected"] = "true"
+        return TabItem(text=verbose_text, is_current=is_current, attrs=attrs)
+
+    def create_all_tabs(self, object_list: ObjectList):
+        tabs = [self.create_tab(object_list, tab) for tab in object_list.sorting_tabs]
+        return tabs
+
+    def get_template_data(self, args, kwargs, slots, context):
+        object_list = kwargs.object_list
+        return {
+            "tabs": self.create_all_tabs(object_list),
+            "object_list": object_list,
         }
