@@ -7,8 +7,9 @@ from django.template import loader
 from django.utils.safestring import mark_safe
 from markdown import markdown as markdown_func
 
-from base.main import ObjectList
 from base.pagination import Pagination
+
+from .main import SnippetList
 
 
 def object_list(
@@ -45,7 +46,7 @@ def object_list(
     opts = model._meta
     if paginate_by:
         if queryset.model == Snippet:
-            object_list = ObjectList(request, queryset.model, queryset, 15)
+            object_list = SnippetList(request, queryset.model, queryset, 15)
             pagination = object_list.pagination
         else:
             pagination = Pagination(request, model, queryset, paginate_by)
