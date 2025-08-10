@@ -1,0 +1,12 @@
+{
+    "name": "build-django-tailwind",
+    "description": "Run the tailwind build step before django's collectstatic",
+    "version": "1.0.0",
+    "engines": {
+        "node": "18.x"
+    },
+    "scripts": {
+        "heroku-prebuild": "cd theme/static_src && npm ci --include=dev",
+        "heroku-postbuild": "cd theme/static_src && npm run build"
+    }
+}
