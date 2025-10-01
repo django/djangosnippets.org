@@ -1,5 +1,5 @@
 bleach==6.2.0
-Django==5.2.3
+Django==5.2.7
 dj-database-url==3.0.0
 django-allauth==65.9.0
 django-contrib-comments==2.2.0
