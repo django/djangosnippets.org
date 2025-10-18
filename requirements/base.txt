@@ -24,6 +24,6 @@ psycopg2-binary==2.9.10
 djangorestframework==3.15.2
 django-htmx==1.15.0
 django_components==0.141.2
-gevent==22.10.2  # Updated version of gevent
+gevent==25.9.1  # Updated version of gevent
 greenlet==3.0.3  # Updated version of greenlet
 requests-oauthlib==1.3.1
