@@ -2,9 +2,9 @@
 {% load core_tags %}
 {% load static %}
 {% block bodyclass %}snippet-list{% endblock %}
-{% block head_title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+{% block head_title %} All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
-{% block content_header %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+{% block content_header %} {{ hits }} snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
 
 {% block content %}
   {% if object_list %}
