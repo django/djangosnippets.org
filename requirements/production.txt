@@ -1,5 +1,5 @@
 -r base.txt
-certifi==2021.10.8
+certifi==2025.10.5
 django-redis-cache==3.0.1
 raven==6.10.0
 redis==3.5.3
