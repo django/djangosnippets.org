@@ -292,26 +292,6 @@ class ViewTestCase(BaseCabTestCase):
         tag_names = [tag.name for tag in resp.context["object_list"]]
         self.assertEqual(tag_names, ["world", "goodbye", "haxor", "hello"])
 
-        top_bookmarked = reverse("cab_top_bookmarked")
-        self.assertEqual(top_bookmarked, "/popular/bookmarked/")
-
-        resp = self.client.get(top_bookmarked)
-        self.assertEqual(resp.status_code, 200)
-        s1, s3, s2 = resp.context["object_list"]
-        self.assertEqual(s1, self.snippet1)
-        self.assertEqual(s3, self.snippet3)
-        self.assertEqual(s2, self.snippet2)
-
-        top_rated = reverse("cab_top_rated")
-        self.assertEqual(top_rated, "/popular/rated/")
-
-        resp = self.client.get(top_rated)
-        self.assertEqual(resp.status_code, 200)
-        s1, s3, s2 = resp.context["object_list"]
-        self.assertEqual(s1, self.snippet1)
-        self.assertEqual(s3, self.snippet3)
-        self.assertEqual(s2, self.snippet2)
-
     def test_tag_detail(self):
         tag_detail = reverse("cab_snippet_matches_tag", args=["world"])
         self.assertEqual(tag_detail, "/tags/world/")

@@ -2,17 +2,22 @@
 {% load core_tags %}
 {% load static %}
 {% block bodyclass %}snippet-list{% endblock %}
-{% block head_title %}All snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+{% block head_title %}Snippet list{% endblock %}
 
-{% block content_header %}{{ hits }} snippets{% if months %} last {{ months }} months{% endif %}{% endblock %}
+{% block new_content_header %}
+    <header class="bg-transparent">
+        <h1 class="my-20 text-center float-none font-header text-8xl md:text-left">{{ hits }} snippet{{ hits|pluralize }}</h1>
+        <div class="my-4 flex justify-between px-4">
+            <div></div>
+            {% component 'sorting_tabs' object_list=object_list / %}
+        </div>
+    </header>
+{% endblock %}
 
 {% block content %}
   {% if object_list %}
     {% component 'snippet_list' snippet_list=object_list / %}
     {% component 'pagination' pagination_obj=pagination / %}
-    <p class="count">{{ hits }} snippet{{ hits|pluralize }} posted so far.</p>
-  {% else %}
-    <p class="empty">No snippets posted yet.</p>
   {% endif %}
 {% endblock %}
 

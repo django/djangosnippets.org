@@ -1,0 +1,8 @@
+<nav aria-labelledby="sorting-tabs">
+    <h2 id="sorting-tabs" class="sr-only">Sorting Tabs</h2>
+    <ul class="m-0 nline-flex gap-2 p-2 border-2 border-base-green-400 rounded-lg font-common">
+        {% for tab in tabs %}
+        <li><a {% html_attrs tab.attrs %} class="inline-block px-4 py-2 rounded-md {% if tab.is_current %}bg-base-green-400 text-base-white-400 no-underline{% else %}underline duration-300 transition-colors hover:bg-base-green-400/30 hover:text-base-green-800{% endif %}">{{ tab.text }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>

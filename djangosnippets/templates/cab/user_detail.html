@@ -7,14 +7,21 @@
 
 {% block head_title %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
 
-{% block content_header %}Snippets by {{ author.username }}{% if months %}, last {{ months }} months{% endif %}{% endblock %}
+{% block new_content_header %}
+<header class="bg-transparent">
+    <h1 class="my-20 text-center float-none font-header text-8xl md:text-left">Snippet{{ hits|pluralize }} by {{ author.username }}</h1>
+    <div class="my-4 flex justify-between px-4">
+        <div></div>
+        {% component 'sorting_tabs' object_list=object_list / %}
+    </div>
+</header>
+{% endblock %}
 
 
 {% block content %}
   {% if object_list %}
     {% component 'snippet_list' snippet_list=object_list / %}
     {% cache 600 author_detail_sidebar author.username %}
-    <p class="count">{% if request.user.username == author.username %}You've{% else %}{{ author.username }} has{% endif %} posted {{ author.snippet_set.count }} snippet{{ author.snippet_set.count|pluralize }}.</p>
     {% endcache %}
     {% component "pagination" pagination_obj=pagination / %}
   {% else %}
