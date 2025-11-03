@@ -16,7 +16,7 @@ class ObjectList:
         self.params = dict(request.GET.dict())
         self.current_tab = self.params.get(TAB_VAR, None)
         if self.opts.ordering:
-            self.base_ordering = self.opts.ordering
+            self.base_ordering = list(self.opts.ordering)
         if PAGE_VAR in self.params:
             del self.params[PAGE_VAR]
         self.result_objects = self.get_objects(request, queryset)
@@ -31,7 +31,7 @@ class ObjectList:
             result_queryset = result_queryset.order_by(*sort_value, *self.base_ordering)
         else:
             for tab_name, tab_order in self.sorting_tabs.items():
-                if tab_order == self.base_ordering:
+                if list(tab_order) == self.base_ordering:
                     self.current_tab = tab_name
                     break
 

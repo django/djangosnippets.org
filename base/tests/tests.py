@@ -1,8 +1,76 @@
 from django.test import RequestFactory, TestCase
 
+from base.main import ObjectList
 from base.pagination import Pagination
 
 from .models import Fish
+
+
+class FishList(ObjectList):
+    sorting_tabs = {
+        "name_asc": ("name",),
+        "high_price": ("-price",),
+        "low_price": ("price",),
+    }
+
+
+class ObjectListTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        fishs = [
+            Fish(name="Atlantic Salmon", price=80000),
+            Fish(name="Bluefin Tuna", price=500000),
+            Fish(name="Giant Squid", price=300000),
+            Fish(name="King Crab", price=200000),
+            Fish(name="Live Abalone", price=80000),
+            Fish(name="Longtooth Grouper", price=250000),
+            Fish(name="Red Seabream", price=90000),
+            Fish(name="Tiger Prawn", price=70000),
+            Fish(name="Wild Flatfish", price=180000),
+            Fish(name="Yellow Corvina", price=150000),
+        ]
+        Fish.objects.bulk_create(fishs)
+        cls.queryset = Fish.objects.all()
+        cls.fish_list = list(cls.queryset)
+        cls.factory = RequestFactory()
+
+    def test_objects_paginate(self):
+        request = self.factory.get("?page=2")
+        object_list = ObjectList(request, Fish, self.queryset, 2)
+        fish_names = [fish.name for fish in object_list]
+        self.assertEqual(len(fish_names), 2)
+        self.assertEqual(fish_names[0], "Giant Squid")
+        self.assertEqual(fish_names[1], "King Crab")
+
+        request = self.factory.get("?page=4")
+        object_list = ObjectList(request, Fish, self.queryset, 3)
+        fish_names = [fish.name for fish in object_list]
+        self.assertEqual(len(fish_names), 1)
+        self.assertEqual(fish_names[0], "Yellow Corvina")
+
+    def test_select_default_tab(self):
+        request = self.factory.get("")
+        object_list = FishList(request, Fish, self.queryset, 5)
+        self.assertEqual(object_list.base_ordering, ["name"])
+        self.assertEqual(object_list.current_tab, "name_asc")
+
+    def test_objects_tab_sorting(self):
+        request = self.factory.get("?tab=high_price")
+        object_list = FishList(request, Fish, self.queryset, 5)
+        self.assertEqual(object_list.current_tab, "high_price")
+        high_price_fishs = list(object_list)
+        self.assertEqual(high_price_fishs[0].name, "Bluefin Tuna")
+        self.assertEqual(high_price_fishs[1].name, "Giant Squid")
+        self.assertEqual(high_price_fishs[2].name, "Longtooth Grouper")
+
+        request = self.factory.get("?tab=low_price")
+        object_list = FishList(request, Fish, self.queryset, 5)
+        self.assertEqual(object_list.current_tab, "low_price")
+        low_price_fishs = list(object_list)
+        self.assertEqual(low_price_fishs[0].name, "Tiger Prawn")
+        self.assertEqual(low_price_fishs[1].name, "Atlantic Salmon")
+        self.assertEqual(low_price_fishs[2].name, "Live Abalone")
 
 
 class PaginationTestCase(TestCase):
