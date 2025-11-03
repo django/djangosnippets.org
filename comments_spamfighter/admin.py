@@ -9,7 +9,7 @@ from .models import Keyword
 
 class KeywordAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(KeywordAdminForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.initial["fields"] = self.instance.fields.split(",")
 
     keyword = forms.CharField(
@@ -17,8 +17,8 @@ class KeywordAdminForm(forms.ModelForm):
             attrs={
                 "style": "height: 1.5em; line-height: 1.5em; width: 40em;",
                 "class": "vLargeTextField",
-            }
-        )
+            },
+        ),
     )
     fields = forms.MultipleChoiceField(label=_("Fields to check"), choices=Keyword.FIELD_CHOICES)
 
@@ -31,8 +31,9 @@ class KeywordAdminForm(forms.ModelForm):
         if self.cleaned_data["is_regex"]:
             try:
                 re.match(self.cleaned_data["keyword"], "", re.MULTILINE)
-            except Exception as e:
-                raise forms.ValidationError(_('This regular expression is not valid. Error message was: "%s"' % e))
+            except re.error as e:
+                msg = _('This regular expression is not valid. Error message was: "%s"') % str(e)
+                raise forms.ValidationError(msg) from e
         return self.cleaned_data
 
     class Meta:
@@ -53,7 +54,7 @@ class KeywordAdmin(admin.ModelAdmin):
                     "active",
                     ("keyword", "is_regex"),
                     "fields",
-                )
+                ),
             },
         ),
     )

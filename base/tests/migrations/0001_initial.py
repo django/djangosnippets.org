@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,26 +16,56 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Beverage",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name="Food",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name="BeverageRating",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("score", models.FloatField(db_index=True, default=0)),
-                ("hashed", models.CharField(db_index=True, editable=False, max_length=40)),
+                (
+                    "hashed",
+                    models.CharField(db_index=True, editable=False, max_length=40),
+                ),
                 (
                     "content_object",
-                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="tests.Beverage"),
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="tests.Beverage",
+                    ),
                 ),
                 (
                     "user",

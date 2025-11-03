@@ -6,8 +6,7 @@ admin.autodiscover()
 
 
 def trigger_sentry_error(request):
-    division_by_zero = 1 / 0
-    return division_by_zero
+    return 1 / 0
 
 
 urlpatterns = [

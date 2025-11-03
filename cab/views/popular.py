@@ -1,5 +1,5 @@
-from ..models import Language, Snippet
-from ..utils import month_object_list, object_list
+from cab.models import Language, Snippet
+from cab.utils import month_object_list, object_list
 
 
 def top_authors(request):
@@ -12,13 +12,19 @@ def top_authors(request):
         )
 
     return object_list(
-        request, queryset=Snippet.objects.top_authors(), template_name="cab/top_authors.html", paginate_by=20
+        request,
+        queryset=Snippet.objects.top_authors(),
+        template_name="cab/top_authors.html",
+        paginate_by=20,
     )
 
 
 def top_languages(request):
     return object_list(
-        request, queryset=Language.objects.top_languages(), template_name="cab/language_list.html", paginate_by=20
+        request,
+        queryset=Language.objects.top_languages(),
+        template_name="cab/language_list.html",
+        paginate_by=20,
     )
 
 

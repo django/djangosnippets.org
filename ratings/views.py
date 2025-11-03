@@ -1,7 +1,13 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseNotAllowed,
+    HttpResponseRedirect,
+)
 from django.shortcuts import get_object_or_404
 from django.utils.http import url_has_allowed_host_and_scheme
 
@@ -14,9 +20,12 @@ ALLOW_GET = getattr(settings, "RATINGS_ALLOW_GET", True)
 @login_required
 def rate_object(request, ct, pk, score=1, add=True):
     if request.method != "POST" and not ALLOW_GET:
-        return HttpResponseNotAllowed('Invalid request method: "%s". ' "Must be POST." % request.method)
+        err_msg = f'Invalid request method: "{request.method}". Must be POST.'
+        return HttpResponseNotAllowed(err_msg)
 
-    redirect_url = request.POST.get("next") or request.GET.get("next") or request.META.get("HTTP_REFERER")
+    redirect_url = (
+        request.POST.get("next") or request.GET.get("next") or request.META.get("HTTP_REFERER")
+    )
     if redirect_url and not url_has_allowed_host_and_scheme(redirect_url, settings.ALLOWED_HOSTS):
         return HttpResponseBadRequest("Invalid next URL.")
     if not redirect_url:
@@ -26,7 +35,8 @@ def rate_object(request, ct, pk, score=1, add=True):
     model_class = ctype.model_class()
 
     if not hasattr(model_class, "_ratings_field"):
-        raise Http404("Model class %s does not support ratings" % model_class)
+        err_msg = f"Model class {model_class} does not support ratings"
+        raise Http404(err_msg)
 
     obj = get_object_or_404(model_class, pk=pk)
 

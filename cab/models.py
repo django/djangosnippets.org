@@ -52,12 +52,10 @@ class SnippetManager(models.Manager):
 
     def top_rated(self):
         # this is slow
-        # return self.annotate(score=Sum('ratings__score')).order_by('-score')
         return self.all().order_by("-rating_score", "-pub_date")
 
     def most_bookmarked(self):
         # this is slow
-        # self.annotate(score=Count('bookmarks')).order_by('-score')
         return self.all().order_by("-bookmark_count", "-pub_date")
 
     def matches_tag(self, tag):
@@ -95,13 +93,17 @@ class Snippet(models.Model):
     def save(self, *args, **kwargs):
         self.description_html = sanitize_markdown(self.description)
         self.highlighted_code = self.highlight()
-        super(Snippet, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cab_snippet_detail", kwargs={"snippet_id": self.id})
 
     def highlight(self):
-        return highlight(self.code, self.language.get_lexer(), formatters.HtmlFormatter(linenos=True))
+        return highlight(
+            self.code,
+            self.language.get_lexer(),
+            formatters.HtmlFormatter(linenos=True),
+        )
 
     def get_tagstring(self):
         return ", ".join([t.name for t in self.tags.order_by("name").all()])
@@ -118,7 +120,11 @@ class Snippet(models.Model):
         self.save()
 
     def mark_as_inappropiate(self):
-        snippet_flag = SnippetFlag(snippet=self, user=self.author, flag=SnippetFlag.FLAG_INAPPROPRIATE)
+        snippet_flag = SnippetFlag(
+            snippet=self,
+            user=self.author,
+            flag=SnippetFlag.FLAG_INAPPROPRIATE,
+        )
         snippet_flag.save()
 
     def mark_as_spam(self):
@@ -138,11 +144,7 @@ class SnippetFlag(models.Model):
     flag = models.IntegerField(choices=FLAG_CHOICES)
 
     def __str__(self):
-        return "%s flagged as %s by %s" % (
-            self.snippet.title,
-            self.get_flag_display(),
-            self.user.username,
-        )
+        return f"{self.snippet.title} flagged as {self.get_flag_display()} by {self.user.username}"
 
     def remove_and_ban(self):
         user = self.snippet.author
@@ -161,14 +163,14 @@ class Bookmark(models.Model):
         ordering = ("-date",)
 
     def __str__(self):
-        return "%s bookmarked by %s" % (self.snippet, self.user)
+        return f"{self.snippet} bookmarked by {self.user}"
 
     def save(self, *args, **kwargs):
-        super(Bookmark, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         self.snippet.update_bookmark_count()
 
     def delete(self, *args, **kwargs):
-        super(Bookmark, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
         self.snippet.update_bookmark_count()
 
 

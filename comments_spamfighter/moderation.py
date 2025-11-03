@@ -31,16 +31,16 @@ class SpamFighterModerator(CommentModerator):
         """
         # Iterate over all keywords
         for keyword in Keyword.objects.filter(active=True):
-
             # Iterate over all fields
             for field_name in keyword.fields.split(","):
-
                 # Check that the given field is in the comments class. If
                 # settings.DEBUG is False, fail silently.
                 field_value = getattr(comment, field_name, None)
                 if not field_value:
                     if settings.DEBUG:
-                        raise ImproperlyConfigured('"%s" is not a field within your comments class.')
+                        raise ImproperlyConfigured(
+                            '"%s" is not a field within your comments class.',
+                        )
                     continue
 
                 # A regular expression check against the field value.
@@ -49,9 +49,8 @@ class SpamFighterModerator(CommentModerator):
                         return True
 
                 # A simple string check against the field value.
-                else:
-                    if keyword.keyword.lower() in field_value.lower():
-                        return True
+                elif keyword.keyword.lower() in field_value.lower():
+                    return True
         return False
 
     def _akismet_check(self, comment, content_object, request):
@@ -61,13 +60,15 @@ class SpamFighterModerator(CommentModerator):
         """
         # Check if the akismet api key is set, fail silently if
         # settings.DEBUG is False and return False (not moderated)
-        AKISMET_API_KEY = getattr(settings, "AKISMET_SECRET_API_KEY", False)
-        if not AKISMET_API_KEY:
-            raise ImproperlyConfigured("You must set AKISMET_SECRET_API_KEY with your api key in your settings file.")
+        akismet_api_key = getattr(settings, "AKISMET_SECRET_API_KEY", False)
+        if not akismet_api_key:
+            raise ImproperlyConfigured(
+                "You must set AKISMET_SECRET_API_KEY with your api key in your settings file.",
+            )
 
         akismet_api = Akismet(
-            AKISMET_API_KEY,
-            blog="%s://%s/" % (request.scheme, Site.objects.get_current().domain),
+            akismet_api_key,
+            blog=f"{request.scheme}://{Site.objects.get_current().domain}/",
         )
         return akismet_api.check(
             comment.ip_address,
@@ -84,7 +85,7 @@ class SpamFighterModerator(CommentModerator):
         otherwise.
         """
         # Original CommentModerator check
-        orig_allow = super(SpamFighterModerator, self).allow(comment, content_object, request)
+        orig_allow = super().allow(comment, content_object, request)
         if not orig_allow:
             return False
 
@@ -98,15 +99,12 @@ class SpamFighterModerator(CommentModerator):
             return False
 
         # Akismet check
-        if (
+        # Return False if akismet marks this comment as spam.
+        return not (
             self.akismet_check
             and not self.akismet_check_moderate
             and self._akismet_check(comment, content_object, request)
-        ):
-            # Return False if akismet marks this comment as spam.
-            return False
-
-        return True
+        )
 
     def moderate(self, comment, content_object, request):
         """
@@ -117,7 +115,7 @@ class SpamFighterModerator(CommentModerator):
         Return ``True`` if the comment should be moderated (marked
         non-public), ``False`` otherwise.
         """
-        orig_moderate = super(SpamFighterModerator, self).moderate(comment, content_object, request)
+        orig_moderate = super().moderate(comment, content_object, request)
         if orig_moderate:
             return True
 
@@ -131,12 +129,9 @@ class SpamFighterModerator(CommentModerator):
             return True
 
         # Akismet check
-        if (
+        # Return True if akismet marks this comment as spam and we want to moderate it.
+        return (
             self.akismet_check
             and self.akismet_check_moderate
             and self._akismet_check(comment, content_object, request)
-        ):
-            # Return True if akismet marks this comment as spam and we want to moderate it.
-            return True
-
-        return False
+        )

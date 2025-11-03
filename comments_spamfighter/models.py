@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Keyword(models.Model):
-
     # Default field choices. These are good inital values for the default
     # Django comments but you can override it using the settings variable
     # COMMENTS_CHECK_FIELDS_CHOICES

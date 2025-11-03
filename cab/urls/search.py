@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views.snippets import advanced_search, autocomplete, basic_search
+from cab.views.snippets import advanced_search, autocomplete, basic_search
 
 urlpatterns = [
     path("", basic_search, name="cab_search"),

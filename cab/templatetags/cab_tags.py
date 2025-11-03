@@ -1,7 +1,7 @@
 from django import template
 from django.contrib.postgres.search import SearchVector
 
-from ..models import Bookmark, Snippet, SnippetFlag
+from cab.models import Bookmark, Snippet, SnippetFlag
 
 register = template.Library()
 
@@ -33,7 +33,7 @@ def more_like_this(snippet, limit=None):
         sqs = Snippet.objects.annotate(
             search=SearchVector(
                 "language__name",
-            )
+            ),
         )
         sqs = sqs.filter(language__name=snippet.language).exclude(pk=snippet.pk)
         if limit is not None:

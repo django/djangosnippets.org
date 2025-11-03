@@ -1,4 +1,5 @@
 import datetime
+from zoneinfo import ZoneInfo
 
 import bleach
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,8 +12,11 @@ from base.pagination import Pagination
 
 from .main import SnippetList
 
+# Constants
+MAX_MONTHS_AGO = 48
 
-def object_list(
+
+def object_list(  # noqa: PLR0913
     request,
     queryset,
     paginate_by=None,
@@ -70,12 +74,12 @@ def object_list(
         else:
             context[key] = value
     if not template_name:
-        template_name = "%s/%s_list.html" % (opts.app_label, opts.object_name.lower())
+        template_name = f"{opts.app_label}/{opts.object_name.lower()}_list.html"
     template = template_loader.get_template(template_name)
     return HttpResponse(template.render(context, request=request), content_type=content_type)
 
 
-def object_detail(
+def object_detail(  # noqa: PLR0913
     request,
     queryset,
     object_id=None,
@@ -101,7 +105,9 @@ def object_detail(
         extra_context = {}
     model = queryset.model
     if not object_id or (slug and slug_field):
-        raise AttributeError("Generic detail view must be called with either " "an object_id or a slug/slug_field.")
+        raise AttributeError(
+            "Generic detail view must be called with either an object_id or a slug/slug_field.",
+        )
     if object_id:
         queryset = queryset.filter(pk=object_id)
     elif slug and slug_field:
@@ -109,10 +115,11 @@ def object_detail(
 
     try:
         obj = queryset.get()
-    except ObjectDoesNotExist:
-        raise Http404("No %s found matching the query" % model._meta.verbose_name)
+    except ObjectDoesNotExist as e:
+        msg = f"No {model._meta.verbose_name} found matching the query"
+        raise Http404(msg) from e
     if not template_name:
-        template_name = "%s/%s_detail.html" % (model._meta.app_label, model._meta.object_name.lower())
+        template_name = f"{model._meta.app_label}/{model._meta.object_name.lower()}_detail.html"
     if template_name_field:
         template_name_list = [getattr(obj, template_name_field), template_name]
         t = template_loader.select_template(template_name_list)
@@ -126,15 +133,14 @@ def object_detail(
             c[key] = value()
         else:
             c[key] = value
-    response = HttpResponse(t.render(c, request=request), content_type=content_type)
-    return response
+    return HttpResponse(t.render(c, request=request), content_type=content_type)
 
 
 def get_past_datetime(months_ago):
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(tz=ZoneInfo("America/Chicago"))
 
     # a little stupid validation here:
-    if months_ago < 1 or months_ago > 48:
+    if months_ago < 1 or months_ago > MAX_MONTHS_AGO:
         return now
 
     return now - datetime.timedelta(days=months_ago * 31)
@@ -179,5 +185,5 @@ def sanitize_markdown(value):
                 "strong",
                 "ul",
             ],
-        )
+        ),
     )

@@ -19,16 +19,16 @@ class RatedItemBase(models.Model):
         abstract = True
 
     def __str__(self):
-        return "%s rated %s by %s" % (self.content_object, self.score, self.user)
+        return f"{self.content_object} rated {self.score} by {self.user}"
 
     def save(self, *args, **kwargs):
         self.hashed = self.generate_hash()
-        super(RatedItemBase, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def generate_hash(self):
         content_field = self._meta.get_field("content_object")
         related_object = getattr(self, content_field.name)
-        uniq = "%s.%s" % (related_object._meta, related_object.pk)
+        uniq = f"{related_object._meta}.{related_object.pk}"
         return hashlib.sha1(uniq.encode("ascii")).hexdigest()
 
     @classmethod
@@ -51,7 +51,10 @@ class RatedItem(RatedItemBase):
 
     @classmethod
     def lookup_kwargs(cls, instance):
-        return {"object_id": instance.pk, "content_type": ContentType.objects.get_for_model(instance)}
+        return {
+            "object_id": instance.pk,
+            "content_type": ContentType.objects.get_for_model(instance),
+        }
 
     @classmethod
     def base_kwargs(cls, model_class):
@@ -66,16 +69,16 @@ class Ratings:
     def contribute_to_class(self, cls, name):
         # set up the ForeignRelatedObjectsDescriptor right hyah
         setattr(cls, name, _RatingsDescriptor(cls, self.rating_model, name))
-        setattr(cls, "_ratings_field", name)
+        cls._ratings_field = name
 
 
 class RatingsQuerySet(QuerySet):
     def __init__(self, model=None, query=None, using=None, hints=None, rated_model=None):
         self.rated_model = rated_model
-        super(RatingsQuerySet, self).__init__(model, query, using, hints)
+        super().__init__(model, query, using, hints)
 
     def _clone(self, *args, **kwargs):
-        instance = super(RatingsQuerySet, self)._clone(*args, **kwargs)
+        instance = super()._clone(*args, **kwargs)
         instance.rated_model = self.rated_model
         return instance
 
@@ -85,18 +88,25 @@ class RatingsQuerySet(QuerySet):
         if queryset is None:
             queryset = self.rated_model._default_manager.all()
 
-        ordering = descending and "-%s" % alias or alias
+        ordering = (descending and f"-{alias}") or alias
 
         if not is_gfk(related_field):
             query_name = related_field.related_query_name()
 
             if len(self.query.where.children):
-                queryset = queryset.filter(**{"%s__pk__in" % query_name: self.values_list("pk")})
+                queryset = queryset.filter(**{f"{query_name}__pk__in": self.values_list("pk")})
 
-            return queryset.annotate(**{alias: aggregator("%s__score" % query_name)}).order_by(ordering)
+            return queryset.annotate(**{alias: aggregator(f"{query_name}__score")}).order_by(
+                ordering,
+            )
 
-        else:
-            return generic_annotate(queryset, self, aggregator("score"), related_field, alias=alias).order_by(ordering)
+        return generic_annotate(
+            queryset,
+            self,
+            aggregator("score"),
+            related_field,
+            alias=alias,
+        ).order_by(ordering)
 
 
 class _RatingsDescriptor(models.Manager):
@@ -131,7 +141,7 @@ class _RatingsDescriptor(models.Manager):
         """
         return self.create_manager(instance, self.rating_model._base_manager.__class__)
 
-    def create_manager(self, instance, superclass):
+    def create_manager(self, instance, superclass):  # noqa: C901
         """
         Dynamically create a RelatedManager to handle the back side of the (G)FK
         """
@@ -147,7 +157,8 @@ class _RatingsDescriptor(models.Manager):
                 lookup_kwargs = rel_model.lookup_kwargs(instance)
                 for obj in objs:
                     if not isinstance(obj, self.model):
-                        raise TypeError("'%s' instance expected" % self.model._meta.object_name)
+                        msg = f"'{self.model._meta.object_name}' instance expected"
+                        raise TypeError(msg)
                     for k, v in lookup_kwargs.items():
                         setattr(obj, k, v)
                     obj.save()
@@ -156,13 +167,13 @@ class _RatingsDescriptor(models.Manager):
 
             def create(self, **kwargs):
                 kwargs.update(rel_model.lookup_kwargs(instance))
-                return super(RelatedManager, self).create(**kwargs)
+                return super().create(**kwargs)
 
             create.alters_data = True
 
             def get_or_create(self, **kwargs):
                 kwargs.update(rel_model.lookup_kwargs(instance))
-                return super(RelatedManager, self).get_or_create(**kwargs)
+                return super().get_or_create(**kwargs)
 
             get_or_create.alters_data = True
 
@@ -170,7 +181,8 @@ class _RatingsDescriptor(models.Manager):
                 for obj in objs:
                     # Is obj actually part of this descriptor set?
                     if obj not in self.all():
-                        raise rel_model.DoesNotExist("%r is not related to %r." % (obj, instance))
+                        err_msg = f"{obj} is not related to {instance}."
+                        raise rel_model.DoesNotExist(err_msg)
 
                     obj.delete()
 
@@ -264,4 +276,4 @@ class SimilarItem(models.Model):
     objects = SimilarItemManager()
 
     def __str__(self):
-        return "%s (%s)" % (self.similar_object, self.score)
+        return f"{self.similar_object} ({self.score})"

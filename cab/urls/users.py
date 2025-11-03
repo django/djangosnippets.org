@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views import popular, snippets
+from cab.views import popular, snippets
 
 urlpatterns = [
     path("", popular.top_authors, name="cab_top_authors"),

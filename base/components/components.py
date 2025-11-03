@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Literal
 
 from django_components import Component, register
 from pydantic import BaseModel
@@ -10,7 +10,6 @@ from base.templatetags.base_templatetags import querystring
 
 @register("icon")
 class Icon(Component):
-
     class Kwargs(BaseModel):
         kind: Literal["heart", "bookmark"]
         color: str
@@ -29,8 +28,8 @@ class Icon(Component):
 
 class PaginationItem(BaseModel):
     kind: Literal["current", "ellipsis", "number"]
-    text: Optional[str | int] = None
-    attrs: Optional[dict] = None
+    text: str | int | None = None
+    attrs: dict | None = None
 
 
 @register("pagination")
@@ -48,21 +47,26 @@ class PaginationComponent(Component):
         """
         if num == pagination.paginator.ELLIPSIS:
             return PaginationItem(kind="ellipsis", text=str(pagination.paginator.ELLIPSIS))
-        elif num == pagination.page_num:
+        if num == pagination.page_num:
             return PaginationItem(kind="current", text=num)
-        else:
-            link = querystring(None, {**pagination.params, PAGE_VAR: num})
-            return PaginationItem(
-                kind="number",
-                text=num,
-                attrs={"href": link},
-            )
+        link = querystring(None, {**pagination.params, PAGE_VAR: num})
+        return PaginationItem(
+            kind="number",
+            text=num,
+            attrs={"href": link},
+        )
 
     def get_template_data(self, args, kwargs, slots, context):
         pagination = kwargs.pagination_obj
-        page_elements = [self.pagination_number(pagination, page_num) for page_num in pagination.page_range]
-        previous_page_link = f"?{PAGE_VAR}={pagination.page_num - 1}" if pagination.page.has_previous() else ""
-        next_page_link = f"?{PAGE_VAR}={pagination.page_num + 1}" if pagination.page.has_next() else ""
+        page_elements = [
+            self.pagination_number(pagination, page_num) for page_num in pagination.page_range
+        ]
+        previous_page_link = (
+            f"?{PAGE_VAR}={pagination.page_num - 1}" if pagination.page.has_previous() else ""
+        )
+        next_page_link = (
+            f"?{PAGE_VAR}={pagination.page_num + 1}" if pagination.page.has_next() else ""
+        )
         return {
             "pagination": pagination,
             "previous_page_link": previous_page_link,
@@ -74,7 +78,7 @@ class PaginationComponent(Component):
 class TabItem(BaseModel):
     text: str
     is_current: bool
-    attrs: Optional[dict]
+    attrs: dict | None
 
 
 @register("sorting_tabs")
@@ -95,8 +99,7 @@ class SortingTabs(Component):
         return TabItem(text=verbose_text, is_current=is_current, attrs=attrs)
 
     def create_all_tabs(self, object_list: ObjectList):
-        tabs = [self.create_tab(object_list, tab) for tab in object_list.sorting_tabs]
-        return tabs
+        return [self.create_tab(object_list, tab) for tab in object_list.sorting_tabs]
 
     def get_template_data(self, args, kwargs, slots, context):
         object_list = kwargs.object_list

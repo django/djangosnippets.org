@@ -49,12 +49,16 @@ def querystring(context, *args, **kwargs):
     params = QueryDict(mutable=True)
     for d in [*args, kwargs]:
         if not isinstance(d, Mapping):
+            msg = f"querystring requires mappings for positional arguments (got {d!r} instead)."
             raise TemplateSyntaxError(
-                "querystring requires mappings for positional arguments (got " "%r instead)." % d
+                msg,
             )
         for key, value in d.items():
             if not isinstance(key, str):
-                raise TemplateSyntaxError("querystring requires strings for mapping keys (got %r " "instead)." % key)
+                msg = f"querystring requires strings for mapping keys (got {key!r} instead)."
+                raise TemplateSyntaxError(
+                    msg,
+                )
             if value is None:
                 params.pop(key, None)
             elif isinstance(value, Iterable) and not isinstance(value, str):

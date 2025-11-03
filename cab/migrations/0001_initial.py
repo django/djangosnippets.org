@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("taggit", "0002_auto_20150616_2121"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -17,7 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Bookmark",
             fields=[
-                ("id", models.AutoField(verbose_name="ID", serialize=False, auto_created=True, primary_key=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
                 ("date", models.DateTimeField(auto_now_add=True)),
             ],
             options={
@@ -28,7 +32,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Language",
             fields=[
-                ("id", models.AutoField(verbose_name="ID", serialize=False, auto_created=True, primary_key=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
                 ("name", models.CharField(max_length=100)),
                 ("slug", models.SlugField(unique=True)),
                 ("language_code", models.CharField(max_length=50)),
@@ -43,7 +55,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Snippet",
             fields=[
-                ("id", models.AutoField(verbose_name="ID", serialize=False, auto_created=True, primary_key=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
                 ("title", models.CharField(max_length=255)),
                 ("description", models.TextField()),
                 ("description_html", models.TextField(editable=False)),
@@ -74,8 +94,14 @@ class Migration(migrations.Migration):
                 ("updated_date", models.DateTimeField(auto_now=True)),
                 ("bookmark_count", models.IntegerField(default=0)),
                 ("rating_score", models.IntegerField(default=0)),
-                ("author", models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
-                ("language", models.ForeignKey(to="cab.Language", on_delete=models.CASCADE)),
+                (
+                    "author",
+                    models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
+                ),
+                (
+                    "language",
+                    models.ForeignKey(to="cab.Language", on_delete=models.CASCADE),
+                ),
                 (
                     "tags",
                     taggit.managers.TaggableManager(
@@ -94,10 +120,31 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="SnippetFlag",
             fields=[
-                ("id", models.AutoField(verbose_name="ID", serialize=False, auto_created=True, primary_key=True)),
-                ("flag", models.IntegerField(choices=[(1, "Spam"), (2, "Inappropriate")])),
-                ("snippet", models.ForeignKey(related_name="flags", to="cab.Snippet", on_delete=models.CASCADE)),
-                ("user", models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                (
+                    "flag",
+                    models.IntegerField(choices=[(1, "Spam"), (2, "Inappropriate")]),
+                ),
+                (
+                    "snippet",
+                    models.ForeignKey(
+                        related_name="flags",
+                        to="cab.Snippet",
+                        on_delete=models.CASCADE,
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
+                ),
             ],
             options={},
             bases=(models.Model,),
@@ -105,7 +152,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="bookmark",
             name="snippet",
-            field=models.ForeignKey(related_name="bookmarks", to="cab.Snippet", on_delete=models.CASCADE),
+            field=models.ForeignKey(
+                related_name="bookmarks",
+                to="cab.Snippet",
+                on_delete=models.CASCADE,
+            ),
             preserve_default=True,
         ),
         migrations.AddField(
