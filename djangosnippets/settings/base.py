@@ -13,7 +13,7 @@ def user_url(user):
     return reverse("cab_author_snippets", kwargs={"username": user.username})
 
 
-PROJECT_ROOT = str(Path(__file__).resolve().parent)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SITE_ID = 1
