@@ -1,4 +1,7 @@
-from djangosnippets.settings.base import *  # noqa F403
+import os  # noqa: F401
+from pathlib import Path
+
+from djangosnippets.settings.base import *  # noqa: F403
 
 SITE_ID = 1
 ROOT_URLCONF = "cab.tests.urls"
@@ -43,15 +46,15 @@ STATIC_URL = "/static/"
 
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
 
-SNIPPETS_TEMPLATES_DIR = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), os.pardir, os.pardir, "djangosnippets", "templates"
+SNIPPETS_TEMPLATES_DIR = str(
+    Path(__file__).resolve().parent.parent.parent / "djangosnippets" / "templates",
 )
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "cab", "tests", "templates"),
+            str(Path(__file__).resolve().parent.parent.parent / "cab" / "tests" / "templates"),
             SNIPPETS_TEMPLATES_DIR,
         ],
         "OPTIONS": {
@@ -69,7 +72,7 @@ TEMPLATES = [
                 "django_components.templatetags.component_tags",
             ],
         },
-    }
+    },
 ]
 
 CAB_VERSIONS = (

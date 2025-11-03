@@ -49,5 +49,4 @@ class ObjectList:
 
     def get_objects(self, request, queryset):
         tab_result = self.tab_sort(queryset)
-        paginate_result = self.paginate(request, tab_result)
-        return paginate_result
+        return self.paginate(request, tab_result)

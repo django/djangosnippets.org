@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 
-from ..models import Language
-from ..utils import month_object_list, object_list
+from cab.models import Language
+from cab.utils import month_object_list, object_list
 
 
 def language_list(request):

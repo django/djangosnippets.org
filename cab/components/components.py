@@ -6,7 +6,6 @@ from base.main import ObjectList
 
 @register("snippet_list")
 class SnippetListComponent(Component):
-
     template_file = "snippet_list.html"
 
     class Kwargs(BaseModel):

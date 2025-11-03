@@ -1,7 +1,68 @@
-[tool.black]
-line-length = 119
-include = '\.pyi?$'
+[tool.ruff]
+target-version = "py311"
+line-length = 100
 
-[tool.isort]
-profile = "black"
-line_length = 119
+[tool.ruff.lint]
+select = [
+  "A",
+  # "ANN", # flake8-annotations: we should support this in the future but many errors atm
+  "ASYNC",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  "FA",
+  "FLY",
+  "G",
+  "I",
+  "ICN",
+  "INP",
+  "INT",
+  "ISC",
+  "N",
+  "PD",
+  "PERF",
+  "PGH",
+  "PIE",
+  "PL",
+  "PT",
+  # "ARG", # Unused function argument
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  # "FURB",
+  # "LOG",
+  "RUF",
+  "SIM",
+  "SLF",
+  "SLOT",
+  "T10",
+  "TC",
+  "TID",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+
+ignore = [
+  "EM101", # Exception must not use a string literal, assign to variable first
+  "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+  "S101",   # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
+  "SIM102", # sometimes it's better to nest
+  "TRY003", # Avoid specifying long messages outside the exception class
+  "SLF001", # Private member accessed
+  "PLC0415", # `import` should be at the top-level of a file
+  "PT009", # Use a regular assert instead of unittest-style
+  "PT027", # Use `pytest.raises` instead of unittest-style
+  "RET503", # Missing explicit return at the end of function able to return non-None value
+]

@@ -8,9 +8,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CACHE_BACKEND = "dummy://"
 
-INSTALLED_APPS = INSTALLED_APPS
-
-TEMPLATES[0]["OPTIONS"]["loaders"] = [
+TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa: F405
     "django.template.loaders.filesystem.Loader",
     "django.template.loaders.app_directories.Loader",
     "django_components.template_loader.Loader",

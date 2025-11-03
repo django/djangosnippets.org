@@ -1,6 +1,6 @@
 from django.core.paginator import InvalidPage, Paginator
 
-from .exceptions import IncorectLookupParameter
+from .exceptions import IncorrectLookupParameterError
 
 PAGE_VAR = "page"
 
@@ -49,6 +49,6 @@ class Pagination:
         else:
             try:
                 result_list = self.paginator.page(self.page_num).object_list
-            except InvalidPage:
-                raise IncorectLookupParameter
+            except InvalidPage as err:
+                raise IncorrectLookupParameterError from err
         return result_list

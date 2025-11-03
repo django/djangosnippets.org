@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import os
 from urllib import parse
 
@@ -7,39 +5,37 @@ import dj_database_url
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import *  # noqa
+from .base import *  # noqa: F403
 
 
-def env_to_bool(input):
+def env_to_bool(input):  # noqa: A002
     """
     Must change String from environment variable into Boolean
     defaults to True
     """
     if isinstance(input, str):
         return input not in ("False", "false")
-    else:
-        return input
+    return input
 
 
-DEBUG = env_to_bool(os.environ.get("DEBUG", False))
+DEBUG = env_to_bool(os.environ.get("DEBUG", "False"))
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
 AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN", "")
 AWS_PRELOAD_METADATA = True
-# AWS_IS_GZIPPED = True
 AWS_S3_USE_SSL = True
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_URL_PROTOCOL = "//:"
 
-SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", False)
+SECURE_SSL_REDIRECT = env_to_bool(os.environ.get("SECURE_SSL_REDIRECT", "False"))
 SECURE_HSTS_SECONDS = 600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = env_to_bool(os.environ.get("SESSION_COOKIE_SECURE", True))
+SESSION_COOKIE_SECURE = env_to_bool(os.environ.get("SESSION_COOKIE_SECURE", "True"))
 SESSION_COOKIE_HTTPONLY = True
 
 # The header Heroku uses to indicate SSL:
@@ -63,7 +59,7 @@ redis_url = parse.urlparse(os.environ.get("REDISCLOUD_URL"))
 CACHES = {
     "default": {
         "BACKEND": "redis_cache.RedisCache",
-        "LOCATION": "%s:%s" % (redis_url.hostname, redis_url.port),
+        "LOCATION": f"{redis_url.hostname}:{redis_url.port}",
         "OPTIONS": {
             "PASSWORD": redis_url.password,
             "DB": 0,
@@ -73,11 +69,15 @@ CACHES = {
                 "timeout": 20,
             },
         },
-    }
+    },
 }
 # Use Sentry for debugging if available.
 if "SENTRY_DSN" in os.environ:
-    sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()], send_default_pii=True)
+    sentry_sdk.init(
+        dsn=os.environ.get("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+        send_default_pii=True,
+    )
 
 
 EMAIL_HOST = "smtp.sendgrid.net"
@@ -94,14 +94,20 @@ LOGGING = {
         "handlers": ["sentry"],
     },
     "formatters": {
-        "verbose": {"format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"},
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+        },
     },
     "handlers": {
         "sentry": {
             "level": "ERROR",
             "class": "raven.contrib.django.handlers.SentryHandler",
         },
-        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "verbose"},
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
     },
     "loggers": {
         "django.db.backends": {

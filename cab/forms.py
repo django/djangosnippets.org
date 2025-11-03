@@ -15,7 +15,10 @@ def validate_non_whitespace_only_string(value):
 
 class SnippetForm(forms.ModelForm):
     title = forms.CharField(validators=[validate_non_whitespace_only_string])
-    description = forms.CharField(validators=[validate_non_whitespace_only_string], widget=forms.Textarea)
+    description = forms.CharField(
+        validators=[validate_non_whitespace_only_string],
+        widget=forms.Textarea,
+    )
     code = forms.CharField(validators=[validate_non_whitespace_only_string], widget=forms.Textarea)
 
     class Meta:
@@ -34,7 +37,11 @@ class SnippetFlagForm(forms.ModelForm):
 
 
 class AdvancedSearchForm(forms.Form):
-    q = forms.CharField(required=False, label="Search", widget=forms.TextInput(attrs={"type": "search"}))
+    q = forms.CharField(
+        required=False,
+        label="Search",
+        widget=forms.TextInput(attrs={"type": "search"}),
+    )
     language = forms.ModelChoiceField(queryset=Language.objects.all(), required=False)
     version = forms.MultipleChoiceField(choices=VERSIONS, required=False)
     minimum_pub_date = forms.DateTimeField(widget=admin.widgets.AdminDateWidget, required=False)

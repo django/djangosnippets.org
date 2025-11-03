@@ -16,7 +16,6 @@ class FishList(ObjectList):
 
 
 class SortingTabsComponentTests(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         fish_data = [Fish(name=f"fish-{i}", price=i * 100) for i in range(1, 21)]

@@ -11,9 +11,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from taggit.models import Tag
 
-from ..forms import AdvancedSearchForm, SnippetFlagForm, SnippetForm
-from ..models import Language, Snippet, SnippetFlag
-from ..utils import month_object_list, object_detail
+from cab.forms import AdvancedSearchForm, SnippetFlagForm, SnippetForm
+from cab.models import Language, Snippet, SnippetFlag
+from cab.utils import month_object_list, object_detail
+
+# Constants
+MIN_QUERY_LENGTH = 2
 
 
 def snippet_list(request, queryset=None, **kwargs):
@@ -35,10 +38,8 @@ def snippet_detail(request, snippet_id):
 def download_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     response = HttpResponse(snippet.code, content_type="text/plain")
-    response["Content-Disposition"] = "attachment; filename=%s.%s" % (
-        snippet.id,
-        snippet.language.file_extension,
-    )
+    filename = f"{snippet.id}.{snippet.language.file_extension}"
+    response["Content-Disposition"] = f"attachment; filename={filename}"
     response["Content-Type"] = snippet.language.mime_type
     return response
 
@@ -101,17 +102,16 @@ def flag_snippet(request, snippet_id, template_name="cab/flag_snippet.html"):
             admin_link = request.build_absolute_uri(reverse("admin:cab_snippetflag_changelist"))
 
             mail_admins(
-                'Snippet flagged: "%s"' % (snippet.title),
-                "%s\n\nAdmin link: %s" % (snippet_flag, admin_link),
+                f'Snippet flagged: "{snippet.title}"',
+                f"{snippet_flag}\n\nAdmin link: {admin_link}",
                 fail_silently=True,
             )
 
             messages.info(request, "Thank you for helping improve the site!")
             return redirect(snippet)
-        else:
-            if request.is_ajax():
-                return redirect(snippet)
-                messages.error(request, "Invalid form submission")
+        if request.is_ajax():
+            return redirect(snippet)
+            messages.error(request, "Invalid form submission")
     else:
         form = SnippetFlagForm(instance=snippet_flag)
     return render(request, template_name, {"form": form, "snippet": snippet})
@@ -144,7 +144,9 @@ def search(request):
     snippet_qs = Snippet.objects.none()
     if query:
         snippet_qs = (
-            Snippet.objects.filter(Q(title__icontains=query) | Q(tags__in=[query]) | Q(author__username__iexact=query))
+            Snippet.objects.filter(
+                Q(title__icontains=query) | Q(tags__in=[query]) | Q(author__username__iexact=query),
+            )
             .distinct()
             .order_by("-rating_score", "-pub_date")
         )
@@ -158,10 +160,9 @@ def search(request):
 
 
 def autocomplete(request):
-
     q = request.GET.get("q", "")
     results = []
-    if len(q) > 2:
+    if len(q) > MIN_QUERY_LENGTH:
         result_set = Snippet.objects.annotate(search=SearchVector("title")).filter(search=q)[:10]
         for obj in result_set:
             url = obj.get_absolute_url()
@@ -172,19 +173,23 @@ def autocomplete(request):
 def tag_hint(request):
     q = request.GET.get("q", "")
     results = []
-    if len(q) > 2:
+    if len(q) > MIN_QUERY_LENGTH:
         tag_qs = Tag.objects.filter(slug__startswith=q)
         annotated_qs = tag_qs.annotate(count=Count("taggit_taggeditem_items__id"))
 
-        for obj in annotated_qs.order_by("-count", "slug")[:10]:
-            results.append({"tag": obj.slug, "count": obj.count})
+        results = [
+            {"tag": obj.slug, "count": obj.count}
+            for obj in annotated_qs.order_by("-count", "slug")[:10]
+        ]
 
     return HttpResponse(json.dumps(results), content_type="application/json")
 
 
 def basic_search(request):
     q = request.GET.get("q")
-    snippet_qs = Snippet.objects.annotate(search=SearchVector("title", "description", "author__username"))
+    snippet_qs = Snippet.objects.annotate(
+        search=SearchVector("title", "description", "author__username"),
+    )
     form = AdvancedSearchForm(request.GET)
 
     if form.is_valid():
@@ -199,7 +204,6 @@ def basic_search(request):
 
 
 def advanced_search(request):
-
     snippet_qs = Snippet.objects.annotate(
         search=SearchVector(
             "title",
@@ -210,7 +214,7 @@ def advanced_search(request):
             "bookmark_count",
             "rating_score",
             "author__username",
-        )
+        ),
     )
     form = AdvancedSearchForm(request.GET)
     if form.is_valid():

@@ -13,7 +13,7 @@ def is_gfk(content_field):
 
 def query_has_where(query):
     try:
-        where, params = query.get_compiler(using="default").compile(query.where)
+        where, _ = query.get_compiler(using="default").compile(query.where)
         return bool(where)
     except FullResultSet:
         return False
@@ -56,7 +56,7 @@ def sim_euclidean_distance(ratings_queryset, factor_a, factor_b):
     else:
         q, p = query_as_sql(rating_query)
         rating_qs_sql = q % p
-        queryset_filter = " AND r1.id IN (%s)" % rating_qs_sql
+        queryset_filter = f" AND r1.id IN ({rating_qs_sql})"
 
     params = {
         "ratings_table": rating_model._meta.db_table,
@@ -119,7 +119,7 @@ def sim_pearson_correlation(ratings_queryset, factor_a, factor_b):
     else:
         q, p = query_as_sql(rating_query)
         rating_qs_sql = q % p
-        queryset_filter = " AND r1.id IN (%s)" % rating_qs_sql
+        queryset_filter = f" AND r1.id IN ({rating_qs_sql})"
 
     params = {
         "ratings_table": rating_model._meta.db_table,
@@ -153,14 +153,15 @@ def sim_pearson_correlation(ratings_queryset, factor_a, factor_b):
 
 
 def top_matches(ratings_queryset, items, item, n=5, similarity=sim_pearson_correlation):
-    scores = [(similarity(ratings_queryset, item, other), other) for other in items if other != item]
+    scores = [
+        (similarity(ratings_queryset, item, other), other) for other in items if other != item
+    ]
     scores.sort()
     scores.reverse()
     return scores[:n]
 
 
 def recommendations(ratings_queryset, people, person, similarity=sim_pearson_correlation):
-
     already_rated = ratings_queryset.filter(user=person).values_list("hashed")
 
     totals = {}
@@ -241,7 +242,6 @@ def recommended_items(ratings_queryset, user):
     for item in ratings_queryset.filter(user=user):
         similar_items = SimilarItem.objects.get_for_item(item.content_object)
         for similar_item in similar_items:
-
             actual = similar_item.similar_object
             lookup_kwargs = ratings_queryset.model.lookup_kwargs(actual)
             lookup_kwargs["user"] = user

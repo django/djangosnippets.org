@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from ..models import Bookmark, Snippet
-from ..utils import object_list
+from cab.models import Bookmark, Snippet
+from cab.utils import object_list
 
 
 @login_required
@@ -32,5 +32,4 @@ def delete_bookmark(request, snippet_id):
     if request.method == "POST":
         bookmark.delete()
         return redirect(bookmark.snippet)
-    else:
-        return render(request, "cab/confirm_bookmark_delete.html", {"snippet": bookmark.snippet})
+    return render(request, "cab/confirm_bookmark_delete.html", {"snippet": bookmark.snippet})

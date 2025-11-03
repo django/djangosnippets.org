@@ -4,12 +4,11 @@ from django.test import RequestFactory, SimpleTestCase, TestCase
 from django.urls import reverse
 from rest_framework import status
 
+from cab.api.serializers import SnippetSerializer
+from cab.models import Bookmark, Language, Snippet
+from cab.templatetags.markup import safe_markdown
 from cab.views.languages import language_list
 from cab.views.popular import top_authors, top_tags
-
-from ..api.serializers import SnippetSerializer
-from ..models import Bookmark, Language, Snippet
-from ..templatetags.markup import safe_markdown
 
 
 # @skip("These tests don't test production code.")
@@ -24,11 +23,19 @@ class BaseCabTestCase(TestCase):
         self.user_b = User.objects.create_user("b", "b", "b")
 
         self.python = Language.objects.create(
-            name="Python", slug="python", language_code="python", mime_type="text/x-python", file_extension="py"
+            name="Python",
+            slug="python",
+            language_code="python",
+            mime_type="text/x-python",
+            file_extension="py",
         )
 
         self.sql = Language.objects.create(
-            name="SQL", slug="sql", language_code="sql", mime_type="text/x-sql", file_extension="sql"
+            name="SQL",
+            slug="sql",
+            language_code="sql",
+            mime_type="text/x-sql",
+            file_extension="sql",
         )
 
         self.snippet1 = Snippet.objects.create(
@@ -81,7 +88,7 @@ class BaseCabTestCase(TestCase):
         self.client.logout()
 
         resp = self.client.get(url)
-        self.assertRedirects(resp, "/accounts/login/?next=%s" % url, fetch_redirect_response=False)
+        self.assertRedirects(resp, f"/accounts/login/?next={url}", fetch_redirect_response=False)
 
         self.client.login(username=username, password=password)
 
@@ -144,7 +151,10 @@ class ModelTestCase(BaseCabTestCase):
     def test_snippet_escaping(self):
         self.snippet1.description = '<script>alert("hacked");</script>'
         self.snippet1.save()
-        self.assertEqual(self.snippet1.description_html, '&lt;script&gt;alert("hacked");&lt;/script&gt;')
+        self.assertEqual(
+            self.snippet1.description_html,
+            '&lt;script&gt;alert("hacked");&lt;/script&gt;',
+        )
 
     def test_ratings_hooks(self):
         # setUp() will actually fire off most of these hooks
@@ -218,31 +228,39 @@ class ViewTestCase(BaseCabTestCase):
         self.assertCountEqual(resp.context["object_list"], [self.bookmark2])
 
         add_bookmark = reverse("cab_bookmark_add", args=[self.snippet2.pk])
-        self.assertEqual(add_bookmark, "/bookmarks/add/%d/" % self.snippet2.pk)
+        self.assertEqual(add_bookmark, f"/bookmarks/add/{self.snippet2.pk}/")
 
         # add a bookmark -- this does *not* require a POST for some reason so
         # this test will need to be amended when I get around to fixing this
         resp = self.ensure_login_required(add_bookmark, "a", "a")
-        self.assertRedirects(resp, "/snippets/%d/" % self.snippet2.pk)
+        self.assertRedirects(resp, f"/snippets/{self.snippet2.pk}/")
 
         new_bookmark = Bookmark.objects.get(user=self.user_a, snippet=self.snippet2)
 
         resp = self.ensure_login_required(user_bookmarks, "a", "a")
-        self.assertCountEqual(resp.context["object_list"], [self.bookmark1, self.bookmark3, new_bookmark])
+        self.assertCountEqual(
+            resp.context["object_list"],
+            [self.bookmark1, self.bookmark3, new_bookmark],
+        )
 
         # make sure we have to log in to delete a bookmark
         delete_bookmark = reverse("cab_bookmark_delete", args=[self.snippet2.pk])
-        self.assertEqual(delete_bookmark, "/bookmarks/delete/%d/" % self.snippet2.pk)
+        self.assertEqual(delete_bookmark, f"/bookmarks/delete/{self.snippet2.pk}/")
 
         resp = self.ensure_login_required(delete_bookmark, "a", "a")
 
         # login and post to delete the bookmark
         self.client.login(username="a", password="a")
         resp = self.client.post(delete_bookmark)
-        self.assertRedirects(resp, "/snippets/%d/" % self.snippet2.pk)
+        self.assertRedirects(resp, f"/snippets/{self.snippet2.pk}/")
 
         # the bookmark is gone!
-        self.assertRaises(Bookmark.DoesNotExist, Bookmark.objects.get, user=self.user_a, snippet=self.snippet2)
+        self.assertRaises(
+            Bookmark.DoesNotExist,
+            Bookmark.objects.get,
+            user=self.user_a,
+            snippet=self.snippet2,
+        )
 
         # check the bookmark list view and make sure
         resp = self.ensure_login_required(user_bookmarks, "a", "a")
@@ -340,11 +358,14 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
         resp = self.client.get(snippet_index)
         self.assertEqual(resp.status_code, 200)
-        self.assertCountEqual(resp.context["object_list"], [self.snippet1, self.snippet2, self.snippet3])
+        self.assertCountEqual(
+            resp.context["object_list"],
+            [self.snippet1, self.snippet2, self.snippet3],
+        )
 
     def test_snippet_detail(self):
         snippet_detail = reverse("cab_snippet_detail", args=[self.snippet1.pk])
-        self.assertEqual(snippet_detail, "/snippets/%d/" % self.snippet1.pk)
+        self.assertEqual(snippet_detail, f"/snippets/{self.snippet1.pk}/")
 
         resp = self.client.get(snippet_detail)
         self.assertEqual(resp.status_code, 200)
@@ -352,7 +373,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
     def test_snippet_download(self):
         snippet_download = reverse("cab_snippet_download", args=[self.snippet1.pk])
-        self.assertEqual(snippet_download, "/snippets/%d/download/" % self.snippet1.pk)
+        self.assertEqual(snippet_download, f"/snippets/{self.snippet1.pk}/download/")
 
         resp = self.client.get(snippet_download)
         self.assertEqual(resp["content-type"], "text/x-python")
@@ -365,7 +386,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(self.snippet1.ratings.count(), 0)
 
         snippet_rate = reverse("cab_snippet_rate", args=[self.snippet1.pk])
-        self.assertEqual(snippet_rate, "/snippets/%d/rate/" % self.snippet1.pk)
+        self.assertEqual(snippet_rate, f"/snippets/{self.snippet1.pk}/rate/")
 
         resp = self.client.get(snippet_rate + "?score=up")
         self.assertEqual(resp.status_code, 302)
@@ -407,7 +428,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
 
     def test_snippet_edit(self):
         snippet_edit = reverse("cab_snippet_edit", args=[self.snippet1.pk])
-        self.assertEqual(snippet_edit, "/snippets/%d/edit/" % self.snippet1.pk)
+        self.assertEqual(snippet_edit, f"/snippets/{self.snippet1.pk}/edit/")
 
         resp = self.client.get(snippet_edit)
         self.assertEqual(resp.status_code, 302)
@@ -439,14 +460,15 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet1.description_html, "<h1>wazzah</h1>")
         self.assertEqual(snippet1.code, 'print "Hi"')
         self.assertEqual([t.name for t in snippet1.tags.all()], ["world", "hi"])
-        self.assertRedirects(resp, "/snippets/%d/" % snippet1.pk)
+        self.assertRedirects(resp, f"/snippets/{snippet1.pk}/")
 
     def test_snippet_edit_no_tags(self):
         """
-        The user should be able to create/edit a snippet and remove all tags or create it without any.
+        The user should be able to create/edit a snippet and remove all tags
+        or create it without any.
         """
         snippet_edit = reverse("cab_snippet_edit", args=[self.snippet1.pk])
-        self.assertEqual(snippet_edit, "/snippets/%d/edit/" % self.snippet1.pk)
+        self.assertEqual(snippet_edit, f"/snippets/{self.snippet1.pk}/edit/")
 
         resp = self.client.get(snippet_edit)
         self.assertEqual(resp.status_code, 302)
@@ -473,7 +495,7 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(snippet1.description_html, "<h1>wazzah</h1>")
         self.assertEqual(snippet1.code, 'print "Hi"')
         self.assertEqual(0, snippet1.tags.count())
-        self.assertRedirects(resp, "/snippets/%d/" % snippet1.pk)
+        self.assertRedirects(resp, f"/snippets/{snippet1.pk}/")
 
     def test_snippet_add(self):
         snippet_add = reverse("cab_snippet_add")
@@ -497,12 +519,14 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertEqual(new_snippet.description_html, "<h1>wazzah</h1>")
         self.assertEqual(new_snippet.code, 'print "Hi"')
         self.assertEqual([t.name for t in new_snippet.tags.all()], ["world", "hi"])
-        self.assertRedirects(resp, "/snippets/%d/" % new_snippet.pk)
+        self.assertRedirects(resp, f"/snippets/{new_snippet.pk}/")
 
 
 class TemplatetagTestCase(BaseCabTestCase):
     def test_cab_tags(self):
-        t = Template("""{% load cab_tags %}{% if snippet|is_bookmarked:user %}Y{% else %}N{% endif %}""")
+        t = Template(
+            """{% load cab_tags %}{% if snippet|is_bookmarked:user %}Y{% else %}N{% endif %}""",
+        )
         c = Context({"snippet": self.snippet1, "user": self.user_a})
         rendered = t.render(c)
 
@@ -518,13 +542,16 @@ class TemplatetagTestCase(BaseCabTestCase):
         self.assertEqual(rendered, "N")
 
     def test_core_tags(self):
-        t = Template("""{% load core_tags %}{% for s in "cab.snippet"|latest:2 %}{{ s.title }}|{% endfor %}""")
+        t = Template(
+            """{% load core_tags %}"""
+            """{% for s in "cab.snippet"|latest:2 %}{{ s.title }}|{% endfor %}""",
+        )
         rendered = t.render(Context({}))
-        self.assertEqual(rendered, "%s|%s|" % (self.snippet3.title, self.snippet2.title))
+        self.assertEqual(rendered, f"{self.snippet3.title}|{self.snippet2.title}|")
 
         t = Template(
             '{% load core_tags %}{% for t in "cab.snippet"|call_manager:"top_tags"|slice:":2" %}'
-            "{{ t.name }}|{% endfor %}"
+            "{{ t.name }}|{% endfor %}",
         )
         rendered = t.render(Context({}))
         self.assertEqual(rendered, "world|goodbye|")
@@ -542,7 +569,10 @@ class SearchViewsTestCase(BaseCabTestCase):
         self.assertEqual(search_index, "/search/")
         resp = self.client.get(search_index)
         self.assertEqual(resp.status_code, 200)
-        self.assertCountEqual(resp.context["object_list"], [self.snippet1, self.snippet2, self.snippet3])
+        self.assertCountEqual(
+            resp.context["object_list"],
+            [self.snippet1, self.snippet2, self.snippet3],
+        )
 
     def test_q_search(self):
         search_index = reverse("cab_search")
@@ -562,11 +592,19 @@ class ApiTestCase(TestCase):
         self.user_b = User.objects.create_user("b", "b", "b")
 
         self.python = Language.objects.create(
-            name="Python", slug="python", language_code="python", mime_type="text/x-python", file_extension="py"
+            name="Python",
+            slug="python",
+            language_code="python",
+            mime_type="text/x-python",
+            file_extension="py",
         )
 
         self.sql = Language.objects.create(
-            name="SQL", slug="sql", language_code="sql", mime_type="text/x-sql", file_extension="sql"
+            name="SQL",
+            slug="sql",
+            language_code="sql",
+            mime_type="text/x-sql",
+            file_extension="sql",
         )
 
         self.snippet1 = Snippet.objects.create(

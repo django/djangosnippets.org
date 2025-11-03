@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views import languages
+from cab.views import languages
 
 urlpatterns = [
     path("", languages.language_list, name="cab_language_list"),

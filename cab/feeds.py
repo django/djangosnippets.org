@@ -26,9 +26,8 @@ class LatestSnippetsFeed(Feed):
 
     def title(self):
         if SITE_NAME:
-            return "%s: Latest snippets" % SITE_NAME
-        else:
-            return "Latest snippets"
+            return f"{SITE_NAME}: Latest snippets"
+        return "Latest snippets"
 
     def item_author_name(self, item):
         return item.author.username
@@ -63,13 +62,12 @@ class SnippetsByAuthorFeed(Feed):
         return Snippet.objects.filter(author=obj)[:15]
 
     def link(self, obj):
-        return "/users/%s/" % obj.username
+        return f"/users/{obj.username}/"
 
     def title(self, obj):
         if SITE_NAME:
-            return "%s: Latest snippets posted by %s" % (SITE_NAME, obj.username)
-        else:
-            return "Latest snippets posted by %s" % obj.username
+            return f"{SITE_NAME}: Latest snippets posted by {obj.username}"
+        return f"Latest snippets posted by {obj.username}"
 
     def item_author_name(self, item):
         return item.author.username
@@ -102,9 +100,8 @@ class SnippetsByLanguageFeed(Feed):
 
     def title(self, obj):
         if SITE_NAME:
-            return "%s: Latest snippets written in %s" % (SITE_NAME, obj.name)
-        else:
-            return "Latest snippets written in %s" % obj.name
+            return f"{SITE_NAME}: Latest snippets written in {obj.name}"
+        return f"Latest snippets written in {obj.name}"
 
     def item_author_name(self, item):
         return item.author.username
@@ -138,9 +135,8 @@ class SnippetsByTagFeed(Feed):
 
     def title(self, obj):
         if SITE_NAME:
-            return "%s: Latest snippets tagged with '%s'" % (SITE_NAME, obj.name)
-        else:
-            return "Latest snippets tagged with '%s'" % obj.name
+            return f"{SITE_NAME}: Latest snippets tagged with '{obj.name}'"
+        return f"Latest snippets tagged with '{obj.name}'"
 
     def item_author_name(self, item):
         return item.author.username

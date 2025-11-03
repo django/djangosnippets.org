@@ -13,13 +13,16 @@ def user_url(user):
     return reverse("cab_author_snippets", kwargs={"username": user.username})
 
 
-PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+PROJECT_ROOT = str(Path(__file__).resolve().parent)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SITE_ID = 1
 SITE_NAME = "djangosnippets.org"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "djangosnippets.org,www.djangosnippets.org").split(",")
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "djangosnippets.org,www.djangosnippets.org",
+).split(",")
 
 DEBUG = False
 
@@ -93,7 +96,7 @@ MIDDLEWARE = (
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(PROJECT_ROOT, "templates")],
+        "DIRS": [str(Path(PROJECT_ROOT) / "templates")],
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
@@ -111,18 +114,18 @@ TEMPLATES = [
                         "django.template.loaders.app_directories.Loader",
                         "django_components.template_loader.Loader",
                     ],
-                )
+                ),
             ],
             "builtins": [
                 "django_components.templatetags.component_tags",
             ],
         },
-    }
+    },
 ]
 
 STATIC_URL = "/assets/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "..", "assets", "static")
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
+STATIC_ROOT = str(Path(PROJECT_ROOT) / ".." / "assets" / "static")
+STATICFILES_DIRS = (str(Path(PROJECT_ROOT) / "static"),)
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -207,7 +210,9 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"]
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
+    ],
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

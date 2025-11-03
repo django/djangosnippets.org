@@ -15,7 +15,6 @@ class FishList(ObjectList):
 
 
 class ObjectListTests(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         fishs = [
@@ -91,12 +90,12 @@ class PaginationTestCase(TestCase):
 
     def test_pagination_page_range(self):
         request = self.factory.get("/fake-url/")
-        ELLIPSIS = "…"
+        ellipsis = "…"
         case = [
-            (2, 6, [1, 2, 3, 4, 5, 6, 7, 8, 9, ELLIPSIS, 49, 50]),
-            (3, 10, [1, 2, ELLIPSIS, 7, 8, 9, 10, 11, 12, 13, ELLIPSIS, 33, 34]),
-            (4, 23, [1, 2, ELLIPSIS, 20, 21, 22, 23, 24, 25]),
-            (5, 20, [1, 2, ELLIPSIS, 17, 18, 19, 20]),
+            (2, 6, [1, 2, 3, 4, 5, 6, 7, 8, 9, ellipsis, 49, 50]),
+            (3, 10, [1, 2, ellipsis, 7, 8, 9, 10, 11, 12, 13, ellipsis, 33, 34]),
+            (4, 23, [1, 2, ellipsis, 20, 21, 22, 23, 24, 25]),
+            (5, 20, [1, 2, ellipsis, 17, 18, 19, 20]),
             (10, 8, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             (20, 1, [1, 2, 3, 4, 5]),
         ]

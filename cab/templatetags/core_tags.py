@@ -25,7 +25,7 @@ def latest(model_or_obj, num=5):
         if isinstance(field, (DateTimeField, DateField)):
             field_name = field.name
             break
-    return manager.all().order_by("-%s" % field_name)[:num]
+    return manager.all().order_by(f"-{field_name}")[:num]
 
 
 @register.filter

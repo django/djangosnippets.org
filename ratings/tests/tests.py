@@ -8,11 +8,10 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from base.tests.models import Beverage, BeverageRating, Food
-
-from .. import utils as ratings_utils
-from .. import views as ratings_views
-from ..models import RatedItem
-from ..utils import (
+from ratings import utils as ratings_utils
+from ratings import views as ratings_views
+from ratings.models import RatedItem
+from ratings.utils import (
     calculate_similar_items,
     recommendations,
     recommended_items,
@@ -22,7 +21,7 @@ from ..utils import (
 )
 
 
-def skipUnlessDB(engine):
+def skipUnlessDB(engine):  # noqa: N802
     """
     This decorator makes a test skip unless the current connection uses the
     specified engine.
@@ -31,7 +30,9 @@ def skipUnlessDB(engine):
 
     actual_engine = settings.DATABASES["default"]["ENGINE"]
     if engine not in actual_engine:
-        return unittest.skip("Unsupported connection engine: %s (expected %s)" % (actual_engine, engine))
+        return unittest.skip(
+            f"Unsupported connection engine: {actual_engine} (expected {engine})",
+        )
     return lambda func: func
 
 
@@ -246,7 +247,9 @@ class RatingsTestCase(TestCase):
 
         # check that passing in a queryset of all objects results in the same
         # ordering as when it is queried without an inner queryset
-        alt_rated_qs = self.rated_model.ratings.all().order_by_rating(queryset=self.rated_model.objects.all())
+        alt_rated_qs = self.rated_model.ratings.all().order_by_rating(
+            queryset=self.rated_model.objects.all(),
+        )
         self.assertEqual(list(alt_rated_qs), list(rated_qs))
 
         # check that the scores are what we expect them to be
@@ -264,7 +267,10 @@ class RatingsTestCase(TestCase):
         self.assertEqual(list(rated_qs), [self.item3, self.item1])
 
         # check that the model method results are what we expect
-        self.assertSequenceEqual(list(rated_qs), list(self.rated_model.ratings.order_by_rating(queryset=item13_qs)))
+        self.assertSequenceEqual(
+            list(rated_qs),
+            list(self.rated_model.ratings.order_by_rating(queryset=item13_qs)),
+        )
 
         # check that the scores are correct
         self.assertEqual(rated_qs[0].score, None)
@@ -272,14 +278,18 @@ class RatingsTestCase(TestCase):
 
         # try ordering by score ascending -- should now be nulls first.  also
         # use an alias for the aggregator
-        rated_qs = self.rated_model.ratings.all().order_by_rating(descending=False, alias="sum_score")
+        rated_qs = self.rated_model.ratings.all().order_by_rating(
+            descending=False,
+            alias="sum_score",
+        )
 
         # check that they're ordered correctly
         self.assertEqual(list(rated_qs), [self.item1, self.item2, self.item3])
 
         # conforms to the other api
         self.assertEqual(
-            list(rated_qs), list(self.rated_model.ratings.order_by_rating(descending=False, alias="sum_score"))
+            list(rated_qs),
+            list(self.rated_model.ratings.order_by_rating(descending=False, alias="sum_score")),
         )
 
         # extra attributes are set correctly
@@ -321,7 +331,9 @@ class RatingsTestCase(TestCase):
 
         # check that passing in a queryset of all objects results in the same
         # ordering as when it is queried without an inner queryset
-        alt_rated_qs = self.rated_model.ratings.all().order_by_rating(queryset=self.rated_model.objects.all())
+        alt_rated_qs = self.rated_model.ratings.all().order_by_rating(
+            queryset=self.rated_model.objects.all(),
+        )
         self.assertEqual(list(alt_rated_qs), list(rated_qs))
 
         # check that the scores are what we expect them to be
@@ -339,7 +351,10 @@ class RatingsTestCase(TestCase):
         self.assertEqual(list(rated_qs), [self.item1, self.item3])
 
         # check that the model method results are what we expect
-        self.assertSequenceEqual(list(rated_qs), self.rated_model.ratings.order_by_rating(queryset=item13_qs))
+        self.assertSequenceEqual(
+            list(rated_qs),
+            self.rated_model.ratings.order_by_rating(queryset=item13_qs),
+        )
 
         # check that the scores are correct
         self.assertEqual(rated_qs[0].score, 0)
@@ -347,14 +362,18 @@ class RatingsTestCase(TestCase):
 
         # try ordering by score ascending -- should now be nulls first.  also
         # use an alias for the aggregator
-        rated_qs = self.rated_model.ratings.all().order_by_rating(descending=False, alias="sum_score")
+        rated_qs = self.rated_model.ratings.all().order_by_rating(
+            descending=False,
+            alias="sum_score",
+        )
 
         # check that they're ordered correctly
         self.assertEqual(list(rated_qs), [self.item3, self.item1, self.item2])
 
         # conforms to the other api
         self.assertEqual(
-            list(rated_qs), list(self.rated_model.ratings.order_by_rating(descending=False, alias="sum_score"))
+            list(rated_qs),
+            list(self.rated_model.ratings.order_by_rating(descending=False, alias="sum_score")),
         )
 
         # extra attributes are set correctly
@@ -431,12 +450,12 @@ class RatingsTestCase(TestCase):
         ctype = ContentType.objects.get_for_model(self.rated_model)
 
         rendered = t.render(c)
-        self.assertEqual(rendered, "/rate/%d/%d/2/" % (ctype.pk, self.item1.pk))
+        self.assertEqual(rendered, f"/rate/{ctype.pk}/{self.item1.pk}/2/")
 
         c["score"] = 3.0
 
         rendered = t.render(c)
-        self.assertEqual(rendered, "/rate/%d/%d/3.0/" % (ctype.pk, self.item1.pk))
+        self.assertEqual(rendered, f"/rate/{ctype.pk}/{self.item1.pk}/3.0/")
 
     @unittest.skip("This test doesn't use a production template.")
     def test_unrate_url(self):
@@ -446,7 +465,7 @@ class RatingsTestCase(TestCase):
         ctype = ContentType.objects.get_for_model(self.rated_model)
 
         rendered = t.render(c)
-        self.assertEqual(rendered, "/unrate/%d/%d/" % (ctype.pk, self.item1.pk))
+        self.assertEqual(rendered, f"/unrate/{ctype.pk}/{self.item1.pk}/")
 
     @unittest.skip("This test doesn't use a production template.")
     def test_rating_view(self):
@@ -588,7 +607,7 @@ class RecommendationsTestCase(TestCase):
     fixtures = ["ratings_testdata.json"]
 
     def setUp(self):
-        super(RecommendationsTestCase, self).setUp()
+        super().setUp()
 
         self.food_a = Food.objects.create(name="food_a")
         self.food_b = Food.objects.create(name="food_b")
@@ -617,10 +636,25 @@ class RecommendationsTestCase(TestCase):
         ]
 
         # x-axis
-        self.foods = [self.food_a, self.food_b, self.food_c, self.food_d, self.food_e, self.food_f]
+        self.foods = [
+            self.food_a,
+            self.food_b,
+            self.food_c,
+            self.food_d,
+            self.food_e,
+            self.food_f,
+        ]
 
         # y-axis
-        self.users = [self.user_a, self.user_b, self.user_c, self.user_d, self.user_e, self.user_f, self.user_g]
+        self.users = [
+            self.user_a,
+            self.user_b,
+            self.user_c,
+            self.user_d,
+            self.user_e,
+            self.user_f,
+            self.user_g,
+        ]
 
         for x, food in enumerate(self.foods):
             for y, user in enumerate(self.users):
@@ -641,7 +675,7 @@ class RecommendationsTestCase(TestCase):
             (0.92447345164190486, self.user_e),
             (0.89340514744156474, self.user_d),
         ]
-        for res, exp in zip(results, expected):
+        for res, exp in zip(results, expected, strict=True):
             self.assertEqual(res[1], exp[1])
             self.assertAlmostEqual(res[0], exp[0])
 
@@ -652,7 +686,7 @@ class RecommendationsTestCase(TestCase):
             (2.8325499182641614, self.food_a),
             (2.5309807037655649, self.food_c),
         ]
-        for res, exp in zip(results, expected):
+        for res, exp in zip(results, expected, strict=True):
             self.assertEqual(res[1], exp[1])
             self.assertAlmostEqual(res[0], exp[0])
 
@@ -665,7 +699,7 @@ class RecommendationsTestCase(TestCase):
             (-0.17984719479905439, self.food_f),
             (-0.42289003161103106, self.food_c),
         ]
-        for res, exp in zip(results, expected):
+        for res, exp in zip(results, expected, strict=True):
             self.assertEqual(res[1], exp[1])
             self.assertAlmostEqual(res[0], exp[0])
 
