@@ -7,6 +7,9 @@ class Fish(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField()
 
+    class Meta:
+        ordering = ("name",)
+
 
 class Food(models.Model):
     name = models.CharField(max_length=50)
