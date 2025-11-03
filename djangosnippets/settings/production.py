@@ -18,7 +18,7 @@ def env_to_bool(input):  # noqa: A002
     return input
 
 
-DEBUG = env_to_bool(os.environ.get("DEBUG", "False"))
+DEBUG = env_to_bool(os.environ.get("DEBUG", False))  # noqa : PLW1508
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
@@ -29,13 +29,13 @@ AWS_S3_USE_SSL = True
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_URL_PROTOCOL = "//:"
 
-SECURE_SSL_REDIRECT = env_to_bool(os.environ.get("SECURE_SSL_REDIRECT", "False"))
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", False)  # noqa : PLW1508
 SECURE_HSTS_SECONDS = 600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = env_to_bool(os.environ.get("SESSION_COOKIE_SECURE", "True"))
+SESSION_COOKIE_SECURE = env_to_bool(os.environ.get("SESSION_COOKIE_SECURE", True))  # noqa : PLW1508
 SESSION_COOKIE_HTTPONLY = True
 
 # The header Heroku uses to indicate SSL:
