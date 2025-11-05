@@ -6,7 +6,7 @@ x-app: &default-app
     dockerfile: ./compose/local/django/Dockerfile
   restart: unless-stopped
   volumes:
-    - .:/app:z
+    - .:/app
 
 services:
   web:
@@ -22,7 +22,7 @@ services:
   tailwind:
     <<: *default-app
     container_name: djangosnippets-tailwind-local
-    command: "python manage.py tailwind start"
+    command: "uv run python manage.py tailwind start"
     # Without tty, no stdin, and tailwind watcher aborts
     # https://github.com/tailwindlabs/tailwindcss/issues/5324
     tty: true
