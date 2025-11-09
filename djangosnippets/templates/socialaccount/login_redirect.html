@@ -1,0 +1,15 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n allauth %}
+
+{% block head_title %}{% translate "Sign In" %} | {{ provider }}{% endblock %}
+
+{% block content %}
+    {% element p %}
+        <a href="{{ redirect_to }}">{% translate "Continue" %}</a>
+    {% endelement %}
+    
+    <script>
+        window.location.href = "{{ redirect_to }}";
+    </script>
+{% endblock %}
+
