@@ -71,7 +71,6 @@ INSTALLED_APPS = (
     "tailwind",
     "theme",
     "django_recaptcha",
-    "django_extensions",
     "django_components",
     "rest_framework",
     "django_htmx",

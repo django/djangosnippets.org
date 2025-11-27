@@ -6,6 +6,8 @@ SECRET_KEY = "abcdefghijklmnopqrstuvwxyz0123456789"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+INSTALLED_APPS += ["django_extensions"]
+
 CACHE_BACKEND = "dummy://"
 
 TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa: F405
