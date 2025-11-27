@@ -38,6 +38,7 @@ dependencies = [
   "sentry-sdk",
   "gevent",
   "greenlet",
+  "django-extension>=0.1.0",
 ]
 
 [project.optional-dependencies]
