@@ -11,6 +11,7 @@ Prerequisites
 
 - Python version 3.11
 - PostgreSQL
+- `uv`_ - An extremely fast Python package and project manager
 
 Installation
 ------------
@@ -24,23 +25,14 @@ Basic Installation
 
       https://github.com/django/djangosnippets.org.git
 
-2. Create your virtual environment:
+2. Install uv if you haven't already:
 
    .. code-block:: console
 
-      python -m venv venv
-
-   Activate in Linux:
-
-   .. code-block:: console
-
-      source venv/bin/activate
-
-   Activate in Windows:
-
-   .. code-block:: console
-
-      venv\Scripts\activate
+      # macOS
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+      # Windows
+      powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 3. Connect to PostgreSQL
 
@@ -70,11 +62,11 @@ Basic Installation
 
       postgres=# exit
 
-5. Install requirements:
+5. Install dependencies:
 
    .. code-block:: console
 
-      pip install -r requirements/development.txt
+      uv sync --only-group dev
 
 6. Copy `.env.template.local` file, rename to `.env` and configure variables for your local postgres database.
 
@@ -96,37 +88,37 @@ Basic Installation
 
    .. code-block:: console
 
-      python manage.py migrate
+      uv run python manage.py migrate
 
    Optionally load data first:
 
    .. code-block:: console
 
-      python manage.py loaddata fixtures/cab.json
+      uv run python manage.py loaddata fixtures/cab.json
 
    Create superuser:
 
    .. code-block:: console
 
-      python manage.py createsuperuser
+      uv run python manage.py createsuperuser
 
 8. Install tailwind (npm is required):
 
    .. code-block:: console
 
-      python manage.py tailwind install
+      uv run python manage.py tailwind install
 
 9. Run server locally:
 
    .. code-block:: console
 
-      python manage.py runserver_plus
+      uv run python manage.py runserver_plus
 
 10. Run tailwind in another terminal locally:
 
     .. code-block:: console
 
-       python manage.py tailwind start
+      uv run python manage.py tailwind start
 
 With Docker
 ~~~~~~~~~~~~~~~~~~~
@@ -214,4 +206,6 @@ the `djangosnippets.settings.production <./djangosnippets/settings/production.py
 .. _compass: http://rubygems.org/gems/compass/
 .. _foundation: http://foundation.zurb.com/
 .. _djangosnippets.org: https://djangosnippets.org/
+.. _uv: https://docs.astral.sh/uv/
+.. _document: https://docs.astral.sh/uv/getting-started/installation/
 .. _PostgreSQL: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads

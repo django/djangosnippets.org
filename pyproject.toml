@@ -1,3 +1,64 @@
+[project]
+name = "djangosnippets.org"
+version = "1.0.0"
+urls = {homepage = "https://github.com/django/djangosnippets.org"}
+requires-python = ">=3.11"
+
+[dependency-groups]
+django = [
+  "dj-database-url",
+  "django",
+  "django-allauth",
+  "django-components",
+  "django-contrib-comments",
+  "django-generic-aggregation",
+  "django-htmx",
+  "django-ratelimit-backend",
+  "django-recaptcha",
+  "django-taggit",
+  "django-tailwind",
+  "djangorestframework",
+]
+
+base = [
+  {include-group = "django"},
+  "bleach",
+  "markdown",
+  "pillow",
+  "psycopg2-binary",
+  "pydantic",
+  "pygments",
+  "python-akismet",
+  "python-dotenv",
+  "requests",
+  "requests-oauthlib",
+  "six",
+  "urllib3",
+  "whitenoise",
+]
+
+dev = [
+  {include-group = "base"},
+  "werkzeug[watchdog]",
+  "ipython",
+  "django-extensions",
+  "ruff",
+  "pre-commit",
+]
+
+prod = [
+  {include-group = "base"},
+  "certifi",
+  "django-redis-cache",
+  "raven",
+  "redis",
+  "gunicorn",
+  "hiredis",
+  "sentry-sdk",
+  "gevent",
+  "greenlet",
+]
+
 [tool.ruff]
 target-version = "py311"
 line-length = 100
