@@ -3,9 +3,7 @@ name = "djangosnippets.org"
 version = "1.0.0"
 urls = {homepage = "https://github.com/django/djangosnippets.org"}
 requires-python = ">=3.11"
-
-[dependency-groups]
-django = [
+dependencies = [
   "dj-database-url",
   "django",
   "django-allauth",
@@ -18,10 +16,6 @@ django = [
   "django-taggit",
   "django-tailwind",
   "djangorestframework",
-]
-
-base = [
-  {include-group = "django"},
   "bleach",
   "markdown",
   "pillow",
@@ -35,19 +29,6 @@ base = [
   "six",
   "urllib3",
   "whitenoise",
-]
-
-dev = [
-  {include-group = "base"},
-  "werkzeug[watchdog]",
-  "ipython",
-  "django-extensions",
-  "ruff",
-  "pre-commit",
-]
-
-prod = [
-  {include-group = "base"},
   "certifi",
   "django-redis-cache",
   "raven",
@@ -57,6 +38,15 @@ prod = [
   "sentry-sdk",
   "gevent",
   "greenlet",
+]
+
+[project.optional-dependencies]
+dev = [
+  "werkzeug[watchdog]",
+  "ipython",
+  "django-extensions",
+  "ruff",
+  "pre-commit",
 ]
 
 [tool.ruff]
