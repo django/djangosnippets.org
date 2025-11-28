@@ -37,7 +37,7 @@ RUN groupadd --gid 1000 dev-user \
 COPY . .
 
 # Install dependencies
-RUN uv sync --locked --only-group dev
+RUN uv sync --locked --extra dev
 
 COPY ./compose/local/django/start /start
 RUN chmod +x /start

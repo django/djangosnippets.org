@@ -66,7 +66,7 @@ Basic Installation
 
    .. code-block:: console
 
-      uv sync --only-group dev
+      uv sync --extra dev
 
 6. Copy `.env.template.local` file, rename to `.env` and configure variables for your local postgres database.
 
