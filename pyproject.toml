@@ -34,20 +34,18 @@ dependencies = [
   "raven",
   "redis",
   "gunicorn",
-  "hiredis",
   "sentry-sdk",
   "gevent",
   "greenlet",
-  "django-extension>=0.1.0",
 ]
 
 [project.optional-dependencies]
 dev = [
   "werkzeug[watchdog]",
   "ipython",
-  "django-extensions",
   "ruff",
   "pre-commit",
+  "django-extensions>=4.1",
 ]
 
 [tool.ruff]
