@@ -48,7 +48,7 @@ CACHE_KEY_PREFIX = "djangosnippets"
 CACHE_MIDDLEWARE_KEY_PREFIX = CACHE_KEY_PREFIX
 CACHE_MIDDLEWARE_SECONDS = 60
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.admin",
     "django_comments",
@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     "django_components",
     "rest_framework",
     "django_htmx",
-)
+]
 
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",

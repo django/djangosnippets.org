@@ -16,7 +16,7 @@ MIDDLEWARE = (
 )
 
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.messages",
@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     "ratings",
     "taggit",
     "rest_framework",
-)
+]
 
 SECRET_KEY = "yadayada"
 
