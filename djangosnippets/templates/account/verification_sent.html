@@ -1,11 +1,17 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load static widget_tweaks %}
 
-{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block head_title %}Verify Your E-mail Address{% endblock %}
 
-{% block content_header %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block header%}{% endblock %}
 
 {% block content %}
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+<div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
+    <h3>Email Verification</h3>
+    <img src="{% static 'img/verification_sent.png' %}">
+    <p class="my-4 text-xl font-common">We have sent an e-mail to you for verification 🚀</p>
+    <p class="text-center">Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder.</p>
+</div>
 {% endblock %}
+{% block footer %}{% endblock %}
