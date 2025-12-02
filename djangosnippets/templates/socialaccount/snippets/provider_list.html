@@ -3,7 +3,7 @@
 {% get_providers as socialaccount_providers %}
 
 {% for provider in socialaccount_providers %}
-<li>
-  <a title="{{ provider.name }}" class="button small" href="{% provider_login_url provider.id process=process %}"><i class="fa fa-{{ provider.id }}"></i> {{ provider.name }}</a>
+<li class="w-full">
+  <a title="{{ provider.name }}" class="button small text-base-white-400 p-2 w-full text-lg my-0 bg-base-green-600/60 border-2 rounded-lg border-base-green-600/20 hover:bg-base-green-600" href="{% provider_login_url provider.id process=process %}"><i class="fa fa-{{ provider.id }} text-2xl mr-1"></i> Continue with {{ provider.name }}</a>
 </li>
 {% endfor %}

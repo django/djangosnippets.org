@@ -6,7 +6,9 @@
     --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
     --color-base-green-400: #256918;
+    --color-base-green-600: #1E4F15;
     --color-base-green-800: #12330c;
+    --shadow-sign: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     --font-header: "Libertinus Sans", sans-serif;
     --font-title: "Playfair Display", sans-serif;
     --font-text: "Nunito", sans-serif;
