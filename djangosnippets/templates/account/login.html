@@ -7,7 +7,7 @@
 {% block content %}
 <div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
     <h3>Sign In</h3>
-    <p>Don't have an account? <a class="underline text-base-green-600 hover:text-base-orange-400">Sign Up</a></p>
+    <p>Don't have an account? <a href="{{ signup_url }}" class="underline text-base-green-600 hover:text-base-orange-400">Sign Up</a></p>
     {% include "socialaccount/snippets/login_extra.html" %}
     <form class="login flex flex-col items-center w-[80%]" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
