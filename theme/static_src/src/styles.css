@@ -15,6 +15,13 @@
     --font-common: "Raleway", sans-serif;
 }
 
+/* Additional default styles to be applied when SCSS is completely removed */
+@layer base {
+    a {
+        text-underline-offset: 4px ;
+    }
+}
+
 @layer components {
     .arrow-left::before {
     @apply content-[''] w-4 h-4 bg-current mr-2;

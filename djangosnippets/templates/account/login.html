@@ -7,7 +7,7 @@
 {% block content %}
 <div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
     <h3>Sign In</h3>
-    <p>Don't have an account? <a class="text-base-green-600 underline">Sign Up</a></p>
+    <p>Don't have an account? <a class="underline text-base-green-600 hover:text-base-orange-400">Sign Up</a></p>
     {% include "socialaccount/snippets/login_extra.html" %}
     <form class="login flex flex-col items-center w-[80%]" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
@@ -23,7 +23,7 @@
         {% endfor %}
         <button type="submit" class="w-full my-4 h-12 text-lg bg-base-green-600 border-2 rounded-lg border-base-green-800 font-common hover:bg-base-white-400 hover:text-base-green-600">Sign In</button>
     </form>
-    <a href="{% url 'account_reset_password' %}" class="block w-[80%] underline text-right text-base-green-600">Forgotten your password?</a>
+    <a href="{% url 'account_reset_password' %}" class="block w-[80%] underline text-right text-base-green-600 hover:text-base-orange-400">Forgotten your password?</a>
     <div class="flex items-center my-4 w-[80%]">
       <div class="flex-1 border-t w-full border-gray-400"></div>
       <span class="px-4 text-gray-800 font-text">OR</span>
