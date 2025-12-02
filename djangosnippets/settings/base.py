@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "django_components",
     "rest_framework",
     "django_htmx",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = (
