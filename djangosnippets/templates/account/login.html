@@ -22,7 +22,11 @@
                 <label class="text-base text-left">{{ field.label }}</label>
                 <span aria-hidden="true" class="text-4xl text-red-400 h-2 ml-1">*</span>
             </div>
+            {% if field.errors %}
+            {{ field|add_class:"h-12 text-lg rounded-lg border-red-600 border-2 my-2" }}
+            {% else %}
             {{ field|add_class:"h-12 text-lg rounded-lg border-base-green-400 border-2 my-2" }}
+            {% endif %}
             {% if field.help_text %}<div class="w-full text-left ml-4 font-text">{{ field.help_text|safe }}</div>{% endif %}
             {% if field.errors %}<ul class="m-0 w-full ml-4 text-left text-red-600 font-text">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
         </div>
