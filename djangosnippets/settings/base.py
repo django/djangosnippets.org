@@ -143,6 +143,9 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_FORMS = {
+    "login": "django.contrib.auth.forms.AuthenticationForm",
+}
 SOCIALACCOUNT_ADAPTER = "djangosnippets.adapters.DjangoSnippetsSocialAccountAdapter"
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_LOGIN_ON_GET = True
