@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "django_components",
     "rest_framework",
     "django_htmx",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = (
@@ -137,12 +138,15 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
+ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_USERNAME_MIN_LENGTH = 3
-ACCOUNT_ADAPTER = "djangosnippets.adapters.DjangoSnippetsAccountAdapter"
+ACCOUNT_FORMS = {
+    "login": "base.forms.DjangoSnippetsLoginForm",
+}
+ACCOUNT_SESSION_REMEMBER = True
 SOCIALACCOUNT_ADAPTER = "djangosnippets.adapters.DjangoSnippetsSocialAccountAdapter"
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_LOGIN_ON_GET = True
