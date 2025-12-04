@@ -1,0 +1,33 @@
+{% if messages %}
+    {% for message in messages %}
+    <div class="mx-4 relative" x-data="{ show: true }">
+        <div data-alert
+        class="absolute w-full flex justify-between pl-8 pr-4 py-2 border-2 rounded-md font-text text-lg
+        {% if 'error' in message.tags %}
+        border-red-600 bg-red-100
+        {% elif 'warning' in message.tags %}
+        border-orange-600 bg-orange-100
+        {% elif 'success' in message.tags %}
+        border-green-600 bg-green-100
+        {% else %}
+        border-blue-600 bg-blue-100
+        {% endif %}
+        "
+        :class="show ? '' : 'opacity-0 duration-500 -translate-y-10'"
+        >
+        {{ message }}
+        <button type="button" @click="show = false" href="#" class="m-0 text-base-black border-2 p-0 px-2 rounded-full text-base relative
+        {% if 'error' in message.tags %}
+        bg-red-400
+        {% elif 'warning' in message.tags %}
+        bg-orange-400
+        {% elif 'success' in message.tags %}
+        bg-green-400
+        {% else %}
+        bg-blue-400
+        {% endif %}
+        "><span class="relative -top-0.5">&times;</span></button>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}

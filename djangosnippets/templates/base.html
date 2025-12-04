@@ -26,7 +26,7 @@
     {% endif %}
     </p>
   </div></div>
-  <header><div class="inner">
+  <header class="mb-0"><div class="inner">
     <a title="Go back to the frontpage" href="{% url 'home' %}" id="logo">django<b>snippets</b></a>
     <nav>
       <ul>
@@ -38,6 +38,7 @@
       </ul>
     </nav>
   </div></header>
+  {% include 'includes/messages.html' %}
   <div id="main" class="container mb-auto mx-auto w-7/8">
     {% block secondary_nav %}
     <nav id="subnav">
@@ -48,16 +49,6 @@
       </ul>
     </nav>
     {% endblock %}
-
-  {% if messages %}
-    {% for message in messages %}
-      <div data-alert class="alert-box {% if message.tags %} {{ message.tags }}{% else %}message_info{% endif %}">
-        {{ message }}
-        <a href="#" class="close">&times;</a>
-      </div>
-    {% endfor %}
-  {% endif %}
-
   <div id="base-container">
   <h1>{% block content_header %}{% endblock %}</h1>
   {% block new_content_header %}{% endblock %}

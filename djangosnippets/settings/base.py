@@ -195,15 +195,6 @@ AUTHENTICATION_BACKENDS = (
 DISQUS_WEBSITE_SHORTNAME = "djangosnippets"
 DISQUS_USE_SINGLE_SIGNON = True
 
-MESSAGE_TAGS = {
-    messages.DEBUG: "secondary",
-    messages.INFO: "info",
-    messages.SUCCESS: "success",
-    messages.WARNING: "warning",
-    messages.ERROR: "alert",
-}
-
-
 DATABASES = {"default": dj_database_url.config(conn_max_age=600, conn_health_checks=True)}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
