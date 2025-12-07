@@ -12,25 +12,7 @@
     <img src="{% static 'img/verification_sent.png' %}">
     <p class="my-4 text-xl font-common">We have sent an e-mail to you for verification 🚀</p>
     <p class="text-center">Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder.</p>
-    {% if maintainer_emails %}
-    <div class="flex flex-col justify-center items-center" x-data="{ show: false }">
-        <button
-        class="p-0 m-0 text-base-white border-2 px-4 py-2 rounded-lg font-text"
-        :class="show ? 'bg-base-green-400' : 'bg-base-green-600 hover:bg-base-green-400'"
-        @click="show = !show"
-        >
-        Didn't receive the email ?
-        </button>
-        <div x-show="show" class="text-center my-4 text-base" x-transition>
-            <span>If you didn't receive the verification email, please contact us at:</span>
-            <div class="flex justify-center gap-4 mt-2">
-                {% for email in maintainer_emails %}
-                <a class="underline" href="mailto:{{ email }}">{{ email }}</a>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
+    {% component 'contact_information_button' button_text="Didn't receive the email ?" description="If you didn't receive the verification email, please contact us at:" / %}
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}

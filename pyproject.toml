@@ -20,7 +20,7 @@ dependencies = [
   "markdown",
   "pillow",
   "psycopg2-binary",
-  "pydantic",
+  "pydantic[email]",
   "pygments",
   "python-akismet",
   "python-dotenv",
