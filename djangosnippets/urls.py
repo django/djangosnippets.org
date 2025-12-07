@@ -2,8 +2,6 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import include, path
 
-from base.views import DjangoSnippetsEmailVerificationSentView
-
 admin.autodiscover()
 
 
@@ -13,7 +11,6 @@ def trigger_sentry_error(request):
 
 urlpatterns = [
     path("sentry-debug/", trigger_sentry_error),
-    path("accounts/confirm-email/", DjangoSnippetsEmailVerificationSentView.as_view(), name="account_email_verification_sent"),
     path("accounts/", include("allauth.urls")),
     path("manage/", admin.site.urls),
     path("components/", include("django_components.urls")),

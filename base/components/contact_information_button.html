@@ -1,0 +1,20 @@
+{% if contact_emails %}
+<div class="flex flex-col justify-center items-center" x-data="{ show: false }">
+    <button
+    class="p-0 m-0 text-base-white border-2 px-4 py-2 rounded-lg font-text"
+    :class="show ? 'bg-base-green-400' : 'bg-base-green-600 hover:bg-base-green-400'"
+    @click="show = !show"
+    :aria-expanded="show"
+    >
+    {{ button_text }}
+    </button>
+    <div x-show="show" class="text-center my-4 text-base" x-transition>
+        <span>{{ description }}</span>
+        <div class="flex justify-center gap-4 mt-2">
+            {% for email in contact_emails %}
+            <a class="underline" href="mailto:{{ email }}">{{ email }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
