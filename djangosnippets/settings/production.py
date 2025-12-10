@@ -19,6 +19,7 @@ def env_to_bool(input):  # noqa: A002
 
 
 DEBUG = env_to_bool(os.environ.get("DEBUG", False))  # noqa : PLW1508
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
