@@ -34,6 +34,10 @@
     }
 }
 
+.button {
+    @apply border-2 px-4 py-2 my-2 bg-base-green-600 border-base-green-800 hover:bg-base-green-400 rounded-lg;
+}
+
 /**
   * A catch-all path to Django template files, JavaScript, and Python files
   * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
