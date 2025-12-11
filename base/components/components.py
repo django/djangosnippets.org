@@ -1,7 +1,7 @@
 from typing import Literal
 
 from django_components import Component, register
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 from base.main import TAB_VAR, ObjectList
 from base.pagination import PAGE_VAR, Pagination
@@ -106,4 +106,26 @@ class SortingTabs(Component):
         return {
             "tabs": self.create_all_tabs(object_list),
             "object_list": object_list,
+        }
+
+
+@register("contact_information_button")
+class ContactInformationButton(Component):
+    MAINTAINER_EMAILS = [
+        "antoliny0919@gmail.com",
+        "wedgemail@gmail.com",
+    ]
+    template_file = "contact_information_button.html"
+
+    class Kwargs(BaseModel):
+        button_text: str
+        description: str
+        contact_emails: list[EmailStr] | None = None
+
+    def get_template_data(self, args, kwargs, slots, context):
+        contact_emails = kwargs.contact_emails or self.MAINTAINER_EMAILS
+        return {
+            "button_text": kwargs.button_text,
+            "description": kwargs.description,
+            "contact_emails": contact_emails,
         }
