@@ -20,7 +20,7 @@ dependencies = [
   "markdown",
   "pillow",
   "psycopg2-binary",
-  "pydantic",
+  "pydantic[email]",
   "pygments",
   "python-akismet",
   "python-dotenv",
@@ -37,6 +37,7 @@ dependencies = [
   "sentry-sdk",
   "gevent",
   "greenlet",
+  "django-widget-tweaks>=1.5.0",
 ]
 
 [project.optional-dependencies]

@@ -6,11 +6,20 @@
     --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
     --color-base-green-400: #256918;
+    --color-base-green-600: #1E4F15;
     --color-base-green-800: #12330c;
+    --shadow-sign-content: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     --font-header: "Libertinus Sans", sans-serif;
     --font-title: "Playfair Display", sans-serif;
     --font-text: "Nunito", sans-serif;
     --font-common: "Raleway", sans-serif;
+}
+
+/* Additional default styles to be applied when SCSS is completely removed */
+@layer base {
+    a {
+        text-underline-offset: 4px ;
+    }
 }
 
 @layer components {
@@ -23,6 +32,10 @@
     @apply content-[''] w-4 h-4 bg-current ml-2;
     clip-path: polygon(6.2px 3.2px, 7.3px 3.2px, 11.5px 7.5px, 11.5px 8.5px, 7.3px 12.8px, 6.2px 11.7px, 9.9px 8px, 6.2px 4.3px, 6.2px 3.2px);
     }
+}
+
+.button {
+    @apply border-2 px-4 py-2 my-2 bg-base-green-600 border-base-green-800 hover:bg-base-green-400 rounded-lg;
 }
 
 /**
