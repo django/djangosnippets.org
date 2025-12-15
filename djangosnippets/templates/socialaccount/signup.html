@@ -1,20 +1,39 @@
 {% extends "socialaccount/base.html" %}
-{% load i18n %}
+{% load widget_tweaks %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}Signup{% endblock %}
 
-{% block content_header %}{% trans "Signup" %}{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
-<p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{ provider_name }} account to login to
-{{ site_name }}. As a final step, please complete the following form:{% endblocktrans %}</p>
+<div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
+    <h3>Signup</h3>
+    <p class="text-center py-2">You are about to use your {{ account.get_provider.name }} account to login to {{ site.name }}. As a final step, please complete the following form:</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+    <form class="login flex flex-col items-center w-[80%]" method="POST" action="{% url 'socialaccount_signup' %}">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <ul class="m-0 border-2 rounded-md p-2 border-red-400 text-red-600 font-bold">
+          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+        {% for field in form %}
+        <div class="w-full my-1">
+            <div class="flex w-full my-2">
+                <label class="text-base text-left">{{ field.label }}</label>
+                <span aria-hidden="true" class="text-4xl text-red-400 h-2 ml-1">*</span>
+            </div>
+            {% if field.errors %}
+            {{ field|add_class:"h-12 text-lg rounded-lg border-red-600 border-2 my-2" }}
+            {% else %}
+            {{ field|add_class:"h-12 text-lg rounded-lg border-base-green-400 border-2 my-2" }}
+            {% endif %}
+            {% if field.help_text %}<div class="w-full text-left ml-4 font-text">{{ field.help_text|safe }}</div>{% endif %}
+            {% if field.errors %}<ul class="m-0 w-full ml-4 text-left text-red-600 font-text">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="w-full my-4 h-12 text-lg bg-base-green-600 border-2 rounded-lg border-base-green-800 font-common hover:bg-base-white-400 hover:text-base-green-600">SignUp</button>
+    </form>
+</div>
 {% endblock %}
+{% block footer %}{% endblock %}
