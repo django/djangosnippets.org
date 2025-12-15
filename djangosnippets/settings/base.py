@@ -3,6 +3,7 @@ from pathlib import Path
 
 import dj_database_url
 from django.contrib import messages
+from django.forms.renderers import TemplatesSetting
 from django.urls import reverse
 from dotenv import load_dotenv
 
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.forms",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -219,3 +221,10 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name = "forms/form.html"
+
+
+FORM_RENDERER = "djangosnippets.settings.base.CustomFormRenderer"

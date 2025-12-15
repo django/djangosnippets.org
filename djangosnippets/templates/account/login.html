@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static account socialaccount widget_tweaks %}
+{% load static %}
 
 {% block header%}{% endblock %}
 
@@ -11,26 +11,7 @@
     {% include "socialaccount/snippets/login_extra.html" %}
     <form class="login flex flex-col items-center w-[80%]" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {% if form.non_field_errors %}
-          <ul class="m-0 border-2 rounded-md p-2 border-red-400 text-red-600 font-bold">
-          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
-          </ul>
-        {% endif %}
-        {% for field in form %}
-        <div class="w-full my-1">
-            <div class="flex w-full my-2">
-                <label class="text-base text-left">{{ field.label }}</label>
-                <span aria-hidden="true" class="text-4xl text-red-400 h-2 ml-1">*</span>
-            </div>
-            {% if field.errors %}
-            {{ field|add_class:"h-12 text-lg rounded-lg border-red-600 border-2 my-2" }}
-            {% else %}
-            {{ field|add_class:"h-12 text-lg rounded-lg border-base-green-400 border-2 my-2" }}
-            {% endif %}
-            {% if field.help_text %}<div class="w-full text-left ml-4 font-text">{{ field.help_text|safe }}</div>{% endif %}
-            {% if field.errors %}<ul class="m-0 w-full ml-4 text-left text-red-600 font-text">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-        </div>
-        {% endfor %}
+        {{ form }}
         <button type="submit" class="w-full my-4 h-12 text-lg bg-base-green-600 border-2 rounded-lg border-base-green-800 font-common hover:bg-base-white-400 hover:text-base-green-600">Sign In</button>
     </form>
     <a href="{% url 'account_reset_password' %}" class="block w-[80%] underline text-right text-base-green-600 hover:text-base-orange-400">Forgotten your password?</a>
