@@ -145,16 +145,16 @@ You need to copy .env.example to .env and configure to your needs. The example i
 
 You may wish to use docker locally for production dependency testing and development; here are the setup instructions::
 
-    $ docker-compose -f docker-compose.production.yml build
-    $ docker-compose -f docker-compose.production.yml up -d
+    $ docker compose -f docker-compose.production.yml build
+    $ docker compose -f docker-compose.production.yml up -d
 
 -d denotes running docker in a detached state::
 
-    $ docker-compose -f docker-compose.production.yml run web python manage.py migrate
-    $ docker-compose -f docker-compose.production.yml run web python manage.py createsuperuser
-    $ docker-compose -f docker-compose.production.yml run web python manage.py loaddata fixtures/cab.json
+    $ docker compose -f docker-compose.production.yml run web python manage.py migrate
+    $ docker compose -f docker-compose.production.yml run web python manage.py createsuperuser
+    $ docker compose -f docker-compose.production.yml run web python manage.py loaddata fixtures/cab.json
     $ npm run build
-    $ docker-compose -f docker-compose.production.yml run web python manage.py collectstatic
+    $ docker compose -f docker-compose.production.yml run web python manage.py collectstatic
 
 
 The docker setup is running as close as possible to the production setup in Heroku:
@@ -165,7 +165,7 @@ Redis
 
 To run our tests with docker::
 
-    $ docker-compose -f docker-compose.yml run web python manage.py test --settings=djangosnippets.settings.testing
+    $ docker compose -f docker-compose.yml run web python manage.py test --settings=djangosnippets.settings.testing
 
 Test
 ======
