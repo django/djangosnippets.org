@@ -37,6 +37,8 @@ def snippet_detail(request, snippet_id):
 
 def download_snippet(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
+    count=Snippet.objects.get(pk=snippet_id).download_count+1
+    Snippet.objects.filter(pk=snippet_id).update(download_count=count)
     response = HttpResponse(snippet.code, content_type="text/plain")
     filename = f"{snippet.id}.{snippet.language.file_extension}"
     response["Content-Disposition"] = f"attachment; filename={filename}"

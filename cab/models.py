@@ -78,6 +78,7 @@ class Snippet(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0)  # denormalized count
     rating_score = models.IntegerField(default=0)  # denormalized score
+    download_count=models.IntegerField(default=0)  
 
     ratings = Ratings()
     tags = TaggableManager(blank=True)

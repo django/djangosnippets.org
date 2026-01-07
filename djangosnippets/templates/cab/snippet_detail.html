@@ -46,7 +46,7 @@
     {% if user.is_authenticated %}
     <li><a class="actions__flag" href="{% url 'cab_snippet_flag' object.id %}" title="Flag this snippet"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
     {% endif %}
-    <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}" title="Download"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
+    <li ><a style="padding-right: 0px;" href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}" title="Download"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a><i class="click_count"> {{object.download_count}}</i></li>
     <li><a href="{% url 'cab_snippet_raw' snippet_id=object.id %}" title="Raw"><i class="fa fa-fw fa-align-left"></i><span>Raw</span></a></li>
   </ul>
   <div id="description">{{ object.description_html|safe }}</div>
