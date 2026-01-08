@@ -24,6 +24,10 @@
       <dt>Tags:</dt>
       <dd>{% for tag in object.tags.all %}<a href="{% url 'cab_snippet_matches_tag' tag.slug %}">{{ tag.name }}</a> {% endfor %}</dd>
     {% endif %}
+    {% if object.forked_from %}
+      <dt>Forked from:</dt>
+      <dd><a href="{{ object.forked_from.get_absolute_url }}">{{ object.forked_from.title }}</a></dd>
+    {% endif %}
     <dt>Score:</dt>
     <dd>{{ object.rating_score }} (after {{ object.ratings.count }} ratings)</dd>
   </dl>
@@ -45,6 +49,9 @@
     {% endif %}
     {% if user.is_authenticated %}
     <li><a class="actions__flag" href="{% url 'cab_snippet_flag' object.id %}" title="Flag this snippet"><i class="fa fa-fw fa-warning"></i><span>Flag this snippet</span></a></li>
+    {% endif %}
+    {% if user.is_authenticated and user.id != object.author.id %}
+    <li><a href="{% url 'cab_snippet_fork' snippet_id=object.id %}" title="Fork this snippet"><i class="fa fa-fw fa-code-fork"></i><span>Fork</span></a></li>
     {% endif %}
     <li><a href="{% url 'cab_snippet_download' snippet_id=object.id %}" type="{{ object.language.mime_type }}" title="Download"><i class="fa fa-fw fa-arrow-circle-o-down"></i><span>Download</span></a></li>
     <li><a href="{% url 'cab_snippet_raw' snippet_id=object.id %}" title="Raw"><i class="fa fa-fw fa-align-left"></i><span>Raw</span></a></li>
