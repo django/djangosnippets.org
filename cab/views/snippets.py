@@ -117,6 +117,14 @@ def flag_snippet(request, snippet_id, template_name="cab/flag_snippet.html"):
     return render(request, template_name, {"form": form, "snippet": snippet})
 
 
+@login_required
+def fork_snippet(request, snippet_id):
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
+    forked = snippet.fork(request.user)
+    messages.success(request, "Snippet forked successfully.")
+    return redirect(forked)
+
+
 def author_snippets(request, username):
     user = get_object_or_404(User, username=username)
     snippet_qs = Snippet.objects.filter(author=user)

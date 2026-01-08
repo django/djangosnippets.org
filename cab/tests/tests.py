@@ -522,6 +522,19 @@ class SnippetViewsTestCase(BaseCabTestCase):
         self.assertRedirects(resp, f"/snippets/{new_snippet.pk}/")
 
 
+    def test_snippet_fork(self):
+        self.client.login(username="b", password="b")
+        snippet_fork = reverse("cab_snippet_fork", args=[self.snippet1.pk])
+        resp = self.client.get(snippet_fork)
+        self.assertEqual(resp.status_code, 302)  # redirect to forked snippet
+
+        forked = Snippet.objects.get(title="Hello world (forked)")
+        self.assertEqual(forked.author, self.user_b)
+        self.assertEqual(forked.forked_from, self.snippet1)
+        self.assertEqual(forked.code, self.snippet1.code)
+        self.assertEqual([t.name for t in forked.tags.all()], ["hello", "world"])
+
+
 class TemplatetagTestCase(BaseCabTestCase):
     def test_cab_tags(self):
         t = Template(
