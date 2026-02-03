@@ -78,6 +78,7 @@ class Snippet(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     bookmark_count = models.IntegerField(default=0)  # denormalized count
     rating_score = models.IntegerField(default=0)  # denormalized score
+    forked_from = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='forks')
 
     ratings = Ratings()
     tags = TaggableManager(blank=True)
@@ -126,6 +127,22 @@ class Snippet(models.Model):
             flag=SnippetFlag.FLAG_INAPPROPRIATE,
         )
         snippet_flag.save()
+
+    def fork(self, user, title=None):
+        if title is None:
+            title = f"{self.title} (forked)"
+        forked_snippet = Snippet(
+            title=title,
+            language=self.language,
+            author=user,
+            description=self.description,
+            code=self.code,
+            version=self.version,
+            forked_from=self,
+        )
+        forked_snippet.save()
+        forked_snippet.tags.set(self.tags.all())
+        return forked_snippet
 
     def mark_as_spam(self):
         snippet_flag = SnippetFlag(snippet=self, user=self.author, flag=SnippetFlag.FLAG_SPAM)
