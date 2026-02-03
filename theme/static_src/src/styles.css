@@ -2,6 +2,7 @@
 
 @theme {
     --color-base-orange-400: #ffc656;
+    --color-base-orange-800: #b8621b;
     --color-base-white-400: #fafafa;
     --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
@@ -11,6 +12,8 @@
     --font-title: "Playfair Display", sans-serif;
     --font-text: "Nunito", sans-serif;
     --font-common: "Raleway", sans-serif;
+    --font-logo: "Bungee", sans-serif;
+    --font-home-banner-title: "Ubuntu", sans-serif;
 }
 
 @layer components {
@@ -23,6 +26,10 @@
     @apply content-[''] w-4 h-4 bg-current ml-2;
     clip-path: polygon(6.2px 3.2px, 7.3px 3.2px, 11.5px 7.5px, 11.5px 8.5px, 7.3px 12.8px, 6.2px 11.7px, 9.9px 8px, 6.2px 4.3px, 6.2px 3.2px);
     }
+}
+
+.home-banner-button {
+    @apply text-base bg-base-green-400 text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
 }
 
 /**
