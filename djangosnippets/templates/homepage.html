@@ -16,4 +16,66 @@
     <a class="home-banner-button bg-base-orange-400 w-30 hover:bg-base-orange-800" href="{% url 'cab_snippet_list' %}">Discover</a>
   </div>
 </section>
+<section class="flex flex-col lg:flex-row">
+  <div class="flex-1 my-8 lg:my-0">
+    <h2 class="font-home-banner-title text-4xl">What is Django Snippets ?</h2>
+  </div>
+  <div class="flex-2 flex-col lg:mx-12">
+    <div class="relative min-h-[28rem]">
+      <div class="absolute w-full bg-base-orange-100 rounded-lg z-100">
+        <div class="flex gap-2 items-center p-4 bg-base-green-100 rounded-t-lg">
+          <span class="code-block-control-button bg-red-400"></span>
+          <span class="code-block-control-button bg-yellow-400"></span>
+          <span class="code-block-control-button bg-green-400"></span>
+        </div>
+        <div class="p-8">
+          <code class="code-block-line">from django import models</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">from django.contrib.auth.models import User</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">class MySnippet(models.Model):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length=128)</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;content = models.TextField()</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;author = models.ForeignKey(User, on_delete=models.CASCADE)</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;def my_snippet_skill(self):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</code>
+        </div>
+      </div>
+      <div class="absolute top-8 left-8 w-full bg-base-orange-100 rounded-lg z-0 opacity-60">
+        <div class="flex gap-2 items-center p-4 bg-base-green-100 rounded-t-lg">
+          <span class="code-block-control-button bg-red-400"></span>
+          <span class="code-block-control-button bg-yellow-400"></span>
+          <span class="code-block-control-button bg-green-400"></span>
+        </div>
+        <div class="p-8">
+          <code class="code-block-line">from django import models</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">from django.contrib.auth.models import User</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">class MySnippet(models.Model):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length=128)</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;content = models.TextField()</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;author = models.ForeignKey(User, on_delete=models.CASCADE)</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;def my_snippet_skill(self):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</code>
+        </div>
+      </div>
+    </div>
+    <div class="my-12 px-4">
+      <p class="text-lg font-text">In programming, a snippet is a small, reusable piece of code.</p>
+      <p class="text-lg font-text">Django Snippets offers a collection of useful code for Django developers.</p>
+      <a class="inline-flex items-center gap-1 cursor-pointer group underline underline-offset-4" href="{% url 'cab_snippet_list' %}">
+        <span class="transition-colors text-lg font-text">Are you ready to explore?</span>
+        <svg class="w-6 h-6 group-hover:text-base-green-400" viewBox="0 0 24 24" fill="none">
+          <line class="stroke-current stroke-2 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" x1="4" y1="12" x2="16" y2="12"/>
+          <path class="stroke-current stroke-2 fill-none stroke-linecap-round stroke-linejoin-round group-hover:translate-x-1 transition-transform duration-300" d="M15 8l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
 {% endblock %}

@@ -1,11 +1,13 @@
 @import "tailwindcss" important;
 
 @theme {
+    --color-base-orange-100: #FCE8B3;
     --color-base-orange-400: #ffc656;
     --color-base-orange-800: #b8621b;
     --color-base-white-400: #fafafa;
     --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
+    --color-base-green-100: #509447;
     --color-base-green-400: #256918;
     --color-base-green-800: #12330c;
     --font-header: "Libertinus Sans", sans-serif;
@@ -30,6 +32,14 @@
 
 .home-banner-button {
     @apply text-base bg-base-green-400 text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
+}
+
+.code-block-control-button {
+    @apply w-[18px] h-[18px] rounded-full;
+}
+
+.code-block-line {
+    @apply whitespace-pre block bg-transparent border-none;
 }
 
 /**
