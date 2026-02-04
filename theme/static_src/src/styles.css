@@ -15,7 +15,9 @@
     --font-text: "Nunito", sans-serif;
     --font-common: "Raleway", sans-serif;
     --font-logo: "Bungee", sans-serif;
-    --font-home-banner-title: "Ubuntu", sans-serif;
+    --font-home-section-title: "Ubuntu", sans-serif;
+
+    --font-home-stat-title: "Bungee", sans-serif;
     --animate-blink: blink 1s infinite;
 
     @keyframes blink {
@@ -36,8 +38,24 @@
     }
 }
 
+.home-section-title {
+    @apply font-home-section-title font-bold text-4xl;
+}
+
 .home-banner-button {
     @apply text-base bg-base-green-400 text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
+}
+
+.home-stat-block {
+    @apply flex flex-col items-center justify-center rounded-lg;
+}
+
+.home-stat-description-text {
+    @apply font-["Raleway"] text-gray-700 my-2;
+}
+
+.home-stat-metric {
+    @apply my-2 text-xl font-bold font-["Nunito"];
 }
 
 .code-block-control-button {
