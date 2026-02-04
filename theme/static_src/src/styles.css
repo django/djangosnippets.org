@@ -16,6 +16,12 @@
     --font-common: "Raleway", sans-serif;
     --font-logo: "Bungee", sans-serif;
     --font-home-banner-title: "Ubuntu", sans-serif;
+    --animate-blink: blink 1s infinite;
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
 }
 
 @layer components {

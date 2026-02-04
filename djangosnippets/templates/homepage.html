@@ -18,7 +18,8 @@
 </section>
 <section class="flex flex-col lg:flex-row">
   <div class="flex-1 my-8 lg:my-0">
-    <h2 class="font-home-banner-title text-4xl">What is Django Snippets ?</h2>
+    <h2 class="inline-block font-home-banner-title text-4xl" data-animation="typing" data-typing-text="What is Django Snippets?" data-use-observe="true"></h2>
+    <span class="ml-1 inline-block w-1 h-10 bg-gray-900 animate-blink translate-y-2"></span>
   </div>
   <div class="flex-2 flex-col lg:mx-12">
     <div class="relative min-h-[28rem]">
@@ -78,4 +79,7 @@
     </div>
   </div>
 </section>
+{% endblock %}
+{% block extra_scripts %}
+<script type="module" src="{% static 'js/typingAnimation.js' %}"></script>
 {% endblock %}
