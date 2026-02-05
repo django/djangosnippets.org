@@ -86,30 +86,44 @@
     <h2 class="home-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
     <p class="max-w-2xl mt-4 mb-18 text-gray-600 text-base mx-auto text-lg">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
     <div class="mx-auto grid grid-cols-2 grid-rows-2 gap-16 w-[64rem] h-[32rem]">
-      <div class="home-stat-container bg-base-green-400/60">
-        <h3 class="font-home-stat-title">Snippets</h3>
-        <p class="home-stat-description-text">Registered Snippets</p>
-        {% component "icon" kind="snippet" label="snippet" color="orange" classes="w-[60px] h-[60px]" / %}
-        <p class="home-stat-metric">{{ registered_snippets }}</p>
+      <div class="bg-base-green-400/60 rounded-md">
+        <h3 class="font-home-stat-title my-4">Snippets</h3>
+        <div class="flex flex-col items-center">
+          <p class="home-stat-description-text">Registered Snippets</p>
+          {% component "icon" kind="snippet" label="snippet" color="orange" classes="w-[50px] h-[50px]" / %}
+          <p class="home-stat-metric my-3">{{ registered_snippets }}</p>
+        </div>
       </div>
-      <div class="home-stat-container bg-base-green-400/60">
-        <h3 class="font-home-stat-title">Users</h3>
-        <p class="home-stat-description-text">Total Users</p>
-        {% component "icon" kind="user" label="user" color="white" classes="w-[60px] h-[60px]" / %}
-        <p class="home-stat-metric">{{ total_users }}</p>
+      <div class="bg-base-green-400/60 rounded-md">
+        <h3 class="font-home-stat-title my-4">Users</h3>
+        <div class="flex flex-col items-center">
+          <p class="home-stat-description-text">Total Users</p>
+          {% component "icon" kind="user" label="user" color="white" classes="w-[50px] h-[50px]" / %}
+          <p class="home-stat-metric my-3">{{ total_users }}</p>
+        </div>
       </div>
-      <div class="home-stat-container bg-base-green-400/60">
-        <h3 class="font-home-stat-title">Like</h3>
-        <p class="home-stat-description-text">Highest Rating</p>
-        {% component "icon" kind="heart" label="rating" color="red" classes="w-[60px] h-[60px]" / %}
-        <p class="home-stat-metric">{{ highest_rating_cnt }}</p>
-      </div>
-      <div class="home-stat-container bg-base-green-400/60">
-        <h3 class="font-home-stat-title">BookMark</h3>
-        <p class="home-stat-description-text">Highest Bookmarks</p>
-        {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[60px] h-[60px]" / %}
-        <p class="home-stat-metric">{{ highest_bookmark_cnt }}</p>
-      </div>
+      <a href="{{ top_rated_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black group">
+        <h3 class="text-flip-title font-home-stat-title my-4" data-hover="Read More"><span>Top Rated Snippet</span></h3>
+        <div class="flex flex-col items-center">
+          <p class="home-stat-description-text underline underline-offset-4">{{ top_rated_snippet.title|truncatechars:'60' }}</p>
+          <p><strong>Author: </strong>{{ top_rated_snippet.author.username }}</p>
+          <div class="flex flex-row items-center gap-4">
+            {% component "icon" kind="heart" label="heart" color="red" classes="w-[45px] h-[45px]" / %}
+            <p class="home-stat-metric">{{ top_rated_snippet.rating_score }}</p>
+          </div>
+        </div>
+      </a>
+      <a href="{{ top_bookmarked_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black group">
+        <h3 class="text-flip-title font-home-stat-title my-4" data-hover="Read More"><span>Top BookMarked Snippet</span></h3>
+        <div class="flex flex-col items-center">
+          <p class="home-stat-description-text underline underline-offset-4">{{ top_bookmarked_snippet.title|truncatechars:'60' }}</p>
+          <p><strong>Author: </strong>{{ top_bookmarked_snippet.author.username }}</p>
+          <div class="flex flex-row items-center gap-4">
+            {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[45px] h-[45px]" / %}
+            <p class="home-stat-metric">{{ top_bookmarked_snippet.rating_score }}</p>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </section>

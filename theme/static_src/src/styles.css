@@ -36,6 +36,30 @@
     @apply content-[''] w-4 h-4 bg-current ml-2;
     clip-path: polygon(6.2px 3.2px, 7.3px 3.2px, 11.5px 7.5px, 11.5px 8.5px, 7.3px 12.8px, 6.2px 11.7px, 9.9px 8px, 6.2px 4.3px, 6.2px 3.2px);
     }
+
+    .text-flip-title {
+        @apply relative overflow-hidden block text-center;
+    }
+
+    .text-flip-title span {
+        @apply block transition-transform duration-500;
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .text-flip-title::after {
+        @apply absolute left-0 right-0 inline text-center;
+        top: 100%;
+        content: attr(data-hover);
+        transition: top 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .group:hover .text-flip-title span {
+        transform: translateY(-100%);
+    }
+
+    .group:hover .text-flip-title::after {
+        @apply top-0 text-base-orange-800;
+    }
 }
 
 .home-section-title {
@@ -47,11 +71,11 @@
 }
 
 .home-stat-container {
-    @apply flex flex-col items-center justify-center rounded-lg;
+    @apply flex flex-col items-center justify-between rounded-lg;
 }
 
 .home-stat-description-text {
-    @apply font-["Raleway"] text-gray-700 my-2;
+    @apply font-["Raleway"] text-gray-700;
 }
 
 .home-stat-metric {
