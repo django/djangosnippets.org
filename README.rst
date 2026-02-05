@@ -90,17 +90,17 @@ Basic Installation
 
       uv run python manage.py migrate
 
-   Optionally load data first:
-
-   .. code-block:: console
-
-      uv run python manage.py loaddata fixtures/cab.json
-
    Create superuser:
 
    .. code-block:: console
 
       uv run python manage.py createsuperuser
+
+   Optionally load data:
+
+   .. code-block:: console
+
+      uv run python manage.py loaddata fixtures/cab.json
 
 8. Install tailwind (npm is required):
 
