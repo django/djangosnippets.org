@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
-{% load core_tags %}
+{% load static humanize core_tags %}
 {% block bodyclass %}frontpage{% endblock %}
 {% block head_title %}Welcome{% endblock %}
 
@@ -91,7 +90,7 @@
         <div class="flex flex-col items-center">
           <p class="homepage-stat-card-sub-title">Registered Snippets</p>
           {% component "icon" kind="snippet" label="snippet" color="orange" classes="w-[50px] h-[50px]" / %}
-          <p class="homepage-stat-card-metric my-3">{{ registered_snippets }}</p>
+          <p class="homepage-stat-card-metric my-3">{{ registered_snippets|intcomma }}</p>
         </div>
       </div>
       <div class="bg-base-green-400/60 px-2 rounded-md">
@@ -99,7 +98,7 @@
         <div class="flex flex-col items-center">
           <p class="homepage-stat-card-sub-title">Total Users</p>
           {% component "icon" kind="user" label="user" color="white" classes="w-[50px] h-[50px]" / %}
-          <p class="homepage-stat-card-metric my-3">{{ total_users }}</p>
+          <p class="homepage-stat-card-metric my-3">{{ total_users|intcomma }}</p>
         </div>
       </div>
       <a href="{{ top_rated_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black px-2 group">
@@ -109,7 +108,7 @@
           <p><strong>Author: </strong>{{ top_rated_snippet.author.username }}</p>
           <div class="flex flex-row items-center gap-4 mb-4">
             {% component "icon" kind="heart" label="heart" color="red" classes="w-[45px] h-[45px]" / %}
-            <p class="homepage-stat-card-metric">{{ top_rated_snippet.rating_score }}</p>
+            <p class="homepage-stat-card-metric">{{ top_rated_snippet.rating_score|intcomma }}</p>
           </div>
         </div>
       </a>
@@ -120,7 +119,7 @@
           <p><strong>Author: </strong>{{ top_bookmarked_snippet.author.username }}</p>
           <div class="flex flex-row items-center gap-4 mb-4">
             {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[45px] h-[45px]" / %}
-            <p class="homepage-stat-card-metric">{{ top_bookmarked_snippet.rating_score }}</p>
+            <p class="homepage-stat-card-metric">{{ top_bookmarked_snippet.rating_score|intcomma }}</p>
           </div>
         </div>
       </a>
