@@ -84,7 +84,7 @@
 <section class="my-40">
   <div class="py-20 bg-base-green-400/20 rounded-t-[60%] max-w-[1920px] md:-mx-auto w-screen relative left-1/2 right-1/2 -translate-x-1/2 text-center">
     <h2 class="home-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
-    <p class="max-w-2xl mt-4 mb-18 text-gray-600 text-base mx-auto font-header text-lg">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
+    <p class="max-w-2xl mt-4 mb-18 text-gray-600 text-base mx-auto text-lg">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
     <div class="mx-auto grid grid-cols-2 grid-rows-2 gap-16 w-[64rem] h-[32rem]">
       <div class="home-stat-block bg-base-green-400/60">
         <h3 class="font-home-stat-title">Snippets</h3>
@@ -110,6 +110,26 @@
         {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[60px] h-[60px]" / %}
         <p class="home-stat-metric">{{ highest_bookmark_cnt }}</p>
       </div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2 class="home-section-title">Join the Django Snippets Website Development !</h2>
+  <p class="my-8 text-lg text-gray-600">Django Snippets (djangosnippets.org) is a Django Software Foundation project open to everyone.</p>
+  <div class="flex flex-row py-8 gap-12">
+    <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
+      <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/issues">
+        <div class="absolute w-full -top-[0.8rem] left-0"><span class="text-lg font-logo bg-base-orange-400 px-2 py-1">FEATURE REQUEST</span></div>
+        <h3 class="underline underline-offset-2 py-2">Share Your Ideas</h3>
+        <p class="text-gray-600">Submit your suggestions as GitHub issues.</p>
+      </a>
+    </div>
+    <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
+      <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/pulls">
+        <div class="absolute w-full -top-[0.8rem] left-0"><span class="text-lg font-logo bg-base-orange-400 px-2 py-1">CONTRIBUTING</span></div>
+        <h3 class="underline underline-offset-2 py-2">Contribute on Github</h3>
+        <p class="text-gray-600">File bug reports and make pull-requests.</p>
+      </a>
     </div>
   </div>
 </section>
