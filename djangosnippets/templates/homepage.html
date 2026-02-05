@@ -9,18 +9,18 @@
 {% block main_extra_class %}{% endblock %}
 
 {% block content %}
-<section class="flex flex-col px-12 pt-8 pb-40 text-center font-header">
+<section class="flex flex-col px-12 pt-8 pb-40 text-center">
   <img class="mx-auto" src="{% static 'img/banner_logo.png' %}"></img>
-  <h1 class="text-6xl mx-auto max-w-6xl text-gray-900 font-bold tracking-tight leading-tight font-home-section-title">Share and Discover useful <span class="text-base-green-400 font-logo">Django</span> code <span class="text-base-orange-400 font-logo">Snippets</span></h1>
-  <p class="mx-auto max-w-2xl mt-4 mb-8 text-gray-600 text-xl">Welcome to Djangosnippets.org, a site for users of the Django web framework to come together and share useful "snippets" of reusable code.</p>
+  <h1 class="text-6xl mx-auto max-w-6xl text-gray-900 font-bold tracking-tight leading-tight font-homepage-section-title">Share and Discover useful <span class="text-base-green-400 font-logo">Django</span> code <span class="text-base-orange-400 font-logo">Snippets</span></h1>
+  <p class="mx-auto max-w-2xl mt-4 mb-8 text-gray-600 text-xl font-homepage-banner-sub-title">Welcome to Djangosnippets.org, a site for users of the Django web framework to come together and share useful "snippets" of reusable code.</p>
   <div class="flex gap-4 justify-center">
-    <a class="home-banner-button bg-base-green-400 w-30 hover:bg-base-green-800" href="{% url 'cab_snippet_add' %}">Share</a>
-    <a class="home-banner-button bg-base-orange-400 w-30 hover:bg-base-orange-800" href="{% url 'cab_snippet_list' %}">Discover</a>
+    <a class="homepage-banner-button bg-base-green-400 w-30 hover:bg-base-green-800" href="{% url 'cab_snippet_add' %}">Share</a>
+    <a class="homepage-banner-button bg-base-orange-400 w-30 hover:bg-base-orange-800" href="{% url 'cab_snippet_list' %}">Discover</a>
   </div>
 </section>
 <section class="flex flex-col lg:flex-row my-20">
   <div class="flex-1 my-8 lg:my-0">
-    <h2 class="inline-block home-section-title" data-animation="typing" data-typing-text="What is Django Snippets?" data-use-observe="true"></h2>
+    <h2 class="inline-block homepage-section-title" data-animation="typing" data-typing-text="What is Django Snippets?" data-use-observe="true"></h2>
     <span class="ml-1 inline-block w-1 h-10 bg-gray-900 animate-blink translate-y-2"></span>
   </div>
   <div class="flex-2 flex-col lg:mx-12">
@@ -69,10 +69,10 @@
       </div>
     </div>
     <div class="my-12 px-4">
-      <p class="text-lg font-text">In programming, a snippet is a small, reusable piece of code.</p>
-      <p class="text-lg font-text">Django Snippets offers a collection of useful code for Django developers.</p>
+      <p class="homepage-section-sub-title">In programming, a snippet is a small, reusable piece of code.</p>
+      <p class="homepage-section-sub-title">Django Snippets offers a collection of useful code for Django developers.</p>
       <a class="inline-flex items-center gap-1 cursor-pointer group underline underline-offset-4" href="{% url 'cab_snippet_list' %}">
-        <span class="transition-colors text-lg font-text">Are you ready to explore?</span>
+        <span class="transition-colors homepage-section-sub-title">Are you ready to explore?</span>
         <svg class="w-6 h-6 group-hover:text-base-green-400" viewBox="0 0 24 24" fill="none">
           <line class="stroke-current stroke-2 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" x1="4" y1="12" x2="16" y2="12"/>
           <path class="stroke-current stroke-2 fill-none stroke-linecap-round stroke-linejoin-round group-hover:translate-x-1 transition-transform duration-300" d="M15 8l4 4-4 4"/>
@@ -83,44 +83,44 @@
 </section>
 <section class="my-40">
   <div class="py-20 bg-base-green-400/20 rounded-t-[60%] max-w-[1920px] md:-mx-auto w-screen relative left-1/2 right-1/2 -translate-x-1/2 text-center">
-    <h2 class="home-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
-    <p class="max-w-2xl mt-4 mb-18 text-gray-600 text-base mx-auto text-lg">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
+    <h2 class="homepage-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
+    <p class="homepage-section-sub-title max-w-2xl mt-4 mb-18 text-gray-600 mx-auto">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
     <div class="mx-auto grid grid-cols-2 grid-rows-2 gap-16 w-[64rem] h-[32rem]">
       <div class="bg-base-green-400/60 rounded-md">
-        <h3 class="font-home-stat-title my-4">Snippets</h3>
+        <h3 class="homepage-stat-card-title">Snippets</h3>
         <div class="flex flex-col items-center">
-          <p class="home-stat-description-text">Registered Snippets</p>
+          <p class="homepage-stat-card-sub-title">Registered Snippets</p>
           {% component "icon" kind="snippet" label="snippet" color="orange" classes="w-[50px] h-[50px]" / %}
-          <p class="home-stat-metric my-3">{{ registered_snippets }}</p>
+          <p class="homepage-stat-card-metric my-3">{{ registered_snippets }}</p>
         </div>
       </div>
       <div class="bg-base-green-400/60 rounded-md">
-        <h3 class="font-home-stat-title my-4">Users</h3>
+        <h3 class="homepage-stat-card-title">Users</h3>
         <div class="flex flex-col items-center">
-          <p class="home-stat-description-text">Total Users</p>
+          <p class="homepage-stat-card-sub-title">Total Users</p>
           {% component "icon" kind="user" label="user" color="white" classes="w-[50px] h-[50px]" / %}
-          <p class="home-stat-metric my-3">{{ total_users }}</p>
+          <p class="homepage-stat-card-metric my-3">{{ total_users }}</p>
         </div>
       </div>
       <a href="{{ top_rated_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black group">
-        <h3 class="text-flip-title font-home-stat-title my-4" data-hover="Read More"><span>Top Rated Snippet</span></h3>
+        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Top Rated Snippet</span></h3>
         <div class="flex flex-col items-center">
-          <p class="home-stat-description-text underline underline-offset-4">{{ top_rated_snippet.title|truncatechars:'60' }}</p>
+          <p class="homepage-stat-card-sub-title underline underline-offset-4">{{ top_rated_snippet.title|truncatechars:'60' }}</p>
           <p><strong>Author: </strong>{{ top_rated_snippet.author.username }}</p>
           <div class="flex flex-row items-center gap-4">
             {% component "icon" kind="heart" label="heart" color="red" classes="w-[45px] h-[45px]" / %}
-            <p class="home-stat-metric">{{ top_rated_snippet.rating_score }}</p>
+            <p class="homepage-stat-card-metric">{{ top_rated_snippet.rating_score }}</p>
           </div>
         </div>
       </a>
       <a href="{{ top_bookmarked_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black group">
-        <h3 class="text-flip-title font-home-stat-title my-4" data-hover="Read More"><span>Top BookMarked Snippet</span></h3>
+        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Top BookMarked Snippet</span></h3>
         <div class="flex flex-col items-center">
-          <p class="home-stat-description-text underline underline-offset-4">{{ top_bookmarked_snippet.title|truncatechars:'60' }}</p>
+          <p class="homepage-stat-card-sub-title underline underline-offset-4">{{ top_bookmarked_snippet.title|truncatechars:'60' }}</p>
           <p><strong>Author: </strong>{{ top_bookmarked_snippet.author.username }}</p>
           <div class="flex flex-row items-center gap-4">
             {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[45px] h-[45px]" / %}
-            <p class="home-stat-metric">{{ top_bookmarked_snippet.rating_score }}</p>
+            <p class="homepage-stat-card-metric">{{ top_bookmarked_snippet.rating_score }}</p>
           </div>
         </div>
       </a>
@@ -128,19 +128,19 @@
   </div>
 </section>
 <section>
-  <h2 class="home-section-title">Join the Django Snippets Website Development !</h2>
-  <p class="my-8 text-lg text-gray-600">Django Snippets (djangosnippets.org) is a Django Software Foundation project open to everyone.</p>
+  <h2 class="homepage-section-title">Join the Django Snippets Website Development !</h2>
+  <p class="homepage-section-sub-title my-8 text-gray-600">Django Snippets (djangosnippets.org) is a Django Software Foundation project open to everyone.</p>
   <div class="flex flex-row py-8 gap-12">
     <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
       <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/issues">
-        <div class="absolute w-full -top-[0.8rem] left-0"><span class="text-lg font-logo bg-base-orange-400 px-2 py-1">FEATURE REQUEST</span></div>
+        <div class="homepage-float-label-container"><span class="homepage-float-label">FEATURE REQUEST</span></div>
         <h3 class="underline underline-offset-2 py-2">Share Your Ideas</h3>
         <p class="text-gray-600">Submit your suggestions as GitHub issues.</p>
       </a>
     </div>
     <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
       <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/pulls">
-        <div class="absolute w-full -top-[0.8rem] left-0"><span class="text-lg font-logo bg-base-orange-400 px-2 py-1">CONTRIBUTING</span></div>
+        <div class="homepage-float-label-container"><span class="homepage-float-label">CONTRIBUTING</span></div>
         <h3 class="underline underline-offset-2 py-2">Contribute on Github</h3>
         <p class="text-gray-600">File bug reports and make pull-requests.</p>
       </a>
