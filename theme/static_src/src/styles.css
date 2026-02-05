@@ -80,27 +80,27 @@
 
     /* HOMEPAGE */
     .homepage-section-title {
-        @apply font-homepage-section-title font-bold text-4xl;
+        @apply font-homepage-section-title font-bold text-3xl lg:text-4xl;
     }
 
     .homepage-section-sub-title {
-        @apply text-lg font-homepage-section-sub-title;
+        @apply text-base font-homepage-section-sub-title lg:text-lg;
     }
 
     .homepage-banner-button {
-        @apply text-base bg-base-green-400 text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
+        @apply text-base text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
     }
 
     .homepage-stat-card-title {
-        @apply font-homepage-stat-card-title my-4;
+        @apply font-homepage-stat-card-title my-4 text-lg lg:text-2xl;
     }
 
     .homepage-stat-card-sub-title {
-        @apply font-homepage-stat-card-sub-title text-gray-700 text-base;
+        @apply font-homepage-stat-card-sub-title text-gray-700 text-sm lg:text-base;
     }
 
     .homepage-stat-card-metric {
-        @apply my-2 text-xl font-bold font-homepage-stat-card-metric;
+        @apply my-2 text-lg font-bold font-homepage-stat-card-metric lg:text-xl;
     }
 
     .homepage-float-label-container {
@@ -108,7 +108,7 @@
     }
 
     .homepage-float-label {
-        @apply text-lg font-homepage-float-label bg-base-orange-400 px-2 py-1
+        @apply text-sm font-homepage-float-label bg-base-orange-400 px-2 py-1 lg:text-lg;
     }
 }
 
