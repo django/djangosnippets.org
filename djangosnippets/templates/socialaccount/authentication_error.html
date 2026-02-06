@@ -1,11 +1,17 @@
 {% extends "socialaccount/base.html" %}
 
-{% load i18n %}
+{% load static %}
 
-{% block head_title %}{% trans "Social Network Login Failure" %}{% endblock %}
+{% block head_title %}Social Network Login Failure{% endblock %}
 
-{% block content_header %}{% trans "Social Network Login Failure" %}{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
-<p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+<div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
+    <h3>Social Network Login Failure</h3>
+    <img class="w-42" src="{% static 'img/problem.png' %}"/>
+    <p class="text-center my-2">An error occurred while attempting to login via your third-party account.</p>
+</div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
