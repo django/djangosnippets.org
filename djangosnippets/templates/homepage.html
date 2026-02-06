@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="my-12 px-4">
-      <p class="homepage-section-sub-title">In programming, a snippet is a small, reusable piece of code.</p>
+      <p class="homepage-section-sub-title">A snippet is a small, reusable piece of code.</p>
       <p class="homepage-section-sub-title">Django Snippets offers a collection of useful code for Django developers.</p>
       <a class="inline-flex items-center gap-1 cursor-pointer group underline underline-offset-4" href="{% url 'cab_snippet_list' %}">
         <span class="transition-colors homepage-section-sub-title">Are you ready to explore?</span>
@@ -83,7 +83,7 @@
 <section class="my-40">
   <div class="py-20 bg-base-green-400/20 max-w-[1920px] md:-mx-auto w-screen relative left-1/2 right-1/2 -translate-x-1/2 text-center lg:rounded-t-[60%]">
     <h2 class="homepage-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
-    <p class="homepage-section-sub-title max-w-2xl mt-4 mb-18 text-gray-600 mx-auto">See how our community has grown and discover the most popular snippets shared by Django developers worldwide.</p>
+    <p class="homepage-section-sub-title max-w-2xl mt-4 mb-18 text-gray-600 mx-auto">Check out some highlights from the site, and discover the most popular snippets shared by Django developers worldwide.</p>
     <div class="mx-auto grid grid-cols-1 grid-rows-4 gap-16 w-[50%] lg:w-[64rem] lg:grid-cols-2 lg:grid-rows-2">
       <div class="bg-base-green-400/60 px-2 rounded-md">
         <h3 class="homepage-stat-card-title">Snippets</h3>
@@ -113,7 +113,7 @@
         </div>
       </a>
       <a href="{{ top_bookmarked_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black px-2 group">
-        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Top BookMarked Snippet</span></h3>
+        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Most BookMarked Snippet</span></h3>
         <div class="flex flex-col items-center">
           <p class="homepage-stat-card-sub-title underline underline-offset-4">{{ top_bookmarked_snippet.title|truncatechars:'60' }}</p>
           <p><strong>Author: </strong>{{ top_bookmarked_snippet.author.username }}</p>
@@ -127,7 +127,7 @@
   </div>
 </section>
 <section>
-  <h2 class="homepage-section-title">Join the Django Snippets Website Development !</h2>
+  <h2 class="homepage-section-title">Join the Django Snippets Website Development!</h2>
   <p class="homepage-section-sub-title my-8 text-gray-600">Django Snippets (djangosnippets.org) is a Django Software Foundation project open to everyone.</p>
   <div class="flex flex-row py-8 gap-12">
     <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
@@ -140,7 +140,7 @@
     <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
       <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/pulls">
         <div class="homepage-float-label-container"><span class="homepage-float-label">CONTRIBUTING</span></div>
-        <h3 class="underline underline-offset-2 py-2 text-lg lg:text-xl">Contribute on Github</h3>
+        <h3 class="underline underline-offset-2 py-2 text-lg lg:text-xl">Contribute on GitHub</h3>
         <p class="text-gray-600">File bug reports and make pull-requests.</p>
       </a>
     </div>

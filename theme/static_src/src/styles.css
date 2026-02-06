@@ -96,7 +96,7 @@
     }
 
     .homepage-stat-card-sub-title {
-        @apply font-homepage-stat-card-sub-title text-gray-700 text-sm lg:text-base;
+        @apply font-homepage-stat-card-sub-title text-gray-800 text-sm lg:text-base;
     }
 
     .homepage-stat-card-metric {
