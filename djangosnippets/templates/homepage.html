@@ -1,45 +1,152 @@
 {% extends "base.html" %}
-{% load static %}
-{% load core_tags %}
+{% load static humanize core_tags %}
 {% block bodyclass %}frontpage{% endblock %}
 {% block head_title %}Welcome{% endblock %}
 
-{% block content_header %}Welcome{% endblock %}
+{% block content_header %}{% endblock %}
 
-{% block sidebar %}
-  {% load cache %}
-  {% cache 600 homepage %}
-  <h2>Latest snippets posted:</h2>
-  <ul>
-  {% for snippet in "cab.snippet"|latest:5 %}
-    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a> {{ snippet.pub_date|timesince }} ago</li>
-  {% endfor %}
-  </ul>
-
-  <h2>Top-rated snippets:</h2>
-  <ol>
-  {% for snippet in "cab.snippet"|call_manager:"top_rated"|slice:":5" %}
-    <li><a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a> (<a href="{{ snippet.language.get_absolute_url }}">{{ snippet.language.name }}</a>) by <a href="{{ snippet.author.get_absolute_url }}">{{ snippet.author.username }}</a></li>
-  {% endfor %}
-  </ol>
-
-  <h2>Top users:</h2>
-  <ol>
-  {% for author in "cab.snippet"|call_manager:"top_authors"|slice:":5" %}
-    <li><a href="{{ author.get_absolute_url }}">{{ author.username }}</a></li>
-  {% endfor %}
-  </ol>
-  {% endcache %}
-{% endblock %}
+{% block main_extra_class %}{% endblock %}
 
 {% block content %}
-  <p>Welcome to <a href="https://djangosnippets.org/">Djangosnippets.org</a>, a site for users of the <a href="https://www.djangoproject.com/">Django web framework</a> to come together and share useful "snippets" of reusable code.</p>
-
-  <p>If you're just here to browse, you can look through snippets organized <a href="{% url 'cab_top_authors' %}">by author</a>, <a href="{% url 'cab_language_list' %}">by language</a> or <a href="{% url 'cab_top_tags' %}">by tag</a>. You can also have a look at the top-rated snippets and the most-bookmarked snippets.</p>
-
-  <p>If you'd like to contribute, <a href="{% url 'account_login' %}">sign up for a free account</a> and you'll be able to post snippets of your own, rate and bookmark snippets, and post comments. If you've got any questions, have a look at our <a href="/about/faq/">FAQ</a>.</p>
-
-  <p><a rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml"><i class="fa fa-fw fa-rss-square"></i> Feed of latest snippets</a></p>
-
-  <p><a href="https://readthedocs.org/">Find documentation</a> for popular open source apps</p>
+<section class="flex flex-col px-12 pt-8 pb-40 text-center">
+  <img class="mx-auto" src="{% static 'img/banner_logo.png' %}"></img>
+  <h1 class="text-4xl mx-auto max-w-6xl text-gray-900 font-bold tracking-tight leading-tight font-homepage-section-title lg:text-6xl">Share and discover useful <span class="text-base-green-400 font-logo">Django</span> code <span class="text-base-orange-400 font-logo">Snippets</span></h1>
+  <p class="mx-auto max-w-2xl mt-4 mb-8 text-gray-600 text-xl font-homepage-banner-sub-title">Welcome to djangosnippets.org, a site for users of the Django web framework to come together and share useful "snippets" of reusable code.</p>
+  <div class="flex gap-4 justify-center">
+    <a class="homepage-banner-button bg-base-green-400 w-30 hover:bg-base-green-800" href="{% url 'cab_snippet_add' %}">Share</a>
+    <a class="homepage-banner-button bg-base-orange-400 w-30 hover:bg-base-orange-800" href="{% url 'cab_snippet_list' %}">Discover</a>
+  </div>
+</section>
+<section class="flex flex-col lg:flex-row my-20">
+  <div class="flex-1 my-8 lg:my-0">
+    <h2 class="inline-block homepage-section-title" data-animation="typing" data-typing-text="What is Django Snippets?" data-use-observe="true"></h2>
+    <span class="ml-1 inline-block w-1 h-10 bg-gray-900 animate-blink translate-y-2"></span>
+  </div>
+  <div class="flex-2 flex-col lg:mx-12">
+    <div class="relative min-h-[28rem]">
+      <div class="absolute w-full bg-base-orange-100 rounded-lg z-100">
+        <div class="flex gap-2 items-center p-4 bg-base-green-100 rounded-t-lg">
+          <span class="code-block-control-button bg-red-400"></span>
+          <span class="code-block-control-button bg-yellow-400"></span>
+          <span class="code-block-control-button bg-green-400"></span>
+        </div>
+        <div class="p-8">
+          <code class="code-block-line">from django import models</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">from django.contrib.auth.models import User</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">class MySnippet(models.Model):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length=128)</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;content = models.TextField()</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;author = models.ForeignKey(User, on_delete=models.CASCADE)</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;def my_snippet_skill(self):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</code>
+        </div>
+      </div>
+      <div class="absolute top-8 left-8 w-full bg-base-orange-100 rounded-lg z-0 opacity-60">
+        <div class="flex gap-2 items-center p-4 bg-base-green-100 rounded-t-lg">
+          <span class="code-block-control-button bg-red-400"></span>
+          <span class="code-block-control-button bg-yellow-400"></span>
+          <span class="code-block-control-button bg-green-400"></span>
+        </div>
+        <div class="p-8">
+          <code class="code-block-line">from django import models</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">from django.contrib.auth.models import User</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">class MySnippet(models.Model):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length=128)</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;content = models.TextField()</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;author = models.ForeignKey(User, on_delete=models.CASCADE)</code>
+          <code class="code-block-line">&nbsp;</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;def my_snippet_skill(self):</code>
+          <code class="code-block-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</code>
+        </div>
+      </div>
+    </div>
+    <div class="my-12 px-4">
+      <p class="homepage-section-sub-title">A snippet is a small, reusable piece of code.</p>
+      <p class="homepage-section-sub-title">Django Snippets offers a collection of useful code for Django developers.</p>
+      <a class="inline-flex items-center gap-1 cursor-pointer group underline underline-offset-4" href="{% url 'cab_snippet_list' %}">
+        <span class="transition-colors homepage-section-sub-title">Are you ready to explore?</span>
+        <svg class="w-6 h-6 group-hover:text-base-green-400" viewBox="0 0 24 24" fill="none">
+          <line class="stroke-current stroke-2 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" x1="4" y1="12" x2="16" y2="12"/>
+          <path class="stroke-current stroke-2 fill-none stroke-linecap-round stroke-linejoin-round group-hover:translate-x-1 transition-transform duration-300" d="M15 8l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="my-40">
+  <div class="py-20 bg-base-green-400/20 max-w-[1920px] md:-mx-auto w-screen relative left-1/2 right-1/2 -translate-x-1/2 text-center lg:rounded-t-[60%]">
+    <h2 class="homepage-section-title max-w-5xl my-8 leading-tight mx-auto">Community at a Glance</h2>
+    <p class="homepage-section-sub-title max-w-2xl mt-4 mb-18 text-gray-600 mx-auto">Check out some highlights from the site, and discover the most popular snippets shared by Django developers worldwide.</p>
+    <div class="mx-auto grid grid-cols-1 grid-rows-4 gap-16 w-[50%] lg:w-[64rem] lg:grid-cols-2 lg:grid-rows-2">
+      <div class="bg-base-green-400/60 px-2 rounded-md">
+        <h3 class="homepage-stat-card-title">Snippets</h3>
+        <div class="flex flex-col items-center">
+          <p class="homepage-stat-card-sub-title">Registered Snippets</p>
+          {% component "icon" kind="snippet" label="snippet" color="orange" classes="w-[50px] h-[50px]" / %}
+          <p class="homepage-stat-card-metric my-3">{{ registered_snippets|intcomma }}</p>
+        </div>
+      </div>
+      <div class="bg-base-green-400/60 px-2 rounded-md">
+        <h3 class="homepage-stat-card-title">Users</h3>
+        <div class="flex flex-col items-center">
+          <p class="homepage-stat-card-sub-title">Total Users</p>
+          {% component "icon" kind="user" label="user" color="white" classes="w-[50px] h-[50px]" / %}
+          <p class="homepage-stat-card-metric my-3">{{ total_users|intcomma }}</p>
+        </div>
+      </div>
+      <a href="{{ top_rated_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black px-2 group">
+        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Top Rated Snippet</span></h3>
+        <div class="flex flex-col items-center">
+          <p class="homepage-stat-card-sub-title underline underline-offset-4">{{ top_rated_snippet.title|truncatechars:'60' }}</p>
+          <p><strong>Author: </strong>{{ top_rated_snippet.author.username }}</p>
+          <div class="flex flex-row items-center gap-4 mb-4">
+            {% component "icon" kind="heart" label="heart" color="red" classes="w-[45px] h-[45px]" / %}
+            <p class="homepage-stat-card-metric">{{ top_rated_snippet.rating_score|intcomma }}</p>
+          </div>
+        </div>
+      </a>
+      <a href="{{ top_bookmarked_snippet.get_absolute_url }}" class="block rounded-md bg-base-orange-400/50 no-underline text-black px-2 group">
+        <h3 class="text-flip-title homepage-stat-card-title" data-hover="Read More"><span>Most BookMarked Snippet</span></h3>
+        <div class="flex flex-col items-center">
+          <p class="homepage-stat-card-sub-title underline underline-offset-4">{{ top_bookmarked_snippet.title|truncatechars:'60' }}</p>
+          <p><strong>Author: </strong>{{ top_bookmarked_snippet.author.username }}</p>
+          <div class="flex flex-row items-center gap-4 mb-4">
+            {% component "icon" kind="bookmark" label="bookmark" color="#ffd700" classes="w-[45px] h-[45px]" / %}
+            <p class="homepage-stat-card-metric">{{ top_bookmarked_snippet.rating_score|intcomma }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<section>
+  <h2 class="homepage-section-title">Join the Django Snippets Website Development!</h2>
+  <p class="homepage-section-sub-title my-8 text-gray-600">Django Snippets (djangosnippets.org) is a Django Software Foundation project open to everyone.</p>
+  <div class="flex flex-row py-8 gap-12">
+    <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
+      <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/issues">
+        <div class="homepage-float-label-container"><span class="homepage-float-label">FEATURE REQUEST</span></div>
+        <h3 class="underline underline-offset-2 py-2 text-lg lg:text-xl">Share Your Ideas</h3>
+        <p class="text-gray-600">Submit your suggestions as GitHub issues.</p>
+      </a>
+    </div>
+    <div class="relative flex flex-col items-center py-6 text-center w-[24rem] border-3 rounded-lg border-gray-400 hover:-translate-y-2 hover:border-base-green-400 duration-300 group">
+      <a class="text-black no-underline" href="https://github.com/django/djangosnippets.org/pulls">
+        <div class="homepage-float-label-container"><span class="homepage-float-label">CONTRIBUTING</span></div>
+        <h3 class="underline underline-offset-2 py-2 text-lg lg:text-xl">Contribute on GitHub</h3>
+        <p class="text-gray-600">File bug reports and make pull-requests.</p>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script type="module" src="{% static 'js/typingAnimation.js' %}"></script>
 {% endblock %}

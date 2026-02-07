@@ -1,16 +1,38 @@
 @import "tailwindcss" important;
 
 @theme {
+    --color-base-orange-100: #FCE8B3;
     --color-base-orange-400: #ffc656;
+    --color-base-orange-800: #b8621b;
     --color-base-white-400: #fafafa;
     --color-base-black: #0a0a0a;
     --color-base-gray-400: #7a7a7a;
+    --color-base-green-100: #509447;
     --color-base-green-400: #256918;
     --color-base-green-800: #12330c;
     --font-header: "Libertinus Sans", sans-serif;
     --font-title: "Playfair Display", sans-serif;
     --font-text: "Nunito", sans-serif;
     --font-common: "Raleway", sans-serif;
+    --font-logo: "Bungee", sans-serif;
+
+    /* HOMEPAGE */
+    --font-homepage-section-title: "Ubuntu", sans-serif;
+    --font-homepage-section-sub-title: "Nunito", sans-serif;
+    --font-homepage-banner-sub-title: "Libertinus Sans", sans-serif;
+
+    --font-homepage-stat-card-title: "Bungee", sans-serif;
+    --font-homepage-stat-card-sub-title: "Nunito", sans-serif;
+    --font-homepage-stat-card-metric: "Nunito", sans-serif;
+
+    --font-homepage-float-label: "Bungee", sans-serif;
+
+    --animate-blink: blink 1s infinite;
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
 }
 
 @layer components {
@@ -22,6 +44,71 @@
     .arrow-right::after {
     @apply content-[''] w-4 h-4 bg-current ml-2;
     clip-path: polygon(6.2px 3.2px, 7.3px 3.2px, 11.5px 7.5px, 11.5px 8.5px, 7.3px 12.8px, 6.2px 11.7px, 9.9px 8px, 6.2px 4.3px, 6.2px 3.2px);
+    }
+
+    .text-flip-title {
+        @apply relative overflow-hidden block text-center;
+    }
+
+    .text-flip-title span {
+        @apply block transition-transform duration-500;
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .text-flip-title::after {
+        @apply absolute left-0 right-0 inline text-center;
+        top: 100%;
+        content: attr(data-hover);
+        transition: top 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .group:hover .text-flip-title span {
+        transform: translateY(-100%);
+    }
+
+    .group:hover .text-flip-title::after {
+        @apply top-0 text-base-orange-800;
+    }
+
+    .code-block-control-button {
+        @apply w-[18px] h-[18px] rounded-full;
+    }
+
+    .code-block-line {
+        @apply whitespace-pre block bg-transparent border-none;
+    }
+
+    /* HOMEPAGE */
+    .homepage-section-title {
+        @apply font-homepage-section-title font-bold text-3xl lg:text-4xl;
+    }
+
+    .homepage-section-sub-title {
+        @apply text-base font-homepage-section-sub-title lg:text-lg;
+    }
+
+    .homepage-banner-button {
+        @apply text-base text-base-white-400 px-4 py-2 rounded-lg font-common underline underline-offset-2 duration-300;
+    }
+
+    .homepage-stat-card-title {
+        @apply font-homepage-stat-card-title my-4 text-lg lg:text-2xl;
+    }
+
+    .homepage-stat-card-sub-title {
+        @apply font-homepage-stat-card-sub-title text-gray-800 text-sm lg:text-base;
+    }
+
+    .homepage-stat-card-metric {
+        @apply my-2 text-lg font-bold font-homepage-stat-card-metric lg:text-xl;
+    }
+
+    .homepage-float-label-container {
+        @apply absolute w-full -top-[0.8rem] left-0;
+    }
+
+    .homepage-float-label {
+        @apply text-sm font-homepage-float-label bg-base-orange-400 px-2 py-1 lg:text-lg;
     }
 }
 
