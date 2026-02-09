@@ -9,7 +9,7 @@ Development Setup
 Prerequisites
 -------------
 
-- Python version 3.11
+- Python version 3.12
 - PostgreSQL
 - `uv`_ - An extremely fast Python package and project manager
 
