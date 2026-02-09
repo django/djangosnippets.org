@@ -11,9 +11,10 @@ from base.templatetags.base_templatetags import querystring
 @register("icon")
 class Icon(Component):
     class Kwargs(BaseModel):
-        kind: Literal["heart", "bookmark"]
+        kind: Literal["snippet", "user", "heart", "bookmark"]
         color: str
         label: str
+        classes: str | None = "w-[18px] h-[18px]"
 
     template_file = "icon.html"
 
@@ -22,7 +23,7 @@ class Icon(Component):
             "kind": kwargs.kind,
             "label": kwargs.label,
             "color": kwargs.color,
-            "classes": "w-[18px] h-[18px]",
+            "classes": kwargs.classes,
         }
 
 

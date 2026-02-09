@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.shortcuts import render
 from django.urls import include, path
+
+from .views import HomePageView
 
 admin.autodiscover()
 
@@ -24,5 +25,5 @@ urlpatterns = [
     path("tags/", include("cab.urls.tags")),
     path("users/", include("cab.urls.users")),
     path("api/", include("cab.api.urls")),
-    path("", lambda request: render(request, "homepage.html"), name="home"),
+    path("", HomePageView.as_view(), name="home"),
 ]

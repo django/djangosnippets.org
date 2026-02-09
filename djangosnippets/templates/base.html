@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Bungee&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="alternate" href="{% url 'cab_feed_latest' %}" type="application/atom+xml" title="Feed of latest snippets" />
   <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css" />
   {% block feeds %}{% endblock %}
@@ -38,7 +38,7 @@
       </ul>
     </nav>
   </div></header>
-  <div id="main" class="container mb-auto mx-auto w-7/8">
+  <div id="main" class="container mb-auto mx-auto w-7/8 {% block main_extra_class %}{% endblock %}">
     {% block secondary_nav %}
     <nav id="subnav">
       <ul>
@@ -59,17 +59,19 @@
   {% endif %}
 
   <div id="base-container">
-  <h1>{% block content_header %}{% endblock %}</h1>
-  {% block new_content_header %}{% endblock %}
   {% with current_url_name=request.resolver_match.url_name %}
-  <div id="content" class="{% if current_url_name == 'home' %}w-1/2{% else %}w-full{% endif %}">
+  {% if current_url_name != 'home' %}<h1>{% block content_header %}{% endblock %}</h1>{% endif %}
+  {% block new_content_header %}{% endblock %}
+  <div id="content" class="w-full">
       {% block content %}
       {% endblock %}
   </div>
-  <div id="sidebar" class="{% if current_url_name == 'home' %}w-1/2{% else %}hidden md:block md:w-1/4{% endif %}">
+  {% if current_url_name != 'home' %}
+  <div id="sidebar" class="hidden md:block md:w-1/4">
     {% block sidebar %}
     {% endblock %}
   </div>
+  {% endif %}
   {% endwith %}
   {% block extra_content %}
   {% endblock %}
@@ -86,9 +88,9 @@
   <script src="{% static 'js/foundation.min.js' %}"></script>
   <script src="{% static 'js/snippets.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+  <script type="module" src="{% static 'js/observe.js' %}"></script>
   <script defer src="https://unpkg.com/alpinejs@3.3.2/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
-
   <script>
     $(document).foundation();
   </script>
