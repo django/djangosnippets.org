@@ -2,7 +2,7 @@
 name = "djangosnippets.org"
 version = "1.0.0"
 urls = {homepage = "https://github.com/django/djangosnippets.org"}
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
   "dj-database-url",
   "django",
