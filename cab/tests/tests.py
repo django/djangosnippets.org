@@ -680,3 +680,68 @@ class HomePageHtmxTestCase(TestCase):
         request.htmx = True
         response = top_tags(request)
         self.assertEqual(response.status_code, 200)
+
+class SnippetListSearchTestCase(BaseCabTestCase):
+    """Test HTMX search functionality on snippet list."""
+
+    def test_normal_request_renders_full_page(self):
+        """Standard requests should render full page template."""
+        response = self.client.get(reverse("cab_snippet_list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "cab/snippet_list.html")
+        self.assertContains(response, "<html")
+
+    def test_htmx_request_returns_partial(self):
+        """HTMX requests should return only the partial template."""
+        response = self.client.get(
+            reverse("cab_snippet_list"),
+            HTTP_HX_REQUEST="true",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "cab/partials/_snippet_table.html")
+        self.assertNotContains(response, "<html")
+        self.assertNotContains(response, "<head")
+
+    def test_search_filters_results(self):
+        """Search query should filter snippets correctly."""
+        response = self.client.get(
+            reverse("cab_snippet_list"),
+            {"q": "Hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        # Should find snippet1 with "Hello world" in title
+        self.assertIn(self.snippet1, response.context["object_list"])
+        # Should not find snippet3 with SQL in title
+        self.assertNotIn(self.snippet3, response.context["object_list"])
+
+    def test_search_minimum_length(self):
+        """Search with less than minimum length should return all snippets."""
+        response = self.client.get(
+            reverse("cab_snippet_list"),
+            {"q": "a"},  # Single character, below MIN_QUERY_LENGTH
+        )
+        self.assertEqual(response.status_code, 200)
+        # Should return all snippets (no filtering applied)
+        self.assertEqual(len(response.context["object_list"]), 3)
+
+    def test_search_no_results(self):
+        """Search with no matches should return empty list."""
+        response = self.client.get(
+            reverse("cab_snippet_list"),
+            {"q": "nonexistent"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 0)
+
+    def test_htmx_search_with_query(self):
+        """HTMX search request should return filtered partial."""
+        response = self.client.get(
+            reverse("cab_snippet_list"),
+            {"q": "world"},
+            HTTP_HX_REQUEST="true",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "cab/partials/_snippet_table.html")
+        # Should include snippets with "world" in title
+        self.assertIn(self.snippet1, response.context["object_list"])
+        self.assertIn(self.snippet2, response.context["object_list"])
