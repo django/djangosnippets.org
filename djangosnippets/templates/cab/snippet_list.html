@@ -15,21 +15,30 @@
   <div class="my-4 flex flex-col md:flex-row gap-4 justify-between items-center px-4">
 
     <form
+        method="get"
+        action="{{ request.path }}"
         hx-get="{{ request.path }}"
         hx-target="#snippet-table"
         hx-swap="outerHTML"
-        hx-trigger="keyup changed delay:300ms, search"
+        hx-trigger="input changed delay:500ms from:input[name='q'], search"
         hx-push-url="true"
         class="w-full md:w-auto"
-        onsubmit="return false;"
     >
+        <label for="search-input" class="sr-only">Search snippets</label>
         <input
+            id="search-input"
             type="search"
             name="q"
             value="{{ query|default:'' }}"
             placeholder="Search snippets..."
+            minlength="3"
             class="w-full md:w-96 px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:ring-0"
         >
+        {% for key, value in request.GET.items %}
+            {% if key != 'q' and key != 'page' %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+        {% endfor %}
     </form>
 
     {% component 'sorting_tabs' object_list=object_list / %}

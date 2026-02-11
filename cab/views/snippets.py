@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.mail import mail_admins
 from django.db.models import Count, Q
+from django.db.utils import NotSupportedError, ProgrammingError
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -16,7 +17,7 @@ from cab.models import Language, Snippet, SnippetFlag
 from cab.utils import month_object_list, object_detail
 
 # Constants
-MIN_QUERY_LENGTH = 2
+MIN_QUERY_LENGTH = 3
 
 
 def snippet_list(request, queryset=None, **kwargs):
@@ -25,7 +26,7 @@ def snippet_list(request, queryset=None, **kwargs):
 
     # Handle search query
     q = request.GET.get("q", "").strip()
-    if q:
+    if q and len(q) >= MIN_QUERY_LENGTH:
         # Try PostgreSQL full-text search with ranking
         try:
             search_vector = SearchVector("title", "description", "author__username")
@@ -34,8 +35,8 @@ def snippet_list(request, queryset=None, **kwargs):
                 search=search_vector,
                 rank=SearchRank(search_vector, search_query)
             ).filter(search=search_query).order_by("-rank")
-        except Exception:
-            # Fallback to simple case-insensitive search
+        except (NotSupportedError, ProgrammingError):
+            # Fallback to simple case-insensitive search if PostgreSQL FTS unavailable
             queryset = queryset.filter(
                 Q(title__icontains=q) | 
                 Q(description__icontains=q) | 
