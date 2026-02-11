@@ -6897,3 +6897,9 @@ footer .heroku {
 a.button:hover {
     text-decoration: none
 }
+
+
+
+.click_count{
+    color: grey;
+}
