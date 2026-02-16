@@ -1,14 +1,19 @@
 {% extends "socialaccount/base.html" %}
 
-{% load i18n %}
+{% load static %}
 
-{% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
+{% block head_title %}Login Cancelled{% endblock %}
 
-{% block content_header %}{% trans "Login Cancelled" %}{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
-{% url 'account_login' as login_url %}
-
-<p>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
+    <h3>Login Cancelled</h3>
+    <img class="w-42" src="{% static 'img/problem.png' %}"/>
+    <p class="text-center my-2">You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to sign in.</p>
+    <a class="button" href="{% url 'account_login' %}">Sign In</a>
+</div>
 
 {% endblock %}
+
+{% block footer %}{% endblock %}

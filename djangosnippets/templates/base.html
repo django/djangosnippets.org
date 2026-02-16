@@ -15,6 +15,7 @@
   {% tailwind_css %}
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
+  {% block header %}
   <div id="accountbar"><div class="inner">
     <p>
     {% url 'account_logout' as logout_url %}
@@ -38,6 +39,7 @@
       </ul>
     </nav>
   </div></header>
+  {% endblock %}
   <div id="main" class="container mb-auto mx-auto w-7/8">
     {% block secondary_nav %}
     <nav id="subnav">
@@ -75,10 +77,12 @@
   {% endblock %}
   </div>
 </div>
+  {% block footer %}
   <footer>
     <p id="copyright">Written by <a href="https://github.com/django-de/djangosnippets.org/graphs/contributors">various people</a>. Hosted by <a href="https://www.heroku.com" class="heroku">Heroku</a>, powered by <a href="http://www.djangoproject.com/">Django</a></p>
     <p class="legal"><a href="/about/">About</a> | <a href="/about/faq/">FAQ</a> | <a href="/about/tos/">Terms of service</a> | <a href="/about/legal/">Legal notices</a></p>
   </footer>
+  {% endblock %}
   {% block extra_body %}{% endblock %}
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="{% static 'js/fastclick.js' %}"></script>

@@ -1,28 +1,33 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
-{% load account %}
+{% load account static %}
 
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block head_title %}Confirm E-mail Address{% endblock %}
 
-{% block content_header %}{% trans "Confirm E-mail Address" %}{% endblock %}
-
+{% block header %}{% endblock %}
 {% block content %}
-{% if confirmation %}
-{% user_display confirmation.email_address.user as user_display %}
-<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
-
-<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-{% csrf_token %}
-    <button type="submit">{% trans 'Confirm' %}</button>
-</form>
-
-{% else %}
-
-{% url 'account_email' as email_url %}
-
-<p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url}}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
-
-{% endif %}
+<div class="w-[40rem] flex flex-col items-center justify-center mx-auto p-8 font-common shadow-sign-content rounded-lg">
+    <h3>Confirm E-mail Address</h3>
+    {% if confirmation %}
+        {% with email=confirmation.email_address.email %}
+        {% if can_confirm %}
+        {% user_display confirmation.email_address.user as user_display %}
+        <p class="text-center my-2">Please confirm that <a class="underline" href="mailto:{{ email }}">{{ email }}</a> is an email address for user {{ user_display }}.</p>
+        <form class="my-2" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        {% csrf_token %}
+            <button class="button" type="submit">Confirm</button>
+        </form>
+        {% else %}
+        <img class="w-42" src="{% static 'img/problem.png' %}">
+        <p class="my-2 text-center">Unable to confirm <a class="underline" href="mailto:{{ email }}">{{ email }}</a> because it is already confirmed by a different account.</p>
+        {% endif %}
+        {% endwith %}
+    {% else %}
+        <img src="{% static 'img/email_verification_expired.png' %}">
+        <p class="text-center">This email confirmation link expired or is invalid. Would you like to request a new email confirmation?</p>
+        <a href="{% url 'account_email' %}" class="button">New Email Confirmation</a>
+    {% endif %}
+</div>
 
 {% endblock %}
+{% block footer %}{% endblock %}
