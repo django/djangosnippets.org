@@ -1,0 +1,17 @@
+{% load core_tags %}
+
+<div id="snippet-table">
+    {% if object_list %}
+        
+        {% component 'snippet_list' snippet_list=object_list / %}
+        
+        {% component 'pagination' pagination_obj=pagination / %}
+
+    {% else %}
+        
+        <div class="text-center py-12">
+            <h3 class="text-xl font-medium text-gray-500">No snippets found</h3>
+        </div>
+
+    {% endif %}
+</div>
