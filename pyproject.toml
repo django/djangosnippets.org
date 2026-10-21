@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
   "dj-database-url",
   "django",
-  "django-allauth",
+  "django-allauth[socialaccount]",
   "django-components",
   "django-contrib-comments",
   "django-htmx",
@@ -23,8 +23,6 @@ dependencies = [
   "pygments",
   "python-akismet",
   "python-dotenv",
-  "requests",
-  "requests-oauthlib",
   "six",
   "urllib3",
   "whitenoise",
