@@ -9,7 +9,6 @@ dependencies = [
   "django-allauth",
   "django-components",
   "django-contrib-comments",
-  "django-generic-aggregation",
   "django-htmx",
   "django-ratelimit-backend",
   "django-recaptcha",
