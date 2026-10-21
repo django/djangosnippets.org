@@ -5,7 +5,6 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.query import QuerySet
-from generic_aggregation import generic_annotate
 
 from .utils import is_gfk, recommended_items
 
@@ -100,13 +99,19 @@ class RatingsQuerySet(QuerySet):
                 ordering,
             )
 
-        return generic_annotate(
-            queryset,
-            self,
-            aggregator("score"),
-            related_field,
-            alias=alias,
-        ).order_by(ordering)
+        # Generic FK: the rated model has no GenericRelation back to ratings.
+        scores = (
+            self.filter(
+                **{
+                    related_field.ct_field: ContentType.objects.get_for_model(queryset.model),
+                    related_field.fk_field: models.OuterRef("pk"),
+                }
+            )
+            .order_by()
+            .values(related_field.fk_field)
+            .values(agg=aggregator("score"))
+        )
+        return queryset.annotate(**{alias: scores}).order_by(ordering)
 
 
 class _RatingsDescriptor(models.Manager):
